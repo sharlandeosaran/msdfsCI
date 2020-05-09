@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm">
+<nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}" style="padding-top: 0; padding-bottom: 0;">
             <img src="{{asset('/img/TTCrest.png')}}" alt="Trinidad and Tobago Crest" class="img-responsive" height="40px" style="padding-right: 10px;">

@@ -12,7 +12,8 @@ class FormAController extends Controller
             'title' => 'Form A',
         ];
         
-        return view('form_a.form', $data);
+        return view('wizard.wizard', $data);
+        // return view('form_a.form', $data);
     }
 
     public function store(Request $request)
