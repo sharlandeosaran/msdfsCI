@@ -31,10 +31,14 @@
 <body>
     <div id="app">
         @include('layouts.navbar')
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+        
+        <div class="container">
+            @yield('breadcrumbs')
+            
+            <main>
+                @yield('content')
+            </main>
+        </div>
 
         @include('layouts.footer')
     </div>
