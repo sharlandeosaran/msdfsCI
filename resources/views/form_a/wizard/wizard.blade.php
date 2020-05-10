@@ -34,7 +34,7 @@
             headerTag: "h3",
             bodyTag: "section",
             transitionEffect: "none",
-            stepsOrientation: "vertical",
+            stepsOrientation: "horizontal",
             titleTemplate: '<span class="number">#title#</span>'
         });
         
