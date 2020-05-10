@@ -3,7 +3,7 @@
     <div class="card border-primary shadow">
         <div class="card-body px-5">
             
-            <h5 class="bd-wizard-step-title">Step 5: Review Details and Submit</h5>
+            <h5 class="bd-wizard-step-title">Step 5: Review Details</h5>
             {{-- <h2 class="section-heading mb-5"></h2> --}}
             <h6 class="font-weight-bold">Select business type</h6>
             <p class="mb-4" id="business-type">Branding</p>
