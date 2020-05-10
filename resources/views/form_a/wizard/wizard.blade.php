@@ -8,35 +8,46 @@
 @endsection
 
 @section('content')
+@include('common.errors')
 
 <main class="align-items-center">
     <div class="container">
-        <div id="wizard">
+        
+        <form id="forma" method="POST" action="{{route('formapost')}}" enctype="multipart/form-data" role="form">
+            @csrf
             
-            @include('form_a.wizard.section1')
-            @include('form_a.wizard.section2')
-            @include('form_a.wizard.section3')
-            @include('form_a.wizard.section4')
-            @include('form_a.wizard.review')
-            @include('form_a.wizard.submit')
-
-        </div>
+            <div id="wizard">
+                
+                @include('form_a.wizard.section1')
+                @include('form_a.wizard.section2')
+                @include('form_a.wizard.section3')
+                @include('form_a.wizard.section4')
+                @include('form_a.wizard.review')
+                @include('form_a.wizard.submit')
+                
+            </div>
+            
+        </form>
     </div>
 </main>
 
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/wizard_validation.js') }}" defer></script>
+
 <script>
     $(document).ready(function(){
-        // initialize wizard
-        $("#wizard").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            transitionEffect: "none",
-            stepsOrientation: "horizontal",
-            titleTemplate: '<span class="number">#title#</span>'
-        });
+
+        // unlock tabs if return with errors
+        @if (count($errors) > 0)
+        $('li[role="tab"]').removeClass('disabled').addClass('done');
+        @endif
+
+        // focus on name when page loads
+        @if (!session('success') && count($errors) <= 0)
+            $('#name').focus();
+        @endif
         
         
     });

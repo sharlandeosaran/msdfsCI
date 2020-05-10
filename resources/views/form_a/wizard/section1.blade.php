@@ -1,7 +1,7 @@
 <h3><i class="fa fa-user" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">
-        <div class="card-body px-5">
+        <div class="card-body px-4">
             
             <h5 class="bd-wizard-step-title">Section 1: Employee Information</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}

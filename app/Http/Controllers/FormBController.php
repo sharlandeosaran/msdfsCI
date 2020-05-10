@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 
 class FormBController extends Controller
 {
@@ -19,6 +20,49 @@ class FormBController extends Controller
     {
         dd($request->all());
         // dd($request->upload1->getClientOriginalName());
+
+        /* $formB = {
+            "flag": false,
+            "file_id": `${fileID}`,
+            "submission_date": `${Date.now()}`,
+            "first_name": this.state.first_name,
+            "surname": this.state.last_name,
+            "gender": this.state.applicants_gender,
+            "national_id": this.state.national_id,
+            "nib_number": this.state.national_insurance,
+            "job_title": this.state.job_title,
+            "employment_classification": {
+                "loss_of_income": (this.state.employment_classification === "Loss of Income"),
+                "reduced_income": (this.state.employment_classification === "Reduced Income"),
+                "effective_date": this.state.effective_date,
+            },
+            "assistance_being_sought": {
+                "public_assistance_grants": this.state.public_assistance_grants,
+                "food_card_support": this.state.food_card_support,
+                "rental_assistance_grants": this.state.rental_assistance_grants
+            },
+            "contact_number": this.state.contact,
+            "email_address": this.state.email,
+            "home_address": this.state.home_address,
+            "name_of_bank_and_branch": this.state.name_of_bank,
+            "account_number": this.state.account_number,
+            "landlord_name": this.state.landlord_name,
+            "landlord_contact": this.state.landlord_contact,
+            "household_income": {
+                "data": data,
+                "less_than_equal_10k": (household_total <= 10000),
+            },
+            "recommender": {
+                "name": this.state.recommender_one_name,
+                "gender": this.state.recommender_one_gender,
+                "job_title": this.state.recommender_one_job_title,
+                "contact_number": this.state.recommender_one_contact,
+                "email": this.state.recommender_one_email,
+                "home_address": this.state.recommender_one_home_address,
+                "recommender_certification": this.state.recommender_one_certification,
+                "yearsKnown": this.state.years_known
+            }
+        }; */
 
         $validator = Validator::make($request->all(), 
         [
@@ -49,16 +93,8 @@ class FormBController extends Controller
         // check for recaptcha
         $validator->after(function ($validator)  use ($request) 
         {
-            if($request->subcategory){
-                foreach ($request->subcategory as $key => $value) {
-                    if (!$request->comments[$value]) $validator->errors()->add('comments.'.$value, 'Comments cannot be empty.');
-                    if (!$request->subject[$value]) $validator->errors()->add('subject.'.$value, 'Subject cannot be empty.');
-                }
 
-                if (in_array('0', $request->subcategory) && !$request->otherField) $validator->errors()->add('otherField', 'The other field field is required with sub-category Other.');
-            }
-
-			$url = 'https://www.google.com/recaptcha/api/siteverify';
+			/* $url = 'https://www.google.com/recaptcha/api/siteverify';
 			$data = [
 				'secret' => config('captcha.secret', ''),
 				'response' => $_POST["g-recaptcha-response"]
@@ -79,7 +115,7 @@ class FormBController extends Controller
 
 			if ($captcha_success->success==false) {
 				$validator->errors()->add('captcha', 'Invalid captcha!');
-            }
+            } */
         });
         
         if ($validator->fails()) {
@@ -88,55 +124,8 @@ class FormBController extends Controller
             ->withErrors($validator);
         }
 
-        // new feedback
-        $feedback = new \App\Feedback();
-        $feedback->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
-        $feedback->name = $request->name;
-        $feedback->submission_type = $request->submission_type;
-        $feedback->organization = $request->organization;
-        $feedback->phone = $request->phone;
-        $feedback->email = $request->email;
-        $feedback->category = $request->category;
-        $feedback->other_field = $request->otherField;
-        $feedback->save();
-
-        foreach ($request->subcategory as $key => $value) {
-            $subcat = new \App\FeedbackSubCategory;
-            $subcat->feedback_id = $feedback->id;
-            $subcat->subcategory_id = $value;
-            $subcat->save();
-            
-            // submissions
-            $sub = new \App\FeedbackSubmission;
-            $sub->feedback_id = $feedback->id;
-            $sub->subject = sanitize($request->subject[$value]);
-            $sub->comments = sanitize($request->comments[$value]);
-            $sub->save();
-            
-            // documents upload
-            if (isset($request->upload[$value])) {
-                if ($request->file('upload.'.$value)->isValid()) {
-                    $types = ['application/msword', 'text/plain', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                    $type = $request->upload[$value]->getMimeType();
-                    
-                    if (in_array($type, $types)) {
-                        $upload = $sub->id.'_'.$request->upload[$value]->getClientOriginalName();
-                        // upload upload
-                        $request->upload[$value]->storeAs('public/uploads/'.$feedback->id, $upload);
-                        // save name to feedback
-                        $sub->upload = $upload;
-                        $sub->upload_type = $type;
-                        $sub->save();
-                    }
-                }
-            }
-        }
-
         // send emails
-        dispatch(new \App\Jobs\SubmissionEmail($feedback->id));
-
-        // update admin dashboard data
-        dispatch(new \App\Jobs\UpdateDashboardData());
+        // dispatch(new \App\Jobs\SubmissionEmail($feedback->id));
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
     }

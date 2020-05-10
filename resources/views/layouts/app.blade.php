@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" type="image/png" href="{{url('/img/TTCrest.png')}}" />
 
     <!-- CSRF Token -->
@@ -39,6 +40,8 @@
 
         @include('layouts.footer')
     </div>
+    
+    @include('common.loading_modal')
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -46,5 +49,14 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     @yield('scripts')
+
+    <script>
+        $(function () {            
+            $('form').submit(function(){
+                $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
+                $('#loadingModal').modal('show');
+            });
+        });
+    </script>
 </body>
 </html>
