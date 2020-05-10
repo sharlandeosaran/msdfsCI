@@ -143,9 +143,9 @@ body {
       .wizard .content .purpose-radios-wrapper .purpose-radio:last-child {
         margin-right: 0; }
   .wizard .content .form-control {
-    padding: 26px 25px;
+    /* padding: 26px 25px;
     min-height: 50px;
-    max-width: 550px;
+    max-width: 550px; */
     border-radius: 4px;
     border: solid 1px #ececec; }
     .wizard .content .form-control::-webkit-input-placeholder {

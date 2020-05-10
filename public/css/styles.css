@@ -59,3 +59,7 @@ body {
 div.actions > ul {
     float: right;
 }
+
+#wizard > .content > section.body > .card {
+    min-height: 470px;
+}
