@@ -38,12 +38,12 @@
                                 <div class="form-group{{ $errors->has('organization_type') ? ' has-error' : '' }}" id="grp-organization_type">
                                     
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="male" name="gender" class="custom-control-input">
-                                        <label class="custom-control-label" for="male">Male</label>
+                                        <input type="radio" id="gender1" name="income_gender_1" class="custom-control-input">
+                                        <label class="custom-control-label" for="gender1">Male</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="female" name="gender" class="custom-control-input">
-                                        <label class="custom-control-label" for="female">Female</label>
+                                        <input type="radio" id="gender2" name="income_gender_1" class="custom-control-input">
+                                        <label class="custom-control-label" for="gender2">Female</label>
                                     </div>
                                     
                                     <span class="help-block">
