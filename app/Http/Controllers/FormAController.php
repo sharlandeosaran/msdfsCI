@@ -10,7 +10,7 @@ class FormAController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Form A',
+            'title' => 'APPLICATION FORM A-EMPLOYER/EMPLOYEE',
         ];
         
         return view('form_a.wizard.wizard', $data);

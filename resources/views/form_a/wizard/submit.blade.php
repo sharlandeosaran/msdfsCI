@@ -3,10 +3,24 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title mb-4">Step 6: Submit</h5>
-            {{-- <h4 class="mb-5"><strong>Review your Details and Submit</strong></h4> --}}
+            <h5 class="bd-wizard-step-title mb-4">Step 5: Declaration of Truth</h5>
+
+            <h4 class="mb-5">
+                <strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i> A MATERIAL OR FALSE STATEMENT OR OMISSION MADE IN CONNECTION WITH THIS                APPLICATION IS SUFFICIENT CAUSE FOR DENIAL OF THE SOCIAL SERVICES.</strong>
+            </h4>
             
-            <h4>By submitting this form I hereby declare that I am authorized to speak on behalf of <i><strong><span id="agree-name">{{old('name')}}</span></strong></i> and all the details provided by me in this form are true.</h4>
+            <p class="text-justify">
+                I <i><strong><span id="agree-name">{{old('name')}}</span></strong></i> (full name), swear that with effect <i><strong><span id="agree-name">{{old('name')}}</span></strong></i>. I was <i><strong><span id="agree-name">{{old('name')}}</span></strong></i> while in the employ of <i><strong><span id="agree-name">{{old('name')}}</span></strong></i> (Business Name). I have read and understood all of the questions in this application and that all of the foregoing information and statements submitted in this application and its attachments and supporting documents are true and correct to the best of my knowledge, and that all responses to the questions are full and complete, omitting no material information. I recognise that the information submitted in this application is for the purpose of social services support by a government agency. I understand that a government agency may, by means it deems appropriate, determine the accuracy and truth of the statements in the application, and I authorise such agency to contact any certifying agencies for the purpose of verifying the information supplied and determining the named applicants’ eligibility. I agree to provide written notice to the recipient agency of any material change in the information contained in the original application within 30 calendar days of such change.
+            </p>
+
+            <p class="text-justify">
+               I acknowledge and agree that any misrepresentations in this application will be grounds for denial or immediate revocation of benefits. I declare, under penalty of perjury, that the information provided in this application and supporting documents is true and correct.
+            </p>
+
+            <div class="form-group pt-4 mb-0">
+                  <input type="checkbox" class="" style="width: 25px; height: 25px;" id="signature" name="signature">
+                  <label style="position: relative; top: -5px;" for="signature"><h3><strong>Signature: "I agree with the information stated above"</strong></h3></label>
+            </div>
 
             @include('layouts.recaptcha')
         </div>

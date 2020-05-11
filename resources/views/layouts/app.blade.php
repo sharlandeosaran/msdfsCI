@@ -51,7 +51,9 @@
     @yield('scripts')
 
     <script>
-        $(function () {            
+        $(function () {      
+            $('[data-toggle="tooltip"]').tooltip()
+                  
             $('form').submit(function(){
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
                 $('#loadingModal').modal('show');
