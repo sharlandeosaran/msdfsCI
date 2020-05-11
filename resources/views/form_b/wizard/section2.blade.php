@@ -3,7 +3,7 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title mb-4">Section 3: Household Information</h5>
+            <h5 class="bd-wizard-step-title mb-4">Section 2: Household Information</h5>
             {{-- <h2 class="section-heading">Select business type </h2> --}}
             {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p> --}}
             

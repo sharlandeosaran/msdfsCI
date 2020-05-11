@@ -3,10 +3,10 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title mb-4">Step 5: Declaration of Truth</h5>
+            <h5 class="bd-wizard-step-title mb-4">Section 5: Declaration of Truth</h5>
 
             <h4 class="mb-5">
-                <strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i> A MATERIAL OR FALSE STATEMENT OR OMISSION MADE IN CONNECTION WITH THIS                APPLICATION IS SUFFICIENT CAUSE FOR DENIAL OF THE SOCIAL SERVICES.</strong>
+                <strong><i class="fa fa-exclamation-circle" aria-hidden="true"></i> A MATERIAL OR FALSE STATEMENT OR OMISSION MADE IN CONNECTION WITH THIS APPLICATION IS SUFFICIENT CAUSE FOR DENIAL OF THE SOCIAL SERVICES.</strong>
             </h4>
             
             <p class="text-justify">

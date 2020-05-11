@@ -5,7 +5,7 @@
  */
 
 require('./bootstrap');
-require('./scripts');
+// require('./scripts');
 
 // wizard
 require('./wizard/jquery.steps.min');

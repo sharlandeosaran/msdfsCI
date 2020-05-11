@@ -54,7 +54,7 @@ $(function () {
 
     // submit form
     $('a[href="#finish"]').click(function() {
-        $('#forma').submit();
+        $('form').submit();
     });
 
     

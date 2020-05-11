@@ -10,10 +10,10 @@ class FormBController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Form B',
+            'title' => 'FORM B – SELF EMPLOYED',
         ];
         
-        return view('form_b.form', $data);
+        return view('form_b.wizard.wizard', $data);
     }
 
     public function store(Request $request)
