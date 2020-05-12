@@ -16,6 +16,30 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <tbody id="uploads_tbody">
+
+                        <tr>
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('signature') ? ' has-error' : '' }} mb-0" id="grp-signature">
+                                    <label class="control-label mb-0" for="signature">
+                                        Signature <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="signature" name="signature" required>
+                                        <label class="custom-file-label" for="signature">Choose file</label>
+                                    </div>
+                                </div>
+                                
+                                <span class="help-block">
+                                    <strong id="err-signature">{{ $errors->first('signature') }}</strong>
+                                </span>
+                            </td>
+                        </tr>
+
                         <tr>
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0" id="grp-id_card_front">
