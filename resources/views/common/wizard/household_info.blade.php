@@ -27,7 +27,7 @@
                         <tr>
                             <td>
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" id="grp-name">
-                                    <input type="text" class="form-control form-control-sm" id="hi_name_1" name="hi_name[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required>
+                                    <input type="text" class="form-control form-control-sm hi_name" id="hi_name_1" name="hi_name[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-name">{{ $errors->first('name') }}</strong>

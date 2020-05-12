@@ -151,26 +151,6 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('proof_residence') ? ' has-error' : '' }}" id="grp-proof_residence">
-                                    <label class="control-label mb-0" for="proof_residence">
-                                        Proof of Citizenship/Permanent Residence <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('proof_residence') ? ' has-error' : '' }}" id="grp-proof_residence">
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="" value="{{old('email')? old('email') : '' }}" required placeholder="example@email.com">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-proof_residence">{{ $errors->first('proof_residence') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
                                     <label class="control-label mb-0" for="national_id">
                                         National Identification Card Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
