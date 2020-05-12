@@ -3,7 +3,7 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title mb-4">Section 4: Upload Documents</h5>
+            <h5 class="bd-wizard-step-title mb-4">Section <span id="uploadsSection"></span>: Upload Documents</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}
             
             <div class="table-responsive">

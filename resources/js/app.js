@@ -9,6 +9,7 @@ require('./bootstrap');
 
 // wizard
 require('./wizard/jquery.steps.min');
+require('./wizard/wizard_common');
 
 window.Vue = require('vue');
 

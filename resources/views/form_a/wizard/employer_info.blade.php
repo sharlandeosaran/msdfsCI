@@ -3,7 +3,7 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title mb-4">Section 2: Employer Information</h5>
+            <h5 class="bd-wizard-step-title mb-4">Section <span id="employerInfoSection"></span>: Employer Information</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}
             
             <div class="table-responsive">
