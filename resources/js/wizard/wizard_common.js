@@ -57,6 +57,24 @@ $(function () {
     $('a[href="#finish"]').click(function() {
         $('form').submit();
     });
+    
+
+    /** Section - General Information **/
+
+    // if rental assistance selected get landlord info
+    $(document).on('click', '#rental_assistance', function() {
+        var checked = $(this).prop("checked");
+        if (checked) {
+            $('.landlord-fields').removeClass('hide');
+            $('.landlord').prop('required', true);
+        } else {
+            $('.landlord-fields').addClass('hide');
+            $('.landlord').prop('required', false);
+        }
+    });
+
+    /** General Information End **/
+    
 
     /** Section - Household Information **/
 
@@ -89,6 +107,14 @@ $(function () {
     }
 
     /** Household Information End **/
+
+
+    // check that at least one assistance is checked
+    /* if ($('div.checkbox-group.required :checkbox:checked').length > 0) {
+        
+    } else {
+        
+    } */
 
     
     // $("input.phone").mask("(999) 999-9999");

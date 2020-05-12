@@ -3,7 +3,7 @@
     <div class="card border-primary shadow">
         <div class="card-body px-4">
             
-            <h5 class="bd-wizard-step-title">Section 1: Employee Information</h5>
+            <h5 class="bd-wizard-step-title">Section 1: General Information</h5>
             <h5 class=""><strong><i>TO BE COMPLETED BY ALL APPLICANTS</i></strong></h5>
             
             <div class="form-group mb-0 mb-2">
@@ -70,7 +70,7 @@
                                     <div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="male" name="gender" class="custom-control-input" value="male">
+                                                <input type="radio" id="male" name="gender" class="custom-control-input" value="male" required>
                                                 <label class="custom-control-label my-1" for="male">Male</label>
                                             </div>
                                         </div>
@@ -91,158 +91,6 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
-                                    <label class="control-label mb-0" for="national_id">
-                                        National Identification Card Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national id number, for example "20000101001".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
-                                    <input type="text" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-national_id">{{ $errors->first('national_id') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }}" id="grp-nis">
-                                    <label class="control-label mb-0" for="nis">
-                                        National Insurance Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national insurance number, for example "2000010".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }}" id="grp-nis">
-                                    <input type="text" class="form-control" id="nis" name="nis" aria-describedby="" value="{{old('nis')? old('nis') : '' }}" required>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-nis">{{ $errors->first('nis') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('emp_classification') ? ' has-error' : '' }}" id="grp-emp_classification">
-                                    <label class="control-label mb-0" for="emp_classification">
-                                        Employment Classification <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('emp_classification') ? ' has-error' : '' }}" id="grp-emp_classification">
-                                    <div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="retrenched" name="emp_classification" class="custom-control-input" value="retrenched">
-                                                <label class="custom-control-label my-1" for="retrenched">Retrenched</label>
-                                            </div>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="terminated" name="emp_classification" class="custom-control-input" value="terminated">
-                                                <label class="custom-control-label my-1" for="terminated">Terminated</label>
-                                            </div>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="income_reduced" name="emp_classification" class="custom-control-input" value="income_reduced">
-                                                <label class="custom-control-label my-1" for="income_reduced">Income Reduced</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-emp_classification">{{ $errors->first('emp_classification') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }}" id="grp-effective_date">
-                                    <label class="control-label mb-0" for="effective_date">
-                                        Effective Date <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }}" id="grp-effective_date">
-                                    <input type="text" class="form-control" id="effective_date" name="effective_date" aria-describedby="" value="{{old('effective_date')? old('effective_date') : '' }}" required placeholder="dd/mm/yyyy">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-effective_date">{{ $errors->first('effective_date') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }}" id="grp-assistance_sought">
-                                    <label class="control-label mb-0" for="assistance_sought">
-                                        Assistance Being Sought <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }}" id="grp-assistance_sought">
-                                    <div class="col-md-12">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="public_assistance" name="assistance_sought[1]">
-                                            <label class="custom-control-label my-1" for="public_assistance">Income Support Grant</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="rental_assistance" name="assistance_sought[2]">
-                                            <label class="custom-control-label my-1" for="rental_assistance">Rental Assistance Grant</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="temp_food_card" name="assistance_sought[3]">
-                                            <label class="custom-control-label my-1" for="temp_food_card">Temporary Food Card Support</label>
-                                        </div>
-                                    </div>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-assistance_sought">{{ $errors->first('assistance_sought') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('job_title') ? ' has-error' : '' }}" id="grp-job_title">
-                                    <label class="control-label mb-0" for="job_title">
-                                        Job Title <span class="red">*</span> &nbsp;&nbsp;&nbsp;
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('job_title') ? ' has-error' : '' }}" id="grp-job_title">
-                                    <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="" value="{{old('job_title')? old('job_title') : '' }}" required>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-job_title">{{ $errors->first('job_title') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('contact_no') ? ' has-error' : '' }}" id="grp-contact_no">
                                     <label class="control-label mb-0" for="contact_no">
                                         Contact Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
@@ -252,7 +100,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('contact_no') ? ' has-error' : '' }}" id="grp-contact_no">
-                                    <input type="text" class="form-control" id="contact_no" name="contact_no" aria-describedby="" value="{{old('contact_no')? old('contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx">
+                                    <input type="text" class="form-control" id="contact_no" name="contact_no" aria-describedby="" value="{{old('contact_no')? old('contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-contact_no">{{ $errors->first('contact_no') }}</strong>
@@ -292,7 +140,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }}" id="grp-home_address">
-                                    <textarea class="form-control" id="home_address" name="home_address" rows="3">{{old('home_address')? old('home_address') : '' }}</textarea>
+                                    <textarea class="form-control" id="home_address" name="home_address" rows="3" required>{{old('home_address')? old('home_address') : '' }}</textarea>
                                     
                                     <span class="help-block">
                                         <strong id="err-home_address">{{ $errors->first('home_address') }}</strong>
@@ -305,7 +153,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('proof_residence') ? ' has-error' : '' }}" id="grp-proof_residence">
                                     <label class="control-label mb-0" for="proof_residence">
-                                        Proof of Citizenship/Permanent Residence &nbsp;&nbsp;&nbsp;
+                                        Proof of Citizenship/Permanent Residence <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>
@@ -316,6 +164,198 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-proof_residence">{{ $errors->first('proof_residence') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
+                                    <label class="control-label mb-0" for="national_id">
+                                        National Identification Card Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national id number, for example "20000101001".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
+                                    <input type="text" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-national_id">{{ $errors->first('national_id') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }}" id="grp-nis">
+                                    <label class="control-label mb-0" for="nis">
+                                        National Insurance Number &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national insurance number, for example "2000010".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }}" id="grp-nis">
+                                    <input type="text" class="form-control" id="nis" name="nis" aria-describedby="" value="{{old('nis')? old('nis') : '' }}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-nis">{{ $errors->first('nis') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('emp_classification') ? ' has-error' : '' }}" id="grp-emp_classification">
+                                    <label class="control-label mb-0" for="emp_classification">
+                                        Employment Classification <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('emp_classification') ? ' has-error' : '' }}" id="grp-emp_classification">
+                                    <div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="retrenched" name="emp_classification" class="custom-control-input" value="retrenched" required>
+                                                <label class="custom-control-label my-1" for="retrenched">Retrenched</label>
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="terminated" name="emp_classification" class="custom-control-input" value="terminated">
+                                                <label class="custom-control-label my-1" for="terminated">Terminated</label>
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" id="income_reduced" name="emp_classification" class="custom-control-input" value="income_reduced">
+                                                <label class="custom-control-label my-1" for="income_reduced">Income Reduced</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-emp_classification">{{ $errors->first('emp_classification') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }}" id="grp-effective_date">
+                                    <label class="control-label mb-0" for="effective_date">
+                                        Effective Date <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }}" id="grp-effective_date">
+                                    <input type="text" class="form-control" id="effective_date" name="effective_date" aria-describedby="" value="{{old('effective_date')? old('effective_date') : '' }}" required placeholder="dd/mm/yyyy" required>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-effective_date">{{ $errors->first('effective_date') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }}" id="grp-assistance_sought">
+                                    <label class="control-label mb-0" for="assistance_sought">
+                                        Assistance Being Sought <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }}" id="grp-assistance_sought">
+                                    <div class="col-md-12 checkbox-group required">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="public_assistance" name="assistance_sought[1]">
+                                            <label class="custom-control-label my-1" for="public_assistance">Income Support Grant</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="rental_assistance" name="assistance_sought[2]">
+                                            <label class="custom-control-label my-1" for="rental_assistance">Rental Assistance Grant</label>
+                                        </div>
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="temp_food_card" name="assistance_sought[3]">
+                                            <label class="custom-control-label my-1" for="temp_food_card">Temporary Food Card Support</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-assistance_sought">{{ $errors->first('assistance_sought') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields hide">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_name') ? ' has-error' : '' }}" id="grp-landlord_name">
+                                    <label class="control-label mb-0" for="landlord_name">
+                                        Landlord Name <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_name') ? ' has-error' : '' }}" id="grp-landlord_name">
+                                    <input type="text" class="form-control landlord" id="landlord_name" name="landlord_name" aria-describedby="" value="{{old('landlord_name')? old('landlord_name') : '' }}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-landlord_name">{{ $errors->first('landlord_name') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields hide">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }}" id="grp-landlord_contact_no">
+                                    <label class="control-label mb-0" for="landlord_contact_no">
+                                        Landlord Contact Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your contact number, for example "(868) 555-1234".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }}" id="grp-landlord_contact_no">
+                                    <input type="text" class="form-control landlord" id="landlord_contact_no" name="landlord_contact_no" aria-describedby="" value="{{old('landlord_contact_no')? old('landlord_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-landlord_contact_no">{{ $errors->first('landlord_contact_no') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('job_title') ? ' has-error' : '' }}" id="grp-job_title">
+                                    <label class="control-label mb-0" for="job_title">
+                                        Job Title &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('job_title') ? ' has-error' : '' }}" id="grp-job_title">
+                                    <input type="text" class="form-control" id="job_title" name="job_title" aria-describedby="" value="{{old('job_title')? old('job_title') : '' }}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-job_title">{{ $errors->first('job_title') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -339,6 +379,7 @@
                                         <option value="rbl">Republic Bank</option>
                                         <option value="rbc">Royal Bank</option>
                                         <option value="utc">Unit Trust</option>
+                                        <option value="jmmb">JMMB</option>
                                     </select>
                                     
                                     <span class="help-block">
@@ -352,7 +393,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('bank_branch') ? ' has-error' : '' }}" id="grp-bank_branch">
                                     <label class="control-label mb-0" for="bank_branch">
-                                        Bank Branch &nbsp;&nbsp;&nbsp;
+                                        Bank Branch <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>
@@ -372,7 +413,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }}" id="grp-bank_account">
                                     <label class="control-label mb-0" for="bank_account">
-                                        Account Number &nbsp;&nbsp;&nbsp;
+                                        Account Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>

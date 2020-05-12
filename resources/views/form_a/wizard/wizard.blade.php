@@ -19,7 +19,7 @@
             <div id="wizard">
                 
                 @include('form_a.wizard.guidelines')
-                @include('common.wizard.employee_info')
+                @include('common.wizard.general_info')
                 @include('form_a.wizard.employer_info')
                 @include('common.wizard.household_info')
                 @include('common.wizard.uploads')
@@ -43,7 +43,7 @@
         $('#employerInfoSection').html('2');
         $('#householdInfoSection').html('3');
         $('#uploadsSection').html('4');
-        
+               
     });
 </script>
 
