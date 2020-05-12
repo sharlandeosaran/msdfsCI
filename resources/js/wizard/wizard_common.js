@@ -35,7 +35,7 @@ $(function () {
     $('input[type="file"]'). change(function(e){
         var fileName = $(this).prop('id');
         $('#'+fileName+'Label').html('Choose file');
-        $('#'+fileName+'-review').val('None');
+        // $('#'+fileName+'-review').val('None');
         if ($(this).val() !== '') {
             var upload = e. target. files[0]. name;
             var size = e. target. files[0].size;
@@ -46,7 +46,7 @@ $(function () {
                 alert('Maximum file size is 10Mb. \nFile not uploaded.');
                 $(this).val('');
             } else {
-                $('#'+fileName+'-review').val(upload);
+                // $('#'+fileName+'-review').val(upload);
                 $('#'+fileName+'Label').html(upload);
             }
             
@@ -57,6 +57,16 @@ $(function () {
     $('a[href="#finish"]').click(function() {
         $('form').submit();
     });
+       
+    // Scotiabank help if selected
+    $(document).on('change', '#bank_name', function() {
+        var val = $(this).val();
+        if (val == 'Scotiabank') {
+            $('#scotia_help').removeClass('hide');
+        } else {
+            $('#scotia_help').addClass('hide');
+        }
+    })
     
 
     /** Section - General Information **/

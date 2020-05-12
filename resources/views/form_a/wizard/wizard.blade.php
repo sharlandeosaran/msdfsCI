@@ -43,7 +43,6 @@
         $('#employerInfoSection').html('2');
         $('#householdInfoSection').html('3');
         $('#uploadsSection').html('4');
-               
     });
 </script>
 

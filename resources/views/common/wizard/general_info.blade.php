@@ -354,12 +354,12 @@
                                 <div class="form-group mb-0{{ $errors->has('bank_name') ? ' has-error' : '' }}" id="grp-bank_name">
                                     <select class="form-control" id="bank_name" name="bank_name" required>
                                         <option disabled="" selected="">select...</option>
-                                        <option value="fcb">First Citizens Bank</option>
-                                        <option value="scotia">Scotia Bank</option>
-                                        <option value="rbl">Republic Bank</option>
-                                        <option value="rbc">Royal Bank</option>
-                                        <option value="utc">Unit Trust</option>
-                                        <option value="jmmb">JMMB</option>
+                                        <option>First Citizens Bank</option>
+                                        <option>Scotiabank</option>
+                                        <option>Republic Bank</option>
+                                        <option>Royal Bank</option>
+                                        <option>Unit Trust</option>
+                                        <option>JMMB</option>
                                     </select>
                                     
                                     <span class="help-block">
@@ -401,6 +401,10 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }}" id="grp-bank_account">
                                     <input type="text" class="form-control" id="bank_account" name="bank_account" aria-describedby="" value="{{old('bank_account')? old('bank_account') : '' }}" required>
+                                    
+                                    <span class="help-block hide" id="scotia_help">
+                                        <strong>** Please include Transit Number **</strong>
+                                    </span>
                                     
                                     <span class="help-block">
                                         <strong id="err-bank_account">{{ $errors->first('bank_account') }}</strong>

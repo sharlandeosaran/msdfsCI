@@ -63,7 +63,7 @@
                                     <div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="rec_male" name="rec_gender" class="custom-control-input" value="male">
+                                                <input type="radio" id="rec_male" name="rec_gender" class="custom-control-input" value="male" required>
                                                 <label class="custom-control-label my-1" for="rec_male">Male</label>
                                             </div>
                                         </div>
@@ -126,14 +126,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('rec_email') ? ' has-error' : '' }}" id="grp-rec_email">
                                     <label class="control-label mb-0" for="rec_email">
-                                        Email Address <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Email Address &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your email address, for example "example@email.com".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('rec_email') ? ' has-error' : '' }}" id="grp-rec_email">
-                                    <input type="email" class="form-control" id="rec_email" name="rec_email" aria-describedby="" value="{{old('rec_email')? old('rec_email') : '' }}" required placeholder="example@email.com">
+                                    <input type="email" class="form-control" id="rec_email" name="rec_email" aria-describedby="" value="{{old('rec_email')? old('rec_email') : '' }}" placeholder="example@email.com">
                                     
                                     <span class="help-block">
                                         <strong id="err-rec_email">{{ $errors->first('rec_email') }}</strong>
@@ -153,7 +153,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('rec_home_address') ? ' has-error' : '' }}" id="grp-rec_home_address">
-                                    <textarea class="form-control" id="rec_home_address" name="rec_home_address" rows="3">{{old('rec_home_address')? old('rec_home_address') : '' }}</textarea>
+                                    <textarea class="form-control" id="rec_home_address" name="rec_home_address" rows="3" required>{{old('rec_home_address')? old('rec_home_address') : '' }}</textarea>
                                     
                                     <span class="help-block">
                                         <strong id="err-rec_home_address">{{ $errors->first('rec_home_address') }}</strong>
