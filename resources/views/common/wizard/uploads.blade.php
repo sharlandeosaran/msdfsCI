@@ -9,7 +9,8 @@
             <div class="form-group mb-0 mb-2">
                 <div class="required">
                     <span class="red">*</span> Required Documents <br>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> Help <br>
+                    <strong>** Accepted File Types: pdf, doc, docx, txt, png, jpg, jpeg, tif and tiff **</strong>
                 </div>
             </div>
             
@@ -136,7 +137,7 @@
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('proof_ownership') ? ' has-error' : '' }} mb-0" id="grp-proof_ownership">
                                     <label class="control-label mb-0" for="proof_ownership">
-                                        Proof of Property Ownership (Landlord) <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Proof of Property Ownership <strong>(Landlord)</strong> <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
@@ -151,6 +152,75 @@
                                 
                                 <span class="help-block">
                                     <strong id="err-proof_ownership">{{ $errors->first('proof_ownership') }}</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="landlord-fields hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('id_card_landlord') ? ' has-error' : '' }} mb-0" id="grp-id_card_landlord">
+                                    <label class="control-label mb-0" for="id_card_landlord">
+                                        National Identification Card - <strong>(Landlord)</strong> <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input landlord" id="id_card_landlord" name="id_card_landlord">
+                                        <label class="custom-file-label" for="id_card_landlord">Choose file</label>
+                                    </div>
+                                </div>
+                                
+                                <span class="help-block">
+                                    <strong id="err-id_card_landlord">{{ $errors->first('id_card_landlord') }}</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="landlord-fields hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('rental_agreement') ? ' has-error' : '' }} mb-0" id="grp-rental_agreement">
+                                    <label class="control-label mb-0" for="rental_agreement">
+                                        Rental Agreement <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input landlord" id="rental_agreement" name="rental_agreement">
+                                        <label class="custom-file-label" for="rental_agreement">Choose file</label>
+                                    </div>
+                                </div>
+                                
+                                <span class="help-block">
+                                    <strong id="err-rental_agreement">{{ $errors->first('rental_agreement') }}</strong>
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr class="landlord-fields hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('rent_receipt') ? ' has-error' : '' }} mb-0" id="grp-rent_receipt">
+                                    <label class="control-label mb-0" for="rent_receipt">
+                                        Recent Rent Receipt <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input landlord" id="rent_receipt" name="rent_receipt">
+                                        <label class="custom-file-label" for="rent_receipt">Choose file</label>
+                                    </div>
+                                </div>
+                                
+                                <span class="help-block">
+                                    <strong id="err-rent_receipt">{{ $errors->first('rent_receipt') }}</strong>
                                 </span>
                             </td>
                         </tr>
