@@ -18,8 +18,8 @@
             </p>
 
             <div class="form-group pt-4 mb-0">
-                  <input type="checkbox" class="" style="width: 25px; height: 25px;" id="signature" name="signature">
-                  <label style="position: relative; top: -5px;" for="signature"><h3><strong>Signature: "I agree with the information stated above"</strong></h3></label>
+                  <input type="checkbox" class="" style="width: 25px; height: 25px;" id="declaration_signature" name="declaration_signature">
+                  <label style="position: relative; top: -5px;" for="declaration_signature"><h3><strong>Signature: "I agree with the information stated above"</strong></h3></label>
             </div>
 
             @include('layouts.recaptcha')
