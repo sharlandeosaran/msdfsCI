@@ -162,6 +162,31 @@
                             </td>
                         </tr>
                         
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('rec_years_known') ? ' has-error' : '' }}" id="grp-rec_years_known">
+                                    <label class="control-label mb-0" for="rec_years_known">
+                                        Period Known <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('rec_years_known') ? ' has-error' : '' }}" id="grp-rec_years_known">
+                                    <div class="input-group">
+                                        <input type="number" min="0" step="1" class="form-control" id="rec_years_known" name="rec_years_known" aria-describedby="" value="{{old('rec_years_known')? old('rec_years_known') : '' }}" required>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">years</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-rec_years_known">{{ $errors->first('rec_years_known') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

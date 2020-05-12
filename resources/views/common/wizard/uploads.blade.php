@@ -6,6 +6,13 @@
             <h5 class="bd-wizard-step-title mb-4">Section <span id="uploadsSection"></span>: Upload Documents</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}
             
+            <div class="form-group mb-0 mb-2">
+                <div class="required">
+                    <span class="red">*</span> Required Documents <br>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> Help
+                </div>
+            </div>
+            
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <tbody id="uploads_tbody">
@@ -13,7 +20,7 @@
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0" id="grp-id_card_front">
                                     <label class="control-label mb-0" for="id_card_front">
-                                        National Identification Card - Front <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        National Identification Card - <strong>(Front)</strong> <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
@@ -36,7 +43,7 @@
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0" id="grp-id_card_back">
                                     <label class="control-label mb-0" for="id_card_back">
-                                        National Identification Card - Back <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        National Identification Card - <strong>(Back)</strong> <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
@@ -169,7 +176,7 @@
                                 </span>
                             </td>
                         </tr>
-                        
+
                     </tbody>
                 </table>
             </div>
