@@ -10,7 +10,7 @@
                 <div class="required">
                     <span class="red">*</span> Required Documents <br>
                     <i class="fa fa-info-circle" aria-hidden="true"></i> Help <br>
-                    <strong>** Accepted File Types: pdf, doc, docx, txt, png, jpg, jpeg, tif and tiff **</strong><br>
+                    <strong>** Accepted File Types: pdf, doc, docx, png, jpg and jpeg **</strong><br>
                     <strong>** Maximum File Size: 10Mb **</strong>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="signature" name="signature" required>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="signature" name="signature" required>
                                         <label class="custom-file-label" for="signature" id="signatureLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -54,7 +54,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_front" name="id_card_front" required>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_front" name="id_card_front" required>
                                         <label class="custom-file-label" for="id_card_front" id="id_card_frontLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_back" name="id_card_back" required>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_back" name="id_card_back" required>
                                         <label class="custom-file-label" for="id_card_back" id="id_card_backLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_residence" name="proof_residence">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_residence" name="proof_residence">
                                         <label class="custom-file-label" for="proof_residence" id="proof_residenceLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="upload_name" name="upload_name" required>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="upload_name" name="upload_name" required>
                                         <label class="custom-file-label" for="upload_name" id="upload_nameLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -146,7 +146,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_ownership" name="proof_ownership">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_ownership" name="proof_ownership">
                                         <label class="custom-file-label" for="proof_ownership" id="proof_ownershipLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -169,7 +169,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="id_card_landlord" name="id_card_landlord">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="id_card_landlord" name="id_card_landlord">
                                         <label class="custom-file-label" for="id_card_landlord" id="id_card_landlordLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -192,7 +192,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rental_agreement" name="rental_agreement">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rental_agreement" name="rental_agreement">
                                         <label class="custom-file-label" for="rental_agreement" id="rental_agreementLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -215,7 +215,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rent_receipt" name="rent_receipt">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rent_receipt" name="rent_receipt">
                                         <label class="custom-file-label" for="rent_receipt" id="rent_receiptLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -238,7 +238,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="incorporation_cert" name="incorporation_cert">
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="incorporation_cert" name="incorporation_cert">
                                         <label class="custom-file-label" for="incorporation_cert" id="incorporation_certLabel">Choose file</label>
                                     </div>
                                 </div>
@@ -261,7 +261,7 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .tif, .tiff, .doc, .docx, application/msword, text/plain, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="recommendation_upload" name="recommendation_upload" required>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="recommendation_upload" name="recommendation_upload" required>
                                         <label class="custom-file-label" for="recommendation_upload" id="recommendation_uploadLabel">Choose file</label>
                                     </div>
                                 </div>
