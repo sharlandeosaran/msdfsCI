@@ -42,6 +42,8 @@
         
         $('#householdInfoSection').html('2');
         $('#uploadsSection').html('4');
+
+        $('.self-employed').removeClass('hide');
     });
 </script>
 

@@ -123,17 +123,12 @@
                                 </span>
                             </td>
                         </tr>
-                        
-                        
 
-
-
-                        
-                        {{-- <tr>
+                        <tr class="self-employed hide">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('upload_name') ? ' has-error' : '' }} mb-0" id="grp-upload_name">
-                                    <label class="control-label mb-0" for="upload_name">
-                                        Document Name <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                <div class="form-group{{ $errors->has('incorporation_cert') ? ' has-error' : '' }} mb-0" id="grp-incorporation_cert">
+                                    <label class="control-label mb-0" for="incorporation_cert">
+                                        Certificate of Registration/Incorporation &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
@@ -141,16 +136,40 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="upload_name" name="upload_name">
-                                        <label class="custom-file-label" for="upload_name">Choose file</label>
+                                        <input type="file" class="custom-file-input landlord" id="incorporation_cert" name="incorporation_cert">
+                                        <label class="custom-file-label" for="incorporation_cert">Choose file</label>
                                     </div>
                                 </div>
                                 
                                 <span class="help-block">
-                                    <strong id="err-upload_name">{{ $errors->first('upload_name') }}</strong>
+                                    <strong id="err-incorporation_cert">{{ $errors->first('incorporation_cert') }}</strong>
                                 </span>
-                            </td> --}}
+                            </td>
                         </tr>
+
+                        <tr class="self-employed hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('recommendation_upload') ? ' has-error' : '' }} mb-0" id="grp-recommendation_upload">
+                                    <label class="control-label mb-0" for="recommendation_upload">
+                                        Recommendation <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="input-group mb-0">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="recommendation_upload" name="recommendation_upload" required>
+                                        <label class="custom-file-label" for="recommendation_upload">Choose file</label>
+                                    </div>
+                                </div>
+                                
+                                <span class="help-block">
+                                    <strong id="err-recommendation_upload">{{ $errors->first('recommendation_upload') }}</strong>
+                                </span>
+                            </td>
+                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
