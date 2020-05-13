@@ -157,7 +157,7 @@ class FormAController extends Controller
             // 'form' => 'form_a',
             // 'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
             // 'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            'national_id_front' => '@/' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
+            // 'national_id_front' => '@/' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
             // 'national_id_front' => '@' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
             // 'national_id_back' => '@' . $_FILES['id_card_back']['tmp_name'] . ';filename=' . $_FILES['id_card_back']['name'] . ';type=' . $_FILES['id_card_back']['type'],
             // 'national_id_front' => curl_file_create($request->id_card_front),
@@ -188,15 +188,21 @@ class FormAController extends Controller
         dd($response); */
 
         $path = $request->file('id_card_front')->store('photos', 'public');
-        // dd(storage_path($path));
+        $file = (asset('/storage/'.$path));
+        // dd((asset('/storage/'.$path)));
+        // dd(public_path($path));
         $try = [
-            'national_id_front' => storage_path($path)
+            'national_id_front' => file_get_contents($file)
+            // 'national_id_front' => file_get_contents(storage_path($path))
         ];
 
         // dd(public_path($_FILES['id_card_front']));
 
 
 
+    	// temporarily set max execution time to 5 mins
+        ini_set('max_execution_time', 300);
+        
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
@@ -213,6 +219,8 @@ class FormAController extends Controller
 
         $response = curl_exec($ch);
 
+    	// temporarily set max execution time to 5 mins
+    	ini_set('max_execution_time', 60);
         dd($response);
 
 
