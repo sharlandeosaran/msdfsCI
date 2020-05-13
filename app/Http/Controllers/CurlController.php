@@ -15,7 +15,6 @@ class CurlController extends Controller
         ];
         
         $curl = curl_init();
-        
         curl_setopt_array($curl, [
             CURLOPT_URL => "http://161.35.62.102:5000/auth",
             CURLOPT_CUSTOMREQUEST => "POST",

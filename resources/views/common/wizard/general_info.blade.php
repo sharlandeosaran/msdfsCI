@@ -100,7 +100,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('contact_no') ? ' has-error' : '' }}" id="grp-contact_no">
-                                    <input type="text" class="form-control" id="contact_no" name="contact_no" aria-describedby="" value="{{old('contact_no')? old('contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
+                                    <input type="text" class="form-control phone" id="contact_no" name="contact_no" aria-describedby="" value="{{old('contact_no')? old('contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-contact_no">{{ $errors->first('contact_no') }}</strong>
@@ -160,7 +160,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }}" id="grp-national_id">
-                                    <input type="text" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required>
+                                    <input type="number" min="0" step="1" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-national_id">{{ $errors->first('national_id') }}</strong>
@@ -180,7 +180,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }}" id="grp-nis">
-                                    <input type="text" class="form-control" id="nis" name="nis" aria-describedby="" value="{{old('nis')? old('nis') : '' }}">
+                                    <input type="number" min="0" step="1" class="form-control" id="nis" name="nis" aria-describedby="" value="{{old('nis')? old('nis') : '' }}">
                                     
                                     <span class="help-block">
                                         <strong id="err-nis">{{ $errors->first('nis') }}</strong>
@@ -239,7 +239,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }}" id="grp-effective_date">
-                                    <input type="text" class="form-control" id="effective_date" name="effective_date" aria-describedby="" value="{{old('effective_date')? old('effective_date') : '' }}" required placeholder="dd/mm/yyyy" required>
+                                    <input type="text" class="form-control" id="effective_date" name="effective_date" aria-describedby="" value="{{old('effective_date')? old('effective_date') : '' }}" required placeholder="yyyy-mm-dd" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-effective_date">{{ $errors->first('effective_date') }}</strong>
@@ -312,7 +312,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }}" id="grp-landlord_contact_no">
-                                    <input type="text" class="form-control landlord" id="landlord_contact_no" name="landlord_contact_no" aria-describedby="" value="{{old('landlord_contact_no')? old('landlord_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
+                                    <input type="text" class="form-control landlord phone" id="landlord_contact_no" name="landlord_contact_no" aria-describedby="" value="{{old('landlord_contact_no')? old('landlord_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-landlord_contact_no">{{ $errors->first('landlord_contact_no') }}</strong>
@@ -400,7 +400,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }}" id="grp-bank_account">
-                                    <input type="text" class="form-control" id="bank_account" name="bank_account" aria-describedby="" value="{{old('bank_account')? old('bank_account') : '' }}" required>
+                                    <input type="number" min="0" step="1" class="form-control" id="bank_account" name="bank_account" aria-describedby="" value="{{old('bank_account')? old('bank_account') : '' }}" required>
                                     
                                     <span class="help-block hide" id="scotia_help">
                                         <strong>** Please include Transit Number **</strong>

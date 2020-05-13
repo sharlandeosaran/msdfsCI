@@ -34,6 +34,10 @@
 @endsection
 
 @section('scripts')
+
+{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> --}}
+<script src="{{ asset('plugins/validate/jquery.validate.js') }}"></script>
+<script src="{{ asset('plugins/validate/jquery.maskedinput.js') }}"></script>
 <script src="{{ asset('js/wizard_validation_form_a.js') }}" defer></script>
 
 <script>

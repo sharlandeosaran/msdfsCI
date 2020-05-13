@@ -62,7 +62,7 @@
                             </td>
                             <td>
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" id="grp-name">
-                                    <input type="text" class="form-control form-control-sm" id="hi_dob_1" name="hi_dob[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required>
+                                    <input type="text" class="form-control form-control-sm" id="hi_dob_1" name="hi_dob[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required placeholder="yyyy-mm-dd">
                                     
                                     <span class="help-block">
                                         <strong id="err-name">{{ $errors->first('name') }}</strong>
@@ -80,7 +80,7 @@
                             </td>
                             <td>
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}" id="grp-name">
-                                    <input type="text" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required>
+                                    <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('name')? old('name') : '' }}" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-name">{{ $errors->first('name') }}</strong>

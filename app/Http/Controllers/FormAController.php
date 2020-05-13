@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Ixudra\Curl\Facades\Curl;
 use Validator;
 
 class FormAController extends Controller
@@ -18,28 +19,80 @@ class FormAController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd(config('curl.url.forma', ''));
+        // dd($request->all());
         // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
         [
-            "name" => "required|max:150",
-            "email" => "required|email|max:300",
-            "phone" => "max:15",
-            "submission_type" => "required|exists:submission_types,id",
-            "organization" => Rule::requiredIf($request->submission_type != 1).'|max:150',
+            // "f_name" => "required|max:150",
+            // "surname" => "required|max:150",
+            // "gender" => "",
+            // "contact_no" => "",
+            // "email" => "required|email|max:300",
+            // "home_address" => "",
+            // "national_id" => "",
+            // "nis" => "",
+            // "emp_classification" => "",
+            // "effective_date" => "",
+            // "assistance_sought" => "required|array",
+            // "landlord_name" => "",
+            // "landlord_contact_no" => "",
+            // "job_title" => "",
+            // "bank_name" => "",
+            // "bank_branch" => "",
+            // "bank_account" => "",
 
-            "category" => "required|exists:category,id",
-            "subcategory" => "required|array",
-            "subcategory.*" => "exists:subcategory,id",
-            "otherField" => "max:150",
+            // "emp_name" => "",
+            // "emp_address" => "",
+            // "emp_auth_person" => "",
+            // "emp_contact" => "",
 
-            "subject" => "required|array",
-            "subject.*" => "max:150",
-            "comments" => "required|array",
-            'comments.*' => 'max:5000',
-            'upload' => 'array',
-            'upload.*' => 'max:10000|mimes:pdf,doc,docx,txt', // 10Mb each    pdf, doc, docx, png, jpg and jpeg
+            // "hi_name" => "required|array",
+            // "hi_gender" => "required|array",
+            // "hi_relationship" => "required|array",
+            // "hi_dob" => "required|array",
+            // "hi_emp_status" => "required|array",
+            // "hi_income" => "required|array",
+            // "hi_total_before" => "",
+
+            // "declaration_signature" => "required",
+            // // "g-recaptcha-response" => "required",
+
+            // "signature" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "id_card_front" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "id_card_back" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "upload_name" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "rental_agreement" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // "rent_receipt" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            // "earnings_proof" => "array",
+            // "earnings_proof.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+
+
+
+
+
+            // "name" => "required|max:150",
+            // "email" => "required|email|max:300",
+            // "phone" => "max:15",
+            // "submission_type" => "required|exists:submission_types,id",
+            // "organization" => Rule::requiredIf($request->submission_type != 1).'|max:150',
+
+            // "category" => "required|exists:category,id",
+            // "subcategory" => "required|array",
+            // "subcategory.*" => "exists:subcategory,id",
+            // "otherField" => "max:150",
+
+            // "subject" => "required|array",
+            // "subject.*" => "max:150",
+            // "comments" => "required|array",
+            // 'comments.*' => 'max:5000',
+            // 'upload' => 'array',
+            // 'upload.*' => 'max:10000|mimes:pdf,doc,docx,txt', // 10Mb each    pdf, doc, docx, png, jpg and jpeg
         ],
         [
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
@@ -76,42 +129,262 @@ class FormAController extends Controller
         });
         
         if ($validator->fails()) {
-            return redirect('/wizard')
+            return redirect('/form/a')
             ->withInput()
             ->withErrors($validator);
         }
 
-        /* $formA = {
-            "flag": (nis_number !== '' && public_assistance_grants),
-            "file_id": `${fileID}`,
-            "submission_date": Date.now().toString(),
-            "name": first_name + " " + last_name,
-            "gender": applicants_gender,
-            "nib_number": national_insurance,
-            "employment_classification": employment_classification,
-            "assistance_being_sought": {
-                "public_assistance_grants": public_assistance_grants,
-                "food_card_support": food_card_support,
-                "rental_assistance_grants": rental_assistance_grants
-            },
-            "job_title": job_title,
-            "contact_number": contact,
-            "email": email,
-            "home_address": home_address,
-            "name_of_bank_and_branch": name_of_bank,
-            "account_number": account_number,
-            "legal_name_of_business": name_of_business,
-            "authorized_person": authorised_person_name,
-            "authorized_person_contact": authorised_person_contact,
-            "landlord_name": landlord_name,
-            "landlord_contact": landlord_contact,
-            "household_income": {
-                "total_income_before_retrenchment": prev_total_income,
-                "less_than_equal_10k": (household_total > 10000),
-                "data": data
-            }
-        }; */
+// dd($_FILES['id_card_front']);
+        /* $response = Curl::
+        to('http://161.35.62.102:5000/auth')->
+        withHeaders( [
+            "content-type: application/json",
+            "token: ".config('curl.token', ''),
+        ] )->
+        withData(json_encode(["email" => "your@email.com"]))->
+        post();
+        
+        dd($response); */
+
+
+// dd($this->addFile([], $request, "id_card_front", "national_id_front"));
+
+// array(
+//     'file' => '@' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type']
+//   )
+
+        $data_files = [
+            // 'form' => 'form_a',
+            // 'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
+            // 'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'national_id_front' => '@/' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
+            // 'national_id_front' => '@' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
+            // 'national_id_back' => '@' . $_FILES['id_card_back']['tmp_name'] . ';filename=' . $_FILES['id_card_back']['name'] . ';type=' . $_FILES['id_card_back']['type'],
+            // 'national_id_front' => curl_file_create($request->id_card_front),
+            // 'national_id_back' => curl_file_create($request->id_card_back),
+        ];
+        // $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
+        // $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
+
+        // $data_files = $this->addFile($data_files, $request, "signature", "user_signiture");
+        // $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
+        // $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
+        // dd($data_files);
+        
+        /* $response = Curl::
+        to(config('curl.url.files', ''))->
+        withHeaders( [
+            "content-type: multipart/form-data; boundary=---011000010111000001101001",
+            "token: ".config('curl.token', ''),
+        ] )->
+        withData(['form' => 'form_a'])->
+        // withData($data_files)->
+        containsFile($data_files)->
+        // withData($this->addFile([], $request, "id_card_front", "national_id_front"))->
+        // withData($this->addFile([], $request, "id_card_back", "national_id_back"))->
+        
+        post();
+        
+        dd($response); */
+
+        $path = $request->file('id_card_front')->store('photos');
+        // dd(storage_path($path));
+        $try = [
+            'national_id_front' => storage_path($path)
+        ];
+
+        // dd(public_path($_FILES['id_card_front']));
+
+
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $try);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data_files);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, 
+        [
+            "content-type: multipart/form-data",
+            // "content-type: multipart/form-data; boundary=---011000010111000001101001",
+            "token: ".config('curl.token', ''),
+        ]);
+
+        $response = curl_exec($ch);
+
+        dd($response);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        // upload files
+        // $data_files = ['form' => 'form_a'];
+
+
+        
+        /* $data_files = [
+            'form' => 'form_a',
+            // 'national_id_front' => curl_file_create($request->id_card_front),
+            // 'national_id_back' => curl_file_create($request->id_card_back),
+        ];
+
+        // $data_files = $this->addFile($data_files, $request, "signature", "user_signiture");
+        $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
+        $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
+        // $data_files = $this->addFile($data_files, $request, "id_card_landlord", "copy_of_landperson_id");
+        // $data_files = $this->addFile($data_files, $request, "rental_agreement", "rental_agreement");
+        // $data_files = $this->addFile($data_files, $request, "rent_receipt", "most_recent_landperson_payment");
+
+        // $data_files = $this->addFile($data_files, $request, "proof_affected_income", "proof_affected_income");
+        // $data_files = $this->addFile($data_files, $request, "proof_ownership", "proof_landlord_ownership");
+ */
+        // dd($data_files);
+        
+        
+        $curl_files = curl_init();
+        curl_setopt_array($curl_files, [
+            CURLOPT_URL => config('curl.url.files', ''),
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => $data_files,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT => 30000,
+            CURLOPT_HTTPHEADER => [
+                "content-type: multipart/form-data; boundary=---011000010111000001101001",
+                "token: ".config('curl.token', ''),
+            ],
+        ]);
+        
+        $response = curl_exec($curl_files);
+        $files = json_decode($response);
+        // dd(curl_error($curl_files));
+        curl_close($curl_files);
+        dd($response);
+
+        if (isset($files->success)) {
+            
+            // post data
+            $data = [
+                "flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
+                "file_id" => $files->success->id,
+                "submission_date" => date('Y-m-d'),
+                "name" => $request->f_name . " " . $request->surname,
+                "gender" => $request->gender,
+                "nib_number" => $request->nis,
+                "employment_classification" => $request->emp_classification,
+                "assistance_being_sought" => [
+                    "public_assistance_grants" => isset($request->assistance_sought[1]),
+                    "rental_assistance_grants" => isset($request->assistance_sought[2]),
+                    "food_card_support" => isset($request->assistance_sought[3]),
+                ],
+                "job_title" => $request->job_title,
+                "contact_number" => $request->contact_no,
+                "email" => $request->email,
+                "home_address" => $request->home_address,
+    
+                "name_of_bank_and_branch" => $request->bank_name ." ". $request->bank_branch,
+                "account_number" => $request->bank_account,
+    
+                "legal_name_of_business" => $request->emp_name,
+                "authorized_person" => $request->emp_auth_person,
+                "authorized_person_contact" => $request->emp_contact,
+    
+                "landlord_name" => $request->landlord_name,
+                "landlord_contact" => $request->landlord_contact_no,
+                ];
+                $total = 0;
+                foreach ($request->hi_name as $key => $value) {
+                    $data["household_income"][]= [
+                        "household_name" => $request->hi_name[$key],
+                        "household_gender" => $request->hi_gender[$key],
+                        "household_relationship" => $request->hi_relationship[$key],
+                        "household_dob" => $request->hi_dob[$key],
+                        "household_employment_status" => $request->hi_emp_status[$key],
+                        "household_income" => $request->hi_income[$key],
+                    ];
+                    $total += $request->hi_income[$key];
+                }
+                $data["total_income_before_retrenchment"] = $total;
+                $data["less_than_equal_10k"] = $total > 10000;
+                
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => config('curl.url.forma', ''),
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 30000,
+                    CURLOPT_HTTPHEADER => [
+                        "content-type: application/json",
+                        "token: ".config('curl.token', ''),
+                        "authorization: Bearer ".$files->success->token,
+                    ],
+                    ]);
+                    
+                    $response = curl_exec($curl);
+                    $get = json_decode($response);
+                    curl_close($curl);
+        } else {
+            dd($files->message);
+        }
+
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
+    }
+
+    private function addFile($data, $request, $file, $key)
+    {
+        if ($request->file($file)->isValid()) {
+            // if ($request->file('upload.'.$value)->isValid()) {
+                $types = ['image/jpeg', 'image/png', 'application/msword', 'text/plain', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+                $type = $request->file($file)->getMimeType();
+                // dd($request->file($file)->getMimeType());
+                if (in_array($type, $types)) {
+                    $request->file($file)->storeAs('public/uploads/temp/'.$key.'/', $request->file($file)->getClientOriginalName());
+
+                    // Create a CURLFile object
+                    // $cFile = new \CURLFile(asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName(), $request->file($file)->getMimeType());    
+                    
+                    $cFile = curl_file_create(asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName());
+
+                    // $cFile = new \CURLFile($request->file($file), $request->file($file)->getMimeType());              
+                    $data[$key] = $cFile;
+
+
+                    // $data[$key] = '@' . asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName();
+
+                    // $upload = $sub->id.'_'.$request->file($file)->getClientOriginalName();
+                    // upload upload
+                    
+                    // // save name to feedback
+                    // $sub->upload = $upload;
+                    // $sub->upload_type = $type;
+                    // $sub->save();
+
+
+                    
+                }
+            // }
+        }
+        return $data;
     }
 }

@@ -113,8 +113,8 @@
 
                         <tr>
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('upload_name') ? ' has-error' : '' }} mb-0" id="grp-upload_name">
-                                    <label class="control-label mb-0" for="upload_name">
+                                <div class="form-group{{ $errors->has('proof_affected_income') ? ' has-error' : '' }} mb-0" id="grp-proof_affected_income">
+                                    <label class="control-label mb-0" for="proof_affected_income">
                                         Proof of Retrenchment/ Termination/ Reduced Income <span class="red">*</span> &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
@@ -123,13 +123,13 @@
                             <td width="80%">
                                 <div class="input-group mb-0">
                                     <div class="custom-file">
-                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="upload_name" name="upload_name" required>
-                                        <label class="custom-file-label" for="upload_name" id="upload_nameLabel">Choose file</label>
+                                        <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_affected_income" name="proof_affected_income" required>
+                                        <label class="custom-file-label" for="proof_affected_income" id="proof_affected_incomeLabel">Choose file</label>
                                     </div>
                                 </div>
                                 
                                 <span class="help-block">
-                                    <strong id="err-upload_name">{{ $errors->first('upload_name') }}</strong>
+                                    <strong id="err-proof_affected_income">{{ $errors->first('proof_affected_income') }}</strong>
                                 </span>
                             </td>
                         </tr>

@@ -1,0 +1,23 @@
+.background {
+    background-image: url("../img/bg-3.jpg");
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+  }
+  
+  .background .filter-black::after {
+    background-color: rgba(0, 0, 0, 0.1);
+    content: "";
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+  }

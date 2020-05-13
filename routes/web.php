@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/', 'HomeController@welcome')->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/thanks', 'HomeController@thanks')->name('thanks');
 
 // form A
 Route::get('/form/a', 'FormAController@index')->name('forma');
@@ -25,7 +26,3 @@ Route::post('/form/a', 'FormAController@store')->name('formapost');
 // form B
 Route::get('/form/b', 'FormBController@index')->name('formb');
 Route::post('/form/b', 'FormBController@store')->name('formbpost');
-
-
-
-Route::get('/curl', 'CurlController@index');

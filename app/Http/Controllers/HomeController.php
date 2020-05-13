@@ -16,4 +16,13 @@ class HomeController extends Controller
     {
         return view('welcome');
     }
+
+    public function thanks()
+    {
+        $data = [
+            'title' => 'Thank You.',
+        ];
+        
+        return view('thanks.home', $data);
+    }
 }
