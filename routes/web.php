@@ -25,3 +25,7 @@ Route::post('/form/a', 'FormAController@store')->name('formapost');
 // form B
 Route::get('/form/b', 'FormBController@index')->name('formb');
 Route::post('/form/b', 'FormBController@store')->name('formbpost');
+
+
+
+Route::get('/curl', 'CurlController@index');

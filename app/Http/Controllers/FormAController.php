@@ -21,37 +21,6 @@ class FormAController extends Controller
         dd($request->all());
         // dd($request->upload1->getClientOriginalName());
 
-        /* $formA = {
-            "flag": (nis_number !== '' && public_assistance_grants),
-            "file_id": `${fileID}`,
-            "submission_date": Date.now().toString(),
-            "name": first_name + " " + last_name,
-            "gender": applicants_gender,
-            "nib_number": national_insurance,
-            "employment_classification": employment_classification,
-            "assistance_being_sought": {
-                "public_assistance_grants": public_assistance_grants,
-                "food_card_support": food_card_support,
-                "rental_assistance_grants": rental_assistance_grants
-            },
-            "job_title": job_title,
-            "contact_number": contact,
-            "email": email,
-            "home_address": home_address,
-            "name_of_bank_and_branch": name_of_bank,
-            "account_number": account_number,
-            "legal_name_of_business": name_of_business,
-            "authorized_person": authorised_person_name,
-            "authorized_person_contact": authorised_person_contact,
-            "landlord_name": landlord_name,
-            "landlord_contact": landlord_contact,
-            "household_income": {
-                "total_income_before_retrenchment": prev_total_income,
-                "less_than_equal_10k": (household_total > 10000),
-                "data": data
-            }
-        }; */
-
         $validator = Validator::make($request->all(), 
         [
             "name" => "required|max:150",
@@ -70,7 +39,7 @@ class FormAController extends Controller
             "comments" => "required|array",
             'comments.*' => 'max:5000',
             'upload' => 'array',
-            'upload.*' => 'max:10000|mimes:pdf,doc,docx,txt', // 10Mb each
+            'upload.*' => 'max:10000|mimes:pdf,doc,docx,txt', // 10Mb each    pdf, doc, docx, png, jpg and jpeg
         ],
         [
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
@@ -112,8 +81,36 @@ class FormAController extends Controller
             ->withErrors($validator);
         }
 
-        // send emails
-        // dispatch(new \App\Jobs\SubmissionEmail($feedback->id));
+        /* $formA = {
+            "flag": (nis_number !== '' && public_assistance_grants),
+            "file_id": `${fileID}`,
+            "submission_date": Date.now().toString(),
+            "name": first_name + " " + last_name,
+            "gender": applicants_gender,
+            "nib_number": national_insurance,
+            "employment_classification": employment_classification,
+            "assistance_being_sought": {
+                "public_assistance_grants": public_assistance_grants,
+                "food_card_support": food_card_support,
+                "rental_assistance_grants": rental_assistance_grants
+            },
+            "job_title": job_title,
+            "contact_number": contact,
+            "email": email,
+            "home_address": home_address,
+            "name_of_bank_and_branch": name_of_bank,
+            "account_number": account_number,
+            "legal_name_of_business": name_of_business,
+            "authorized_person": authorised_person_name,
+            "authorized_person_contact": authorised_person_contact,
+            "landlord_name": landlord_name,
+            "landlord_contact": landlord_contact,
+            "household_income": {
+                "total_income_before_retrenchment": prev_total_income,
+                "less_than_equal_10k": (household_total > 10000),
+                "data": data
+            }
+        }; */
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
     }
