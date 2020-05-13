@@ -187,7 +187,7 @@ class FormAController extends Controller
         
         dd($response); */
 
-        $path = $request->file('id_card_front')->store('photos');
+        $path = $request->file('id_card_front')->store('photos', 'public');
         // dd(storage_path($path));
         $try = [
             'national_id_front' => storage_path($path)
