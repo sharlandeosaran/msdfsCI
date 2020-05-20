@@ -23,23 +23,60 @@ class FormBController extends Controller
 
         $validator = Validator::make($request->all(), 
         [
-            "name" => "required|max:150",
+            "f_name" => "required|max:150",
+            "surname" => "required|max:150",
+            "gender" => "",
+            "contact_no" => "",
             "email" => "required|email|max:300",
-            "phone" => "max:15",
-            "submission_type" => "required|exists:submission_types,id",
-            "organization" => Rule::requiredIf($request->submission_type != 1).'|max:150',
+            "home_address" => "",
+            "national_id" => "",
+            "nis" => "",
+            "emp_classification" => "",
+            "effective_date" => "",
+            "assistance_sought" => "required|array",
+            "landlord_name" => "",
+            "landlord_contact_no" => "",
+            "job_title" => "",
+            "bank_name" => "",
+            "bank_branch" => "",
+            "bank_account" => "",
 
-            "category" => "required|exists:category,id",
-            "subcategory" => "required|array",
-            "subcategory.*" => "exists:subcategory,id",
-            "otherField" => "max:150",
+            "emp_name" => "",
+            "emp_address" => "",
+            "emp_auth_person" => "",
+            "emp_contact" => "",
 
-            "subject" => "required|array",
-            "subject.*" => "max:150",
-            "comments" => "required|array",
-            'comments.*' => 'max:5000',
-            'upload' => 'array',
-            'upload.*' => 'max:10000|mimes:pdf,doc,docx,txt', // 10Mb each
+            "hi_name" => "required|array",
+            "hi_gender" => "required|array",
+            "hi_relationship" => "required|array",
+            "hi_dob" => "required|array",
+            "hi_emp_status" => "required|array",
+            "hi_income" => "required|array",
+            "hi_total_before" => "",
+
+            "rec_f_name" => "required",
+            "rec_surname" => "required",
+            "rec_gender" => "required",
+            "rec_job_title" => "required",
+            "rec_contact_no" => "required",
+            "rec_email" => "email",
+            "rec_home_address" => "required",
+            "rec_years_known" => "required",
+
+            "declaration_signature" => "required",
+            // "g-recaptcha-response" => "required",
+
+            "signature" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_front" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_back" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "upload_name" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "rental_agreement" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "rent_receipt" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            "earnings_proof" => "array",
+            "earnings_proof.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
@@ -81,70 +118,149 @@ class FormBController extends Controller
             ->withErrors($validator);
         }
 
-        /* $formB = {
-            "flag": false,
-            "file_id": `${fileID}`,
-            "submission_date": `${Date.now()}`,
-            "first_name": this.state.first_name,
-            "surname": this.state.last_name,
-            "gender": this.state.applicants_gender,
-            "national_id": this.state.national_id,
-            "nib_number": this.state.national_insurance,
-            "job_title": this.state.job_title,
-            "employment_classification": {
-                "loss_of_income": (this.state.employment_classification === "Loss of Income"),
-                "reduced_income": (this.state.employment_classification === "Reduced Income"),
-                "effective_date": this.state.effective_date,
-            },
-            "assistance_being_sought": {
-                "public_assistance_grants": this.state.public_assistance_grants,
-                "food_card_support": this.state.food_card_support,
-                "rental_assistance_grants": this.state.rental_assistance_grants
-            },
-            "contact_number": this.state.contact,
-            "email_address": this.state.email,
-            "home_address": this.state.home_address,
-            "name_of_bank_and_branch": this.state.name_of_bank,
-            "account_number": this.state.account_number,
-            "landlord_name": this.state.landlord_name,
-            "landlord_contact": this.state.landlord_contact,
-            "household_income": {
-                "data": data,
-                "less_than_equal_10k": (household_total <= 10000),
-            },
-            "recommender": {
-                "name": this.state.recommender_one_name,
-                "gender": this.state.recommender_one_gender,
-                "job_title": this.state.recommender_one_job_title,
-                "contact_number": this.state.recommender_one_contact,
-                "email": this.state.recommender_one_email,
-                "home_address": this.state.recommender_one_home_address,
-                "recommender_certification": this.state.recommender_one_certification,
-                "yearsKnown": this.state.years_known
-            }
-        };
-        
-        // Make Post Fields Array
-        $data1 = [
-            'email' => 'your@email.com',
+        $data_files = [
+            'form' => 'form_a',
+
+            'user_signiture' => new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']),
+            'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
+            'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            
+            'cert_non_nationals_registration_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+
+            // form b
+            'cert_registration_business_owners_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'recommendation' => new \CURLFILE($_FILES['recommendation']['tmp_name'], $_FILES['recommendation']['type'], $_FILES['recommendation']['name'] ),
+
+            'rental_agreement' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'most_recent_landperson_payment' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'copy_of_landperson_id' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+
+            // 'declaration_truth' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            
+            'proof_of_earnings' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
         ];
+
+    	// temporarily set max execution time to 5 mins
+        ini_set('max_execution_time', 300);
         
-        $curl = curl_init();
-        curl_setopt_array($curl, [
-            CURLOPT_URL => "http://161.35.62.102:5000/auth",
+        $curl_files = curl_init();
+        curl_setopt_array($curl_files, [
+            CURLOPT_URL => config('curl.url.files', ''),
             CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => json_encode($data1),
+            CURLOPT_POSTFIELDS => $data_files,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTPHEADER => [
-                "content-type: application/json",
+                "content-type: multipart/form-data",
                 "token: ".config('curl.token', ''),
             ],
         ]);
         
-        $response = curl_exec($curl);
-        $get = json_decode($response);
-        curl_close($curl);*/
+        $response = curl_exec($curl_files);
+        $files = json_decode($response);
+        curl_close($curl_files);
+        // dd($files);
+
+    	// reset max execution time to 1 min
+    	ini_set('max_execution_time', 60);
+
+        if (isset($files->success)) {
+            try {
+                // post data
+                $data = [
+                    "flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
+                    "file_id" => $files->success->id,
+                    "submission_date" => date('Y-m-d'),
+                    "name" => $request->f_name . " " . $request->surname,
+                    "gender" => $request->gender,
+                    "nib_number" => $request->nis,
+                    "employment_classification" => $request->emp_classification,
+                    "effective_date" => $request->effective_date,
+                    "assistance_being_sought" => [
+                        "public_assistance_grants" => isset($request->assistance_sought[1]),
+                        "rental_assistance_grants" => isset($request->assistance_sought[2]),
+                        "food_card_support" => isset($request->assistance_sought[3]),
+                    ],
+                    "job_title" => $request->job_title,
+                    "contact_number" => $request->contact_no,
+                    "email" => $request->email,
+                    "home_address" => $request->home_address,
+                    
+                    "name_of_bank_and_branch" => $request->bank_name ." ". $request->bank_branch,
+                    "account_number" => $request->bank_account,
+                    
+                    "landlord_name" => $request->landlord_name,
+                    "landlord_contact" => $request->landlord_contact_no,
+                    
+                    "household_income" => [
+                        "total_income_before_retrenchment" => $request->hi_total_before,
+                    ],
+
+                    "recommender" => [
+                        "name" => $request->rec_f_name . " " . $request->rec_surname,
+                        "gender" => $request->rec_gender,
+                        "job_title" => $request->rec_job_title,
+                        "contact_number" => $request->rec_contact_no,
+                        "email" => $request->rec_email,
+                        "home_address" => $request->rec_home_address,
+                        "recommender_certification" => $request->landlord_name,
+                        "yearsKnown" => $request->rec_years_known,
+                    ]
+                ];
+                $total = 0;
+                foreach ($request->hi_name as $key => $value) {
+                    $data["household_income"]['data'][]= [
+                        "name" => $request->hi_name[$key],
+                        "gender" => $request->hi_gender[$key],
+                        "relationship_to_applicant" => $request->hi_relationship[$key],
+                        "date_of_birth" => $request->hi_dob[$key],
+                        "age" => age($request->hi_dob[$key]),
+                        "employment_status" => $request->hi_emp_status[$key],
+                        "total_income" => $request->hi_income[$key],
+                    ];
+                    $total += $request->hi_income[$key];
+                }
+                $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
+
+                dd($data);
+                
+                $curl = curl_init();
+                curl_setopt_array($curl, [
+                    CURLOPT_URL => config('curl.url.formb', ''),
+                    CURLOPT_CUSTOMREQUEST => "POST",
+                    CURLOPT_POSTFIELDS => json_encode($data),
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_TIMEOUT => 30000,
+                    CURLOPT_HTTPHEADER => [
+                        "content-type: application/json",
+                        "token: ".config('curl.token', ''),
+                        "authorization: Bearer ".$files->success->token,
+                    ],
+                ]);
+                
+                $response = curl_exec($curl);
+                $get = json_decode($response);
+                curl_close($curl); 
+                // dd($response);
+                
+                if (isset($get->error)) {
+                    $validator->errors()->add('post', $get->error);
+                    return redirect('/form/a')
+                            ->withInput()
+                            ->withErrors($validator);
+                }
+            } catch (\Throwable $th) {
+                $validator->errors()->add('post', $th);
+                return redirect('/form/a')
+                        ->withInput()
+                        ->withErrors($validator);
+            }
+            // dd($response);
+        } else {
+            $validator->errors()->add('post', $files->message);
+            return redirect('/form/a')
+                    ->withInput()
+                    ->withErrors($validator);
+        }
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
     }

@@ -114,7 +114,7 @@
                         <tr>
                             <th colspan="5">
                                 <p class="text-muted text-right mb-0">
-                                    Total income before retrenchment/ termination/ reduction in income:
+                                    Total income before retrenchment/ termination/ reduction in income <span class="red">*</span>:
                                 </p>
                             </th>
                             <th>

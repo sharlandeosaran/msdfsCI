@@ -345,14 +345,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('bank_name') ? ' has-error' : '' }}" id="grp-bank_name">
                                     <label class="control-label mb-0" for="bank_name">
-                                        Bank Name <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Bank Name &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('bank_name') ? ' has-error' : '' }}" id="grp-bank_name">
-                                    <select class="form-control" id="bank_name" name="bank_name" required>
+                                    <select class="form-control" id="bank_name" name="bank_name">
                                         <option disabled="" selected="">select...</option>
                                         <option>First Citizens Bank</option>
                                         <option>Scotiabank</option>
@@ -373,14 +373,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('bank_branch') ? ' has-error' : '' }}" id="grp-bank_branch">
                                     <label class="control-label mb-0" for="bank_branch">
-                                        Bank Branch <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Bank Branch &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('bank_branch') ? ' has-error' : '' }}" id="grp-bank_branch">
-                                    <input type="text" class="form-control" id="bank_branch" name="bank_branch" aria-describedby="" value="{{old('bank_branch')? old('bank_branch') : '' }}" required>
+                                    <input type="text" class="form-control" id="bank_branch" name="bank_branch" aria-describedby="" value="{{old('bank_branch')? old('bank_branch') : '' }}">
                                     
                                     <span class="help-block">
                                         <strong id="err-bank_branch">{{ $errors->first('bank_branch') }}</strong>
@@ -393,14 +393,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }}" id="grp-bank_account">
                                     <label class="control-label mb-0" for="bank_account">
-                                        Account Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Account Number &nbsp;&nbsp;&nbsp;
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }}" id="grp-bank_account">
-                                    <input type="number" min="0" step="1" class="form-control" id="bank_account" name="bank_account" aria-describedby="" value="{{old('bank_account')? old('bank_account') : '' }}" required>
+                                    <input type="number" min="0" step="1" class="form-control" id="bank_account" name="bank_account" aria-describedby="" value="{{old('bank_account')? old('bank_account') : '' }}">
                                     
                                     <span class="help-block hide" id="scotia_help">
                                         <strong>** Please include Transit Number **</strong>
