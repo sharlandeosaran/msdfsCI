@@ -134,139 +134,31 @@ class FormAController extends Controller
             ->withErrors($validator);
         }
 
-// dd($_FILES['id_card_front']);
-        /* $response = Curl::
-        to('http://161.35.62.102:5000/auth')->
-        withHeaders( [
-            "content-type: application/json",
-            "token: ".config('curl.token', ''),
-        ] )->
-        withData(json_encode(["email" => "your@email.com"]))->
-        post();
-        
-        dd($response); */
-
-
-// dd($this->addFile([], $request, "id_card_front", "national_id_front"));
-
-// array(
-//     'file' => '@' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type']
-//   )
-
         $data_files = [
-            // 'form' => 'form_a',
-            // 'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
-            // 'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            // 'national_id_front' => '@/' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
-            // 'national_id_front' => '@' . $_FILES['id_card_front']['tmp_name'] . ';filename=' . $_FILES['id_card_front']['name'] . ';type=' . $_FILES['id_card_front']['type'],
-            // 'national_id_back' => '@' . $_FILES['id_card_back']['tmp_name'] . ';filename=' . $_FILES['id_card_back']['name'] . ';type=' . $_FILES['id_card_back']['type'],
-            // 'national_id_front' => curl_file_create($request->id_card_front),
-            // 'national_id_back' => curl_file_create($request->id_card_back),
+            'form' => 'form_a',
+            'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
+            'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
         ];
-        // $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
-        // $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
-
-        // $data_files = $this->addFile($data_files, $request, "signature", "user_signiture");
-        // $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
-        // $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
-        // dd($data_files);
-        
-        /* $response = Curl::
-        to(config('curl.url.files', ''))->
-        withHeaders( [
-            "content-type: multipart/form-data; boundary=---011000010111000001101001",
-            "token: ".config('curl.token', ''),
-        ] )->
-        withData(['form' => 'form_a'])->
-        // withData($data_files)->
-        containsFile($data_files)->
-        // withData($this->addFile([], $request, "id_card_front", "national_id_front"))->
-        // withData($this->addFile([], $request, "id_card_back", "national_id_back"))->
-        
-        post();
-        
-        dd($response); */
-
-        $path = $request->file('id_card_front')->store('photos', 'public');
-        $file = (asset('/storage/'.$path));
-        // dd((asset('/storage/'.$path)));
-        // dd(public_path($path));
-        $try = [
-            'national_id_front' => file_get_contents($file)
-            // 'national_id_front' => file_get_contents(storage_path($path))
-        ];
-
-        // dd(public_path($_FILES['id_card_front']));
-
-
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
         
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $try);
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
+        // curl_setopt($ch, CURLOPT_POST, true);
         // curl_setopt($ch, CURLOPT_POSTFIELDS, $data_files);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, 
-        [
-            "content-type: multipart/form-data",
-            // "content-type: multipart/form-data; boundary=---011000010111000001101001",
-            "token: ".config('curl.token', ''),
-        ]);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, 
+        // [
+        //     "content-type: multipart/form-data",
+        //     // "content-type: multipart/form-data; boundary=---011000010111000001101001",
+        //     "token: ".config('curl.token', ''),
+        // ]);
 
-        $response = curl_exec($ch);
-
-    	// temporarily set max execution time to 5 mins
-    	ini_set('max_execution_time', 60);
-        dd($response);
+        // $response = curl_exec($ch);
+        // dd($response);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        // upload files
-        // $data_files = ['form' => 'form_a'];
-
-
-        
-        /* $data_files = [
-            'form' => 'form_a',
-            // 'national_id_front' => curl_file_create($request->id_card_front),
-            // 'national_id_back' => curl_file_create($request->id_card_back),
-        ];
-
-        // $data_files = $this->addFile($data_files, $request, "signature", "user_signiture");
-        $data_files = $this->addFile($data_files, $request, "id_card_front", "national_id_front");
-        $data_files = $this->addFile($data_files, $request, "id_card_back", "national_id_back");
-        // $data_files = $this->addFile($data_files, $request, "id_card_landlord", "copy_of_landperson_id");
-        // $data_files = $this->addFile($data_files, $request, "rental_agreement", "rental_agreement");
-        // $data_files = $this->addFile($data_files, $request, "rent_receipt", "most_recent_landperson_payment");
-
-        // $data_files = $this->addFile($data_files, $request, "proof_affected_income", "proof_affected_income");
-        // $data_files = $this->addFile($data_files, $request, "proof_ownership", "proof_landlord_ownership");
- */
-        // dd($data_files);
         
         
         $curl_files = curl_init();
@@ -286,6 +178,9 @@ class FormAController extends Controller
         $files = json_decode($response);
         // dd(curl_error($curl_files));
         curl_close($curl_files);
+
+    	// reset max execution time to 1 min
+    	ini_set('max_execution_time', 60);
         dd($response);
 
         if (isset($files->success)) {
@@ -357,42 +252,5 @@ class FormAController extends Controller
 
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
-    }
-
-    private function addFile($data, $request, $file, $key)
-    {
-        if ($request->file($file)->isValid()) {
-            // if ($request->file('upload.'.$value)->isValid()) {
-                $types = ['image/jpeg', 'image/png', 'application/msword', 'text/plain', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-                $type = $request->file($file)->getMimeType();
-                // dd($request->file($file)->getMimeType());
-                if (in_array($type, $types)) {
-                    $request->file($file)->storeAs('public/uploads/temp/'.$key.'/', $request->file($file)->getClientOriginalName());
-
-                    // Create a CURLFile object
-                    // $cFile = new \CURLFile(asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName(), $request->file($file)->getMimeType());    
-                    
-                    $cFile = curl_file_create(asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName());
-
-                    // $cFile = new \CURLFile($request->file($file), $request->file($file)->getMimeType());              
-                    $data[$key] = $cFile;
-
-
-                    // $data[$key] = '@' . asset('/storage/uploads/temp/'.$key).'/'.$request->file($file)->getClientOriginalName();
-
-                    // $upload = $sub->id.'_'.$request->file($file)->getClientOriginalName();
-                    // upload upload
-                    
-                    // // save name to feedback
-                    // $sub->upload = $upload;
-                    // $sub->upload_type = $type;
-                    // $sub->save();
-
-
-                    
-                }
-            // }
-        }
-        return $data;
     }
 }
