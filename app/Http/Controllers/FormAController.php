@@ -167,9 +167,10 @@ class FormAController extends Controller
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data_files,
             CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_TIMEOUT => 30000,
+            // CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTPHEADER => [
-                "content-type: multipart/form-data; boundary=---011000010111000001101001",
+                "content-type: multipart/form-data",
+                // "content-type: multipart/form-data; boundary=---011000010111000001101001",
                 "token: ".config('curl.token', ''),
             ],
         ]);
