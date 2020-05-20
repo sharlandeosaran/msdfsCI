@@ -32,5 +32,26 @@ class CurlController extends Controller
         curl_close($curl);
         
         dd($get->token);
+
+        // $data_files = [
+        //     'form' => 'form_a',
+        //     'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
+        //     'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+        // ];
+
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data_files);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, 
+        // [
+        //     "content-type: multipart/form-data",
+        //     // "content-type: multipart/form-data; boundary=---011000010111000001101001",
+        //     "token: ".config('curl.token', ''),
+        // ]);
+
+        // $response = curl_exec($ch);
+        // dd($response);
     }
 }

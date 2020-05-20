@@ -143,34 +143,14 @@ class FormAController extends Controller
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
         
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, config('curl.url.files', ''));
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data_files);
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, 
-        // [
-        //     "content-type: multipart/form-data",
-        //     // "content-type: multipart/form-data; boundary=---011000010111000001101001",
-        //     "token: ".config('curl.token', ''),
-        // ]);
-
-        // $response = curl_exec($ch);
-        // dd($response);
-
-
-        
-        
         $curl_files = curl_init();
         curl_setopt_array($curl_files, [
             CURLOPT_URL => config('curl.url.files', ''),
             CURLOPT_CUSTOMREQUEST => "POST",
             CURLOPT_POSTFIELDS => $data_files,
             CURLOPT_RETURNTRANSFER => true,
-            // CURLOPT_TIMEOUT => 30000,
             CURLOPT_HTTPHEADER => [
                 "content-type: multipart/form-data",
-                // "content-type: multipart/form-data; boundary=---011000010111000001101001",
                 "token: ".config('curl.token', ''),
             ],
         ]);
@@ -182,7 +162,7 @@ class FormAController extends Controller
 
     	// reset max execution time to 1 min
     	ini_set('max_execution_time', 60);
-        dd($response);
+        // dd($response);
 
         if (isset($files->success)) {
             
