@@ -11,7 +11,7 @@
 @include('common.errors')
 
 <main class="align-items-center">
-    <div class="container">
+    <div class="">
         
         <form id="formb" method="POST" action="{{route('formbpost')}}" enctype="multipart/form-data" role="form">
             @csrf

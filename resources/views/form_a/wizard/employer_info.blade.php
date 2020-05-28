@@ -13,7 +13,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('emp_name') ? ' has-error' : '' }}" id="grp-emp_name">
                                     <label class="control-label mb-0" for="emp_name">
-                                        Employer/ Business Name <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Employer/ Business Name <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true"title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
@@ -31,7 +31,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('emp_address') ? ' has-error' : '' }}" id="grp-emp_address">
                                     <label class="control-label mb-0" for="emp_address">
-                                        Business/ Mailing Address <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Business/ Mailing Address <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true"title='Please state your national insurance number, for example "2000010".'></i>
                                     </label>
                                 </div>
@@ -49,7 +49,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('emp_auth_person') ? ' has-error' : '' }}" id="grp-emp_auth_person">
                                     <label class="control-label mb-0" for="emp_auth_person">
-                                        Authorised Person <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Authorised Person <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true"title='Please state your CEO or Managing Director, for example "Bill Gates".'></i>
                                     </label>
                                 </div>
@@ -67,7 +67,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('emp_contact') ? ' has-error' : '' }}" id="grp-emp_contact">
                                     <label class="control-label mb-0" for="emp_contact">
-                                        Contact Number <span class="red">*</span> &nbsp;&nbsp;&nbsp;
+                                        Contact Number <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true"title='Please state your job title, for example "Manager".'></i>
                                     </label>
                                 </div>

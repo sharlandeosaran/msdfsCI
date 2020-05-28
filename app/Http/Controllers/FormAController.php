@@ -12,6 +12,10 @@ class FormAController extends Controller
     {
         $data = [
             'title' => 'APPLICATION FORM A-EMPLOYER/EMPLOYEE',
+            'cities' => cities(),
+            'banks' => banks(),
+            'scotia' => scotia(),
+            'citizen_proof' => citizen_proof(),
         ];
         
         return view('form_a.wizard.wizard', $data);
@@ -25,7 +29,7 @@ class FormAController extends Controller
 
         $validator = Validator::make($request->all(), 
         [
-            "f_name" => "required|max:150",
+            "first_name" => "required|max:150",
             "surname" => "required|max:150",
             "gender" => "",
             "contact_no" => "",
@@ -54,14 +58,14 @@ class FormAController extends Controller
             "hi_dob" => "required|array",
             "hi_emp_status" => "required|array",
             "hi_income" => "required|array",
-            "hi_total_before" => "",
+            "hi_total_before" => "required",
 
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
 
-            "signature" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_front" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_back" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "signature" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_front" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_back" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "upload_name" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
@@ -72,6 +76,7 @@ class FormAController extends Controller
             "earnings_proof.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
+            'hi_total_before.required' => 'The total income field is required.',
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
             'upload.*.mimes' => 'The upload must be a PDF, Word or text document.',
         ]
@@ -163,7 +168,7 @@ class FormAController extends Controller
                     "flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
                     "file_id" => $files->success->id,
                     "submission_date" => date('Y-m-d'),
-                    "name" => $request->f_name . " " . $request->surname,
+                    "name" => $request->first_name . " " . $request->surname,
                     "gender" => $request->gender,
                     "nib_number" => $request->nis,
                     "employment_classification" => $request->emp_classification,

@@ -48,3 +48,70 @@ function age($dob)
 {
 	return \Carbon\Carbon::parse($dob)->age;
 }
+
+function cities()
+{
+	$list = [
+		'Arima',
+		'Curepe',
+	];
+	asort($list);
+	return $list;
+}
+
+function banks()
+{
+	$list = [
+		'First Citizens Bank',
+		'Scotiabank',
+		'Republic Bank',
+		'Royal Bank',
+		'Unit Trust',
+		'JMMB',
+	];
+	asort($list);
+	return $list;
+}
+
+function scotia()
+{
+	$list = [
+		60525 => 'Chaguanas',
+		81745 => 'Cipero & Rushworth',
+		30395 => 'Couva',
+		76885 => 'Cunupia',
+		61705 => 'Marabella',
+		46375 => 'Penal',
+		59345 => 'Price Plaza',
+		40485 => 'Princes Town',
+		62885 => 'Rio Claro',
+		60285 => 'San Fernando',
+		54635 => 'Siparia',
+		90415 => 'Arima',
+		74625 => 'Diego Martin',
+		12005 => 'Lowlands',
+		95315 => 'Maraval',
+		10405 => 'Park & Pembroke',
+		90035 => 'Port of Spain',
+		40725 => 'San Juan',
+		70615 => 'Sangre Grande',
+		21105 => 'Scarborough',
+		74815 => 'Scotia Centre',
+		18275 => 'Trincity',
+		42135 => 'Tunapuna',
+	];
+	asort($list);
+	return $list;
+}
+
+function citizen_proof()
+{
+	$list = [
+		'National ID',
+		'Certificate of Immigration Status',
+		'Certificate of Residence',
+		'Passport',
+	];
+	asort($list);
+	return $list;
+}

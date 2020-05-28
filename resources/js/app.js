@@ -11,6 +11,9 @@ require('./bootstrap');
 require('./wizard/jquery.steps.min');
 require('./wizard/wizard_common');
 
+// datepicker
+require('./datepicker/js/bootstrap-datepicker.min');
+
 window.Vue = require('vue');
 
 /**

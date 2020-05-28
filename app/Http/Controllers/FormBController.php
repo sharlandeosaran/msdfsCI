@@ -11,6 +11,10 @@ class FormBController extends Controller
     {
         $data = [
             'title' => 'FORM B – SELF EMPLOYED',
+            'cities' => cities(),
+            'banks' => banks(),
+            'scotia' => scotia(),
+            'citizen_proof' => citizen_proof(),
         ];
         
         return view('form_b.wizard.wizard', $data);
@@ -18,14 +22,14 @@ class FormBController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
         [
-            "f_name" => "required|max:150",
+            "first_name" => "required|max:150",
             "surname" => "required|max:150",
-            "gender" => "",
+            "gender" => "required",
             "contact_no" => "",
             "email" => "required|email|max:300",
             "home_address" => "",
@@ -46,29 +50,36 @@ class FormBController extends Controller
             "emp_auth_person" => "",
             "emp_contact" => "",
 
-            "hi_name" => "required|array",
-            "hi_gender" => "required|array",
-            "hi_relationship" => "required|array",
-            "hi_dob" => "required|array",
-            "hi_emp_status" => "required|array",
-            "hi_income" => "required|array",
-            "hi_total_before" => "",
+            "hi_name" => "array",
+            "hi_gender" => "array",
+            "hi_relationship" => "array",
+            "hi_dob" => "array",
+            "hi_emp_status" => "array",
+            "hi_income" => "array",
+            "hi_total_before" => "required",
+            
+            "hi_name.*" => "required",
+            "hi_gender.*" => "required",
+            "hi_relationship.*" => "required",
+            "hi_dob.*" => "required",
+            "hi_emp_status.*" => "required",
+            "hi_income.*" => "",
 
-            "rec_f_name" => "required",
-            "rec_surname" => "required",
-            "rec_gender" => "required",
-            "rec_job_title" => "required",
-            "rec_contact_no" => "required",
-            "rec_email" => "email",
-            "rec_home_address" => "required",
-            "rec_years_known" => "required",
+            "recommender_first_name" => "required",
+            "recommender_surname" => "required",
+            "recommender_gender" => "required",
+            "recommender_job_title" => "required",
+            "recommender_contact_no" => "required",
+            "recommender_email" => "nullable|email",
+            "recommender_home_address" => "required",
+            "recommender_years_known" => "required",
 
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
 
-            "signature" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_front" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_back" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "signature" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_front" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_back" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "upload_name" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
@@ -79,14 +90,22 @@ class FormBController extends Controller
             "earnings_proof.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
+            'hi_total_before.required' => 'The total income field is required.',
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
             'upload.*.mimes' => 'The upload must be a PDF, Word or text document.',
         ]
         );
-
+        
         // check for recaptcha
         $validator->after(function ($validator)  use ($request) 
         {
+            if ($request->hi_name) {
+                foreach ($request->hi_name as $key => $value) {
+                    if (!isset($request->hi_gender[$key])) {
+                        $validator->errors()->add('hi_gender.'.$key, 'The gender field is required.');
+                    }
+                }
+            }
 
 			/* $url = 'https://www.google.com/recaptcha/api/siteverify';
 			$data = [
@@ -113,31 +132,31 @@ class FormBController extends Controller
         });
         
         if ($validator->fails()) {
-            return redirect('/wizard')
+            return redirect('/form/b')
             ->withInput()
             ->withErrors($validator);
         }
 
         $data_files = [
-            'form' => 'form_a',
+            'form' => 'form_b',
 
             'user_signiture' => new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']),
             'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
             'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
             
-            'cert_non_nationals_registration_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'cert_non_nationals_registration_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
 
-            // form b
-            'cert_registration_business_owners_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            'recommendation' => new \CURLFILE($_FILES['recommendation']['tmp_name'], $_FILES['recommendation']['type'], $_FILES['recommendation']['name'] ),
+            // // form b
+            // 'cert_registration_business_owners_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'recommendation' => new \CURLFILE($_FILES['recommendation']['tmp_name'], $_FILES['recommendation']['type'], $_FILES['recommendation']['name'] ),
 
-            'rental_agreement' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            'most_recent_landperson_payment' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            'copy_of_landperson_id' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'rental_agreement' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'most_recent_landperson_payment' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'copy_of_landperson_id' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
 
-            // 'declaration_truth' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // // 'declaration_truth' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
             
-            'proof_of_earnings' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            // 'proof_of_earnings' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
         ];
 
     	// temporarily set max execution time to 5 mins
@@ -170,11 +189,16 @@ class FormBController extends Controller
                     "flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
                     "file_id" => $files->success->id,
                     "submission_date" => date('Y-m-d'),
-                    "name" => $request->f_name . " " . $request->surname,
+                    "first_name" => $request->first_name,
+                    "surname" => $request->surname,
                     "gender" => $request->gender,
+                    "national_id" => $request->national_id,
                     "nib_number" => $request->nis,
-                    "employment_classification" => $request->emp_classification,
-                    "effective_date" => $request->effective_date,
+                    "employment_classification" => [
+                        "loss_of_income" => $request->emp_classification == 'retrenched' || $request->emp_classification == 'terminated',
+                        "reduced_income" => $request->emp_classification == 'income_reduced',
+                        "effective_date" => $request->effective_date,
+                    ],
                     "assistance_being_sought" => [
                         "public_assistance_grants" => isset($request->assistance_sought[1]),
                         "rental_assistance_grants" => isset($request->assistance_sought[2]),
@@ -182,7 +206,7 @@ class FormBController extends Controller
                     ],
                     "job_title" => $request->job_title,
                     "contact_number" => $request->contact_no,
-                    "email" => $request->email,
+                    "email_address" => $request->email,
                     "home_address" => $request->home_address,
                     
                     "name_of_bank_and_branch" => $request->bank_name ." ". $request->bank_branch,
@@ -196,28 +220,30 @@ class FormBController extends Controller
                     ],
 
                     "recommender" => [
-                        "name" => $request->rec_f_name . " " . $request->rec_surname,
-                        "gender" => $request->rec_gender,
-                        "job_title" => $request->rec_job_title,
-                        "contact_number" => $request->rec_contact_no,
-                        "email" => $request->rec_email,
-                        "home_address" => $request->rec_home_address,
-                        "recommender_certification" => $request->landlord_name,
-                        "yearsKnown" => $request->rec_years_known,
+                        "name" => $request->recommender_first_name . " " . $request->recommender_surname,
+                        "gender" => $request->recommender_gender,
+                        "job_title" => $request->recommender_job_title,
+                        "contact_number" => $request->recommender_contact_no,
+                        "email" => $request->recommender_email,
+                        "home_address" => $request->recommender_home_address,
+                        "recommender_certification" => $request->landlord_name, // ******** what is this???
+                        "yearsKnown" => $request->recommender_years_known,
                     ]
                 ];
-                $total = 0;
-                foreach ($request->hi_name as $key => $value) {
-                    $data["household_income"]['data'][]= [
-                        "name" => $request->hi_name[$key],
-                        "gender" => $request->hi_gender[$key],
-                        "relationship_to_applicant" => $request->hi_relationship[$key],
-                        "date_of_birth" => $request->hi_dob[$key],
-                        "age" => age($request->hi_dob[$key]),
-                        "employment_status" => $request->hi_emp_status[$key],
-                        "total_income" => $request->hi_income[$key],
-                    ];
-                    $total += $request->hi_income[$key];
+                $total = $request->hi_income[1];
+                if ($request->hi_name) {
+                    foreach ($request->hi_name as $key => $value) {
+                        $data["household_income"]['data'][]= [
+                            "name" => $request->hi_name[$key],
+                            "gender" => $request->hi_gender[$key],
+                            "relationship_to_applicant" => $request->hi_relationship[$key],
+                            "date_of_birth" => $request->hi_dob[$key],
+                            "age" => age($request->hi_dob[$key]),
+                            "employment_status" => $request->hi_emp_status[$key],
+                            "total_income" => $request->hi_income[$key]? $request->hi_income[$key] : '0',
+                        ];
+                        $total += $request->hi_income[$key];
+                    }
                 }
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
 
@@ -244,20 +270,20 @@ class FormBController extends Controller
                 
                 if (isset($get->error)) {
                     $validator->errors()->add('post', $get->error);
-                    return redirect('/form/a')
+                    return redirect('/form/b')
                             ->withInput()
                             ->withErrors($validator);
                 }
             } catch (\Throwable $th) {
                 $validator->errors()->add('post', $th);
-                return redirect('/form/a')
+                return redirect('/form/b')
                         ->withInput()
                         ->withErrors($validator);
             }
             // dd($response);
         } else {
-            $validator->errors()->add('post', $files->message);
-            return redirect('/form/a')
+            $validator->errors()->add('post', 'Could not upload files.');
+            return redirect('/form/b')
                     ->withInput()
                     ->withErrors($validator);
         }

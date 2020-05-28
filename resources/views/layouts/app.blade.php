@@ -27,6 +27,17 @@
     @include('layouts.analytics')
 </head>
 <body>
+    <div id="overlay">
+        <div class="modal-dialog loading" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-primary"></i>
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div id="app">
         @include('layouts.navbar')
         
@@ -47,14 +58,22 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 
+    <script>
+        // add household income rows
+        var householdCount = {{count($errors)}} + 2;
+    </script>
+
     @yield('scripts')
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <script>
-        $(function () {      
+
+        $(function () {  
+            $('#overlay').fadeOut();
+
             $('[data-toggle="tooltip"]').tooltip()
             
-            $("input.phone").mask("(999) 999-9999");
+            // $("input.phone").mask("(999) 999-9999");
                   
             $('form').submit(function(){
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
