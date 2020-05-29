@@ -7,6 +7,11 @@
 require('./bootstrap');
 // require('./scripts');
 
+// chosen
+// require('./chosen/jquery-3.2.1.min');
+// require('./chosen/chosen.jquery.min');
+// require('./chosen/chosen.proto.min');
+
 // wizard
 require('./wizard/jquery.steps.min');
 require('./wizard/wizard_common');

@@ -32,7 +32,7 @@ $(function () {
     });
     
     // show name of uploaded file
-    $('input[type="file"]'). change(function(e){
+    $(document).on('change', 'input[type="file"]', function(e) {
         var fileName = $(this).prop('id');
         $('#'+fileName+'Label').html('Choose file');
         // $('#'+fileName+'-review').val('None');
@@ -54,9 +54,6 @@ $(function () {
     });
 
     // submit form
-    $('a[href="#finish"]').click(function() {
-        $('form').submit();
-    });
        
     // Scotiabank help if selected
     $(document).on('change', '#bank_name', function() {
@@ -119,7 +116,7 @@ $(function () {
             $('#household_tbody').append('<tr class="household_row" id="household_row_'+householdCount+'"><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm hi_name" id="hi_name_'+householdCount+'" name="hi_name['+householdCount+']" aria-describedby="" required><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-organization_type"><div class="custom-control custom-radio">    <input type="radio" id="hi_gender1_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="male">    <label class="custom-control-label" for="hi_gender1_'+householdCount+'">Male</label></div><div class="custom-control custom-radio">    <input type="radio" id="hi_gender2_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="female">    <label class="custom-control-label" for="hi_gender2_'+householdCount+'">Female</label></div><span class="help-block">    <strong id="err-organization_type"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm" id="hi_relationship_'+householdCount+'" name="hi_relationship['+householdCount+']" aria-describedby="" required><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm dob" id="hi_dob_'+householdCount+'" name="hi_dob['+householdCount+']" aria-describedby="" required placeholder="yyyy-mm-dd"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm" id="hi_emp_status_'+householdCount+'" name="hi_emp_status['+householdCount+']" aria-describedby="" required><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm hi_income" id="hi_income_'+householdCount+'" name="hi_income['+householdCount+']" aria-describedby="" required><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td><button class="btn btn-sm btn-primary del_household" type="button" num="'+householdCount+'"><i class="fa fa-remove" aria-hidden="true"></i></button></td></tr>');
 
             // add uploads row
-            $('#uploads_tbody').append('<tr id="uploads_row_'+householdCount+'"> <td class=" table-active text-right align-middle" width="20%"> <div class="form-group mb-0" id="grp-earnings_proof"> <label class="control-label mb-0" for="earnings_proof"> Proof of Earnings for <span id="hi_name_'+householdCount+'_span"></span> <span class="red">*</span> &nbsp;&nbsp;&nbsp; <i class="fa fa-info-circle" aria-hidden="true" title="Proof of actual earnings must be submitted such as a payslip or job letter for employed household members."></i> </label> </div> </td> <td width="80%"> <div class="input-group mb-0"> <div class="custom-file"> <input type="file" class="custom-file-input" id="earnings_proof" name="earnings_proof['+householdCount+']" required> <label class="custom-file-label" for="earnings_proof">Choose file</label> </div> </div><span class="help-block"> <strong id="err-earnings_proof"></strong> </span> </td> </tr>');
+            $('#uploads_tbody').append('<tr id="uploads_row_'+householdCount+'"> <td class=" table-active text-right align-middle" width="20%"> <div class="form-group mb-0" id="grp-earnings_proof_'+householdCount+'"> <label class="control-label mb-0" for="earnings_proof_'+householdCount+'"> Proof of Earnings for <span id="hi_name_'+householdCount+'_span"></span> <span class="red">*</span> &nbsp;&nbsp;&nbsp; <i class="fa fa-info-circle" aria-hidden="true" title="Proof of actual earnings must be submitted such as a payslip or job letter for employed household members."></i> </label> </div> </td> <td width="80%"> <div class="input-group mb-0"> <div class="custom-file"> <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="earnings_proof_'+householdCount+'" name="earnings_proof['+householdCount+']" required> <label class="custom-file-label" for="earnings_proof_'+householdCount+'" id="earnings_proof_'+householdCount+'Label">Choose file</label> </div> </div><span class="help-block"> <strong id="err-earnings_proof_'+householdCount+'"></strong> </span> </td> </tr>');
 
             // increment count
             householdCount++;
@@ -219,7 +216,5 @@ $(function () {
                 break;
         }
     });
-
-    
 
 });

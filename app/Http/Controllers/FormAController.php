@@ -52,12 +52,12 @@ class FormAController extends Controller
             "emp_auth_person" => "",
             "emp_contact" => "",
 
-            "hi_name" => "required|array",
-            "hi_gender" => "required|array",
-            "hi_relationship" => "required|array",
-            "hi_dob" => "required|array",
-            "hi_emp_status" => "required|array",
-            "hi_income" => "required|array",
+            "hi_name" => "array",
+            "hi_gender" => "array",
+            "hi_relationship" => "array",
+            "hi_dob" => "array",
+            "hi_emp_status" => "array",
+            "hi_income" => "array",
             "hi_total_before" => "required",
 
             "declaration_signature" => "required",
@@ -195,23 +195,35 @@ class FormAController extends Controller
                     
                     "household_income" => [
                         "total_income_before_retrenchment" => $request->hi_total_before,
+                        "data" => [[
+                            "name" => $request->first_name . " " . $request->surname,
+                            "gender" => $request->gender,
+                            "relationship_to_applicant" => "Self",
+                            "date_of_birth" => $request->hi_dob[1],
+                            "age" => age($request->hi_dob[1]),
+                            "employment_status" => $request->emp_classification,
+                            "total_income" => $request->hi_income[1],
+                        ]],
                     ],
                 ];
-                $total = 0;
-                foreach ($request->hi_name as $key => $value) {
-                    $data["household_income"]['data'][]= [
-                        "name" => $request->hi_name[$key],
-                        "gender" => $request->hi_gender[$key],
-                        "relationship_to_applicant" => $request->hi_relationship[$key],
-                        "date_of_birth" => $request->hi_dob[$key],
-                        "age" => age($request->hi_dob[$key]),
-                        "employment_status" => $request->hi_emp_status[$key],
-                        "total_income" => $request->hi_income[$key],
-                    ];
-                    $total += $request->hi_income[$key];
+                $total = $request->hi_income[1];
+                if($request->hi_name){
+                    foreach ($request->hi_name as $key => $value) {
+                        $data["household_income"]['data'][]= [
+                            "name" => $request->hi_name[$key],
+                            "gender" => $request->hi_gender[$key],
+                            "relationship_to_applicant" => $request->hi_relationship[$key],
+                            "date_of_birth" => $request->hi_dob[$key],
+                            "age" => age($request->hi_dob[$key]),
+                            "employment_status" => $request->hi_emp_status[$key],
+                            "total_income" => $request->hi_income[$key],
+                        ];
+                        $total += $request->hi_income[$key];
+                    }
                 }
+                
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
-                // dd($data);
+                dd($data);
                 
                 $curl = curl_init();
                 curl_setopt_array($curl, [

@@ -63,8 +63,8 @@
         var householdCount = {{count($errors)}} + 2;
     </script>
 
-    @yield('scripts')
     <script src="{{ asset('js/app.js') }}" defer></script>
+    @yield('scripts')
 
     <script>
 
@@ -72,12 +72,22 @@
             $('#overlay').fadeOut();
 
             $('[data-toggle="tooltip"]').tooltip()
-            
-            // $("input.phone").mask("(999) 999-9999");
                   
             $('form').submit(function(){
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
                 $('#loadingModal').modal('show');
+            });
+            
+            $(document).on('click', 'a[href="#finish"]', function() {
+                var $myForm = $('form');
+                // alert($myForm[0].checkValidity());
+                
+                // if($myForm[0].checkValidity()) {
+                    $('form').submit();
+                // }else{
+                //     // display errors
+                //     alert('There are errors in the form.');
+                // }
             });
         });
     </script>

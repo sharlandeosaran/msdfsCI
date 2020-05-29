@@ -26,7 +26,6 @@
                 @include('form_b.wizard.submit')
                 
             </div>
-            
         </form>
     </div>
 </main>
