@@ -19,8 +19,8 @@
             
             <div id="wizard">
                 
-                @include('common.wizard.general_info')
                 @include('form_a.wizard.guidelines')
+                @include('common.wizard.general_info')
                 @include('form_a.wizard.employer_info')
                 @include('common.wizard.household_info')
                 @include('common.wizard.uploads')
