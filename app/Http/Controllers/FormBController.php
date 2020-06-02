@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
 use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Cookie;
+use Validator;
 
 class FormBController extends Controller
 {
@@ -28,11 +27,6 @@ class FormBController extends Controller
     {
         // dd($request->all());
         // dd(job_title_with_extra());
-        // dd($request->upload1->getClientOriginalName());
-
-        // $cookie = cookie('name', 'value', 120);
-        // Cookie::make('name', 'some value nah', 360);
-        // dd( Cookie::get('name') );
 
         $validator = Validator::make($request->all(), 
         [
@@ -135,7 +129,7 @@ class FormBController extends Controller
             "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
-            'hi_total_before.required' => 'The total income field is required.',
+            'hi_total_before.required' => 'The total income before reduction field is required.',
             'hi_dob.*.date_format' => 'The date of birth does not match the format yyyy-mm-dd.',
             'hi_dob.1.required' => 'The applicant date of birth field is required.',
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
@@ -152,7 +146,7 @@ class FormBController extends Controller
             'scotia_area.required_if' => 'The branch area field is required when bank name is Scotiabank.',
             'bank_branch.required' => 'The bank branch field is required when bank name is present.',
 
-            'upload.*.mimes' => 'The upload must be a PDF, Word or text document.',
+            'upload.*.mimes' => 'The upload must be a PDF, Word, text document, PNG or JPEG.',
         ]
         );
         
@@ -206,7 +200,7 @@ class FormBController extends Controller
                 return redirect('/form/b')
                 ->withInput()
                 ->withErrors($validator)
-                ->with('cookie', $folder)
+                ->with('folder', $folder)
                 ;
             } else {
                 return redirect('/form/b')

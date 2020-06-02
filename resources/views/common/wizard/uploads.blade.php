@@ -1,5 +1,6 @@
+{{-- if files uploaded but form has errors --}}
 @if (session('folder'))
-    <input type="" name="folder" value="{{session('password')}}">
+    <input type="hidden" name="folder" value="{{session('folder')}}">
 @endif
 
 <h3><i class="fa fa-upload" aria-hidden="true"></i></h3>
