@@ -1,3 +1,7 @@
+@if (session('folder'))
+    <input type="" name="folder" value="{{session('password')}}">
+@endif
+
 <h3><i class="fa fa-upload" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">

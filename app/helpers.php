@@ -49,6 +49,11 @@ function age($dob)
 	return \Carbon\Carbon::parse($dob)->age;
 }
 
+function msTimeStamp()
+{
+	return (string)round(microtime(1) * 1000);
+}
+
 function cities()
 {
 	$list = [
@@ -387,5 +392,113 @@ function citizen_proof()
 		'Passport',
 	];
 	asort($list);
+	return $list;
+}
+
+function job_title()
+{
+	$list = 
+	[
+		[
+			'title' => 'Minister of Religion',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Managing Director, Director or  Manager',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Professionals (University Graduates)',
+			'label' => 'Qualification',
+			'help' => 'The level of certification.',
+		],
+		[
+			'title' => 'Member of Parliament',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Mayor',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Borough or County Councilor',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Notary Public',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Justice of the Peace',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Commissioner of Affidavits',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Senior Public Servants Range 30+',
+			'label' => 'Range',
+			'help' => 'Range of public servant officer.',
+		],
+		[
+			'title' => 'Police Officer Corporal+',
+			'label' => 'Regimental Number',
+			'help' => 'Number issued to officer.',
+		],
+		[
+			'title' => 'Prison Officer II +',
+			'label' => 'Regimental Number',
+			'help' => 'Number issued to officer.',
+		],
+		[
+			'title' => 'Fire Sub-Officer +',
+			'label' => 'Regimental Number',
+			'help' => 'Number issued to officer.',
+		],
+		[
+			'title' => 'Member of Defense Force Corporal/Leading Seaman+',
+			'label' => 'Regimental Number',
+			'help' => 'Number issued to officer.',
+		],
+		[
+			'title' => 'School Principal',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Vice-Principal',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Lecturer',
+			'label' => '',
+			'help' => '',
+		],
+		[
+			'title' => 'Graduate Teacher  I +',
+			'label' => '',
+			'help' => '',
+		],
+	];
+	asort($list);
+	return $list;
+}
+
+function job_title_with_extra()
+{
+	$list = [];
+	foreach (job_title() as $title) {
+		if ($title['label']) $list[] = $title['title'];
+	}
 	return $list;
 }

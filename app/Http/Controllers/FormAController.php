@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Validation\Rule;
 use Validator;
 
 class FormAController extends Controller
@@ -16,6 +17,8 @@ class FormAController extends Controller
             'banks' => banks(),
             'scotia' => scotia(),
             'citizen_proof' => citizen_proof(),
+            'job_title' => job_title(),
+            'form' => 'A',
         ];
         
         return view('form_a.wizard.wizard', $data);
@@ -23,42 +26,63 @@ class FormAController extends Controller
 
     public function store(Request $request)
     {
-        // dd(config('curl.url.forma', ''));
-        // dd($request->all());
+        dd($request->all());
         // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
         [
             "first_name" => "required|max:150",
             "surname" => "required|max:150",
-            "gender" => "",
-            "contact_no" => "",
+            "gender" => "required",
+            "contact_no" => [
+                "required",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+            ],
             "email" => "required|email|max:300",
-            "home_address" => "",
-            "national_id" => "",
-            "nis" => "",
-            "emp_classification" => "",
-            "effective_date" => "",
-            "assistance_sought" => "required|array",
-            "landlord_name" => "",
-            "landlord_contact_no" => "",
+            "home_address" => "required",
+            "city_town" => "required",
+            "citizen_proof" => "required",
+            "national_id" => "required|regex:/^[0-9]{11}+$/",
+            "nis" => "nullable|regex:/^[0-9]{9}+$/",
+            "emp_classification" => "required",
+            "effective_date" => "required|date_format:Y-m-d",
             "job_title" => "",
+            "assistance_sought" => "required|array",
+
+            "landlord_first_name" => "max:150",
+            "landlord_surname" => "max:150",
+            "landlord_contact_no" => [
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+            ],
+            "rental_amount" => "",
+
             "bank_name" => "",
             "bank_branch" => "",
             "bank_account" => "",
+            "scotia_area" => "",
 
-            "emp_name" => "",
+            "emp_name" => "max:300",
             "emp_address" => "",
-            "emp_auth_person" => "",
-            "emp_contact" => "",
+            "emp_auth_person" => "max:300",
+            "emp_contact" => [
+                "required",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+            ],
 
             "hi_name" => "array",
             "hi_gender" => "array",
             "hi_relationship" => "array",
-            "hi_dob" => "array",
+            "hi_dob" => "required|array",
             "hi_emp_status" => "array",
-            "hi_income" => "array",
+            "hi_income" => "required|array",
             "hi_total_before" => "required",
+            
+            "hi_name.*" => "required|max:300",
+            "hi_gender.*" => "required",
+            "hi_relationship.*" => "required|max:150",
+            "hi_dob.*" => "required|date_format:Y-m-d",
+            "hi_emp_status.*" => "required|max:150",
+            "hi_income.*" => "required",
 
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
@@ -66,17 +90,24 @@ class FormAController extends Controller
             "signature" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "id_card_front" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "id_card_back" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "upload_name" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            "cert_residence" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "proof_affected_income" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "rental_agreement" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             "rent_receipt" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
-            "earnings_proof" => "array",
-            "earnings_proof.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "proof_of_earnings" => "array",
+            "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
             'hi_total_before.required' => 'The total income field is required.',
+            'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
+            'hi_dob.*.date_format' => 'The date of birth does not match the format yyyy-mm-dd.',
+            'nis.regex' => 'The format for the national insurance number is xxxxxxxxx (9 digits).',
+            'contact_no.regex' => 'The format for the contact number is xxx-xxxx.',
+            'national_id.regex' => 'The format for the national id is xxxxxxxxxxx (11 digits).',
             'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
             'upload.*.mimes' => 'The upload must be a PDF, Word or text document.',
         ]
@@ -85,6 +116,13 @@ class FormAController extends Controller
         // check for recaptcha
         $validator->after(function ($validator)  use ($request) 
         {
+            if ($request->hi_name) {
+                foreach ($request->hi_name as $key => $value) {
+                    if (!isset($request->hi_gender[$key])) {
+                        $validator->errors()->add('hi_gender.'.$key, 'The gender field is required.');
+                    }
+                }
+            }
 
 			/* $url = 'https://www.google.com/recaptcha/api/siteverify';
 			$data = [
@@ -134,9 +172,14 @@ class FormAController extends Controller
             // 'copy_of_landperson_id' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
 
             // // 'declaration_truth' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            
-            // 'proof_of_earnings' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
         ];
+
+        if ($request->proof_of_earnings) {
+            foreach ($request->proof_of_earnings as $key => $value) {
+                if( !empty( $_FILES['proof_of_earnings']['tmp_name'][$key] ) && is_uploaded_file( $_FILES['proof_of_earnings']['tmp_name'][$key] ) ) 
+                $data_files['proof_of_earnings'][$key] = new \CURLFILE($_FILES['proof_of_earnings']['tmp_name'][$key], $_FILES['proof_of_earnings']['type'][$key], $_FILES['proof_of_earnings']['name'][$key] );
+            }
+        }
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -223,7 +266,8 @@ class FormAController extends Controller
                 }
                 
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
-                dd($data);
+                dd(json_encode($data));
+                // dd($data);
                 
                 $curl = curl_init();
                 curl_setopt_array($curl, [

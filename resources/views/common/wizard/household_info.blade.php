@@ -34,11 +34,11 @@
                                 <div class="form-group">
                                     
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender1" name="hi_gender[1]" class="custom-control-input hi_gender_male" value="male" {{old('gender') == 'male'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender1" name="hi_gender[1]" class="custom-control-input hi_gender_M" value="M" {{old('gender') == 'M'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender1">Male</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender2" name="hi_gender[1]" class="custom-control-input hi_gender_female" value="female" {{old('gender') == 'female'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender2" name="hi_gender[1]" class="custom-control-input hi_gender_F" value="F" {{old('gender') == 'F'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender2">Female</label>
                                     </div>
                                 </div>
@@ -49,11 +49,11 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="form-group{{ $errors->has('hi_dob.1') ? ' has-error' : '' }}" id="grp-hi_dob_1">
+                                <div class="form-group{{ $errors->has('hi_dob.1') ? ' has-error' : '' }} grp-hi_dob_1">
                                     <input type="text" class="form-control form-control-sm dob" id="hi_dob_1" name="hi_dob[1]" aria-describedby="" value="{{old('hi_dob.1')? old('hi_dob.1') : '' }}" required placeholder="yyyy-mm-dd">
                                     
                                     <span class="help-block">
-                                        <strong id="err-hi_dob.1">{{ $errors->first('hi_dob.1') }}</strong>
+                                        <strong id="err-hi_dob_1">{{ $errors->first('hi_dob.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -63,11 +63,11 @@
                                 </div>
                             </td>
                             <td>
-                                <div class="form-group{{ $errors->has('hi_income.1') ? ' has-error' : '' }}" id="grp-hi_income_1">
+                                <div class="form-group{{ $errors->has('hi_income.1') ? ' has-error' : '' }} grp-hi_income_1">
                                     <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '' }}" required>
                                     
                                     <span class="help-block">
-                                        <strong id="err-hi_income.1">{{ $errors->first('hi_income.1') }}</strong>
+                                        <strong id="err-hi_income_1">{{ $errors->first('hi_income.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -79,64 +79,63 @@
                                 @if ($key != 1)
                                 <tr id="household_row_{{$key}}">
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_name.'.$key) ? ' has-error' : '' }}" id="grp-hi_name.{{$key}}">
+                                        <div class="form-group{{ $errors->has('hi_name.'.$key) ? ' has-error' : '' }} grp-hi_name_{{$key}}">
                                             <input type="text" class="form-control form-control-sm hi_name" id="hi_name_{{$key}}" name="hi_name[{{$key}}]" aria-describedby="" value="{{old('hi_name.'.$key)? old('hi_name.'.$key) : '' }}" required>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_name.{{$key}}">{{ $errors->first('hi_name.'.$key) }}</strong>
+                                                <strong id="err-hi_name_{{$key}}">{{ $errors->first('hi_name.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }}" id="grp-hi_gender.{{$key}}">
-                                            {{old('hi_gender.'.$key)}}
+                                        <div class="form-group{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="hi_gender_{{$key}}_1" name="hi_gender[{{$key}}]" class="custom-control-input" value="male" {{old('hi_gender.'.$key) == 'male'? 'checked' : '' }}>
+                                                <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_1" name="hi_gender[{{$key}}]" class="custom-control-input" value="M" {{old('hi_gender.'.$key) == 'M'? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="hi_gender_{{$key}}_1">Male</label>
                                             </div>
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="hi_gender_{{$key}}_2" name="hi_gender[{{$key}}]" class="custom-control-input" value="female" {{old('hi_gender.'.$key) == 'female'? 'checked' : '' }}>
+                                                <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_2" name="hi_gender[{{$key}}]" class="custom-control-input" value="F" {{old('hi_gender.'.$key) == 'F'? 'checked' : '' }}>
                                                 <label class="custom-control-label" for="hi_gender_{{$key}}_2">Female</label>
                                             </div>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_gender.{{$key}}">{{ $errors->first('hi_gender.'.$key) }}</strong>
+                                                <strong id="err-hi_gender_{{$key}}">{{ $errors->first('hi_gender.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }}" id="grp-hi_relationship.{{$key}}">
+                                        <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
                                             <input type="text" class="form-control form-control-sm" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]" aria-describedby="" value="{{old('hi_relationship.'.$key)? old('hi_relationship.'.$key) : '' }}" required>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_relationship.{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
+                                                <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }}" id="grp-hi_dob.{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_dob_{{$key}}" name="hi_dob[{{$key}}]" aria-describedby="" value="{{old('hi_dob.'.$key)? old('hi_dob.'.$key) : '' }}" required placeholder="yyyy-mm-dd">
+                                        <div class="form-group{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }} grp-hi_dob_{{$key}}">
+                                            <input type="text" class="form-control form-control-sm dob" id="hi_dob_{{$key}}" name="hi_dob[{{$key}}]" aria-describedby="" value="{{old('hi_dob.'.$key)? old('hi_dob.'.$key) : '' }}" required placeholder="yyyy-mm-dd">
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_dob.{{$key}}">{{ $errors->first('hi_dob.'.$key) }}</strong>
+                                                <strong id="err-hi_dob_{{$key}}">{{ $errors->first('hi_dob.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }}" id="grp-hi_emp_status.{{$key}}">
+                                        <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
                                             <input type="text" class="form-control form-control-sm" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status.'.$key)? old('hi_emp_status.'.$key) : '' }}" required>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_emp_status.{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
+                                                <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_income.'.$key) ? ' has-error' : '' }}" id="grp-hi_income.{{$key}}">
+                                        <div class="form-group{{ $errors->has('hi_income.'.$key) ? ' has-error' : '' }} grp-hi_income_{{$key}}">
                                             <input type="number" min="0" step="{{$key}}" class="form-control form-control-sm hi_income" id="hi_income_{{$key}}" name="hi_income[{{$key}}]" aria-describedby="" value="{{old('hi_income.'.$key)? old('hi_income.'.$key) : '0' }}" required>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_income.{{$key}}">{{ $errors->first('hi_income.'.$key) }}</strong>
+                                                <strong id="err-hi_income_{{$key}}">{{ $errors->first('hi_income.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
@@ -176,7 +175,7 @@
                                 </p>
                             </th>
                             <th>
-                                <div class="form-group{{ $errors->has('hi_total_before') ? ' has-error' : '' }} mb-0" id="grp-hi_total_before">
+                                <div class="form-group{{ $errors->has('hi_total_before') ? ' has-error' : '' }} mb-0 grp-hi_total_before">
                                     <input type="text" class="form-control" id="hi_total_before" name="hi_total_before" required value="{{old('hi_total_before')}}">
                                     
                                     <span class="help-block">

@@ -77,6 +77,18 @@
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
                 $('#loadingModal').modal('show');
             });
+            // clear error messgaes
+            $(document).on('change', '.form-control, .custom-control-input, .custom-file-input', function() {
+                var field = $(this).prop('name');
+                var id = $(this).prop('id');
+                var gender = $(this).attr('gender');
+                $('.grp-'+field).removeClass('has-error');
+                $('#err-'+field).html('');
+                $('.grp-'+id).removeClass('has-error');
+                $('#err-'+id).html('');
+                $('.grp-'+gender).removeClass('has-error');
+                $('#err-'+gender).html('');
+            });
             
             $(document).on('click', 'a[href="#finish"]', function() {
                 var $myForm = $('form');

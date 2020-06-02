@@ -11,7 +11,7 @@
                     <tbody>
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }}" id="grp-recommender_first_name">
+                                <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }} grp-recommender_first_name">
                                     <label class="control-label mb-0" for="recommender_first_name">
                                         First Name <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
@@ -19,7 +19,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }}" id="grp-recommender_first_name">
+                                <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }} grp-recommender_first_name">
                                     <input type="text" class="form-control" id="recommender_first_name" name="recommender_first_name" aria-describedby="" value="{{old('recommender_first_name')? old('recommender_first_name') : '' }}" required>
                                     
                                     <span class="help-block">
@@ -31,7 +31,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }}" id="grp-recommender_surname">
+                                <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }} grp-recommender_surname">
                                     <label class="control-label mb-0" for="recommender_surname">
                                         Surname <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your recommender_surname, for example "Doe".'></i>
@@ -39,7 +39,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }}" id="grp-recommender_surname">
+                                <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }} grp-recommender_surname">
                                     <input type="text" class="form-control" id="recommender_surname" name="recommender_surname" aria-describedby="" value="{{old('recommender_surname')? old('recommender_surname') : '' }}" required>
                                     
                                     <span class="help-block">
@@ -51,7 +51,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_gender') ? ' has-error' : '' }}" id="grp-recommender_gender">
+                                <div class="form-group mb-0{{ $errors->has('recommender_gender') ? ' has-error' : '' }} grp-recommender_gender">
                                     <label class="control-label mb-0" for="recommender_gender">
                                         Gender <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please select your gender, for example "Female".'></i>
@@ -59,17 +59,17 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_gender') ? ' has-error' : '' }}" id="grp-recommender_gender">
+                                <div class="form-group mb-0{{ $errors->has('recommender_gender') ? ' has-error' : '' }} grp-recommender_gender">
                                     <div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="recommender_male" name="recommender_gender" class="custom-control-input" value="male" required {{old('recommender_gender') == 'male'? 'checked' : '' }}>
+                                                <input type="radio" id="recommender_male" name="recommender_gender" class="custom-control-input" value="M" required {{old('recommender_gender') == 'M'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="recommender_male">Male</label>
                                             </div>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="recommender_female" name="recommender_gender" class="custom-control-input" value="female" {{old('recommender_gender') == 'female'? 'checked' : '' }}>
+                                                <input type="radio" id="recommender_female" name="recommender_gender" class="custom-control-input" value="F" {{old('recommender_gender') == 'F'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="recommender_female">Female</label>
                                             </div>
                                         </div>
@@ -84,7 +84,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_job_title') ? ' has-error' : '' }}" id="grp-recommender_job_title">
+                                <div class="form-group mb-0{{ $errors->has('recommender_job_title') ? ' has-error' : '' }} grp-recommender_job_title">
                                     <label class="control-label mb-0" for="recommender_job_title">
                                         Job Title <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
@@ -92,8 +92,13 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_job_title') ? ' has-error' : '' }}" id="grp-recommender_job_title">
-                                    <input type="text" class="form-control" id="recommender_job_title" name="recommender_job_title" aria-describedby="" value="{{old('recommender_job_title')? old('recommender_job_title') : '' }}" required>
+                                <div class="form-group mb-0{{ $errors->has('recommender_job_title') ? ' has-error' : '' }} grp-recommender_job_title">
+                                    <select class="form-control" id="recommender_job_title" name="recommender_job_title" required>
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($job_title as $key => $title)
+                                        <option {{old('recommender_job_title') == $title['title']? 'selected' : '' }} num="{{$key}}">{{$title['title']}}</option>
+                                        @endforeach
+                                    </select>
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_job_title">{{ $errors->first('recommender_job_title') }}</strong>
@@ -102,9 +107,29 @@
                             </td>
                         </tr>
                         
+                        <tr id="recommender_job_title_info_row" class="{{in_array(old('recommender_job_title'), job_title_with_extra())? '' : 'hide'}}">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('recommender_job_title_info') ? ' has-error' : '' }} grp-recommender_job_title_info">
+                                    <label class="control-label mb-0" for="recommender_job_title_info">
+                                        <span id="recommender_job_title_label">Label</span> <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" id="recommender_job_title_help"></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('recommender_job_title_info') ? ' has-error' : '' }} grp-recommender_job_title_info">
+                                    <input type="text" class="form-control" id="recommender_job_title_info" name="recommender_job_title_info" aria-describedby="" value="{{old('recommender_job_title_info')? old('recommender_job_title_info') : '' }}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-recommender_job_title_info">{{ $errors->first('recommender_job_title_info') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }}" id="grp-recommender_contact_no">
+                                <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }} grp-recommender_contact_no">
                                     <label class="control-label mb-0" for="recommender_contact_no">
                                         Contact Number <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your contact number, for example "(868) 555-1234".'></i>
@@ -112,7 +137,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }}" id="grp-recommender_contact_no">
+                                <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }} grp-recommender_contact_no">
                                     <input type="text" class="form-control" id="recommender_contact_no" name="recommender_contact_no" aria-describedby="" value="{{old('recommender_contact_no')? old('recommender_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx">
                                     
                                     <span class="help-block">
@@ -124,7 +149,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }}" id="grp-recommender_email">
+                                <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }} grp-recommender_email">
                                     <label class="control-label mb-0" for="recommender_email">
                                         Email Address 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your email address, for example "example@email.com".'></i>
@@ -132,7 +157,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }}" id="grp-recommender_email">
+                                <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }} grp-recommender_email">
                                     <input type="email" class="form-control" id="recommender_email" name="recommender_email" aria-describedby="" value="{{old('recommender_email')? old('recommender_email') : '' }}" placeholder="example@email.com">
                                     
                                     <span class="help-block">
@@ -144,7 +169,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }}" id="grp-recommender_home_address">
+                                <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }} grp-recommender_home_address">
                                     <label class="control-label mb-0" for="recommender_home_address">
                                         Home Address <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
@@ -152,7 +177,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }}" id="grp-recommender_home_address">
+                                <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }} grp-recommender_home_address">
                                     <textarea class="form-control" id="recommender_home_address" name="recommender_home_address" rows="3" required>{{old('recommender_home_address')? old('recommender_home_address') : '' }}</textarea>
                                     
                                     <span class="help-block">
@@ -164,7 +189,7 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }}" id="grp-recommender_years_known">
+                                <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }} grp-recommender_years_known">
                                     <label class="control-label mb-0" for="recommender_years_known">
                                         Period Known <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
@@ -172,7 +197,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }}" id="grp-recommender_years_known">
+                                <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }} grp-recommender_years_known">
                                     <div class="input-group">
                                         <input type="number" min="0" step="1" class="form-control" id="recommender_years_known" name="recommender_years_known" aria-describedby="" value="{{old('recommender_years_known')? old('recommender_years_known') : '' }}" required>
                                         <div class="input-group-append">

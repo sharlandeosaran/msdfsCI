@@ -43,6 +43,20 @@
         $('#uploadsSection').html('4');
 
         $('.self-employed').removeClass('hide');
+
+        // recommender help based on selection
+        var titles = {!! json_encode($job_title) !!};
+        $(document).on('change', '#recommender_job_title', function() {
+            var key = $(this).children("option:selected").attr('num');
+
+            if (titles[key]['label']) {
+                $('#recommender_job_title_info_row').removeClass('hide');
+                $('#recommender_job_title_label').html(titles[key]['label']);
+                $('#recommender_job_title_help').prop('title', titles[key]['help']);
+            } else {
+                $('#recommender_job_title_info_row').addClass('hide');
+            }
+        });
     });
 </script>
 
