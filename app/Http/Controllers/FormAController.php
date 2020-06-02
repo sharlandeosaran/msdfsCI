@@ -31,39 +31,64 @@ class FormAController extends Controller
 
         $validator = Validator::make($request->all(), 
         [
-            "first_name" => "required|max:150",
-            "surname" => "required|max:150",
-            "gender" => "required",
+            "first_name" => "required|max:50",
+            "surname" => "required|max:50",
+            "gender" => [
+                'required',
+                Rule::in(['M', 'F']),
+            ],
             "contact_no" => [
                 "required",
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
             ],
-            "email" => "required|email|max:300",
-            "home_address" => "required",
-            "city_town" => "required",
-            "citizen_proof" => "required",
+            "email" => "required|email|max:250",
+            "home_address" => "required|max:250",
+            "city_town" => "required|max:25",
+            "citizen_proof" => "required|max:50",
             "national_id" => "required|regex:/^[0-9]{11}+$/",
             "nis" => "nullable|regex:/^[0-9]{9}+$/",
-            "emp_classification" => "required",
+            "employment_classification" => "required|max:14",
             "effective_date" => "required|date_format:Y-m-d",
-            "job_title" => "",
+            "job_title" => "nullable|max:150",
             "assistance_sought" => "required|array",
+            "proof_of_citizenship" => "required",
 
-            "landlord_first_name" => "max:150",
-            "landlord_surname" => "max:150",
-            "landlord_contact_no" => [
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+            "assistance_sought.*" => "boolean",
+
+            "landlord_first_name" => [
+                "nullable",
+                "max:50",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
             ],
-            "rental_amount" => "",
+            "landlord_surname" => [
+                "nullable",
+                "max:50",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "landlord_contact_no" => [
+                "nullable",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "rental_amount" => [
+                "nullable",
+                "numeric",
+                "min:0",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
 
-            "bank_name" => "",
-            "bank_branch" => "",
-            "bank_account" => "",
-            "scotia_area" => "",
+            "bank_name" => "nullable|max:25",
+            "bank_branch" => [
+                'nullable',
+                'max:25',
+                Rule::requiredIf($request->bank_name != 'Scotiabank' && $request->bank_name),
+            ],
+            "scotia_area" => "nullable|numeric|required_if:bank_name,Scotiabank",
+            "bank_account" => "nullable|max:15|regex:/^[0-9-]+$/|required_with:bank_name",
 
-            "emp_name" => "max:300",
-            "emp_address" => "",
-            "emp_auth_person" => "max:300",
+            "emp_name" => "required|max:100",
+            "emp_address" => "required|max:250",
+            "emp_auth_person" => "required|max:100",
             "emp_contact" => [
                 "required",
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
@@ -75,14 +100,18 @@ class FormAController extends Controller
             "hi_dob" => "required|array",
             "hi_emp_status" => "array",
             "hi_income" => "required|array",
-            "hi_total_before" => "required",
+            "hi_total_before" => "required|numeric|min:0",
             
-            "hi_name.*" => "required|max:300",
-            "hi_gender.*" => "required",
-            "hi_relationship.*" => "required|max:150",
+            "hi_name.*" => "required|max:100",
+            "hi_gender.*" => [
+                'required',
+                Rule::in(['M', 'F']),
+            ],
+            "hi_relationship.*" => "required|max:25",
             "hi_dob.*" => "required|date_format:Y-m-d",
-            "hi_emp_status.*" => "required|max:150",
-            "hi_income.*" => "required",
+            "hi_emp_status.*" => "required|max:25",
+            "hi_income.1" => "required",
+            "hi_income.*" => "numeric|min:0",
 
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
@@ -102,14 +131,30 @@ class FormAController extends Controller
             "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
-            'hi_total_before.required' => 'The total income field is required.',
-            'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
+            'landlord_first_name.required' => 'The landlord first name field is required when rental assistance is sought.',
+            'landlord_surname.required' => 'The landlord surname field is required when rental assistance is sought.',
+            'landlord_contact_no.required' => 'The landlord contact number field is required when rental assistance is sought.',
+            'rental_amount.required' => 'The rental amount field is required when rental assistance is sought.',
+            
+            'hi_total_before.required' => 'The total income before reduction field is required.',
+            'hi_total_before.numeric' => 'The total income before reduction must be a number.',
             'hi_dob.*.date_format' => 'The date of birth does not match the format yyyy-mm-dd.',
-            'nis.regex' => 'The format for the national insurance number is xxxxxxxxx (9 digits).',
+            'hi_dob.1.required' => 'The applicant date of birth field is required.',
+            'hi_dob.*.required' => 'The household occupant date of birth field is required.',
+            'hi_relationship.*.required' => 'The household occupant relationship field is required.',
+            'hi_emp_status.*.required' => 'The household occupant employment status field is required.',
+            'hi_name.*.required' => 'The household occupant name field is required.',
+            'hi_income.1.required' => 'The applicant total income field is required.',
+
+            'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
             'contact_no.regex' => 'The format for the contact number is xxx-xxxx.',
+            'nis.regex' => 'The format for the national insurance number is xxxxxxxxx (9 digits).',
             'national_id.regex' => 'The format for the national id is xxxxxxxxxxx (11 digits).',
-            'comments.*.max' => 'Comments cannot be more than 5000 characters long.',
-            'upload.*.mimes' => 'The upload must be a PDF, Word or text document.',
+
+            'scotia_area.required_if' => 'The branch area field is required when bank name is Scotiabank.',
+            'bank_branch.required' => 'The bank branch field is required when bank name is present.',
+
+            'upload.*.mimes' => 'The upload must be a PDF, Word, text document, PNG or JPEG.',
         ]
         );
 

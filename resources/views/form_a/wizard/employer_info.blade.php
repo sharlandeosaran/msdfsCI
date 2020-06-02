@@ -19,7 +19,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <input type="text" class="form-control" id="emp_name" name="emp_name" aria-describedby="" value="{{old('emp_name')? old('emp_name') : '' }}" required>
+                                <input type="text" class="form-control" id="emp_name" name="emp_name" aria-describedby="" value="{{old('emp_name')? old('emp_name') : '' }}" required maxlength="100">
                                 
                                 <span class="help-block">
                                     <strong id="err-emp_name">{{ $errors->first('emp_name') }}</strong>
@@ -37,7 +37,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <textarea class="form-control" id="emp_address" name="emp_address" rows="3">{{old('emp_address')? old('emp_address') : '' }}</textarea>
+                                <textarea class="form-control" id="emp_address" name="emp_address" rows="3" maxlength="250">{{old('emp_address')? old('emp_address') : '' }}</textarea>
                                 
                                 <span class="help-block">
                                     <strong id="err-emp_address">{{ $errors->first('emp_address') }}</strong>
@@ -55,7 +55,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <input type="text" class="form-control" id="emp_auth_person" name="emp_auth_person" aria-describedby="" value="{{old('emp_auth_person')? old('emp_auth_person') : '' }}" required>
+                                <input type="text" class="form-control" id="emp_auth_person" name="emp_auth_person" aria-describedby="" value="{{old('emp_auth_person')? old('emp_auth_person') : '' }}" required maxlength="100">
                                 
                                 <span class="help-block">
                                     <strong id="err-emp_auth_person">{{ $errors->first('emp_auth_person') }}</strong>
@@ -73,7 +73,7 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <input type="text" class="form-control" id="emp_contact" name="emp_contact" aria-describedby="" value="{{old('emp_contact')? old('emp_contact') : '' }}" required placeholder="(xxx) xxx-xxxx">
+                                <input type="text" class="form-control" id="emp_contact" name="emp_contact" aria-describedby="" value="{{old('emp_contact')? old('emp_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                 
                                 <span class="help-block">
                                     <strong id="err-emp_contact">{{ $errors->first('emp_contact') }}</strong>

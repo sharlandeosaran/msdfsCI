@@ -80,7 +80,7 @@
                                 <tr id="household_row_{{$key}}">
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_name.'.$key) ? ' has-error' : '' }} grp-hi_name_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm hi_name" id="hi_name_{{$key}}" name="hi_name[{{$key}}]" aria-describedby="" value="{{old('hi_name.'.$key)? old('hi_name.'.$key) : '' }}" required>
+                                            <input type="text" class="form-control form-control-sm hi_name" id="hi_name_{{$key}}" name="hi_name[{{$key}}]" aria-describedby="" value="{{old('hi_name.'.$key)? old('hi_name.'.$key) : '' }}" required maxlength="100">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_name_{{$key}}">{{ $errors->first('hi_name.'.$key) }}</strong>
@@ -105,7 +105,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]" aria-describedby="" value="{{old('hi_relationship.'.$key)? old('hi_relationship.'.$key) : '' }}" required>
+                                            <input type="text" class="form-control form-control-sm" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]" aria-describedby="" value="{{old('hi_relationship.'.$key)? old('hi_relationship.'.$key) : '' }}" required maxlength="25">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
@@ -123,7 +123,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status.'.$key)? old('hi_emp_status.'.$key) : '' }}" required>
+                                            <input type="text" class="form-control form-control-sm" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status.'.$key)? old('hi_emp_status.'.$key) : '' }}" required maxlength="25">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
@@ -132,7 +132,7 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_income.'.$key) ? ' has-error' : '' }} grp-hi_income_{{$key}}">
-                                            <input type="number" min="0" step="{{$key}}" class="form-control form-control-sm hi_income" id="hi_income_{{$key}}" name="hi_income[{{$key}}]" aria-describedby="" value="{{old('hi_income.'.$key)? old('hi_income.'.$key) : '0' }}" required>
+                                            <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_{{$key}}" name="hi_income[{{$key}}]" aria-describedby="" value="{{old('hi_income.'.$key)? old('hi_income.'.$key) : '0' }}" required>
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_income_{{$key}}">{{ $errors->first('hi_income.'.$key) }}</strong>
@@ -168,7 +168,7 @@
                                 <button class="btn btn-sm btn-success add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </th>
                         </tr>
-                        <tr>
+                        <tr style="background-color: rgba(0,0,0,0.05);">
                             <th colspan="5">
                                 <p class="text-right mb-0 {{$errors->has('hi_total_before')? 'text-primary' : ''}}">
                                     Total income before retrenchment/ termination/ reduction in income <span class="red">*</span>:
@@ -176,7 +176,7 @@
                             </th>
                             <th>
                                 <div class="form-group{{ $errors->has('hi_total_before') ? ' has-error' : '' }} mb-0 grp-hi_total_before">
-                                    <input type="text" class="form-control" id="hi_total_before" name="hi_total_before" required value="{{old('hi_total_before')}}">
+                                    <input type="number" min="0" step="1" class="form-control" id="hi_total_before" name="hi_total_before" required value="{{old('hi_total_before')}}">
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_total_before">{{ $errors->first('hi_total_before') }}</strong>

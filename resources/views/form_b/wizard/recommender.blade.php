@@ -20,7 +20,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }} grp-recommender_first_name">
-                                    <input type="text" class="form-control" id="recommender_first_name" name="recommender_first_name" aria-describedby="" value="{{old('recommender_first_name')? old('recommender_first_name') : '' }}" required>
+                                    <input type="text" class="form-control" id="recommender_first_name" name="recommender_first_name" aria-describedby="" value="{{old('recommender_first_name')? old('recommender_first_name') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_first_name">{{ $errors->first('recommender_first_name') }}</strong>
@@ -40,7 +40,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }} grp-recommender_surname">
-                                    <input type="text" class="form-control" id="recommender_surname" name="recommender_surname" aria-describedby="" value="{{old('recommender_surname')? old('recommender_surname') : '' }}" required>
+                                    <input type="text" class="form-control" id="recommender_surname" name="recommender_surname" aria-describedby="" value="{{old('recommender_surname')? old('recommender_surname') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_surname">{{ $errors->first('recommender_surname') }}</strong>
@@ -118,7 +118,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_job_title_info') ? ' has-error' : '' }} grp-recommender_job_title_info">
-                                    <input type="text" class="form-control" id="recommender_job_title_info" name="recommender_job_title_info" aria-describedby="" value="{{old('recommender_job_title_info')? old('recommender_job_title_info') : '' }}">
+                                    <input type="text" class="form-control" id="recommender_job_title_info" name="recommender_job_title_info" aria-describedby="" value="{{old('recommender_job_title_info')? old('recommender_job_title_info') : '' }}" maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_job_title_info">{{ $errors->first('recommender_job_title_info') }}</strong>
@@ -138,7 +138,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }} grp-recommender_contact_no">
-                                    <input type="text" class="form-control" id="recommender_contact_no" name="recommender_contact_no" aria-describedby="" value="{{old('recommender_contact_no')? old('recommender_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx">
+                                    <input type="text" class="form-control" id="recommender_contact_no" name="recommender_contact_no" aria-describedby="" value="{{old('recommender_contact_no')? old('recommender_contact_no') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_contact_no">{{ $errors->first('recommender_contact_no') }}</strong>
@@ -158,7 +158,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }} grp-recommender_email">
-                                    <input type="email" class="form-control" id="recommender_email" name="recommender_email" aria-describedby="" value="{{old('recommender_email')? old('recommender_email') : '' }}" placeholder="example@email.com">
+                                    <input type="email" class="form-control" id="recommender_email" name="recommender_email" aria-describedby="" value="{{old('recommender_email')? old('recommender_email') : '' }}" placeholder="example@email.com" maxlength="250">
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_email">{{ $errors->first('recommender_email') }}</strong>
@@ -178,7 +178,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }} grp-recommender_home_address">
-                                    <textarea class="form-control" id="recommender_home_address" name="recommender_home_address" rows="3" required>{{old('recommender_home_address')? old('recommender_home_address') : '' }}</textarea>
+                                    <textarea class="form-control" id="recommender_home_address" name="recommender_home_address" rows="3" required maxlength="250">{{old('recommender_home_address')? old('recommender_home_address') : '' }}</textarea>
                                     
                                     <span class="help-block">
                                         <strong id="err-recommender_home_address">{{ $errors->first('recommender_home_address') }}</strong>
@@ -199,7 +199,7 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }} grp-recommender_years_known">
                                     <div class="input-group">
-                                        <input type="number" min="0" step="1" class="form-control" id="recommender_years_known" name="recommender_years_known" aria-describedby="" value="{{old('recommender_years_known')? old('recommender_years_known') : '' }}" required>
+                                        <input type="number" min="0" max="99" step="1" class="form-control" id="recommender_years_known" name="recommender_years_known" aria-describedby="" value="{{old('recommender_years_known')? old('recommender_years_known') : '' }}" required>
                                         <div class="input-group-append">
                                             <span class="input-group-text">years</span>
                                         </div>

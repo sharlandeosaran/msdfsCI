@@ -54,12 +54,27 @@ class FormBController extends Controller
 
             "assistance_sought.*" => "boolean",
 
-            "landlord_first_name" => "max:50",
-            "landlord_surname" => "max:50",
-            "landlord_contact_no" => [
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+            "landlord_first_name" => [
+                "nullable",
+                "max:50",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
             ],
-            "rental_amount" => "",
+            "landlord_surname" => [
+                "nullable",
+                "max:50",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "landlord_contact_no" => [
+                "nullable",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "rental_amount" => [
+                "nullable",
+                "numeric",
+                "min:0",
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
 
             "bank_name" => "nullable|max:25",
             "bank_branch" => [
@@ -76,34 +91,34 @@ class FormBController extends Controller
             "hi_dob" => "required|array",
             "hi_emp_status" => "array",
             "hi_income" => "required|array",
-            "hi_total_before" => "required",
+            "hi_total_before" => "required|numeric|min:0",
             
-            "hi_name.*" => "required|max:300",
+            "hi_name.*" => "required|max:100",
             "hi_gender.*" => [
                 'required',
                 Rule::in(['M', 'F']),
             ],
-            "hi_relationship.*" => "required|max:150",
+            "hi_relationship.*" => "required|max:25",
             "hi_dob.*" => "required|date_format:Y-m-d",
-            "hi_emp_status.*" => "required|max:150",
+            "hi_emp_status.*" => "required|max:25",
             "hi_income.1" => "required",
-            "hi_income.*" => "",
+            "hi_income.*" => "numeric|min:0",
 
-            "recommender_first_name" => "required",
-            "recommender_surname" => "required",
+            "recommender_first_name" => "required|max:50",
+            "recommender_surname" => "required|max:50",
             "recommender_gender" => [
                 'required',
                 Rule::in(['M', 'F']),
             ],
-            "recommender_job_title" => "required",
+            "recommender_job_title" => "required|max:150",
             "recommender_contact_no" => [
                 "required",
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
             ],
-            "recommender_email" => "nullable|email",
-            "recommender_home_address" => "required",
-            "recommender_city_town" => "required",
-            "recommender_years_known" => "required|numeric",
+            "recommender_email" => "nullable|email|max:250",
+            "recommender_home_address" => "required|max:250",
+            "recommender_city_town" => "required|max:25",
+            "recommender_years_known" => "required|numeric|max:99|min:0",
             "recommender_job_title_info" => [
                 'nullable',
                 'max:50',
@@ -129,7 +144,13 @@ class FormBController extends Controller
             "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
+            'landlord_first_name.required' => 'The landlord first name field is required when rental assistance is sought.',
+            'landlord_surname.required' => 'The landlord surname field is required when rental assistance is sought.',
+            'landlord_contact_no.required' => 'The landlord contact number field is required when rental assistance is sought.',
+            'rental_amount.required' => 'The rental amount field is required when rental assistance is sought.',
+            
             'hi_total_before.required' => 'The total income before reduction field is required.',
+            'hi_total_before.numeric' => 'The total income before reduction must be a number.',
             'hi_dob.*.date_format' => 'The date of birth does not match the format yyyy-mm-dd.',
             'hi_dob.1.required' => 'The applicant date of birth field is required.',
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
