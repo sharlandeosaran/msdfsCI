@@ -54,6 +54,16 @@ function msTimeStamp()
 	return (string)round(microtime(1) * 1000);
 }
 
+function search_for_title($id, $array) 
+{
+	foreach ($array as $key => $val) {
+		if ($val['title'] === $id) {
+			return $key;
+		}
+	}
+	return null;
+ }
+
 function cities()
 {
 	$list = [
@@ -395,6 +405,17 @@ function citizen_proof()
 	return $list;
 }
 
+function id_state()
+{
+	$list = [
+		'Have identification',
+		'Lost but have police report',
+		'Have EBC letter',
+	];
+	// asort($list);
+	return $list;
+}
+
 function job_title()
 {
 	$list = 
@@ -501,4 +522,20 @@ function job_title_with_extra()
 		if ($title['label']) $list[] = $title['title'];
 	}
 	return $list;
+}
+
+function employment_list()
+{
+	return [
+		'retrenched' => 'Retrenched',
+		'terminated' => 'Terminated',
+		'income_loss' => 'Loss of Income',
+		'reduced_income' => 'Reduced Income',
+	];
+}
+
+function employment_classification($string)
+{
+	$list = employment_list();
+	return $list[$string];
 }

@@ -210,7 +210,17 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }} grp-national_id">
-                                    <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required placeholder="xxxxxxxxxxx">
+
+                                    <div class="input-group">
+                                        <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required placeholder="xxxxxxxxxxx">
+
+                                        <select class="form-control" id="national_id_state" name="national_id_state">
+                                            {{-- <option selected="" value="">select...</option> --}}
+                                            @foreach ($id_state as $state)
+                                            <option {{old('national_id_state') == $state? 'selected' : '' }}>{{$state}}</option>
+                                            @endforeach
+                                        </select>
+                                      </div>
                                     
                                     <span class="help-block">
                                         <strong id="err-national_id">{{ $errors->first('national_id') }}</strong>
@@ -274,8 +284,8 @@
                                         @endif
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" id="income_reduced" name="employment_classification" class="custom-control-input" value="income_reduced" {{old('employment_classification') == 'income_reduced'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="income_reduced">Income Reduced</label>
+                                                <input type="radio" id="reduced_income" name="employment_classification" class="custom-control-input" value="reduced_income" {{old('employment_classification') == 'reduced_income'? 'checked' : '' }}>
+                                                <label class="custom-control-label my-1" for="reduced_income">Reduced Income</label>
                                             </div>
                                         </div>
                                     </div>

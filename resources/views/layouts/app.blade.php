@@ -78,6 +78,70 @@
                 $('#loadingModal').modal('show');
             });
             
+            // change ID uploads based on ID state
+            $(document).on('change', '[name="national_id_state"]', function(){
+                var state = $(this).val();
+                $('.id_card_state').addClass('hide');
+
+                switch (state) {
+                    case 'Have identification':
+                        break;
+                
+                    case 'Have EBC letter':
+                        $('#ebc_id_letter_row').removeClass('hide');
+                        break;
+                
+                    case 'Lost but have police report':
+                        $('#lost_id_police_report_row').removeClass('hide');
+                        break;
+                
+                    default:
+                        break;
+                }
+                idCardCheck();
+            });
+            
+            // change proof of citizenship uploads of applicant after entered        
+            $(document).on('change', '#proof_of_citizenship', function(){
+                var proof = $(this).val();
+                $('.proof_residence_row').addClass('hide');
+                switch (proof) {
+                    case 'National ID':
+                    break;
+                    
+                    case 'Certificate of Immigration Status':
+                    $('.cert_immigration_status_row').removeClass('hide');
+                    break;
+                    
+                    case 'Certificate of Residence':
+                    $('.cert_residence_row').removeClass('hide');
+                    break;
+                    
+                    case 'Passport':
+                    $('.passport_row').removeClass('hide');
+                    break;
+                    
+                    default:
+                    break;
+                }
+                idCardCheck();
+            });
+
+            function idCardCheck() {
+                var state = $('[name="national_id_state"]').val();
+                var proof = $('#proof_of_citizenship').val();
+                if (state == 'Have identification' || proof == 'National ID') {
+                    $('.id_card_row').removeClass('hide');
+                } else {
+                    $('.id_card_row').addClass('hide');
+                }
+            }
+
+
+
+
+
+            
             $(document).on('click', 'a[href="#finish"]', function() {
                 var $myForm = $('form');
                 // alert($myForm[0].checkValidity());

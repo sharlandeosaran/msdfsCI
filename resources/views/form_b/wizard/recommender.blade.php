@@ -189,6 +189,31 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('recommender_city_town') ? ' has-error' : '' }} grp-recommender_city_town">
+                                    <label class="control-label mb-0" for="recommender_city_town">
+                                        City/Town <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('recommender_city_town') ? ' has-error' : '' }} grp-recommender_city_town">
+                                    <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="recommender_city_town" name="recommender_city_town">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($cities as $city)
+                                        <option {{old('recommender_city_town') == $city? 'selected' : '' }}>{{$city}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-recommender_city_town">{{ $errors->first('recommender_city_town') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }} grp-recommender_years_known">
                                     <label class="control-label mb-0" for="recommender_years_known">
                                         Period Known <span class="red">*</span> 

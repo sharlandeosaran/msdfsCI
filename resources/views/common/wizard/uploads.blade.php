@@ -51,6 +51,31 @@
 
                         <tr>
                             <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('employer_recommender_letter') ? ' has-error' : '' }} mb-0 grp-employer_recommender_letter">
+                                    <label class="control-label mb-0" for="employer_recommender_letter">
+                                        Proof of Retrenchment/ Termination/ Reduced Income <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('employer_recommender_letter') ? ' has-error' : '' }} mb-0 grp-employer_recommender_letter">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="employer_recommender_letter" name="employer_recommender_letter" required>
+                                            <label class="custom-file-label" for="employer_recommender_letter" id="employer_recommender_letterLabel">Choose file</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-employer_recommender_letter">{{ $errors->first('employer_recommender_letter') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr id="id_card_front_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != 'Have identification') && (old('proof_of_citizenship') && old('proof_of_citizenship') != 'National ID')? 'hide' : '' }}">
+                            <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0 grp-id_card_front">
                                     <label class="control-label mb-0" for="id_card_front">
                                         National Identification Card - <strong>(Front)</strong> <span class="red">*</span> 
@@ -62,7 +87,7 @@
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0 grp-id_card_front">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_front" name="id_card_front" required>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_front" name="id_card_front">
                                             <label class="custom-file-label" for="id_card_front" id="id_card_frontLabel">Choose file</label>
                                         </div>
                                     </div>
@@ -74,7 +99,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr id="id_card_back_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != 'Have identification') && (old('proof_of_citizenship') && old('proof_of_citizenship') != 'National ID')? 'hide' : '' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0 grp-id_card_back">
                                     <label class="control-label mb-0" for="id_card_back">
@@ -87,7 +112,7 @@
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0 grp-id_card_back">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_back" name="id_card_back" required>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_back" name="id_card_back">
                                             <label class="custom-file-label" for="id_card_back" id="id_card_backLabel">Choose file</label>
                                         </div>
                                     </div>
@@ -99,7 +124,57 @@
                             </td>
                         </tr>
 
-                        <tr class="proof_residence_row cert_immigration_status_row {{old('citizen_proof') && old('citizen_proof') == 'Certificate of Immigration Status'? '' : 'hide' }}">
+                        <tr id="lost_id_police_report_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == 'Lost but have police report'? '' : 'hide' }}">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('lost_id_police_report') ? ' has-error' : '' }} mb-0 grp-lost_id_police_report">
+                                    <label class="control-label mb-0" for="lost_id_police_report">
+                                        Lost ID Police Report <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('lost_id_police_report') ? ' has-error' : '' }} mb-0 grp-lost_id_police_report">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="lost_id_police_report" name="lost_id_police_report">
+                                            <label class="custom-file-label" for="lost_id_police_report" id="lost_id_police_reportLabel">Choose file</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-lost_id_police_report">{{ $errors->first('lost_id_police_report') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr id="ebc_id_letter_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == 'Have EBC letter'? '' : 'hide' }}">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('ebc_id_letter') ? ' has-error' : '' }} mb-0 grp-ebc_id_letter">
+                                    <label class="control-label mb-0" for="ebc_id_letter">
+                                        Letter From EBC Showing ID Number <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('ebc_id_letter') ? ' has-error' : '' }} mb-0 grp-ebc_id_letter">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="ebc_id_letter" name="ebc_id_letter">
+                                            <label class="custom-file-label" for="ebc_id_letter" id="ebc_id_letterLabel">Choose file</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-ebc_id_letter">{{ $errors->first('ebc_id_letter') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="proof_residence_row cert_immigration_status_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Certificate of Immigration Status'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('cert_immigration_status') ? ' has-error' : '' }} mb-0 grp-cert_immigration_status">
                                     <label class="control-label mb-0" for="cert_immigration_status">
@@ -124,7 +199,7 @@
                             </td>
                         </tr>
 
-                        <tr class="proof_residence_row cert_residence_row {{old('citizen_proof') && old('citizen_proof') == 'Certificate of Residence'? '' : 'hide' }}">
+                        <tr class="proof_residence_row cert_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Certificate of Residence'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('cert_residence') ? ' has-error' : '' }} mb-0 grp-cert_residence">
                                     <label class="control-label mb-0" for="cert_residence">
@@ -149,7 +224,7 @@
                             </td>
                         </tr>
 
-                        <tr class="passport_row proof_residence_row {{old('citizen_proof') && old('citizen_proof') == 'Passport'? '' : 'hide' }}">
+                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Passport'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('passport_bio') ? ' has-error' : '' }} mb-0 grp-passport_bio">
                                     <label class="control-label mb-0" for="passport_bio">
@@ -174,7 +249,7 @@
                             </td>
                         </tr>
 
-                        <tr class="passport_row proof_residence_row {{old('citizen_proof') && old('citizen_proof') == 'Passport'? '' : 'hide' }}">
+                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Passport'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('passport_stamp') ? ' has-error' : '' }} mb-0 grp-passport_stamp">
                                     <label class="control-label mb-0" for="passport_stamp">
@@ -199,82 +274,57 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('proof_affected_income') ? ' has-error' : '' }} mb-0 grp-proof_affected_income">
-                                    <label class="control-label mb-0" for="proof_affected_income">
-                                        Proof of Retrenchment/ Termination/ Reduced Income <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group{{ $errors->has('proof_affected_income') ? ' has-error' : '' }} mb-0 grp-proof_affected_income">
-                                    <div class="input-group mb-0">
-                                        <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_affected_income" name="proof_affected_income" required>
-                                            <label class="custom-file-label" for="proof_affected_income" id="proof_affected_incomeLabel">Choose file</label>
-                                        </div>
-                                    </div>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-proof_affected_income">{{ $errors->first('proof_affected_income') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr class="landlord-fields hide">
-                            <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('proof_ownership') ? ' has-error' : '' }} mb-0 grp-proof_ownership">
-                                    <label class="control-label mb-0" for="proof_ownership">
+                                <div class="form-group{{ $errors->has('proof_landlord_ownership') ? ' has-error' : '' }} mb-0 grp-proof_landlord_ownership">
+                                    <label class="control-label mb-0" for="proof_landlord_ownership">
                                         Proof of Property Ownership <strong>(Landlord)</strong> <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('proof_ownership') ? ' has-error' : '' }} mb-0 grp-proof_ownership">
+                                <div class="form-group{{ $errors->has('proof_landlord_ownership') ? ' has-error' : '' }} mb-0 grp-proof_landlord_ownership">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_ownership" name="proof_ownership">
-                                            <label class="custom-file-label" for="proof_ownership" id="proof_ownershipLabel">Choose file</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_landlord_ownership" name="proof_landlord_ownership">
+                                            <label class="custom-file-label" for="proof_landlord_ownership" id="proof_landlord_ownershipLabel">Choose file</label>
                                         </div>
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-proof_ownership">{{ $errors->first('proof_ownership') }}</strong>
+                                        <strong id="err-proof_landlord_ownership">{{ $errors->first('proof_landlord_ownership') }}</strong>
                                     </span>
                                 </div>
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields hide">
+                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('id_card_landlord') ? ' has-error' : '' }} mb-0 grp-id_card_landlord">
-                                    <label class="control-label mb-0" for="id_card_landlord">
-                                        National Identification Card - <strong>(Landlord)</strong> <span class="red">*</span> 
+                                <div class="form-group{{ $errors->has('landlord_id_card') ? ' has-error' : '' }} mb-0 grp-landlord_id_card">
+                                    <label class="control-label mb-0" for="landlord_id_card">
+                                        Landlord ID Card <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('id_card_landlord') ? ' has-error' : '' }} mb-0 grp-id_card_landlord">
+                                <div class="form-group{{ $errors->has('landlord_id_card') ? ' has-error' : '' }} mb-0 grp-landlord_id_card">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="id_card_landlord" name="id_card_landlord">
-                                            <label class="custom-file-label" for="id_card_landlord" id="id_card_landlordLabel">Choose file</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="landlord_id_card" name="landlord_id_card">
+                                            <label class="custom-file-label" for="landlord_id_card" id="landlord_id_cardLabel">Choose file</label>
                                         </div>
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-id_card_landlord">{{ $errors->first('id_card_landlord') }}</strong>
+                                        <strong id="err-landlord_id_card">{{ $errors->first('landlord_id_card') }}</strong>
                                     </span>
                                 </div>
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields hide">
+                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('rental_agreement') ? ' has-error' : '' }} mb-0 grp-rental_agreement">
                                     <label class="control-label mb-0" for="rental_agreement">
@@ -299,7 +349,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields hide">
+                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('rent_receipt') ? ' has-error' : '' }} mb-0 grp-rent_receipt">
                                     <label class="control-label mb-0" for="rent_receipt">
@@ -323,27 +373,27 @@
                                 </div>
                             </td>
                         </tr>
-
+                        
                         <tr class="self-employed hide">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('incorporation_cert') ? ' has-error' : '' }} mb-0" id="grp-incorporation_cert">
-                                    <label class="control-label mb-0" for="incorporation_cert">
+                                <div class="form-group{{ $errors->has('cert_incorporation_registration') ? ' has-error' : '' }} mb-0" id="grp-cert_incorporation_registration">
+                                    <label class="control-label mb-0" for="cert_incorporation_registration">
                                         Certificate of Registration/Incorporation 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('incorporation_cert') ? ' has-error' : '' }} mb-0 grp-incorporation_cert">
+                                <div class="form-group{{ $errors->has('cert_incorporation_registration') ? ' has-error' : '' }} mb-0 grp-cert_incorporation_registration">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="incorporation_cert" name="incorporation_cert">
-                                            <label class="custom-file-label" for="incorporation_cert" id="incorporation_certLabel">Choose file</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="cert_incorporation_registration" name="cert_incorporation_registration">
+                                            <label class="custom-file-label" for="cert_incorporation_registration" id="cert_incorporation_registrationLabel">Choose file</label>
                                         </div>
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-incorporation_cert">{{ $errors->first('incorporation_cert') }}</strong>
+                                        <strong id="err-cert_incorporation_registration">{{ $errors->first('cert_incorporation_registration') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -351,24 +401,24 @@
 
                         <tr class="self-employed hide">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('recommendation_upload') ? ' has-error' : '' }} mb-0 grp-recommendation_upload">
-                                    <label class="control-label mb-0" for="recommendation_upload">
+                                <div class="form-group{{ $errors->has('recommendation_letter') ? ' has-error' : '' }} mb-0 grp-recommendation_letter">
+                                    <label class="control-label mb-0" for="recommendation_letter">
                                         Recommendation 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Please state your employer name, for example "Big Company".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('recommendation_upload') ? ' has-error' : '' }} mb-0 grp-recommendation_upload">
+                                <div class="form-group{{ $errors->has('recommendation_letter') ? ' has-error' : '' }} mb-0 grp-recommendation_letter">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="recommendation_upload" name="recommendation_upload">
-                                            <label class="custom-file-label" for="recommendation_upload" id="recommendation_uploadLabel">Choose file</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="recommendation_letter" name="recommendation_letter">
+                                            <label class="custom-file-label" for="recommendation_letter" id="recommendation_letterLabel">Choose file</label>
                                         </div>
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-recommendation_upload">{{ $errors->first('recommendation_upload') }}</strong>
+                                        <strong id="err-recommendation_letter">{{ $errors->first('recommendation_letter') }}</strong>
                                     </span>
                                 </div>
                             </td>

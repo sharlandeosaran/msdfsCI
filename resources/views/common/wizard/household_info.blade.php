@@ -64,7 +64,7 @@
                             </td>
                             <td>
                                 <div class="form-group{{ $errors->has('hi_income.1') ? ' has-error' : '' }} grp-hi_income_1">
-                                    <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '' }}" required>
+                                    <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '0' }}" required>
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_income_1">{{ $errors->first('hi_income.1') }}</strong>

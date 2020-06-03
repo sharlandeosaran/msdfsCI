@@ -5,3 +5,10 @@ setInterval(() => {
 }, 100);
 @endif
 
+
+// change classification of applicant after entered
+var emp_list = {!! json_encode(employment_list()) !!};
+$(document).on('change', '[name="employment_classification"]', function(){
+    var classification = $(this).val();
+    $('#hi_emp_classification').val(emp_list[classification]);
+});

@@ -17,6 +17,7 @@ class FormAController extends Controller
             'banks' => banks(),
             'scotia' => scotia(),
             'citizen_proof' => citizen_proof(),
+            'id_state' => id_state(),
             'job_title' => job_title(),
             'form' => 'A',
         ];
@@ -26,7 +27,7 @@ class FormAController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
@@ -44,16 +45,19 @@ class FormAController extends Controller
             "email" => "required|email|max:250",
             "home_address" => "required|max:250",
             "city_town" => "required|max:25",
-            "citizen_proof" => "required|max:50",
+            "proof_of_citizenship" => "required|max:50",
             "national_id" => "required|regex:/^[0-9]{11}+$/",
+            "national_id_state" => "required|max:50",
             "nis" => "nullable|regex:/^[0-9]{9}+$/",
             "employment_classification" => "required|max:14",
             "effective_date" => "required|date_format:Y-m-d",
             "job_title" => "nullable|max:150",
             "assistance_sought" => "required|array",
-            "proof_of_citizenship" => "required",
 
-            "assistance_sought.*" => "boolean",
+            "assistance_sought.*" => [
+                'nullable',
+                Rule::in(['on']),
+            ],
 
             "landlord_first_name" => [
                 "nullable",
@@ -111,21 +115,92 @@ class FormAController extends Controller
             "hi_dob.*" => "required|date_format:Y-m-d",
             "hi_emp_status.*" => "required|max:25",
             "hi_income.1" => "required",
-            "hi_income.*" => "numeric|min:0",
+            "hi_income.*" => "nullable|numeric|min:0",
 
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
 
             "signature" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_front" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_back" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "employer_recommender_letter" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
-            "cert_residence" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "proof_affected_income" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "proof_ownership" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "id_card_landlord" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "rental_agreement" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "rent_receipt" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "id_card_front" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == 'Have identification'),
+                Rule::requiredIf($request->proof_of_citizenship == 'National ID'),
+            ],
+            "id_card_back" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == 'Have identification'),
+                Rule::requiredIf($request->proof_of_citizenship == 'National ID'),
+            ],
+
+            "lost_id_police_report" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == 'Lost but have police report'),
+            ],
+            "ebc_id_letter" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == 'Have EBC letter'),
+            ],
+
+            "cert_immigration_status" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status'),
+            ],
+            "cert_residence" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence'),
+            ],
+
+            "passport_bio" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+            ],
+            "passport_stamp" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+            ],
+
+            "proof_landlord_ownership" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "landlord_id_card" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "rental_agreement" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
+            "rent_receipt" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+            ],
 
             "proof_of_earnings" => "array",
             "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
@@ -154,7 +229,7 @@ class FormAController extends Controller
             'scotia_area.required_if' => 'The branch area field is required when bank name is Scotiabank.',
             'bank_branch.required' => 'The bank branch field is required when bank name is present.',
 
-            'upload.*.mimes' => 'The upload must be a PDF, Word, text document, PNG or JPEG.',
+            '*.mimes' => 'The upload must be a PDF, Word document, PNG or JPEG.',
         ]
         );
 
@@ -202,21 +277,25 @@ class FormAController extends Controller
         $data_files = [
             'form' => 'form_a',
 
-            'user_signiture' => new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']),
-            'national_id_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
-            'national_id_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            
-            // 'cert_non_nationals_registration_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'signature' => new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']),
+            'employer_recommender_letter' => new \CURLFILE($_FILES['employer_recommender_letter']['tmp_name'], $_FILES['employer_recommender_letter']['type'], $_FILES['employer_recommender_letter']['name']),
 
-            // // form b
-            // 'cert_registration_business_owners_doc' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            // 'recommendation' => new \CURLFILE($_FILES['recommendation']['tmp_name'], $_FILES['recommendation']['type'], $_FILES['recommendation']['name'] ),
+            'id_card_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
+            'id_card_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
 
-            // 'rental_agreement' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            // 'most_recent_landperson_payment' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
-            // 'copy_of_landperson_id' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'lost_id_police_report' => new \CURLFILE($_FILES['lost_id_police_report']['tmp_name'], $_FILES['lost_id_police_report']['type'], $_FILES['lost_id_police_report']['name'] ),
+            'ebc_id_letter' => new \CURLFILE($_FILES['ebc_id_letter']['tmp_name'], $_FILES['ebc_id_letter']['type'], $_FILES['ebc_id_letter']['name'] ),
 
-            // // 'declaration_truth' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+            'cert_immigration_status' => new \CURLFILE($_FILES['cert_immigration_status']['tmp_name'], $_FILES['cert_immigration_status']['type'], $_FILES['cert_immigration_status']['name'] ),
+            'cert_residence' => new \CURLFILE($_FILES['cert_residence']['tmp_name'], $_FILES['cert_residence']['type'], $_FILES['cert_residence']['name'] ),
+
+            'passport_bio' => new \CURLFILE($_FILES['passport_bio']['tmp_name'], $_FILES['passport_bio']['type'], $_FILES['passport_bio']['name'] ),
+            'passport_stamp' => new \CURLFILE($_FILES['passport_stamp']['tmp_name'], $_FILES['passport_stamp']['type'], $_FILES['passport_stamp']['name'] ),
+
+            'proof_landlord_ownership' => new \CURLFILE($_FILES['proof_landlord_ownership']['tmp_name'], $_FILES['proof_landlord_ownership']['type'], $_FILES['proof_landlord_ownership']['name'] ),
+            'landlord_id_card' => new \CURLFILE($_FILES['landlord_id_card']['tmp_name'], $_FILES['landlord_id_card']['type'], $_FILES['landlord_id_card']['name'] ),
+            'rental_agreement' => new \CURLFILE($_FILES['rental_agreement']['tmp_name'], $_FILES['rental_agreement']['type'], $_FILES['rental_agreement']['name'] ),
+            'rent_receipt' => new \CURLFILE($_FILES['rent_receipt']['tmp_name'], $_FILES['rent_receipt']['type'], $_FILES['rent_receipt']['name'] ),
         ];
 
         if ($request->proof_of_earnings) {
@@ -225,6 +304,8 @@ class FormAController extends Controller
                 $data_files['proof_of_earnings'][$key] = new \CURLFILE($_FILES['proof_of_earnings']['tmp_name'][$key], $_FILES['proof_of_earnings']['type'][$key], $_FILES['proof_of_earnings']['name'][$key] );
             }
         }
+                
+        // dd(json_encode($data_files, JSON_PRETTY_PRINT));
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -253,49 +334,67 @@ class FormAController extends Controller
             try {
                 // post data
                 $data = [
-                    "flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
+                    "nis_flag" => ($request->nis !== '' && isset($request->assistance_sought[1])),
+                    "declaration_flag" => isset($request->declaration_signature),
                     "file_id" => $files->success->id,
-                    "submission_date" => date('Y-m-d'),
-                    "name" => $request->first_name . " " . $request->surname,
+                    "application_type" => 'FORM A Employer/Employee',
+                    "submission_date" => date('Y-m-d H:i:s'),
+                    "source_details" => "Online Version 1.0",
+                    "first_name" => $request->first_name,
+                    "surname" => $request->surname,
                     "gender" => $request->gender,
-                    "nib_number" => $request->nis,
-                    "employment_classification" => $request->emp_classification,
+                    "national_id_number" => $request->national_id,
+                    "national_id_state" => $request->national_id_state,
+                    "nis_number" => $request->nis,
+                    "employment_classification" => employment_classification($request->employment_classification),
                     "effective_date" => $request->effective_date,
+                    "effective_date_flag" => $request->effective_date >= '2020-03-01',
                     "assistance_being_sought" => [
-                        "public_assistance_grants" => isset($request->assistance_sought[1]),
-                        "rental_assistance_grants" => isset($request->assistance_sought[2]),
+                        "income_support_grant" => isset($request->assistance_sought[1]),
+                        "rental_assistance_grant" => isset($request->assistance_sought[2]),
                         "food_card_support" => isset($request->assistance_sought[3]),
                     ],
                     "job_title" => $request->job_title,
                     "contact_number" => $request->contact_no,
                     "email" => $request->email,
                     "home_address" => $request->home_address,
+                    "city_town" => $request->city_town,
+
+                    "proof_of_citizenship " => $request->proof_of_citizenship ,
                     
-                    "name_of_bank_and_branch" => $request->bank_name ." ". $request->bank_branch,
+                    "bank_name" => $request->bank_name,
+                    "bank_branch" => $request->bank_name == 'Scotiabank'? scotia()[$request->scotia_area] : $request->bank_branch,
+                    "transit_number" => $request->scotia_area,
                     "account_number" => $request->bank_account,
                     
-                    "legal_name_of_business" => $request->emp_name,
-                    "authorized_person" => $request->emp_auth_person,
-                    "authorized_person_contact" => $request->emp_contact,
-                    
-                    "landlord_name" => $request->landlord_name,
+                    "landlord_first_name" => $request->landlord_first_name,
+                    "landlord_surname" => $request->landlord_surname,
                     "landlord_contact" => $request->landlord_contact_no,
+                    "rental_amount" => $request->rental_amount,
+                    
+                    "employer_business_name" => $request->emp_name,
+                    "employer_address" => $request->emp_address,
+                    "employer_authorized_person" => $request->emp_auth_person,
+                    "employer_authorized_person_contact" => $request->emp_contact,
                     
                     "household_income" => [
+                        "data" => [
+                            1 => [
+                                "name" => $request->first_name.' '.$request->surname,
+                                "gender" => $request->gender,
+                                "relationship_to_applicant" => "Self",
+                                "date_of_birth" => $request->hi_dob[1],
+                                "age" => age($request->hi_dob[1]),
+                                "employment_status" => $request->employment_classification,
+                                "total_income" => $request->hi_income[1]? $request->hi_income[1] : '0',
+                            ]
+                        ],
                         "total_income_before_retrenchment" => $request->hi_total_before,
-                        "data" => [[
-                            "name" => $request->first_name . " " . $request->surname,
-                            "gender" => $request->gender,
-                            "relationship_to_applicant" => "Self",
-                            "date_of_birth" => $request->hi_dob[1],
-                            "age" => age($request->hi_dob[1]),
-                            "employment_status" => $request->emp_classification,
-                            "total_income" => $request->hi_income[1],
-                        ]],
+                        "household_size" => count($request->hi_income),
                     ],
                 ];
-                $total = $request->hi_income[1];
-                if($request->hi_name){
+                $total = $request->hi_income[1]? $request->hi_income[1] : 0;
+                if ($request->hi_name) {
                     foreach ($request->hi_name as $key => $value) {
                         $data["household_income"]['data'][]= [
                             "name" => $request->hi_name[$key],
@@ -304,14 +403,15 @@ class FormAController extends Controller
                             "date_of_birth" => $request->hi_dob[$key],
                             "age" => age($request->hi_dob[$key]),
                             "employment_status" => $request->hi_emp_status[$key],
-                            "total_income" => $request->hi_income[$key],
+                            "total_income" => $request->hi_income[$key]? $request->hi_income[$key] : '0',
                         ];
                         $total += $request->hi_income[$key];
                     }
                 }
-                
+                $data["household_income"]["household_income_total"] = $total;
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
-                dd(json_encode($data));
+                
+                dd(json_encode($data, JSON_PRETTY_PRINT));
                 // dd($data);
                 
                 $curl = curl_init();
@@ -347,7 +447,7 @@ class FormAController extends Controller
             }
             // dd($response);
         } else {
-            $validator->errors()->add('post', $files->message);
+            $validator->errors()->add('post', 'Could not upload files.');
             return redirect('/form/a')
                     ->withInput()
                     ->withErrors($validator);
