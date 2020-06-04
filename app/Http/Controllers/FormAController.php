@@ -269,21 +269,39 @@ class FormAController extends Controller
         });
         
         if ($validator->fails()) {
-            $chk = false;
-            $folder = md5($request->first_name).msTimeStamp();
-            foreach ($_FILES as $name => $file) {
-                if ($file['name'] != '' && $request->file($name) && $request->file($name)->isValid()) {    
-                    $request->file($name)->storeAs('public/uploads/'.$folder, $request->file($name)->getClientOriginalName());
-                    $chk = true;
-                }
-            }
+            $uploads = app('App\Http\Controllers\FileController')->store($request);
+
+            // dd($uploads);
             // dd($_FILES);
 
-            if ($chk) {
+            if ($uploads && $uploads['response'] && $request->tempfiles) {
+                $old = (array) json_decode($request->tempfiles);
+                $new = (array) json_decode($uploads['list']);
+                $merge = array_merge($old,$new);
+
+                // dump($request->tempfiles);
+                // dump($old);
+                // dump($uploads['list']);
+                // dump($new);
+                // dd(array_merge($old,$new));
+                // die();
+
                 return redirect('/form/a')
                 ->withInput()
                 ->withErrors($validator)
-                ->with('folder', $folder)
+                ->with('tempfiles', json_encode($merge))
+                ;
+            } elseif ($uploads && $uploads['response']) {
+                return redirect('/form/a')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('tempfiles', $uploads['list'])
+                ;
+            } elseif ($request->tempfiles) {
+                return redirect('/form/a')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('tempfiles', $request->tempfiles)
                 ;
             } else {
                 return redirect('/form/a')
@@ -293,29 +311,30 @@ class FormAController extends Controller
             }
         }
 
-        $data_files = [
-            'form' => 'form_a',
+        $data_files = ['form' => 'form_a',];
 
-            'signature' => new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']),
-            'employer_recommender_letter' => new \CURLFILE($_FILES['employer_recommender_letter']['tmp_name'], $_FILES['employer_recommender_letter']['type'], $_FILES['employer_recommender_letter']['name']),
+        if ($request->signature) $data_files['user_signiture'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
+        // if ($request->signature) $data_files['signature'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
+        if ($request->employer_recommender_letter) $data_files['employer_recommender_letter'] = new \CURLFILE($_FILES['employer_recommender_letter']['tmp_name'], $_FILES['employer_recommender_letter']['type'], $_FILES['employer_recommender_letter']['name']);
 
-            'id_card_front' => new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']),
-            'id_card_back' => new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] ),
+        if ($request->id_card_front) $data_files['national_id_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
+        // if ($request->id_card_front) $data_files['id_card_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
+        if ($request->id_card_back) $data_files['national_id_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
+        // if ($request->id_card_back) $data_files['id_card_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
 
-            'lost_id_police_report' => new \CURLFILE($_FILES['lost_id_police_report']['tmp_name'], $_FILES['lost_id_police_report']['type'], $_FILES['lost_id_police_report']['name'] ),
-            'ebc_id_letter' => new \CURLFILE($_FILES['ebc_id_letter']['tmp_name'], $_FILES['ebc_id_letter']['type'], $_FILES['ebc_id_letter']['name'] ),
+        if ($request->lost_id_police_report) $data_files['lost_id_police_report'] = new \CURLFILE($_FILES['lost_id_police_report']['tmp_name'], $_FILES['lost_id_police_report']['type'], $_FILES['lost_id_police_report']['name'] );
+        if ($request->ebc_id_letter) $data_files['ebc_id_letter'] = new \CURLFILE($_FILES['ebc_id_letter']['tmp_name'], $_FILES['ebc_id_letter']['type'], $_FILES['ebc_id_letter']['name'] );
 
-            'cert_immigration_status' => new \CURLFILE($_FILES['cert_immigration_status']['tmp_name'], $_FILES['cert_immigration_status']['type'], $_FILES['cert_immigration_status']['name'] ),
-            'cert_residence' => new \CURLFILE($_FILES['cert_residence']['tmp_name'], $_FILES['cert_residence']['type'], $_FILES['cert_residence']['name'] ),
+        if ($request->cert_immigration_status) $data_files['cert_immigration_status'] = new \CURLFILE($_FILES['cert_immigration_status']['tmp_name'], $_FILES['cert_immigration_status']['type'], $_FILES['cert_immigration_status']['name'] );
+        if ($request->cert_residence) $data_files['cert_residence'] = new \CURLFILE($_FILES['cert_residence']['tmp_name'], $_FILES['cert_residence']['type'], $_FILES['cert_residence']['name'] );
 
-            'passport_bio' => new \CURLFILE($_FILES['passport_bio']['tmp_name'], $_FILES['passport_bio']['type'], $_FILES['passport_bio']['name'] ),
-            'passport_stamp' => new \CURLFILE($_FILES['passport_stamp']['tmp_name'], $_FILES['passport_stamp']['type'], $_FILES['passport_stamp']['name'] ),
+        if ($request->passport_bio) $data_files['passport_bio'] = new \CURLFILE($_FILES['passport_bio']['tmp_name'], $_FILES['passport_bio']['type'], $_FILES['passport_bio']['name'] );
+        if ($request->passport_stamp) $data_files['passport_stamp'] = new \CURLFILE($_FILES['passport_stamp']['tmp_name'], $_FILES['passport_stamp']['type'], $_FILES['passport_stamp']['name'] );
 
-            'proof_landlord_ownership' => new \CURLFILE($_FILES['proof_landlord_ownership']['tmp_name'], $_FILES['proof_landlord_ownership']['type'], $_FILES['proof_landlord_ownership']['name'] ),
-            'landlord_id_card' => new \CURLFILE($_FILES['landlord_id_card']['tmp_name'], $_FILES['landlord_id_card']['type'], $_FILES['landlord_id_card']['name'] ),
-            'rental_agreement' => new \CURLFILE($_FILES['rental_agreement']['tmp_name'], $_FILES['rental_agreement']['type'], $_FILES['rental_agreement']['name'] ),
-            'rent_receipt' => new \CURLFILE($_FILES['rent_receipt']['tmp_name'], $_FILES['rent_receipt']['type'], $_FILES['rent_receipt']['name'] ),
-        ];
+        if ($request->proof_landlord_ownership) $data_files['proof_landlord_ownership'] = new \CURLFILE($_FILES['proof_landlord_ownership']['tmp_name'], $_FILES['proof_landlord_ownership']['type'], $_FILES['proof_landlord_ownership']['name'] );
+        if ($request->landlord_id_card) $data_files['landlord_id_card'] = new \CURLFILE($_FILES['landlord_id_card']['tmp_name'], $_FILES['landlord_id_card']['type'], $_FILES['landlord_id_card']['name'] );
+        if ($request->rental_agreement) $data_files['rental_agreement'] = new \CURLFILE($_FILES['rental_agreement']['tmp_name'], $_FILES['rental_agreement']['type'], $_FILES['rental_agreement']['name'] );
+        if ($request->rent_receipt) $data_files['rent_receipt'] = new \CURLFILE($_FILES['rent_receipt']['tmp_name'], $_FILES['rent_receipt']['type'], $_FILES['rent_receipt']['name'] );
 
         if ($request->proof_of_earnings) {
             foreach ($request->proof_of_earnings as $key => $value) {
@@ -326,6 +345,16 @@ class FormAController extends Controller
                 
         // dd(json_encode($data_files, JSON_PRETTY_PRINT));
         // dd($data_files);
+
+        if ($request->tempfiles) {
+            $old = (array) json_decode($request->tempfiles);
+            // dump($old);
+            foreach ($old as $key => $file) {
+                // dump($file);
+                $data_files[$key] = curl_file_create($file->name, $file->mime, $file->mime);
+                $data_files['user_signiture'] = curl_file_create($file->name, $file->mime, $file->mime);
+            }
+        }
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
