@@ -38,9 +38,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="signature" name="signature" required value="{{old('signature')}}">
-                                            <label class="custom-file-label" for="signature" id="signatureLabel">{{old('signature_name')? old('signature_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="signature" id="signatureLabel">{{old('signature_name')? old('signature_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('signature_name')}}" name="signature_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('signature_name')}}" name="signature_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -64,9 +64,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="employer_recommender_letter" name="employer_recommender_letter" required>
-                                            <label class="custom-file-label" for="employer_recommender_letter" id="employer_recommender_letterLabel">{{old('employer_recommender_letter_name')? old('employer_recommender_letter_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label ulpoadlabel uploadfail" for="employer_recommender_letter" id="employer_recommender_letterLabel">{{old('employer_recommender_letter_name')? old('employer_recommender_letter_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('employer_recommender_letter_name')}}" name="employer_recommender_letter_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('employer_recommender_letter_name')}}" name="employer_recommender_letter_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -90,9 +90,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_front" name="id_card_front">
-                                            <label class="custom-file-label" for="id_card_front" id="id_card_frontLabel">{{old('id_card_front_name')? old('id_card_front_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="id_card_front" id="id_card_frontLabel">{{old('id_card_front_name')? old('id_card_front_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('id_card_front_name')}}" name="id_card_front_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('id_card_front_name')}}" name="id_card_front_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -116,9 +116,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="id_card_back" name="id_card_back">
-                                            <label class="custom-file-label" for="id_card_back" id="id_card_backLabel">{{old('id_card_back_name')? old('id_card_back_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="id_card_back" id="id_card_backLabel">{{old('id_card_back_name')? old('id_card_back_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('id_card_back_name')}}" name="id_card_back_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('id_card_back_name')}}" name="id_card_back_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -142,9 +142,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="lost_id_police_report" name="lost_id_police_report">
-                                            <label class="custom-file-label" for="lost_id_police_report" id="lost_id_police_reportLabel">{{old('lost_id_police_report_name')? old('lost_id_police_report_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="lost_id_police_report" id="lost_id_police_reportLabel">{{old('lost_id_police_report_name')? old('lost_id_police_report_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('lost_id_police_report_name')}}" name="lost_id_police_report_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('lost_id_police_report_name')}}" name="lost_id_police_report_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -168,9 +168,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="ebc_id_letter" name="ebc_id_letter">
-                                            <label class="custom-file-label" for="ebc_id_letter" id="ebc_id_letterLabel">{{old('ebc_id_letter_name')? old('ebc_id_letter_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="ebc_id_letter" id="ebc_id_letterLabel">{{old('ebc_id_letter_name')? old('ebc_id_letter_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('ebc_id_letter_name')}}" name="ebc_id_letter_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('ebc_id_letter_name')}}" name="ebc_id_letter_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -194,9 +194,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="cert_immigration_status" name="cert_immigration_status">
-                                            <label class="custom-file-label" for="cert_immigration_status" id="cert_immigration_statusLabel">{{old('cert_immigration_status_name')? old('cert_immigration_status_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="cert_immigration_status" id="cert_immigration_statusLabel">{{old('cert_immigration_status_name')? old('cert_immigration_status_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('cert_immigration_status_name')}}" name="cert_immigration_status_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('cert_immigration_status_name')}}" name="cert_immigration_status_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -220,9 +220,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="cert_residence" name="cert_residence">
-                                            <label class="custom-file-label" for="cert_residence" id="cert_residenceLabel">{{old('cert_residence_name')? old('cert_residence_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="cert_residence" id="cert_residenceLabel">{{old('cert_residence_name')? old('cert_residence_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('cert_residence_name')}}" name="cert_residence_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('cert_residence_name')}}" name="cert_residence_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -246,9 +246,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="passport_bio" name="passport_bio">
-                                            <label class="custom-file-label" for="passport_bio" id="passport_bioLabel">{{old('passport_bio_name')? old('passport_bio_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="passport_bio" id="passport_bioLabel">{{old('passport_bio_name')? old('passport_bio_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('passport_bio_name')}}" name="passport_bio_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('passport_bio_name')}}" name="passport_bio_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -272,9 +272,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="passport_stamp" name="passport_stamp">
-                                            <label class="custom-file-label" for="passport_stamp" id="passport_stampLabel">{{old('passport_stamp_name')? old('passport_stamp_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="passport_stamp" id="passport_stampLabel">{{old('passport_stamp_name')? old('passport_stamp_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('passport_stamp_name')}}" name="passport_stamp_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('passport_stamp_name')}}" name="passport_stamp_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -298,9 +298,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_landlord_ownership" name="proof_landlord_ownership">
-                                            <label class="custom-file-label" for="proof_landlord_ownership" id="proof_landlord_ownershipLabel">{{old('proof_landlord_ownership_name')? old('proof_landlord_ownership_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="proof_landlord_ownership" id="proof_landlord_ownershipLabel">{{old('proof_landlord_ownership_name')? old('proof_landlord_ownership_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('proof_landlord_ownership_name')}}" name="proof_landlord_ownership_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('proof_landlord_ownership_name')}}" name="proof_landlord_ownership_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -324,9 +324,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="landlord_id_card" name="landlord_id_card">
-                                            <label class="custom-file-label" for="landlord_id_card" id="landlord_id_cardLabel">{{old('landlord_id_card_name')? old('landlord_id_card_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="landlord_id_card" id="landlord_id_cardLabel">{{old('landlord_id_card_name')? old('landlord_id_card_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('landlord_id_card_name')}}" name="landlord_id_card_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('landlord_id_card_name')}}" name="landlord_id_card_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -350,9 +350,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rental_agreement" name="rental_agreement">
-                                            <label class="custom-file-label" for="rental_agreement" id="rental_agreementLabel">{{old('rental_agreement_name')? old('rental_agreement_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="rental_agreement" id="rental_agreementLabel">{{old('rental_agreement_name')? old('rental_agreement_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('rental_agreement_name')}}" name="rental_agreement_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('rental_agreement_name')}}" name="rental_agreement_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -376,9 +376,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rent_receipt" name="rent_receipt">
-                                            <label class="custom-file-label" for="rent_receipt" id="rent_receiptLabel">{{old('rental_agreement_name')? old('rental_agreement_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="rent_receipt" id="rent_receiptLabel">{{old('rental_agreement_name')? old('rental_agreement_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('c')}}" name="rent_receipt_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('c')}}" name="rent_receipt_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -402,9 +402,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="cert_incorporation_registration" name="cert_incorporation_registration">
-                                            <label class="custom-file-label" for="cert_incorporation_registration" id="cert_incorporation_registrationLabel">{{old('cert_incorporation_registration_name')? old('cert_incorporation_registration_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="cert_incorporation_registration" id="cert_incorporation_registrationLabel">{{old('cert_incorporation_registration_name')? old('cert_incorporation_registration_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('cert_incorporation_registration_name')}}" name="cert_incorporation_registration_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('cert_incorporation_registration_name')}}" name="cert_incorporation_registration_name">
                                     </div>
                                     
                                     <span class="help-block">
@@ -428,9 +428,9 @@
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="recommendation_letter" name="recommendation_letter">
-                                            <label class="custom-file-label" for="recommendation_letter" id="recommendation_letterLabel">{{old('recommendation_letter_name')? old('recommendation_letter_name') : 'Choose file'}}</label>
+                                            <label class="custom-file-label uploadfail" for="recommendation_letter" id="recommendation_letterLabel">{{old('recommendation_letter_name')? old('recommendation_letter_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" value="{{old('recommendation_letter_name')}}" name="recommendation_letter_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('recommendation_letter_name')}}" name="recommendation_letter_name">
                                     </div>
                                     
                                     <span class="help-block">

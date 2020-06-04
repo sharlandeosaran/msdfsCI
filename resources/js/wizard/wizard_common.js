@@ -32,6 +32,27 @@ $(function () {
     });
     
     // show name of uploaded file
+    $(document).on('change click', 'input[type="file"]', function(e) {
+        var fileName = $(this).prop('id');
+        $('#'+fileName+'Label').html('Choose file');
+        $('[name="'+fileName+'_name"]').val('');
+        
+        if ($(this).val() !== '') {
+            var upload = e. target. files[0]. name;
+            var size = e. target. files[0].size;
+
+            // check file is less than 10 Mb
+            if (size > 10485760) {
+                alert('Maximum file size is 10Mb. \nFile not uploaded.');
+                $(this).val('');
+            } else {
+                // $('#'+fileName+'-review').val(upload);
+                $('#'+fileName+'Label').html(upload);
+                $('[name="'+fileName+'_name"]').val(upload);
+            }
+            
+        }
+    });
 
     // submit form
        

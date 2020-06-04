@@ -24,9 +24,6 @@ class FileController extends Controller
                 $list[$name] = curl_file_create($file, $_FILES[$name]['type'], $_FILES[$name]['name'] );
 
                 $chk = true;
-
-                //Remove the file
-                // unlink($file);
             }
         }
         // dump($list);

@@ -381,6 +381,19 @@ class FormAController extends Controller
     	ini_set('max_execution_time', 60);
 
         if (isset($files->success)) {
+            // delete temp saved files
+            if ($request->tempfiles) {
+                $old = (array) json_decode($request->tempfiles);
+                // dump($old);
+                foreach ($old as $key => $file) {
+                    // dd($file['name']);
+                    
+                    // Remove the file
+                    unlink($file->name);
+                }
+            }
+
+            // post form data
             try {
                 // post data
                 $data = [
@@ -461,7 +474,7 @@ class FormAController extends Controller
                 $data["household_income"]["household_income_total"] = $total;
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
                 
-                dd(json_encode($data, JSON_PRETTY_PRINT));
+                // dd(json_encode($data, JSON_PRETTY_PRINT));
                 // dd($data);
                 
                 $curl = curl_init();
@@ -497,7 +510,7 @@ class FormAController extends Controller
             }
             // dd($response);
         } else {
-            $validator->errors()->add('post', 'Could not upload files.');
+            $validator->errors()->add('uploadfail', 'Please upload files again.');
             return redirect('/form/a')
                     ->withInput()
                     ->withErrors($validator);

@@ -12,3 +12,11 @@ $(document).on('change', '[name="employment_classification"]', function(){
     var classification = $(this).val();
     $('#hi_emp_classification').val(emp_list[classification]);
 });
+
+@if($errors->has('uploadfail'))
+setTimeout(function() 
+{
+    $('.uploadfail').html('Choose file');
+    $('.uploadhelp').val('');
+}, 200);
+@endif

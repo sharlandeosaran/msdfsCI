@@ -370,6 +370,7 @@ class FormBController extends Controller
         // dump($data_files);
         // dd($data_files);
 
+        // add saved files to list
         if ($request->tempfiles) {
             $old = (array) json_decode($request->tempfiles);
             // dump($old);
@@ -400,12 +401,7 @@ class FormBController extends Controller
                 "token: ".config('curl.token', ''),
             ],
         ]);
-        
-        curl_setopt($curl_files, CURLINFO_HEADER_OUT, true);
         // dump($curl_files);
-
-        // $information = curl_getinfo($curl_files);
-        // dump($information);
 
         $response = curl_exec($curl_files);
         $files = json_decode($response);
@@ -416,6 +412,19 @@ class FormBController extends Controller
         ini_set('max_execution_time', 60);
 
         if (isset($files->success)) {
+            // delete temp saved files
+            if ($request->tempfiles) {
+                $old = (array) json_decode($request->tempfiles);
+                // dump($old);
+                foreach ($old as $key => $file) {
+                    // dd($file['name']);
+                    
+                    // Remove the file
+                    unlink($file->name);
+                }
+            }
+
+            // post form data
             try {
                 $rec_job_title = job_title()[search_for_title($request->recommender_job_title, job_title())]['label']? 
                 $request->recommender_job_title.': '.job_title()[search_for_title($request->recommender_job_title, job_title())]['label'].' '.$request->recommender_job_title_info :
@@ -506,7 +515,7 @@ class FormBController extends Controller
                 $data["household_income"]["household_income_total"] = $total;
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
 
-                dd(json_encode($data, JSON_PRETTY_PRINT));
+                // dd(json_encode($data, JSON_PRETTY_PRINT));
                 // dd($data);
                 
                 $curl = curl_init();
@@ -542,7 +551,7 @@ class FormBController extends Controller
             }
             // dd($response);
         } else {
-            $validator->errors()->add('post', 'Could not upload files.');
+            $validator->errors()->add('uploadfail', 'Please upload files again.');
             return redirect('/form/b')
                     ->withInput()
                     ->withErrors($validator);
