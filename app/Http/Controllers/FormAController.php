@@ -269,9 +269,28 @@ class FormAController extends Controller
         });
         
         if ($validator->fails()) {
-            return redirect('/form/a')
-            ->withInput()
-            ->withErrors($validator);
+            $chk = false;
+            $folder = md5($request->first_name).msTimeStamp();
+            foreach ($_FILES as $name => $file) {
+                if ($file['name'] != '' && $request->file($name) && $request->file($name)->isValid()) {    
+                    $request->file($name)->storeAs('public/uploads/'.$folder, $request->file($name)->getClientOriginalName());
+                    $chk = true;
+                }
+            }
+            // dd($_FILES);
+
+            if ($chk) {
+                return redirect('/form/a')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('folder', $folder)
+                ;
+            } else {
+                return redirect('/form/a')
+                ->withInput()
+                ->withErrors($validator)
+                ;
+            }
         }
 
         $data_files = [
@@ -306,6 +325,7 @@ class FormAController extends Controller
         }
                 
         // dd(json_encode($data_files, JSON_PRETTY_PRINT));
+        // dd($data_files);
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -325,6 +345,7 @@ class FormAController extends Controller
         $response = curl_exec($curl_files);
         $files = json_decode($response);
         curl_close($curl_files);
+        // dd($response);
         // dd($files);
 
     	// reset max execution time to 1 min

@@ -77,65 +77,29 @@
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
                 $('#loadingModal').modal('show');
             });
-            
-            // change ID uploads based on ID state
-            $(document).on('change', '[name="national_id_state"]', function(){
-                var state = $(this).val();
-                $('.id_card_state').addClass('hide');
 
-                switch (state) {
-                    case 'Have identification':
-                        break;
-                
-                    case 'Have EBC letter':
-                        $('#ebc_id_letter_row').removeClass('hide');
-                        break;
-                
-                    case 'Lost but have police report':
-                        $('#lost_id_police_report_row').removeClass('hide');
-                        break;
-                
-                    default:
-                        break;
-                }
-                idCardCheck();
-            });
             
-            // change proof of citizenship uploads of applicant after entered        
-            $(document).on('change', '#proof_of_citizenship', function(){
-                var proof = $(this).val();
-                $('.proof_residence_row').addClass('hide');
-                switch (proof) {
-                    case 'National ID':
-                    break;
-                    
-                    case 'Certificate of Immigration Status':
-                    $('.cert_immigration_status_row').removeClass('hide');
-                    break;
-                    
-                    case 'Certificate of Residence':
-                    $('.cert_residence_row').removeClass('hide');
-                    break;
-                    
-                    case 'Passport':
-                    $('.passport_row').removeClass('hide');
-                    break;
-                    
-                    default:
-                    break;
-                }
-                idCardCheck();
-            });
+    $(document).on('change', 'input[type="file"]', function(e) {
+        var fileName = $(this).prop('id');
+        $('#'+fileName+'Label').html('Choose file');
+        // $('#'+fileName+'-review').val('None');
+        if ($(this).val() !== '') {
+            var upload = e. target. files[0]. name;
+            var size = e. target. files[0].size;
+            // console.log(size);
 
-            function idCardCheck() {
-                var state = $('[name="national_id_state"]').val();
-                var proof = $('#proof_of_citizenship').val();
-                if (state == 'Have identification' || proof == 'National ID') {
-                    $('.id_card_row').removeClass('hide');
-                } else {
-                    $('.id_card_row').addClass('hide');
-                }
+            // check file is less than 10 Mb
+            if (size > 10485760) {
+                alert('Maximum file size is 10Mb. \nFile not uploaded.');
+                $(this).val('');
+            } else {
+                // $('#'+fileName+'-review').val(upload);
+                $('#'+fileName+'Label').html(upload);
+                $('[name="'+fileName+'_name"]').val(upload);
             }
+            
+        }
+    });
 
 
 
