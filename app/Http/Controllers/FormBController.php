@@ -283,6 +283,11 @@ class FormBController extends Controller
 				$validator->errors()->add('captcha', 'Invalid captcha!');
             } */
         });
+
+        
+        // $uploads = app('App\Http\Controllers\FileController')->store($request);
+
+        // dd($uploads);
         
         if ($validator->fails()) {
             $uploads = app('App\Http\Controllers\FileController')->store($request);
@@ -362,16 +367,24 @@ class FormBController extends Controller
             }
         }
 
+        // dump($data_files);
+        // dd($data_files);
+
         if ($request->tempfiles) {
             $old = (array) json_decode($request->tempfiles);
+            // dump($old);
             foreach ($old as $key => $file) {
                 // dump($file);
                 $data_files[$key] = curl_file_create($file->name, $file->mime, $file->mime);
+                $data_files['user_signiture'] = curl_file_create($file->name, $file->mime, $file->mime);
             }
         }
         
         // dd(json_encode($data_files, JSON_PRETTY_PRINT));
+        // dump($data_files);
         // dd($data_files);
+        // dump(config('curl.token', ''));
+        // dump(config('curl.url.files', ''));
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -388,6 +401,12 @@ class FormBController extends Controller
             ],
         ]);
         
+        curl_setopt($curl_files, CURLINFO_HEADER_OUT, true);
+        // dump($curl_files);
+
+        // $information = curl_getinfo($curl_files);
+        // dump($information);
+
         $response = curl_exec($curl_files);
         $files = json_decode($response);
         curl_close($curl_files);
