@@ -16,17 +16,33 @@ class FileController extends Controller
         $chk = false;
         $list = [];
         foreach ($_FILES as $name => $file) {
-            if ($file['name'] != '' && $request->file($name) && $request->file($name)->isValid()) {
-
-                $file = tempnam(sys_get_temp_dir(), 'POST');
-                file_put_contents($file, $_FILES[$name]);
+            if ($file['name'] != '' && $request->file($name)) {
+                if (is_array($file['name'])) {
+                    foreach ($file['name'] as $key => $value) {
+                        // dd($_FILES[$name]);
+                        // dd($request->file($name)[$key]);
+                        if($request->file($name)[$key]->isValid()) {
+                            $file = tempnam(sys_get_temp_dir(), 'POST');
+                            file_put_contents($file, $request->file($name[$key]));//$_FILES[$name][$key]);
+                            
+                            $list[$name.'_'.$key] = curl_file_create($file, $_FILES[$name]['type'][$key], $_FILES[$name]['name'][$key] );
+                            
+                            $chk = true;
+                        }
+                    }
+                } else if($request->file($name)->isValid()) {
+                    $file = tempnam(sys_get_temp_dir(), 'POST');
+                    file_put_contents($file, $_FILES[$name]);
+                    
+                    $list[$name] = curl_file_create($file, $_FILES[$name]['type'], $_FILES[$name]['name'] );
+                    
+                    $chk = true;
+                }
                 
-                $list[$name] = curl_file_create($file, $_FILES[$name]['type'], $_FILES[$name]['name'] );
 
-                $chk = true;
             }
         }
-        // dump($list);
+        // dd($list);
 
         return [
             'response' => $chk,

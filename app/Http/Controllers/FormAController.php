@@ -122,86 +122,85 @@ class FormAController extends Controller
             "declaration_signature" => "required",
             // "g-recaptcha-response" => "required",
 
-            "signature" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            "employer_recommender_letter" => "required|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            // uploaded files
+            "signature" => "required_without:signature_name|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "employer_recommender_letter" => "required_without:employer_recommender_letter_name|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
             "id_card_front" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Have identification'),
-                Rule::requiredIf($request->proof_of_citizenship == 'National ID'),
+                Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_front_name),
             ],
             "id_card_back" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Have identification'),
-                Rule::requiredIf($request->proof_of_citizenship == 'National ID'),
+                Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_back_name),
             ],
 
             "lost_id_police_report" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Lost but have police report'),
+                Rule::requiredIf($request->national_id_state == 'Lost but have police report' && !$request->lost_id_police_report_name),
             ],
             "ebc_id_letter" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Have EBC letter'),
+                Rule::requiredIf($request->national_id_state == 'Have EBC letter' && !$request->ebc_id_letter_name),
             ],
 
             "cert_immigration_status" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status' && !$request->cert_immigration_status_name),
             ],
             "cert_residence" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence' && !$request->cert_residence_name),
             ],
 
             "passport_bio" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_bio_name),
             ],
             "passport_stamp" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_stamp_name),
             ],
 
             "proof_landlord_ownership" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->proof_landlord_ownership_name),
             ],
             "landlord_id_card" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->landlord_id_card_name),
             ],
             "rental_agreement" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rental_agreement_name),
             ],
             "rent_receipt" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rent_receipt_name),
             ],
 
             "proof_of_earnings" => "array",
@@ -231,6 +230,9 @@ class FormAController extends Controller
 
             'scotia_area.required_if' => 'The branch area field is required when bank name is Scotiabank.',
             'bank_branch.required' => 'The bank branch field is required when bank name is present.',
+            
+            'signature.required_without' => 'The signature field is required.',
+            'employer_recommender_letter.required_without' => 'The employer recommender letter field is required.',
 
             '*.mimes' => 'The upload must be a PDF, Word document, PNG or JPEG.',
         ]

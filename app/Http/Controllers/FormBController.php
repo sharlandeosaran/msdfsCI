@@ -154,64 +154,64 @@ class FormBController extends Controller
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Lost but have police report'),
+                Rule::requiredIf($request->national_id_state == 'Lost but have police report' && !$request->lost_id_police_report_name),
             ],
             "ebc_id_letter" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Have EBC letter'),
+                Rule::requiredIf($request->national_id_state == 'Have EBC letter' && !$request->ebc_id_letter_name),
             ],
 
             "cert_immigration_status" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status' && !$request->cert_immigration_status_name),
             ],
             "cert_residence" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence' && !$request->cert_residence_name),
             ],
 
             "passport_bio" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_bio_name),
             ],
             "passport_stamp" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport'),
+                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_stamp_name),
             ],
 
             "proof_landlord_ownership" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->proof_landlord_ownership_name),
             ],
             "landlord_id_card" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->landlord_id_card_name),
             ],
             "rental_agreement" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rental_agreement_name),
             ],
             "rent_receipt" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rent_receipt_name),
             ],
 
             "cert_incorporation_registration" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
@@ -546,7 +546,7 @@ class FormBController extends Controller
                 $response = curl_exec($curl);
                 $get = json_decode($response);
                 curl_close($curl); 
-                dd($response);
+                // dd($response);
                 
                 if (isset($get->error)) {
                     $validator->errors()->add('post', $get->error);

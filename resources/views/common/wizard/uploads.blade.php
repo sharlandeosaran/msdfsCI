@@ -378,7 +378,7 @@
                                             <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="rent_receipt" name="rent_receipt">
                                             <label class="custom-file-label uploadfail" for="rent_receipt" id="rent_receiptLabel">{{old('rental_agreement_name')? old('rental_agreement_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" class="uploadhelp" value="{{old('c')}}" name="rent_receipt_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('rent_receipt_name')}}" name="rent_receipt_name">
                                     </div>
                                     
                                     <span class="help-block">
