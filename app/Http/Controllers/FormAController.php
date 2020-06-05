@@ -98,7 +98,8 @@ class FormAController extends Controller
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
             ],
 
-            "hi_name" => "array",
+            "hi_first_name" => "array",
+            "hi_surname" => "array",
             "hi_gender" => "array",
             "hi_relationship" => "array",
             "hi_dob" => "required|array",
@@ -106,7 +107,8 @@ class FormAController extends Controller
             "hi_income" => "required|array",
             "hi_total_before" => "required|numeric|min:0",
             
-            "hi_name.*" => "required|max:100",
+            "hi_first_name.*" => "required|max:100",
+            "hi_surname.*" => "required|max:100",
             "hi_gender.*" => [
                 'required',
                 Rule::in(['M', 'F']),
@@ -218,7 +220,8 @@ class FormAController extends Controller
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
             'hi_relationship.*.required' => 'The household occupant relationship field is required.',
             'hi_emp_status.*.required' => 'The household occupant employment status field is required.',
-            'hi_name.*.required' => 'The household occupant name field is required.',
+            'hi_first_name.*.required' => 'The household occupant first name field is required.',
+            'hi_surname.*.required' => 'The household occupant surname field is required.',
             'hi_income.1.required' => 'The applicant total income field is required.',
 
             'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
@@ -313,14 +316,11 @@ class FormAController extends Controller
 
         $data_files = ['form' => 'form_a',];
 
-        if ($request->signature) $data_files['user_signiture'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
-        // if ($request->signature) $data_files['signature'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
+        if ($request->signature) $data_files['signature'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
         if ($request->employer_recommender_letter) $data_files['employer_recommender_letter'] = new \CURLFILE($_FILES['employer_recommender_letter']['tmp_name'], $_FILES['employer_recommender_letter']['type'], $_FILES['employer_recommender_letter']['name']);
 
-        if ($request->id_card_front) $data_files['national_id_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
-        // if ($request->id_card_front) $data_files['id_card_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
-        if ($request->id_card_back) $data_files['national_id_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
-        // if ($request->id_card_back) $data_files['id_card_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
+        if ($request->id_card_front) $data_files['id_card_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
+        if ($request->id_card_back) $data_files['id_card_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
 
         if ($request->lost_id_police_report) $data_files['lost_id_police_report'] = new \CURLFILE($_FILES['lost_id_police_report']['tmp_name'], $_FILES['lost_id_police_report']['type'], $_FILES['lost_id_police_report']['name'] );
         if ($request->ebc_id_letter) $data_files['ebc_id_letter'] = new \CURLFILE($_FILES['ebc_id_letter']['tmp_name'], $_FILES['ebc_id_letter']['type'], $_FILES['ebc_id_letter']['name'] );
@@ -339,12 +339,9 @@ class FormAController extends Controller
         if ($request->proof_of_earnings) {
             foreach ($request->proof_of_earnings as $key => $value) {
                 if( !empty( $_FILES['proof_of_earnings']['tmp_name'][$key] ) && is_uploaded_file( $_FILES['proof_of_earnings']['tmp_name'][$key] ) ) 
-                $data_files['proof_of_earnings'][$key] = new \CURLFILE($_FILES['proof_of_earnings']['tmp_name'][$key], $_FILES['proof_of_earnings']['type'][$key], $_FILES['proof_of_earnings']['name'][$key] );
+                $data_files['proof_of_earnings_'.$key] = new \CURLFILE($_FILES['proof_of_earnings']['tmp_name'][$key], $_FILES['proof_of_earnings']['type'][$key], $_FILES['proof_of_earnings']['name'][$key] );
             }
         }
-                
-        // dd(json_encode($data_files, JSON_PRETTY_PRINT));
-        // dd($data_files);
 
         if ($request->tempfiles) {
             $old = (array) json_decode($request->tempfiles);
@@ -352,9 +349,13 @@ class FormAController extends Controller
             foreach ($old as $key => $file) {
                 // dump($file);
                 $data_files[$key] = curl_file_create($file->name, $file->mime, $file->mime);
-                $data_files['user_signiture'] = curl_file_create($file->name, $file->mime, $file->mime);
             }
         }
+                
+        // dd(json_encode($data_files, JSON_PRETTY_PRINT));
+        // dump($data_files);
+        // dd(config('curl.token', ''));
+        // dd($data_files);
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -432,7 +433,7 @@ class FormAController extends Controller
                     
                     "landlord_first_name" => $request->landlord_first_name,
                     "landlord_surname" => $request->landlord_surname,
-                    "landlord_contact" => $request->landlord_contact_no,
+                    "landlord_contact_number" => $request->landlord_contact_no,
                     "rental_amount" => $request->rental_amount,
                     
                     "employer_business_name" => $request->emp_name,
@@ -442,8 +443,10 @@ class FormAController extends Controller
                     
                     "household_income" => [
                         "data" => [
-                            1 => [
-                                "name" => $request->first_name.' '.$request->surname,
+                            [
+                                "key" => 1,
+                                "first_name" => $request->first_name,
+                                "surname" => $request->surname,
                                 "gender" => $request->gender,
                                 "relationship_to_applicant" => "Self",
                                 "date_of_birth" => $request->hi_dob[1],
@@ -457,10 +460,12 @@ class FormAController extends Controller
                     ],
                 ];
                 $total = $request->hi_income[1]? $request->hi_income[1] : 0;
-                if ($request->hi_name) {
-                    foreach ($request->hi_name as $key => $value) {
+                if ($request->hi_first_name) {
+                    foreach ($request->hi_first_name as $key => $value) {
                         $data["household_income"]['data'][]= [
-                            "name" => $request->hi_name[$key],
+                            "key" => $key,
+                            "first_name" => $request->hi_first_name[$key],
+                            "surname" => $request->hi_surname[$key],
                             "gender" => $request->hi_gender[$key],
                             "relationship_to_applicant" => $request->hi_relationship[$key],
                             "date_of_birth" => $request->hi_dob[$key],
@@ -494,7 +499,7 @@ class FormAController extends Controller
                 $response = curl_exec($curl);
                 $get = json_decode($response);
                 curl_close($curl); 
-                // dd($response);
+                dd($response);
                 
                 if (isset($get->error)) {
                     $validator->errors()->add('post', $get->error);

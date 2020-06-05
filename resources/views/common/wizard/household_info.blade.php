@@ -79,11 +79,18 @@
                                 @if ($key != 1)
                                 <tr id="household_row_{{$key}}">
                                     <td>
-                                        <div class="form-group{{ $errors->has('hi_name.'.$key) ? ' has-error' : '' }} grp-hi_name_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm hi_name" id="hi_name_{{$key}}" name="hi_name[{{$key}}]" aria-describedby="" value="{{old('hi_name.'.$key)? old('hi_name.'.$key) : '' }}" required maxlength="100">
+                                        <div class="form-group{{ $errors->has('hi_first_name.'.$key) ? ' has-error' : '' }} grp-hi_first_name_{{$key}}"  style="margin-bottom: 0;">
+                                            <input type="text" class="form-control form-control-sm hi_first_name" id="hi_first_name_{{$key}}" name="hi_first_name[{{$key}}]" aria-describedby="" value="{{old('hi_first_name.'.$key)? old('hi_first_name.'.$key) : '' }}" required maxlength="100" placeholder="First Name">
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_name_{{$key}}">{{ $errors->first('hi_name.'.$key) }}</strong>
+                                                <strong id="err-hi_first_name_{{$key}}">{{ $errors->first('hi_first_name.'.$key) }}</strong>
+                                            </span>
+                                        </div>
+                                        <div class="form-group{{ $errors->has('hi_surname.'.$key) ? ' has-error' : '' }} grp-hi_surname_{{$key}}" style="margin-bottom: 0;">
+                                            <input type="text" class="form-control form-control-sm hi_surname" id="hi_surname_{{$key}}" name="hi_surname[{{$key}}]" aria-describedby="" value="{{old('hi_surname.'.$key)? old('hi_surname.'.$key) : '' }}" required maxlength="100" placeholder="Surname">
+                                            
+                                            <span class="help-block">
+                                                <strong id="err-hi_surname_{{$key}}">{{ $errors->first('hi_surname.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
