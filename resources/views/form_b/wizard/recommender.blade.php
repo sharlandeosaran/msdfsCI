@@ -14,7 +14,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_first_name') ? ' has-error' : '' }} grp-recommender_first_name">
                                     <label class="control-label mb-0" for="recommender_first_name">
                                         First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the first name of the person that knowns you and can verify your business situation.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -34,7 +34,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_surname') ? ' has-error' : '' }} grp-recommender_surname">
                                     <label class="control-label mb-0" for="recommender_surname">
                                         Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your recommender_surname, for example "Doe".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the surname of the person that knowns you and can verify your business situation.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -54,7 +54,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_gender') ? ' has-error' : '' }} grp-recommender_gender">
                                     <label class="control-label mb-0" for="recommender_gender">
                                         Gender <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your gender, for example "Female".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the gender of the person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -87,7 +87,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_job_title') ? ' has-error' : '' }} grp-recommender_job_title">
                                     <label class="control-label mb-0" for="recommender_job_title">
                                         Job Title <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the most relevant job classification of the person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -132,7 +132,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_contact_no') ? ' has-error' : '' }} grp-recommender_contact_no">
                                     <label class="control-label mb-0" for="recommender_contact_no">
                                         Contact Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your contact number, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the contact number of the person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -152,7 +152,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_email') ? ' has-error' : '' }} grp-recommender_email">
                                     <label class="control-label mb-0" for="recommender_email">
                                         Email Address 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your email address, for example "example@email.com".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State an email address for person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -172,7 +172,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_home_address') ? ' has-error' : '' }} grp-recommender_home_address">
                                     <label class="control-label mb-0" for="recommender_home_address">
                                         Home Address <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the residential address for person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -192,7 +192,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_city_town') ? ' has-error' : '' }} grp-recommender_city_town">
                                     <label class="control-label mb-0" for="recommender_city_town">
                                         City/Town <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the city/town for the residential address provide for the person you selected as a reference.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -217,7 +217,7 @@
                                 <div class="form-group mb-0{{ $errors->has('recommender_years_known') ? ' has-error' : '' }} grp-recommender_years_known">
                                     <label class="control-label mb-0" for="recommender_years_known">
                                         Period Known <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the number of years that the reference and applicant know one another.'></i>
                                     </label>
                                 </div>
                             </td>
