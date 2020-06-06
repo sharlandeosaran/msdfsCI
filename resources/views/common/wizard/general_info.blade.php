@@ -21,7 +21,7 @@
                                 <div class="form-group mb-0{{ $errors->has('first_name') ? ' has-error' : '' }} grp-first_name">
                                     <label class="control-label mb-0" for="first_name">
                                         First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -41,7 +41,7 @@
                                 <div class="form-group mb-0{{ $errors->has('surname') ? ' has-error' : '' }} grp-surname">
                                     <label class="control-label mb-0" for="surname">
                                         Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your surname, for example "Doe".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your surname as indicated on your identification card.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -61,7 +61,7 @@
                                 <div class="form-group mb-0{{ $errors->has('gender') ? ' has-error' : '' }} grp-gender">
                                     <label class="control-label mb-0" for="gender">
                                         Gender <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your gender, for example "Female".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select your gender.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -94,7 +94,7 @@
                                 <div class="form-group mb-0{{ $errors->has('contact_no') ? ' has-error' : '' }} grp-contact_no">
                                     <label class="control-label mb-0" for="contact_no">
                                         Contact Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your contact number, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -114,7 +114,7 @@
                                 <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
                                     <label class="control-label mb-0" for="email">
                                         Email Address <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your email address, for example "example@email.com".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -134,7 +134,7 @@
                                 <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }} grp-home_address">
                                     <label class="control-label mb-0" for="home_address">
                                         Home Address <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -154,7 +154,7 @@
                                 <div class="form-group mb-0{{ $errors->has('city_town') ? ' has-error' : '' }} grp-city_town">
                                     <label class="control-label mb-0" for="city_town">
                                         City/Town <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your first name, for example "Jane".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the city/town for your residential address.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -179,7 +179,7 @@
                                 <div class="form-group mb-0{{ $errors->has('proof_of_citizenship') ? ' has-error' : '' }} grp-proof_of_citizenship">
                                     <label class="control-label mb-0" for="proof_of_citizenship">
                                         Proof of Citizenship/ Permanent Residence <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select an additional proof of citizenship or residency that would future compliment your national classification.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -204,7 +204,7 @@
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }} grp-national_id">
                                     <label class="control-label mb-0" for="national_id">
                                         National Identification Card Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national id number, for example "20000101001".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -234,7 +234,7 @@
                                 <div class="form-group mb-0{{ $errors->has('nis') ? ' has-error' : '' }} grp-nis">
                                     <label class="control-label mb-0" for="nis">
                                         National Insurance Number 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your national insurance number, for example "2000010".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide your national insurance number (NIS) if applicable, for example "2000010".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -254,7 +254,7 @@
                                 <div class="form-group mb-0{{ $errors->has('employment_classification') ? ' has-error' : '' }} grp-employment_classification">
                                     <label class="control-label mb-0" for="employment_classification">
                                         Employment Classification <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select an option that best represents your current situation for the month. Reduce income means that you have income coming in but is below the average. Loss of income means that no money form clients due to the CoVID-19 situation.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -302,7 +302,7 @@
                                 <div class="form-group mb-0{{ $errors->has('effective_date') ? ' has-error' : '' }} grp-effective_date">
                                     <label class="control-label mb-0" for="effective_date">
                                         Effective Date <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the date when retrenched, termination or income was reduced. This should have occurred on or before 1st March 2020.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -322,7 +322,7 @@
                                 <div class="form-group mb-0{{ $errors->has('job_title') ? ' has-error' : '' }} grp-job_title">
                                     <label class="control-label mb-0" for="job_title">
                                         Job Title 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State you job position stated on business card, for example CEO, Owner, President.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -342,7 +342,7 @@
                                 <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }} grp-assistance_sought">
                                     <label class="control-label mb-0" for="assistance_sought">
                                         Assistance Being Sought <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your employment classification, for example "Retrenched".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -375,7 +375,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_first_name') ? ' has-error' : '' }} grp-landlord_first_name">
                                     <label class="control-label mb-0" for="landlord_first_name">
                                         Landlord First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord first name as presented on identification that will be uploaded.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -395,7 +395,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_surname') ? ' has-error' : '' }} grp-landlord_surname">
                                     <label class="control-label mb-0" for="landlord_surname">
                                         Landlord Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord surname as presented on identification that will be uploaded.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -415,7 +415,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }} grp-landlord_contact_no">
                                     <label class="control-label mb-0" for="landlord_contact_no">
                                         Landlord Contact Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please enter your contact number, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone number to contact the landlord, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -435,7 +435,7 @@
                                 <div class="form-group mb-0{{ $errors->has('rental_amount') ? ' has-error' : '' }} grp-rental_amount">
                                     <label class="control-label mb-0" for="rental_amount">
                                         Rental Amount <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please state your job title, for example "Manager".'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the current rental amount in TT dollars that you are required to pay the landlord.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -455,7 +455,7 @@
                                 <div class="form-group mb-0{{ $errors->has('bank_name') ? ' has-error' : '' }} grp-bank_name">
                                     <label class="control-label mb-0" for="bank_name">
                                         Bank Name 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select your branch for payments to be sent. If no bank information is provided, then a check will be issued once you have qualified for the income support grant.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -480,7 +480,7 @@
                                 <div class="form-group mb-0{{ $errors->has('scotia_area') ? ' has-error' : '' }} grp-scotia_area">
                                     <label class="control-label mb-0" for="scotia_area">
                                         Branch Area <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide the location of your home branch.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -505,7 +505,7 @@
                                 <div class="form-group mb-0{{ $errors->has('bank_branch') ? ' has-error' : '' }} grp-bank_branch">
                                     <label class="control-label mb-0" for="bank_branch">
                                         Bank Branch 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide the location of your home branch.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -525,7 +525,7 @@
                                 <div class="form-group mb-0{{ $errors->has('bank_account') ? ' has-error' : '' }} grp-bank_account">
                                     <label class="control-label mb-0" for="bank_account">
                                         Account Number 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Please select your submission type.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide your account number for the selected bank.'></i>
                                     </label>
                                 </div>
                             </td>

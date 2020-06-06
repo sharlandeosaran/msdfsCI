@@ -28,7 +28,6 @@ class FormAController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
         [
@@ -276,20 +275,10 @@ class FormAController extends Controller
         if ($validator->fails()) {
             $uploads = app('App\Http\Controllers\FileController')->store($request);
 
-            // dd($uploads);
-            // dd($_FILES);
-
             if ($uploads && $uploads['response'] && $request->tempfiles) {
                 $old = (array) json_decode($request->tempfiles);
                 $new = (array) json_decode($uploads['list']);
                 $merge = array_merge($old,$new);
-
-                // dump($request->tempfiles);
-                // dump($old);
-                // dump($uploads['list']);
-                // dump($new);
-                // dd(array_merge($old,$new));
-                // die();
 
                 return redirect('/form/a')
                 ->withInput()
@@ -345,18 +334,13 @@ class FormAController extends Controller
             }
         }
 
+        // add temp files to list
         if ($request->tempfiles) {
             $old = (array) json_decode($request->tempfiles);
-            // dump($old);
             foreach ($old as $key => $file) {
-                // dump($file);
                 $data_files[$key] = curl_file_create($file->name, $file->mime, $file->mime);
             }
         }
-                
-        // dd(json_encode($data_files, JSON_PRETTY_PRINT));
-        // dump($data_files);
-        // dd(config('curl.token', ''));
         // dd($data_files);
 
     	// temporarily set max execution time to 5 mins
@@ -387,10 +371,7 @@ class FormAController extends Controller
             // delete temp saved files
             if ($request->tempfiles) {
                 $old = (array) json_decode($request->tempfiles);
-                // dump($old);
                 foreach ($old as $key => $file) {
-                    // dd($file['name']);
-                    
                     // Remove the file
                     unlink($file->name);
                 }
@@ -481,9 +462,6 @@ class FormAController extends Controller
                 $data["household_income"]["household_income_total"] = $total;
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
                 
-                // dd(json_encode($data, JSON_PRETTY_PRINT));
-                // dd($data);
-                
                 $curl = curl_init();
                 curl_setopt_array($curl, [
                     CURLOPT_URL => config('curl.url.forma', ''),
@@ -501,7 +479,7 @@ class FormAController extends Controller
                 $response = curl_exec($curl);
                 $get = json_decode($response);
                 curl_close($curl); 
-                dd($response);
+                // dd($response);
                 
                 if (isset($get->error)) {
                     $validator->errors()->add('post', $get->error);
@@ -515,7 +493,6 @@ class FormAController extends Controller
                         ->withInput()
                         ->withErrors($validator);
             }
-            // dd($response);
         } else {
             $validator->errors()->add('uploadfail', 'Please upload files again.');
             return redirect('/form/a')

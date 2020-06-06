@@ -27,7 +27,6 @@ class FormBController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        // dd(job_title_with_extra());
 
         $validator = Validator::make($request->all(), 
         [
@@ -286,29 +285,14 @@ class FormBController extends Controller
 				$validator->errors()->add('captcha', 'Invalid captcha!');
             } */
         });
-
-        
-        // $uploads = app('App\Http\Controllers\FileController')->store($request);
-
-        // dd($uploads);
         
         if ($validator->fails()) {
             $uploads = app('App\Http\Controllers\FileController')->store($request);
-
-            // dd($uploads);
-            // dd($_FILES);
 
             if ($uploads && $uploads['response'] && $request->tempfiles) {
                 $old = (array) json_decode($request->tempfiles);
                 $new = (array) json_decode($uploads['list']);
                 $merge = array_merge($old,$new);
-
-                // dump($request->tempfiles);
-                // dump($old);
-                // dump($uploads['list']);
-                // dump($new);
-                // dd(array_merge($old,$new));
-                // die();
 
                 return redirect('/form/b')
                 ->withInput()
@@ -367,9 +351,6 @@ class FormBController extends Controller
             }
         }
 
-        // dump($data_files);
-        // dd($data_files);
-
         // add saved files to list
         if ($request->tempfiles) {
             $old = (array) json_decode($request->tempfiles);
@@ -380,12 +361,6 @@ class FormBController extends Controller
                 $data_files['user_signiture'] = curl_file_create($file->name, $file->mime, $file->mime);
             }
         }
-        
-        // dd(json_encode($data_files, JSON_PRETTY_PRINT));
-        // dump($data_files);
-        // dd($data_files);
-        // dump(config('curl.token', ''));
-        // dump(config('curl.url.files', ''));
 
     	// temporarily set max execution time to 5 mins
         ini_set('max_execution_time', 300);
@@ -401,13 +376,11 @@ class FormBController extends Controller
                 "token: ".config('curl.token', ''),
             ],
         ]);
-        // dump($curl_files);
 
         $response = curl_exec($curl_files);
         $files = json_decode($response);
         curl_close($curl_files);
         // dd($files);
-        // dd($request->tempfiles);
 
     	// reset max execution time to 1 min
         ini_set('max_execution_time', 60);
@@ -416,18 +389,15 @@ class FormBController extends Controller
             // delete temp saved files
             if ($request->tempfiles) {
                 $old = (array) json_decode($request->tempfiles);
-                // dump($old);
                 foreach ($old as $key => $file) {
-                    // dd($file['name']);
-                    
                     // Remove the file
                     unlink($file->name);
                 }
             }
-            // dd($request->tempfiles);
 
             // post form data
             try {
+                // set recommender_job_title if help is there
                 if (search_for_title($request->recommender_job_title, job_title())) {
                     $rec_job_title = job_title()[search_for_title($request->recommender_job_title, job_title())]['label']? 
                         $request->recommender_job_title.': '.job_title()[search_for_title($request->recommender_job_title, job_title())]['label'].' '.$request->recommender_job_title_info :
@@ -435,7 +405,6 @@ class FormBController extends Controller
                 } else {
                     $rec_job_title = 'N/A';
                 }
-                // dd($rec_job_title);
 
                 // post data
                 $data = [
@@ -504,7 +473,6 @@ class FormBController extends Controller
                     "recommender_home_address" => $request->recommender_home_address,
                     "recommender_city_town" => $request->recommender_city_town,
                     "recommender_years_know_applicant" => $request->recommender_years_known,
-                    // "recommender_certification" => $request->landlord_name, // ******** what is this???
                 ];
                 $total = $request->hi_income[1]? $request->hi_income[1] : 0;
                 if ($request->hi_first_name) {
@@ -525,9 +493,6 @@ class FormBController extends Controller
                 }
                 $data["household_income"]["household_income_total"] = $total;
                 $data["household_income"]["less_than_equal_10k"] = $total <= 10000;
-
-                // dd(json_encode($data, JSON_PRETTY_PRINT));
-                // dd($data);
                 
                 $curl = curl_init();
                 curl_setopt_array($curl, [
@@ -560,7 +525,6 @@ class FormBController extends Controller
                         ->withInput()
                         ->withErrors($validator);
             }
-            // dd($response);
         } else {
             $validator->errors()->add('uploadfail', 'Please upload files again.');
             return redirect('/form/b')
