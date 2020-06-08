@@ -38,7 +38,7 @@ class FormBController extends Controller
             ],
             "contact_no" => [
                 "required",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
             ],
             "email" => "required|email|max:250",
             "home_address" => "required|max:250",
@@ -69,7 +69,7 @@ class FormBController extends Controller
             ],
             "landlord_contact_no" => [
                 "nullable",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
                 Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
             ],
             "rental_amount" => [
@@ -117,7 +117,7 @@ class FormBController extends Controller
             "recommender_job_title" => "required|max:150",
             "recommender_contact_no" => [
                 "required",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
             ],
             "recommender_email" => "nullable|email|max:250",
             "recommender_home_address" => "required|max:250",
@@ -514,10 +514,17 @@ class FormBController extends Controller
                 // dd($response);
                 
                 if (isset($get->error)) {
-                    $validator->errors()->add('post', $get->error);
-                    return redirect('/form/b')
-                            ->withInput()
-                            ->withErrors($validator);
+                    if ($get->error != '' && !is_array($get->error) && !is_object($get->error)) {
+                        $validator->errors()->add('post', $get->error);
+                        return redirect('/form/a')
+                                ->withInput()
+                                ->withErrors($validator);
+                    }else{
+                        $validator->errors()->add('post', 'error posting data.');
+                        return redirect('/form/a')
+                                ->withInput()
+                                ->withErrors($validator);
+                    }
                 }
             } catch (\Throwable $th) {
                 $validator->errors()->add('post', $th);

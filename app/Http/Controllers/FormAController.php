@@ -70,7 +70,7 @@ class FormAController extends Controller
             ],
             "landlord_contact_no" => [
                 "nullable",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/",
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
                 Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
             ],
             "rental_amount" => [
@@ -94,7 +94,7 @@ class FormAController extends Controller
             "emp_auth_person" => "required|max:100",
             "emp_contact" => [
                 "required",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
             ],
 
             "hi_first_name" => "array",
@@ -479,13 +479,22 @@ class FormAController extends Controller
                 $response = curl_exec($curl);
                 $get = json_decode($response);
                 curl_close($curl); 
+                // dd($get->error);
+                // dd($get);
                 // dd($response);
                 
                 if (isset($get->error)) {
-                    $validator->errors()->add('post', $get->error);
-                    return redirect('/form/a')
-                            ->withInput()
-                            ->withErrors($validator);
+                    if ($get->error != '' && !is_array($get->error) && !is_object($get->error)) {
+                        $validator->errors()->add('post', $get->error);
+                        return redirect('/form/a')
+                                ->withInput()
+                                ->withErrors($validator);
+                    }else{
+                        $validator->errors()->add('post', 'error posting data.');
+                        return redirect('/form/a')
+                                ->withInput()
+                                ->withErrors($validator);
+                    }
                 }
             } catch (\Throwable $th) {
                 $validator->errors()->add('post', $th);
