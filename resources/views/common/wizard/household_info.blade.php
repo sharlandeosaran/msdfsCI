@@ -1,7 +1,7 @@
 <h3><i class="fa fa-home" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">
-        <div class="card-body px-4">
+        <div class="card-body px-4" id="div-household">
             
             <h5 class="bd-wizard-step-title mb-4">Section <span id="householdInfoSection"></span>: Household Information</h5>
             {{-- <h2 class="section-heading">Select business type </h2> --}}

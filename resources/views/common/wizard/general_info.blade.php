@@ -1,7 +1,7 @@
 <h3><i class="fa fa-user" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">
-        <div class="card-body px-4">
+        <div class="card-body px-4" id="div-geninfo">
             
             <h5 class="bd-wizard-step-title">Section 1: General Information</h5>
             <h5 class=""><strong><i>TO BE COMPLETED BY ALL APPLICANTS</i></strong></h5>

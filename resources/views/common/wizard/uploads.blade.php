@@ -6,7 +6,7 @@
 <h3><i class="fa fa-upload" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">
-        <div class="card-body px-4">
+        <div class="card-body px-4" id="div-uploads">
             
             <h5 class="bd-wizard-step-title mb-4">Section <span id="uploadsSection"></span>: Upload Documents</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}

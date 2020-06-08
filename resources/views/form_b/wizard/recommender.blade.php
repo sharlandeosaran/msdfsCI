@@ -1,7 +1,7 @@
 <h3><i class="fa fa-comment" aria-hidden="true"></i></h3>
 <section>
     <div class="card border-primary shadow">
-        <div class="card-body px-4">
+        <div class="card-body px-4" id="div-recommender">
             
             <h5 class="bd-wizard-step-title mb-4">Section 3: Recommender Information</h5>
             {{-- <h2 class="section-heading">Enter your Account Details</h2> --}}
