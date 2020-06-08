@@ -1,4 +1,4 @@
-<h3><i class="fa fa-info" aria-hidden="true"></i></h3>
+<h3><i class="fa fa-info" aria-hidden="true" title="Guidelines"></i></h3>
 <section>
     <div class="card border-primary shadow mb-4">
         <div class="card-body">

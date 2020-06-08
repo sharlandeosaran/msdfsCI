@@ -1,4 +1,4 @@
-<h3><i class="fa fa-home" aria-hidden="true"></i></h3>
+<h3><i class="fa fa-home" aria-hidden="true" title="Household Information"></i></h3>
 <section>
     <div class="card border-primary shadow">
         <div class="card-body px-4" id="div-household">

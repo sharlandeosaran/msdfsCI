@@ -1,4 +1,4 @@
-<h3><i class="fa fa-check" aria-hidden="true"></i></h3>
+<h3><i class="fa fa-check" aria-hidden="true" title="Declaration of Truth"></i></h3>
 <section>
     <div class="card border-primary shadow">
         <div class="card-body px-4">
