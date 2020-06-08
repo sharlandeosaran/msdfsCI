@@ -7,19 +7,19 @@
         
         <div class="row">
             {{-- only on xs --}}
-            <div class="col-md-8 col-md-offset-2 text-center d-block d-sm-none mt-5">
+            <div class="col-md-8 offset-md-2 text-center d-block d-sm-none mt-5">
                 <img src="{{asset('img/thank_you.png')}}" alt="Butterflies" class="img-responsive mt-5" width="100%">
                 {{-- <h3>Check your email for acknowledgement.</h3> --}}
             </div>
             
             {{-- only on sm --}}
-            <div class="col-md-8 col-md-offset-2 text-center d-none d-sm-block d-md-none" style="margin-top: -35px;">
+            <div class="col-md-8 offset-md-2 text-center d-none d-sm-block d-md-none" style="margin-top: -35px;">
                 <img src="{{asset('img/thank_you.png')}}" alt="Butterflies" class="img-responsive mt-0" width="100%">
                 {{-- <h3>Check your email for acknowledgement.</h3> --}}
             </div>
             
             {{-- md and bigger --}}
-            <div class="col-md-8 col-md-offset-2 text-center d-none d-md-block mt-1">
+            <div class="col-md-8 offset-md-2 text-center d-none d-md-block mt-1">
                 <img src="{{asset('img/thank_you.png')}}" alt="Butterflies" class="img-responsive mb-4" width="100%">
                 {{-- <h3>Check your email for acknowledgement.</h3> --}}
             </div>
