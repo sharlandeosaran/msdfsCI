@@ -503,7 +503,8 @@ class FormAController extends Controller
                         ->withErrors($validator);
             }
         } else {
-            $validator->errors()->add('uploadfail', 'Please upload files again.');
+            $message = isset($files->message)? $files->message : 'Please upload files again.';
+            $validator->errors()->add('uploadfail', $message);
             return redirect('/form/a')
                     ->withInput()
                     ->withErrors($validator);

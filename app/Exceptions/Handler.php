@@ -50,6 +50,17 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        try {
+            // $log = new \App\ErrorLog;
+            // $log->user = \Auth::user()? \Auth::user()->name : $request->name;
+            // $log->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
+            // $log->action = $request->fullUrl();
+            // $log->exception = $exception->getMessage();
+            // $log->save();
+        } catch (\Throwable $th) {
+            
+        }
+
         return parent::render($request, $exception);
     }
 }
