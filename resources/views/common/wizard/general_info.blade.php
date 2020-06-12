@@ -274,6 +274,12 @@
                                                     <label class="custom-control-label my-1" for="terminated">Terminated</label>
                                                 </div>
                                             </div>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="income_reduced" name="employment_classification" class="custom-control-input" value="income_reduced" {{old('employment_classification') == 'income_reduced'? 'checked' : '' }}>
+                                                    <label class="custom-control-label my-1" for="income_reduced">Income Reduced</label>
+                                                </div>
+                                            </div>
                                         @else
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <div class="custom-control custom-radio">
@@ -281,13 +287,13 @@
                                                     <label class="custom-control-label my-1" for="income_loss">Loss of Income</label>
                                                 </div>
                                             </div>
-                                        @endif
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="reduced_income" name="employment_classification" class="custom-control-input" value="reduced_income" {{old('employment_classification') == 'reduced_income'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="reduced_income">Reduced Income</label>
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <div class="custom-control custom-radio">
+                                                    <input type="radio" id="reduced_income" name="employment_classification" class="custom-control-input" value="reduced_income" {{old('employment_classification') == 'reduced_income'? 'checked' : '' }}>
+                                                    <label class="custom-control-label my-1" for="reduced_income">Reduced Income</label>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                     
                                     <span class="help-block">

@@ -530,6 +530,7 @@ function employment_list()
 		'retrenched' => 'Retrenched',
 		'terminated' => 'Terminated',
 		'income_loss' => 'Loss of Income',
+		'income_reduced' => 'Income Reduced',
 		'reduced_income' => 'Reduced Income',
 	];
 }

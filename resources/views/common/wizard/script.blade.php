@@ -87,3 +87,9 @@ function errorClass(e)
     e.attr('original', original);
     e.removeClass().addClass('fa fa-warning fa-3x text-danger');
 }
+
+// change employment classification after entered
+var employment_list = {!! json_encode(employment_list()) !!}
+$(document).on('change', '[name="employment_classification"]', function(){
+    $('.employmentClassificationText').html(employment_list[$(this).val()]);
+});

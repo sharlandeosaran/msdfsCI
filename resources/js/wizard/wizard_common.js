@@ -192,6 +192,12 @@ $(function () {
         $('.effectiveDateText').html(date);
     });
 
+    // change company name after entered
+    $(document).on('change', '#emp_name', function(){
+        // var empname = $(this).val();
+        $('.empNameText').html($(this).val());
+    });
+
     // change gender of applicant after entered
     $(document).on('change', '.gender', function(){
         var gender = $('[name="gender"]:checked').val();
