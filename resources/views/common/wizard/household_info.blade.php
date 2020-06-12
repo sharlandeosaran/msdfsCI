@@ -11,12 +11,30 @@
                 <table class="table table-bordered table-striped table-sm">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Gender</th>
-                            <th>Relationship to Applicant</th>
-                            <th>Date of Birth</th>
-                            <th>Employment Status</th>
-                            <th>Total Income (TTD)</th>
+                            <th>
+                                Name <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
+                            </th>
+                            <th>
+                                Gender <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='Select the gender of the person stated in the row.'></i>
+                            </th>
+                            <th>
+                                Relationship to Applicant <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='State the connection to the applicant of each person listed as part of the household. '></i>
+                            </th>
+                            <th>
+                                Date of Birth <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='State the date of birth of the person stated in the row in the format yyyy-mm-dd.'></i>
+                            </th>
+                            <th>
+                                Employment Status <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='State current employment status of the person stated in the row, for example "Unemployed".'></i>
+                            </th>
+                            <th>
+                                Total Income (TTD) <span class="red">*</span> 
+                                <i class="fa fa-info-circle" aria-hidden="true" title='State total monthly income in Trinidad and Tobago (TT) dollars. If you are a daily paid worker, please state the average income received in a month in TT dollars. Please note the grant is for households with a total income equal to or less than TT$10,000.'></i>
+                            </th>
                             <th>
                                 <button class="btn btn-sm btn-success add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </th>
@@ -178,7 +196,8 @@
                         <tr style="background-color: rgba(0,0,0,0.05);">
                             <th colspan="5">
                                 <p class="text-right mb-0 {{$errors->has('hi_total_before')? 'text-primary' : ''}}">
-                                    Total income before retrenchment/ termination/ reduction in income <span class="red">*</span>:
+                                    Total income before retrenchment/ termination/ reduction in income <span class="red">*</span> 
+                                    <i class="fa fa-info-circle" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
                                 </p>
                             </th>
                             <th>
