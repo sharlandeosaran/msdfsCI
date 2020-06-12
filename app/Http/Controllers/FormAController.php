@@ -345,8 +345,8 @@ class FormAController extends Controller
         }
         // dd($data_files);
 
-    	// temporarily set max execution time to 5 mins
-        ini_set('max_execution_time', 300);
+    	// temporarily set max execution time to 10 mins
+        ini_set('max_execution_time', 600);
         
         $curl_files = curl_init();
         curl_setopt_array($curl_files, [
@@ -366,8 +366,8 @@ class FormAController extends Controller
         // dd($response);
         // dd($files);
 
-    	// reset max execution time to 1 min
-    	ini_set('max_execution_time', 60);
+    	// reset max execution time to 5 mins
+    	ini_set('max_execution_time', 300);
 
         if (isset($files->success)) {
             // delete temp saved files
