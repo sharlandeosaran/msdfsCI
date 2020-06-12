@@ -77,3 +77,27 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## PHP requirements
+
+- post_max_size = 0
+- upload_max_filesize = 10M
+- max_execution_time = 300
+- date.timezone = America/La_Paz
+
+Extension List
+- extension=php_mysqli.dll
+- extension=php_mbstring.dll
+- extension=php_gd2.dll
+- extension=php_gettext.dll
+- extension=php_curl.dll
+- extension=php_exif.dll
+- extension=php_xmlrpc.dll
+- extension=php_openssl.dll
+- extension=php_soap.dll
+- extension=php_pdo_mysql.dll
+- extension=php_pdo_sqlite.dll
+- extension=php_imap.dll
+- extension=php_tidy.dll
+- extension=php_intl.dll
+- extension=php_fileinfo.dll
