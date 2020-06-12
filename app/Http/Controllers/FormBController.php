@@ -237,7 +237,9 @@ class FormBController extends Controller
             'hi_income.1.required' => 'The applicant total income field is required.',
 
             'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
-            'contact_no.regex' => 'The format for the contact number is xxx-xxxx.',
+            'contact_no.regex' => 'The format for the contact number is (xxx) xxx-xxxx.',
+            'landlord_contact_no.regex' => 'The format for the contact number is (xxx) xxx-xxxx.',
+            'recommender_contact_no.regex' => 'The format for the contact number is (xxx) xxx-xxxx.',
             'nis.regex' => 'The format for the national insurance number is xxxxxxxxx (9 digits).',
             'national_id.regex' => 'The format for the national id is xxxxxxxxxxx (11 digits).',
 
