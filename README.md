@@ -14,7 +14,7 @@
 - max_execution_time = 300
 - date.timezone = America/La_Paz
 
-Extension List
+**Extension List**
 - extension=php_mysqli.dll
 - extension=php_mbstring.dll
 - extension=php_gd2.dll
