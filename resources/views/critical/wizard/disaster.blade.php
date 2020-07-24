@@ -57,7 +57,7 @@
                                             <label class="custom-control-label my-1" for="{{$key}}">{{$item}}</label>
                                         </div>
                                         <div class="mb-2 hide recovery_needs_div" id="recovery_needs_{{$key}}">
-                                            <input type="text" class="form-control" id="basic-url" aria-describedby="recovery_needs_{{$key}}" name="recovery_needs[{{$key}}]" value="{{old('recovery_needs.'.$key)}}" placeholder="Recovery needs for {{$item}}">
+                                            <input type="text" class="form-control" id="recovery_needs_input_{{$key}}" aria-describedby="recovery_needs_{{$key}}" name="recovery_needs[{{$key}}]" value="{{old('recovery_needs.'.$key)}}" placeholder="Recovery needs for {{$item}}">
                                         </div>
                                         @endforeach
                                     </div>

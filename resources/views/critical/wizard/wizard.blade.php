@@ -45,12 +45,14 @@
         // show/hide recovery_needs_input_group once damage household item is selected
         $(document).on('change', '.household_damage_items', function() {
             var boxes = $('.household_damage_items:checkbox:checked');
+            var id = $( this ).prop('id');
 
             if (boxes.length > 0) {
                 $('.recovery_needs_div').addClass('hide');
                 boxes.each(function( index ) {
                     $('#recovery_needs_'+ $( this ).prop('id')).removeClass('hide');
                 });
+                $('#recovery_needs_input_'+ id).focus();
             } else {
                 $('.recovery_needs_div').addClass('hide');
             }
