@@ -27,7 +27,7 @@
                                             <label class="custom-control-label my-1" for="{{$key}}">{{$item}}</label>
                                         </div>
                                         <div class="mb-2 hide disaster_remarks_div" id="disaster_remarks_{{$key}}">
-                                            <input type="text" class="form-control" id="basic-url" aria-describedby="disaster_remarks_{{$key}}" name="disaster_remarks[{{$key}}]" value="{{old('disaster_remarks.'.$key)}}" placeholder="Brief remarks on {{$item}}">
+                                            <input type="text" class="form-control" id="disaster_remarks_input_{{$key}}" aria-describedby="disaster_remarks_{{$key}}" name="disaster_remarks[{{$key}}]" value="{{old('disaster_remarks.'.$key)}}" placeholder="Brief remarks on {{$item}}">
                                         </div>
                                         @endforeach
                                     </div>

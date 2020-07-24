@@ -59,12 +59,14 @@
         // show/hide disaster remarks
         $(document).on('change', '.disasters', function() {
             var boxes = $('.disasters:checkbox:checked');
+            var id = $( this ).prop('id');
 
             if (boxes.length > 0) {
                 $('.disaster_remarks_div').addClass('hide');
                 boxes.each(function( index ) {
                     $('#disaster_remarks_'+ $( this ).prop('id')).removeClass('hide');
                 });
+                $('#disaster_remarks_input_'+ id).focus();
             } else {
                 $('.disaster_remarks_div').addClass('hide');
             }
@@ -77,6 +79,7 @@
 
             if (val == 'yes') {
                 $('#housing_repairs_div').removeClass('hide');
+                $('#housing_repairs').focus();
             } else {
                 $('#housing_repairs_div').addClass('hide');
             }
