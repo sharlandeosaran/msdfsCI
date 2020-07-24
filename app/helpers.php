@@ -5,7 +5,8 @@ function version()
 	return 'Version 0.1';
 }
 
-function sanitize($input) { 
+function sanitize($input) 
+{ 
 	if(is_string($input)){
 		$bad = array("'", '"', '`', '/');
 		$safe = array('&#039;', '&quot;', '&#96;', '&#47;');
@@ -539,4 +540,31 @@ function employment_classification($string)
 {
 	$list = employment_list();
 	return $list[$string];
+}
+
+function household_damage_items()
+{
+	return [
+		'stove' => 'Stove',
+		'refrigerator' => 'Refrigerator',
+		'washing_machine' => 'Washing Machine',
+		'bed' => 'Bed',
+		'mattress' => 'Mattress',
+		'wardrobe' => 'Wardrobe',
+		'chest_of_drawers' => 'Chest of Drawers',
+		'living_room_set' => 'Living Room Set',
+		'dining_room_set' => 'Dining Room Set',
+		'school_supplies' => 'School Supplies',
+	];
+}
+
+function disasters()
+{
+	return [
+		'flooding' => 'Flooding',
+		'hurricane' => 'Hurricane',
+		'land_slide' => 'Land Slide',
+		'earthquake' => 'Earthquake',
+		'other_disaster' => 'Other (specify)',
+	];
 }

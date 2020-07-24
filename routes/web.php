@@ -19,6 +19,10 @@ Route::get('/', 'HomeController@welcome')->name('welcome');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/thanks', 'HomeController@thanks')->name('thanks');
 
+// critical incident form
+Route::get('/form/critical', 'CriticalIncidentController@index')->name('formcritical');
+Route::post('/form/critical', 'CriticalIncidentController@store')->name('formcriticalpost');
+
 // form A
 Route::get('/form/a', 'FormAController@index')->name('forma');
 Route::post('/form/a', 'FormAController@store')->name('formapost');

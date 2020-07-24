@@ -12,7 +12,7 @@
 @include('common.errors')
 
 <main class="align-items-center">
-    <div class="">
+    <div class="col-lg-10 col-md-12 offset-lg-1">
         
         <form id="forma" method="POST" action="{{route('formapost')}}" enctype="multipart/form-data" role="form">
             @csrf

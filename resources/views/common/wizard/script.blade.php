@@ -57,6 +57,11 @@ $(document).on('change', '[name="employment_classification"]', function(){
     $('#hi_emp_classification').val(emp_list[classification]);
 });
 
+// change national ID after entered
+$(document).on('change', '#national_id', function(){
+    $('.nationalIDField').val($(this).val());
+});
+
 @if($errors->has('uploadfail'))
 setTimeout(function() 
 {

@@ -1,4 +1,4 @@
-<h3><i class="fa fa-home" aria-hidden="true" title="Household Information"></i></h3>
+<h3><i class="fa fa-users" aria-hidden="true" title="Household Information"></i></h3>
 <section>
     <div class="card border-primary shadow">
         <div class="card-body px-4" id="div-household">
@@ -8,12 +8,16 @@
             {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p> --}}
             
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-sm">
+                <table class="table table-bordered table-striped table-sm" style="min-width: 800px;">
                     <thead>
                         <tr>
                             <th>
                                 Name <span class="red">*</span> 
                                 <i class="fa fa-info-circle" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
+                            </th>
+                            <th>
+                                National ID 
+                                <i class="fa fa-info-circle" aria-hidden="true" title=''></i>
                             </th>
                             <th>
                                 Gender <span class="red">*</span> 
@@ -46,6 +50,11 @@
                             <td>
                                 <div class="form-group">
                                     <input type="text" readonly="" class="form-control-plaintext nameField" value="{{old('first_name') || old('surname')? old('first_name').' '.old('surname') : '' }}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" readonly="" class="form-control-plaintext nationalIDField" value="{{old('national_id')}}">
                                 </div>
                             </td>
                             <td>
@@ -113,6 +122,15 @@
                                         </div>
                                     </td>
                                     <td>
+                                        <div class="form-group{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
+                                            <input type="text" class="form-control form-control-sm" id="hi_national_id_{{$key}}" name="hi_national_id[{{$key}}]" aria-describedby="" value="{{old('hi_national_id.'.$key)? old('hi_national_id.'.$key) : '' }}" maxlength="11">
+                                            
+                                            <span class="help-block">
+                                                <strong id="err-hi_national_id_{{$key}}">{{ $errors->first('hi_national_id.'.$key) }}</strong>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
                                         <div class="form-group{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_1" name="hi_gender[{{$key}}]" class="custom-control-input" value="M" {{old('hi_gender.'.$key) == 'M'? 'checked' : '' }}>
@@ -175,7 +193,7 @@
                     <tfoot>
                         
                         <tr>
-                            <th colspan="5" class="align-middle">
+                            <th colspan="6" class="align-middle">
                                 <p class="text-muted text-right">
                                     Total:
                                 </p>
@@ -194,7 +212,7 @@
                             </th>
                         </tr>
                         <tr style="background-color: rgba(0,0,0,0.05);">
-                            <th colspan="5">
+                            <th colspan="6">
                                 <p class="text-right mb-0 {{$errors->has('hi_total_before')? 'text-primary' : ''}}">
                                     Total income before retrenchment/ termination/ reduction in income <span class="red">*</span> 
                                     <i class="fa fa-info-circle" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:

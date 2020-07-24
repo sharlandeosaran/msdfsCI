@@ -41,7 +41,7 @@
     <div id="app">
         @include('layouts.navbar')
         
-        <div class="container">
+        <div class="container-fluid">
             @yield('breadcrumbs')
             
             <main>
