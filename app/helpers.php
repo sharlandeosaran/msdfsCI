@@ -592,3 +592,36 @@ function total_income()
 	// asort($list);
 	return $list;
 }
+
+function relationships()
+{
+	$list = [
+		1 => 'Brother',
+		2 => 'Sister',
+		3 => 'Mother',
+		4 => 'Father',
+		5 => 'Grandmother',
+		6 => 'Grandfather',
+		7 => 'Grandson',
+		8 => 'Granddaughter',
+		9 => 'Aunt',
+		10 => 'Uncle',
+		11 => 'Cousin',
+		12 => 'Other',
+	];
+	// asort($list);
+	return $list;
+}
+
+function employment_status()
+{
+	$list = [
+		1 => 'Employed',
+		2 => 'Self-Employed',
+		3 => 'Unemployed',
+		4 => 'Pensioner',
+		5 => 'Retiree',
+	];
+	// asort($list);
+	return $list;
+}

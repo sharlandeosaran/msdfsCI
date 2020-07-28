@@ -20,19 +20,17 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('disasters') ? ' has-error' : '' }} grp-disasters">
-                                    <div class="col-md-12 checkbox-group required">
+                                    <div class="col-md-12 radio-group required">
                                         @foreach ($disasters as $key => $item)
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input disasters" id="{{$key}}" name="disasters[{{$key}}]" {{old('disasters.'.$key) == 'on'? 'checked' : '' }}>
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" class="custom-control-input disasters" id="{{$key}}" name="disasters" {{old('disasters.'.$key) == 'on'? 'checked' : '' }}>
                                             <label class="custom-control-label my-1" for="{{$key}}">{{$item}}</label>
                                         </div>
-                                        @if ($key == 'other_disaster')
-                                            <div class="mb-2 hide disaster_remarks_div" id="disaster_remarks_{{$key}}">
-                                            <input type="text" class="form-control" id="disaster_remarks_input_{{$key}}" aria-describedby="disaster_remarks_{{$key}}" name="disaster_remarks[{{$key}}]" value="{{old('disaster_remarks.'.$key)}}" placeholder="Brief remarks on disaster" maxlength="150">
-                                        </div>
-                                        @endif
-                                        
                                         @endforeach
+
+                                        <div class="mb-2 hide disaster_remarks_div" id="other_disaster_remarks_div">
+                                            <input type="text" class="form-control" id="other_disaster_remarks" name="other_disaster_remarks" value="{{old('other_disaster_remarks')}}" placeholder="Brief remarks on disaster" maxlength="150">
+                                        </div>
                                     </div>
                                     
                                     <span class="help-block">
@@ -130,19 +128,19 @@
                         
                         <tr class="hide housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('othername') ? ' has-error' : '' }} grp-othername">
-                                    <label class="control-label mb-0" for="othername">
+                                <div class="form-group mb-0{{ $errors->has('insurer_name') ? ' has-error' : '' }} grp-insurer_name">
+                                    <label class="control-label mb-0" for="insurer_name">
                                         Insurer Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your othername as indicated on your identification card.'></i>
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your insurer_name as indicated on your identification card.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('othername') ? ' has-error' : '' }} grp-othername">
-                                    <input type="text" class="form-control name" id="othername" name="othername" aria-describedby="" value="{{old('othername')? old('othername') : '' }}" maxlength="50">
+                                <div class="form-group mb-0{{ $errors->has('insurer_name') ? ' has-error' : '' }} grp-insurer_name">
+                                    <input type="text" class="form-control name" id="insurer_name" name="insurer_name" aria-describedby="" value="{{old('insurer_name')? old('insurer_name') : '' }}" maxlength="50">
                                     
                                     <span class="help-block">
-                                        <strong id="err-othername">{{ $errors->first('othername') }}</strong>
+                                        <strong id="err-insurer_name">{{ $errors->first('insurer_name') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -150,19 +148,19 @@
                         
                         <tr class="hide housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }} grp-home_address">
-                                    <label class="control-label mb-0" for="home_address">
+                                <div class="form-group mb-0{{ $errors->has('insurer_address') ? ' has-error' : '' }} grp-insurer_address">
+                                    <label class="control-label mb-0" for="insurer_address">
                                         Insurer Address <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }} grp-home_address">
-                                    <textarea class="form-control" id="home_address" name="home_address" rows="3" required maxlength="250">{{old('home_address')? old('home_address') : '' }}</textarea>
+                                <div class="form-group mb-0{{ $errors->has('insurer_address') ? ' has-error' : '' }} grp-insurer_address">
+                                    <textarea class="form-control" id="insurer_address" name="insurer_address" rows="3" required maxlength="250">{{old('insurer_address')? old('insurer_address') : '' }}</textarea>
                                     
                                     <span class="help-block">
-                                        <strong id="err-home_address">{{ $errors->first('home_address') }}</strong>
+                                        <strong id="err-insurer_address">{{ $errors->first('insurer_address') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -170,19 +168,19 @@
                         
                         <tr class="hide housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
-                                    <label class="control-label mb-0" for="primary_mobile_contact">
+                                <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
+                                    <label class="control-label mb-0" for="insurer_contact">
                                         Insurer Contact <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
-                                    <input type="text" class="form-control phone" id="primary_mobile_contact" name="primary_mobile_contact" aria-describedby="" value="{{old('primary_mobile_contact')? old('primary_mobile_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
+                                    <input type="text" class="form-control phone" id="insurer_contact" name="insurer_contact" aria-describedby="" value="{{old('insurer_contact')? old('insurer_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                     
                                     <span class="help-block">
-                                        <strong id="err-primary_mobile_contact">{{ $errors->first('primary_mobile_contact') }}</strong>
+                                        <strong id="err-insurer_contact">{{ $errors->first('insurer_contact') }}</strong>
                                     </span>
                                 </div>
                             </td>

@@ -65,21 +65,20 @@
             var boxes = $('.disasters:checkbox:checked');
             var id = $( this ).prop('id');
             $('#water_marks_div').addClass('hide');
+            // console.log(id)
             // console.log(boxes)
 
-            if (boxes.length > 0) {
-                $('.disaster_remarks_div').addClass('hide');
-                boxes.each(function( index ) {
-                    $('#disaster_remarks_'+ $( this ).prop('id')).removeClass('hide');
-
-                    // if flooding show water damages uploads
-                    if ($( this ).prop('id') == 'flooding') {
-                        $('#water_marks_div').removeClass('hide');
-                    }
-                });
-                $('#disaster_remarks_input_'+ id).focus();
+            // if disaster is other show remarks textarea
+            if (id == 'other_disaster') {
+                $('#other_disaster_remarks_div').removeClass('hide');
+                $('#other_disaster_remarks').focus();
             } else {
-                $('.disaster_remarks_div').addClass('hide');
+                $('#other_disaster_remarks_div').addClass('hide');
+            }
+
+            // if flooding show water damages uploads
+            if ($( this ).prop('id') == 'flooding') {
+                $('#water_marks_div').removeClass('hide');
             }
         });
         

@@ -36,10 +36,6 @@
                                 <i class="fa fa-info-circle" aria-hidden="true" title='State current employment status of the person stated in the row, for example "Unemployed".'></i>
                             </th>
                             <th>
-                                Total Income (TTD) <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='State total monthly income in Trinidad and Tobago (TT) dollars. If you are a daily paid worker, please state the average income received in a month in TT dollars. Please note the grant is for households with a total income equal to or less than TT$10,000.'></i>
-                            </th>
-                            <th>
                                 <button class="btn btn-sm btn-success add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </th>
                         </tr>
@@ -72,7 +68,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext" value="Self">
+                                    <input type="text" readonly="" class="form-control-plaintext pl-2" value="Self">
                                 </div>
                             </td>
                             <td>
@@ -86,26 +82,15 @@
                             </td>
                             <td>    
                                 <div class="form-group{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
-                                    <input type="text" class="form-control form-control-sm" id="hi_emp_status_1" name="hi_emp_status[1]" aria-describedby="" required maxlength="25" value="{{old('hi_emp_status.1')}}">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-hi_emp_status_1">{{ $errors->first('hi_emp_status.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group{{ $errors->has('hi_income.1') ? ' has-error' : '' }} grp-hi_income_1">
-                                    <select class="form-control form-control-sm chosen-select" id="hi_income_1" name="hi_income[1]">
+                                    <select class="form-control form-control-sm chosen-select" id="hi_emp_status_1" name="hi_emp_status[1]">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($total_income as $key => $row)
-                                        <option {{old('hi_income.1') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @foreach ($employment_status as $id =>$row)
+                                        <option {{old('hi_emp_status.1') == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
                                         @endforeach
                                     </select>
                                     
-                                    {{-- <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '0' }}" required> --}}
-                                    
                                     <span class="help-block">
-                                        <strong id="err-hi_income_1">{{ $errors->first('hi_income.1') }}</strong>
+                                        <strong id="err-hi_emp_status_1">{{ $errors->first('hi_emp_status.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -159,7 +144,12 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]" aria-describedby="" value="{{old('hi_relationship.'.$key)? old('hi_relationship.'.$key) : '' }}" required maxlength="25">
+                                            <select class="form-control form-control-sm chosen-select" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
+                                                <option disabled="" selected="">select...</option>
+                                                @foreach ($relationships as $id =>$row)
+                                                <option {{old('hi_relationship.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                                @endforeach
+                                            </select>
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
@@ -177,24 +167,15 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status.'.$key)? old('hi_emp_status.'.$key) : '' }}" required maxlength="25">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group{{ $errors->has('hi_income.'.$key) ? ' has-error' : '' }} grp-hi_income_{{$key}}">
-                                            <select class="form-control form-control-sm chosen-select" id="hi_income_{{$key}}" name="hi_income[{{$key}}]">
+                                            <select class="form-control form-control-sm chosen-select" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
                                                 <option disabled="" selected="">select...</option>
-                                                @foreach ($total_income as $id =>$row)
-                                                <option {{old('hi_income.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                                @foreach ($employment_status as $id =>$row)
+                                                <option {{old('hi_emp_status.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
                                                 @endforeach
                                             </select>
                                             
                                             <span class="help-block">
-                                                <strong id="err-hi_income_{{$key}}">{{ $errors->first('hi_income.'.$key) }}</strong>
+                                                <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
@@ -206,6 +187,31 @@
                             @endforeach
                         @endif
                     </tbody>
+                    <tfoot>
+                        <tr style="background-color: rgba(0,0,0,0.05);">
+                            <th colspan="5">
+                                <p class="text-right mb-0 {{$errors->has('hi_total_income')? 'text-primary' : ''}}">
+                                    Total Income <span class="red">*</span> 
+                                    <i class="fa fa-info-circle" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
+                                </p>
+                            </th>
+                            <th>
+                                <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }} grp-hi_total_income">
+                                    <select class="form-control form-control-sm chosen-select" id="hi_total_income" name="hi_total_income">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($total_income as $id =>$row)
+                                        <option {{old('hi_total_income') == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_total_income">{{ $errors->first('hi_total_income') }}</strong>
+                                    </span>
+                                </div>
+                            </th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

@@ -20,6 +20,8 @@ class FormAController extends Controller
             'id_state' => id_state(),
             'job_title' => job_title(),
             'total_income' => total_income(),
+            'relationships' => relationships(),
+            'employment_status' => employment_status(),
             'form' => 'A',
         ];
         

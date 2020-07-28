@@ -22,6 +22,8 @@ class CriticalIncidentController extends Controller
             'disasters' => disasters(),
             'demographic_data' => demographic_data(),
             'total_income' => total_income(),
+            'relationships' => relationships(),
+            'employment_status' => employment_status(),
             'form' => 'critical',
         ];
         
