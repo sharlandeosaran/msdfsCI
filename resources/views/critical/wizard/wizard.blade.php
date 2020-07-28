@@ -61,12 +61,10 @@
         });
         
         // show/hide disaster remarks
-        $(document).on('change', '.disasters', function() {
-            var boxes = $('.disasters:checkbox:checked');
+        $(document).on('change', '.disaster', function() {
             var id = $( this ).prop('id');
             $('#water_marks_div').addClass('hide');
             // console.log(id)
-            // console.log(boxes)
 
             // if disaster is other show remarks textarea
             if (id == 'other_disaster') {
