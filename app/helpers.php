@@ -545,16 +545,16 @@ function employment_classification($string)
 function items_lost_or_damaged()
 {
 	return [
-		'stove' => 'Stove (Maximum of $2500)',
-		'refrigerator' => 'Refrigerator (Maximum of $4000)',
-		'washing_machine' => 'Washing Machine (Maximum of $3500)',
-		'bed_mattress' => 'Bed & Mattress (Maximum of $2000)',
-		'wardrobe' => 'Wardrobe (Maximum of $3000)',
-		'chest_of_drawers' => 'Chest of Draws (Maximum of $2000)',
-		'living_room_set' => 'Living Room Set (Maximum of $3500)',
-		'dining_room_set' => 'Dining Room Set (Maximum of $3500)',
-		'kitchen_cupboards' => 'Kitchen Cupboards (Maximum of $3500)',
-		'school_supplies' => 'School Supplies (Maximum of $700 per primary school child and a maximum of $1000 per secondary school child)',
+		'stove' => 'Stove',
+		'refrigerator' => 'Refrigerator',
+		'washing_machine' => 'Washing Machine',
+		'bed_mattress' => 'Bed & Mattress',
+		'wardrobe' => 'Wardrobe',
+		'chest_of_drawers' => 'Chest of Draws',
+		'living_room_set' => 'Living Room Set',
+		'dining_room_set' => 'Dining Room Set',
+		'kitchen_cupboards' => 'Kitchen Cupboards',
+		'school_supplies' => 'School Supplies',
 	];
 }
 
