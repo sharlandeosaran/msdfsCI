@@ -11,20 +11,20 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('disasters') ? ' has-error' : '' }} grp-disasters">
-                                    <label class="control-label mb-0" for="disasters">
+                                <div class="form-group mb-0{{ $errors->has('disaster') ? ' has-error' : '' }} grp-disaster">
+                                    <label class="control-label mb-0" for="disaster">
                                         Nature of Disaster <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('disasters') ? ' has-error' : '' }} grp-disasters">
+                                <div class="form-group mb-0{{ $errors->has('disaster') ? ' has-error' : '' }} grp-disaster">
                                     <div class="col-md-12 radio-group required">
-                                        @foreach ($disasters as $key => $item)
+                                        @foreach ($disasters as $key => $disaster)
                                         <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input disasters" id="{{$key}}" name="disasters" {{old('disasters.'.$key) == 'on'? 'checked' : '' }}>
-                                            <label class="custom-control-label my-1" for="{{$key}}">{{$item}}</label>
+                                            <input type="radio" class="custom-control-input disaster" id="{{$key}}" name="disaster" {{old('disaster.'.$key) == 'on'? 'checked' : '' }} value="{{$key}}">
+                                            <label class="custom-control-label my-1" for="{{$key}}">{{$disaster}}</label>
                                         </div>
                                         @endforeach
 
@@ -34,7 +34,7 @@
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-disasters">{{ $errors->first('disasters') }}</strong>
+                                        <strong id="err-disaster">{{ $errors->first('disaster') }}</strong>
                                     </span>
                                 </div>
                             </td>
