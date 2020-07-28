@@ -19,6 +19,7 @@ class FormAController extends Controller
             'citizen_proof' => citizen_proof(),
             'id_state' => id_state(),
             'job_title' => job_title(),
+            'total_income' => total_income(),
             'form' => 'A',
         ];
         
@@ -27,7 +28,7 @@ class FormAController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [
@@ -39,7 +40,7 @@ class FormAController extends Controller
             ],
             "contact_no" => [
                 "required",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}+$/"
+                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/"
             ],
             "email" => "required|email|max:250",
             "home_address" => "required|max:250",

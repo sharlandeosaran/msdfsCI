@@ -50,7 +50,7 @@
                             </td>
                         </tr>
 
-                        <tr>
+                        <tr id="employer_recommender_letter_div">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('employer_recommender_letter') ? ' has-error' : '' }} mb-0 grp-employer_recommender_letter">
                                     <label class="control-label mb-0" for="employer_recommender_letter">
@@ -80,8 +80,9 @@
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0 grp-id_card_front">
                                     <label class="control-label mb-0" for="id_card_front">
-                                        National Identification Card - <strong>(Front)</strong> <span class="red">*</span> 
+                                        National Identification Card <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='The front of the national identification card will have your picture. Take a copy of the front of your national identification card and upload.'></i>
+                                        <br><strong>(Front)</strong>
                                     </label>
                                 </div>
                             </td>
@@ -106,8 +107,9 @@
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0 grp-id_card_back">
                                     <label class="control-label mb-0" for="id_card_back">
-                                        National Identification Card - <strong>(Back)</strong> <span class="red">*</span> 
+                                        National Identification Card <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='The back of the national identification card contains only words and has no picture. Take a copy of the back of your national identification card and upload.'></i>
+                                        <br><strong>(Back)</strong>
                                     </label>
                                 </div>
                             </td>
@@ -435,6 +437,114 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-recommendation_letter">{{ $errors->first('recommendation_letter') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="hide" id="water_marks_div">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('water_marks') ? ' has-error' : '' }} mb-0 grp-water_marks">
+                                    <label class="control-label mb-0" for="water_marks">
+                                        Water Marks on the Wall 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your water_marks that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('water_marks') ? ' has-error' : '' }} mb-0 grp-water_marks">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="water_marks" name="water_marks[]" value="{{old('water_marks')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="water_marks" id="water_marksLabel">{{old('water_marks_name')? old('water_marks_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('water_marks_name')}}" name="water_marks_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-water_marks">{{ $errors->first('water_marks') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('structural_damage') ? ' has-error' : '' }} mb-0 grp-structural_damage">
+                                    <label class="control-label mb-0" for="structural_damage">
+                                        Structural Damage 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your structural_damage that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('structural_damage') ? ' has-error' : '' }} mb-0 grp-structural_damage">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="structural_damage" name="structural_damage[]" value="{{old('structural_damage')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="structural_damage" id="structural_damageLabel">{{old('structural_damage_name')? old('structural_damage_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('structural_damage_name')}}" name="structural_damage_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-structural_damage">{{ $errors->first('structural_damage') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('electrical_damage') ? ' has-error' : '' }} mb-0 grp-electrical_damage">
+                                    <label class="control-label mb-0" for="electrical_damage">
+                                        Electrical Damage 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your electrical_damage that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('electrical_damage') ? ' has-error' : '' }} mb-0 grp-electrical_damage">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="electrical_damage" name="electrical_damage[]" value="{{old('electrical_damage')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="electrical_damage" id="electrical_damageLabel">{{old('electrical_damage_name')? old('electrical_damage_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('electrical_damage_name')}}" name="electrical_damage_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-electrical_damage">{{ $errors->first('electrical_damage') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('plumbing_damage') ? ' has-error' : '' }} mb-0 grp-plumbing_damage">
+                                    <label class="control-label mb-0" for="plumbing_damage">
+                                        Plumbing Damage 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your plumbing_damage that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('plumbing_damage') ? ' has-error' : '' }} mb-0 grp-plumbing_damage">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="plumbing_damage" name="plumbing_damage[]" value="{{old('plumbing_damage')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="plumbing_damage" id="plumbing_damageLabel">{{old('plumbing_damage_name')? old('plumbing_damage_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('plumbing_damage_name')}}" name="plumbing_damage_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-plumbing_damage">{{ $errors->first('plumbing_damage') }}</strong>
                                     </span>
                                 </div>
                             </td>

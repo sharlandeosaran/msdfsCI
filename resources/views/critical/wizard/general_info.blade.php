@@ -22,6 +22,7 @@
                                     <label class="control-label mb-0" for="first_name">
                                         First Name <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                        <br>(as appearing in ID)
                                     </label>
                                 </div>
                             </td>
@@ -42,6 +43,7 @@
                                     <label class="control-label mb-0" for="surname">
                                         Surname <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='State your surname as indicated on your identification card.'></i>
+                                        <br>(as appearing in ID)
                                     </label>
                                 </div>
                             </td>
@@ -181,6 +183,31 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('demographic_data') ? ' has-error' : '' }} grp-demographic_data">
+                                    <label class="control-label mb-0" for="demographic_data">
+                                        Demographic Data <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('demographic_data') ? ' has-error' : '' }} grp-demographic_data">
+                                    <select class="form-control chosen-select" id="demographic_data" name="demographic_data">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($demographic_data as $key =>$row)
+                                        <option {{old('demographic_data') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-demographic_data">{{ $errors->first('demographic_data') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }} grp-home_address">
                                     <label class="control-label mb-0" for="home_address">
                                         Home Address <span class="red">*</span> 
@@ -226,19 +253,19 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('contact_land_line') ? ' has-error' : '' }} grp-contact_land_line">
-                                    <label class="control-label mb-0" for="contact_land_line">
-                                        Contact - Land Line <span class="red">*</span> 
+                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
+                                    <label class="control-label mb-0" for="primary_mobile_contact">
+                                        Primary Mobile Contact <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('contact_land_line') ? ' has-error' : '' }} grp-contact_land_line">
-                                    <input type="text" class="form-control phone" id="contact_land_line" name="contact_land_line" aria-describedby="" value="{{old('contact_land_line')? old('contact_land_line') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
+                                    <input type="text" class="form-control phone" id="primary_mobile_contact" name="primary_mobile_contact" aria-describedby="" value="{{old('primary_mobile_contact')? old('primary_mobile_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                     
                                     <span class="help-block">
-                                        <strong id="err-contact_land_line">{{ $errors->first('contact_land_line') }}</strong>
+                                        <strong id="err-primary_mobile_contact">{{ $errors->first('primary_mobile_contact') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -246,19 +273,19 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('contact_mobile') ? ' has-error' : '' }} grp-contact_mobile">
-                                    <label class="control-label mb-0" for="contact_mobile">
-                                        Contact - Mobile <span class="red">*</span> 
+                                <div class="form-group mb-0{{ $errors->has('secondary_mobile_contact') ? ' has-error' : '' }} grp-secondary_mobile_contact">
+                                    <label class="control-label mb-0" for="secondary_mobile_contact">
+                                        Secondary Mobile Contact 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('contact_mobile') ? ' has-error' : '' }} grp-contact_mobile">
-                                    <input type="text" class="form-control phone" id="contact_mobile" name="contact_mobile" aria-describedby="" value="{{old('contact_mobile')? old('contact_mobile') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                <div class="form-group mb-0{{ $errors->has('secondary_mobile_contact') ? ' has-error' : '' }} grp-secondary_mobile_contact">
+                                    <input type="text" class="form-control phone" id="secondary_mobile_contact" name="secondary_mobile_contact" aria-describedby="" value="{{old('secondary_mobile_contact')? old('secondary_mobile_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                     
                                     <span class="help-block">
-                                        <strong id="err-contact_mobile">{{ $errors->first('contact_mobile') }}</strong>
+                                        <strong id="err-secondary_mobile_contact">{{ $errors->first('secondary_mobile_contact') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -266,19 +293,19 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('contact_alternative') ? ' has-error' : '' }} grp-contact_alternative">
-                                    <label class="control-label mb-0" for="contact_alternative">
-                                        Contact - Alternative <span class="red">*</span> 
+                                <div class="form-group mb-0{{ $errors->has('land_line_telephone_contact') ? ' has-error' : '' }} grp-land_line_telephone_contact">
+                                    <label class="control-label mb-0" for="land_line_telephone_contact">
+                                        Land Line Telephone Contact 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('contact_alternative') ? ' has-error' : '' }} grp-contact_alternative">
-                                    <input type="text" class="form-control phone" id="contact_alternative" name="contact_alternative" aria-describedby="" value="{{old('contact_alternative')? old('contact_alternative') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                <div class="form-group mb-0{{ $errors->has('land_line_telephone_contact') ? ' has-error' : '' }} grp-land_line_telephone_contact">
+                                    <input type="text" class="form-control phone" id="land_line_telephone_contact" name="land_line_telephone_contact" aria-describedby="" value="{{old('land_line_telephone_contact')? old('land_line_telephone_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
                                     
                                     <span class="help-block">
-                                        <strong id="err-contact_alternative">{{ $errors->first('contact_alternative') }}</strong>
+                                        <strong id="err-land_line_telephone_contact">{{ $errors->first('land_line_telephone_contact') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -288,7 +315,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
                                     <label class="control-label mb-0" for="email">
-                                        Email Address <span class="red">*</span> 
+                                        Email <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
                                     </label>
                                 </div>
@@ -299,26 +326,6 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-email">{{ $errors->first('email') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('employment_classification') ? ' has-error' : '' }} grp-employment_classification">
-                                    <label class="control-label mb-0" for="employment_classification">
-                                        Employment Status <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Classification that best represents your current situation for the month.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('employment_classification') ? ' has-error' : '' }} grp-employment_classification">
-                                    <input type="text" class="form-control" id="employment_classification" name="employment_classification" aria-describedby="" value="{{old('employment_classification')? old('employment_classification') : '' }}" required maxlength="150">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-employment_classification">{{ $errors->first('employment_classification') }}</strong>
                                     </span>
                                 </div>
                             </td>

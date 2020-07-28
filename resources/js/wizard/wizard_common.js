@@ -11,7 +11,7 @@ $(function () {
     });
 
     // load recaptcha at end of wizard
-    $(document).on('click', '[href="#next"], li.last', function() {
+    /* $(document).on('click', '[href="#next"], li.last', function() {
         if ($('li.last').hasClass('current')) {
             $.getScript( "https://www.google.com/recaptcha/api.js" )
             .done(function( script, textStatus ) {
@@ -29,29 +29,63 @@ $(function () {
                 // console.log('reset')
             }
         }
-    });
-    
+    }); */
+
     // show name of uploaded file
     $(document).on('change click', 'input[type="file"]', function(e) {
         var fileName = $(this).prop('id');
-        $('#'+fileName+'Label').html('Choose file');
-        $('[name="'+fileName+'_name"]').val('');
-        
-        if ($(this).val() !== '') {
-            var upload = e. target. files[0]. name;
-            var size = e. target. files[0].size;
-
-            // check file is less than 10 Mb
-            if (size > 10485760) {
-                alert('Maximum file size is 10Mb. \nFile not uploaded.');
-                $(this).val('');
-            } else {
-                // $('#'+fileName+'-review').val(upload);
-                $('#'+fileName+'Label').html(upload);
-                $('[name="'+fileName+'_name"]').val(upload);
+        var multiple = $(this).prop('multiple');
+        var files = e. target. files. length;
+        // console.log(e. target. files)
+    
+        if (multiple) {
+            $('#'+fileName+'Label').html('Choose files');
+            $('[name="'+fileName+'_name"]').val('');
+            // console.log(files)
+    
+            if (files) {
+                $(this).each(function(index, field){
+                    var chk = true;
+                    var upload = files == 1? files + ' File chosen' : files + ' Files chosen';
+    
+                    for(var i=0;i<field.files.length;i++) {
+                        const file = field.files[i];
+                        if(file.size > 10485760 || file.fileSize > 10485760) {
+                            chk = false;
+                        }
+                    }
+                    // console.log(upload)
+    
+                    if (chk) {
+                        $('#'+fileName+'Label').html(upload);
+                        $('[name="'+fileName+'_name"]').val(upload);
+                    } else {
+                        alert('Maximum file size is 10Mb. \nFiles not uploaded.');
+                        $(this).val('');
+                    }
+                });
             }
             
+        } else {
+            $('#'+fileName+'Label').html('Choose file');
+            $('[name="'+fileName+'_name"]').val('');
+            // console.log('file')
+            
+            if ($(this).val() !== '') {
+                var upload = e. target. files[0]. name;
+                var size = e. target. files[0].size;
+                
+                // check file is less than 10 Mb
+                if (size > 10485760) {
+                    alert('Maximum file size is 10Mb. \nFile not uploaded.');
+                    $(this).val('');
+                } else {
+                    $('#'+fileName+'Label').html(upload);
+                    $('[name="'+fileName+'_name"]').val(upload);
+                }
+            }
         }
+        
     });
 
     // submit form
@@ -68,17 +102,6 @@ $(function () {
             $('#scotia_area').val(0);
         }
     });
-
-    // db datepicker
-    function dob() {
-        $('.dob').datepicker({
-            format: "yyyy-mm-dd",
-            endDate: "now()",
-            startView: 3,
-            autoclose: true
-        });
-    }
-    dob();
 
     // effective date datepicker
     $('#effective_date').datepicker({
@@ -119,25 +142,6 @@ $(function () {
     
 
     /** Section - Household Information **/
-
-    // add household income rows
-    $(document).on('click', '.add_household', function() {
-        var rows = $('.household_row').length;
-        if (rows < 10) {
-                
-            // add income row
-            $('#household_tbody').append('<tr class="household_row" id="household_row_'+householdCount+'"><td>    <div class="form-group" id="grp-name" style="margin-bottom: 0;"><input type="text" class="form-control form-control-sm hi_name" count="'+householdCount+'" id="hi_first_name_'+householdCount+'" name="hi_first_name['+householdCount+']" aria-describedby="" required maxlength="100" placeholder="First Name"><span class="help-block">    <strong id="err-name"></strong></span>    </div> <div class="form-group" id="grp-name" style="margin-bottom: 0;"><input type="text" class="form-control form-control-sm hi_name" count="'+householdCount+'" id="hi_surname_'+householdCount+'" name="hi_surname['+householdCount+']" aria-describedby="" required maxlength="100" placeholder="Surname"><span class="help-block">    <strong id="err-name"></strong></span>    </div> </td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm" id="hi_national_id_'+householdCount+'" name="hi_national_id['+householdCount+']" aria-describedby="" required maxlength="11"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-organization_type"><div class="custom-control custom-radio">    <input type="radio" id="hi_gender1_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="M">    <label class="custom-control-label" for="hi_gender1_'+householdCount+'">Male</label></div><div class="custom-control custom-radio">    <input type="radio" id="hi_gender2_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="F">    <label class="custom-control-label" for="hi_gender2_'+householdCount+'">Female</label></div><span class="help-block">    <strong id="err-organization_type"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm" id="hi_relationship_'+householdCount+'" name="hi_relationship['+householdCount+']" aria-describedby="" required maxlength="25"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm dob" id="hi_dob_'+householdCount+'" name="hi_dob['+householdCount+']" aria-describedby="" required placeholder="yyyy-mm-dd"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="text" class="form-control form-control-sm" id="hi_emp_status_'+householdCount+'" name="hi_emp_status['+householdCount+']" aria-describedby="" required maxlength="25"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-name"><input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_'+householdCount+'" name="hi_income['+householdCount+']" aria-describedby="" required value="0"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td><button class="btn btn-sm btn-primary del_household" type="button" num="'+householdCount+'"><i class="fa fa-remove" aria-hidden="true"></i></button></td></tr>');
-
-            // add uploads row
-            $('#uploads_tbody').append('<tr id="uploads_row_'+householdCount+'"> <td class=" table-active text-right align-middle" width="20%"> <div class="form-group mb-0" id="grp-proof_of_earnings_'+householdCount+'"> <label class="control-label mb-0" for="proof_of_earnings_'+householdCount+'"> Proof of Earnings for <span id="hi_name_'+householdCount+'_span"></span> <i class="fa fa-info-circle" aria-hidden="true" title="Proof of actual earnings must be submitted such as a payslip or job letter for employed household members."></i> </label> </div> </td> <td width="80%"> <div class="input-group mb-0"> <div class="custom-file"> <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_of_earnings_'+householdCount+'" name="proof_of_earnings['+householdCount+']" required> <label class="custom-file-label" for="proof_of_earnings_'+householdCount+'" id="proof_of_earnings_'+householdCount+'Label">Choose file</label> </div> </div><span class="help-block"> <strong id="err-proof_of_earnings_'+householdCount+'"></strong> </span> </td> </tr>');
-
-            // increment count
-            householdCount++;
-            
-            dob();
-        }
-
-    });
 
     // delete household income row
     $(document).on('click', '.del_household', function() {

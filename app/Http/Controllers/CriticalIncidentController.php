@@ -18,8 +18,10 @@ class CriticalIncidentController extends Controller
             'citizen_proof' => citizen_proof(),
             'id_state' => id_state(),
             'job_title' => job_title(),
-            'household_damage_items' => household_damage_items(),
+            'items_lost_or_damaged' => items_lost_or_damaged(),
             'disasters' => disasters(),
+            'demographic_data' => demographic_data(),
+            'total_income' => total_income(),
             'form' => 'critical',
         ];
         

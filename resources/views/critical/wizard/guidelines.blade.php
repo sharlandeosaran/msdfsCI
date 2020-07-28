@@ -7,49 +7,17 @@
             {{-- <h2 class="section-heading"></h2> --}}
 
             <p class="text-justify">
-                To qualify for this assistance, you must have experienced a Loss/Reduction in Income on or after <strong>March 1st, 2020</strong>. To ensure that the application is processed peedily, please enclose copies of the following documents with the completed application form:
+                The grants provided under the Household items are calculated utilizing the per items costing as outlined hereunder, the combination of which must not exceed $10,000. The aforementioned is utilized when relief is to be provided in the form of a cheque. Relief is sometimes provided through the process of a purchase order. In this case, the actual quotation from the relevant furniture store chosen by the applicant is utilized in the preparation of the purchase order. Such cost must be reasonable and must not exceed $10,000. The aforementioned cost is used to benchmark the cost of the items in this case.
+            </p>
+            
+            <p class="text-justify">
+                The cost of Housing Repairs is based on a site visit by staff of the National Social Development Programme, estimates of the work to be done and a quotation from a hardware selected by the person affected.
+
             </p>
 
-            <ol>
-                <li>Copy of National Identification Card- Expired ID will be accepted. (<strong>NOT</strong> Driver’s Permit or Passport);</li>
-                <li>Citizens and Permanent Residents (National ID or Certificate of Immigration Status or Certificate of Residence or Passport Bio-data page and page with stamp of Registration);</li>
-                <li>Certificate of Registration/Incorporation of the business (if available);</li>
-                <li>The application must be supported by one recommendation from verifiable sources. See <strong>GUIDELINES FOR THE RECOMMENDER</strong>;</li>
-                <li>Where there are employed members of the family, apart from the applicant, proof of actual earnings must be submitted such as a payslip or job letter; and</li>
-                <li>For rental assistance <strong>(Residential ONLY)</strong>, applicants are required to submit proof of ownership of property (e.g. WASA Bill or other document with name of landlord), rental agreement or most recent rent receipt and a copy of the landlord’s ID Card and phone contact.</li>
-            </ol>
-
-            <p>
+            <p class="text-justify">
                 <strong>Your application may be rejected if the supporting documents are not submitted or if the form is incomplete.</strong> The completed form along with the aforementioned documents, shall be submitted to the Social Welfare office in your district.
             </p>
         </div>
     </div>
-    
-    {{-- <div class="card border-primary shadow">
-        <div class="card-body">
-            
-            <h5 class="bd-wizard-step-title text-center mb-5">GUIDELINES FOR THE RECOMMENDER</h5>
-            <!-- <h2 class="section-heading"></h2> -->
-            
-            <p class="text-justify">
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i> The Recommender must have known you personally for at least three (3) years and know you well enough to be confident that the statements you have made in the application are true;<br>
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i> The Recommender must not be an immediate relative of the applicant; and<br>
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i> The Recommender must be a citizen/permanent residence of Trinidad and Tobago and be included in one of the following categories:
-            </p>
-
-            <ul>
-                <li>Minister of Religion registered under law to perform marriages;</li>
-                <li>Managing Director, Director and Manager of Banks, Companies and Cultural and Other Associations;</li>
-                <li>Professionals (University Graduates). (State qualifications.);</li>
-                <li>Member of Parliament, Mayor, Borough or County Councillor;</li>
-                <li>Notary Public/Justice of the Peace/Commissioner of Affidavits;</li>
-                <li>Senior Public Servants (Range 30 and above);</li>
-                <li>Police Officer (Corporal and above rank). (Include Regimental Number);</li>
-                <li>Prison Officer II and above rank. (Include Regimental Number);</li>
-                <li>Fire Sub-Officer and above rank. (Include Regimental Number);</li>
-                <li>Member of Defence Force (Corporal/Leading Seaman and above rank-Include Regimental Number)</li>
-                <li>School Principal, Vice-Principal, Lecturer, Graduate Teacher (Teacher I and above rank).</li>
-            </ul>
-        </div>
-    </div> --}}
 </section>

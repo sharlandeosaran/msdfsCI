@@ -41,6 +41,8 @@
         
         $('#householdInfoSection').html('2');
         $('#uploadsSection').html('4');
+        $('#critical_uploads').removeClass('hide');
+        $('#employer_recommender_letter_div').addClass('hide');
         
         // show/hide recovery_needs_input_group once damage household item is selected
         $(document).on('change', '.household_damage_items', function() {
@@ -62,11 +64,18 @@
         $(document).on('change', '.disasters', function() {
             var boxes = $('.disasters:checkbox:checked');
             var id = $( this ).prop('id');
+            $('#water_marks_div').addClass('hide');
+            // console.log(boxes)
 
             if (boxes.length > 0) {
                 $('.disaster_remarks_div').addClass('hide');
                 boxes.each(function( index ) {
                     $('#disaster_remarks_'+ $( this ).prop('id')).removeClass('hide');
+
+                    // if flooding show water damages uploads
+                    if ($( this ).prop('id') == 'flooding') {
+                        $('#water_marks_div').removeClass('hide');
+                    }
                 });
                 $('#disaster_remarks_input_'+ id).focus();
             } else {
@@ -80,10 +89,24 @@
             console.log(val);
 
             if (val == 'yes') {
-                $('#housing_repairs_div').removeClass('hide');
+                $('.housing_repairs_div').removeClass('hide');
                 $('#housing_repairs').focus();
             } else {
-                $('#housing_repairs_div').addClass('hide');
+                $('.housing_repairs_div').addClass('hide');
+                $('.housing_insurer_div').addClass('hide');
+                $('[name = "housing_infrastructure_insured"]').prop('checked', false);
+            }
+        });
+        
+        // show/hide housing infrastructure insured
+        $(document).on('change', '[name = "housing_infrastructure_insured"]', function() {
+            var val = $(this).val();
+            console.log(val);
+
+            if (val == 'yes') {
+                $('.housing_insurer_div').removeClass('hide');
+            } else {
+                $('.housing_insurer_div').addClass('hide');
             }
         });
 

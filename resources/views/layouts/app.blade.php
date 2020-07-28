@@ -77,13 +77,6 @@
                 $(':submit, a[href="#finish"]').html('loading...').addClass('disabled').prop('disabled', true);
                 $('#loadingModal').modal('show');
             });
-
-            
-
-
-
-
-
             
             $(document).on('click', 'a[href="#finish"]', function() {
                 var $myForm = $('form');
@@ -95,6 +88,16 @@
                 //     // display errors
                 //     alert('There are errors in the form.');
                 // }
+            });
+        });
+    </script>
+
+    {{-- Google reCAPTCHA --}}
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('captcha.key', '') }}"></script>
+    <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('{{ config('captcha.key', '') }}', {action: 'submit'}).then(function(token) {
+                $('#grecaptcha').val(token);
             });
         });
     </script>

@@ -12,7 +12,7 @@
                     <thead>
                         <tr>
                             <th>
-                                Name <span class="red">*</span> 
+                                Full Name <span class="red">*</span> 
                                 <i class="fa fa-info-circle" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
                             </th>
                             <th>
@@ -84,14 +84,25 @@
                                     </span>
                                 </div>
                             </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_emp_classification" value="{{old('emp_classification')}}">
+                            <td>    
+                                <div class="form-group{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
+                                    <input type="text" class="form-control form-control-sm" id="hi_emp_status_1" name="hi_emp_status[1]" aria-describedby="" required maxlength="25" value="{{old('hi_emp_status.1')}}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_emp_status_1">{{ $errors->first('hi_emp_status.1') }}</strong>
+                                    </span>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group{{ $errors->has('hi_income.1') ? ' has-error' : '' }} grp-hi_income_1">
-                                    <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '0' }}" required>
+                                    <select class="form-control form-control-sm chosen-select" id="hi_income_1" name="hi_income[1]">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($total_income as $key => $row)
+                                        <option {{old('hi_income.1') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    {{-- <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_1" name="hi_income[1]" aria-describedby="" value="{{old('hi_income.1')? old('hi_income.1') : '0' }}" required> --}}
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_income_1">{{ $errors->first('hi_income.1') }}</strong>
@@ -175,7 +186,12 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_income.'.$key) ? ' has-error' : '' }} grp-hi_income_{{$key}}">
-                                            <input type="number" min="0" step="1" class="form-control form-control-sm hi_income" id="hi_income_{{$key}}" name="hi_income[{{$key}}]" aria-describedby="" value="{{old('hi_income.'.$key)? old('hi_income.'.$key) : '0' }}" required>
+                                            <select class="form-control form-control-sm chosen-select" id="hi_income_{{$key}}" name="hi_income[{{$key}}]">
+                                                <option disabled="" selected="">select...</option>
+                                                @foreach ($total_income as $id =>$row)
+                                                <option {{old('hi_income.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                                @endforeach
+                                            </select>
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_income_{{$key}}">{{ $errors->first('hi_income.'.$key) }}</strong>
@@ -190,46 +206,6 @@
                             @endforeach
                         @endif
                     </tbody>
-                    <tfoot>
-                        
-                        <tr>
-                            <th colspan="6" class="align-middle">
-                                <p class="text-muted text-right">
-                                    Total:
-                                </p>
-                            </th>
-                            <th>
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_total_income" value="{{old('hi_income')? number_format(array_sum(old('hi_income')), 2) : '0.00'}}">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-name">{{ $errors->first('name') }}</strong>
-                                    </span>
-                                </div>
-                            </th>
-                            <th>
-                                <button class="btn btn-sm btn-success add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                            </th>
-                        </tr>
-                        <tr style="background-color: rgba(0,0,0,0.05);">
-                            <th colspan="6">
-                                <p class="text-right mb-0 {{$errors->has('hi_total_before')? 'text-primary' : ''}}">
-                                    Total income before retrenchment/ termination/ reduction in income <span class="red">*</span> 
-                                    <i class="fa fa-info-circle" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
-                                </p>
-                            </th>
-                            <th>
-                                <div class="form-group{{ $errors->has('hi_total_before') ? ' has-error' : '' }} mb-0 grp-hi_total_before">
-                                    <input type="number" min="0" step="1" class="form-control" id="hi_total_before" name="hi_total_before" required value="{{old('hi_total_before')}}">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-hi_total_before">{{ $errors->first('hi_total_before') }}</strong>
-                                    </span>
-                                </div>
-                            </th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
                 </table>
             </div>
         </div>

@@ -18,6 +18,7 @@ class FormBController extends Controller
             'citizen_proof' => citizen_proof(),
             'id_state' => id_state(),
             'job_title' => job_title(),
+            'total_income' => total_income(),
             'form' => 'B',
         ];
         
@@ -26,7 +27,7 @@ class FormBController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [

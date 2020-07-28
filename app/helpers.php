@@ -400,8 +400,8 @@ function id_state()
 {
 	$list = [
 		'Have identification',
-		'Lost but have police report',
-		'Have EBC letter',
+		'Currently lost but have police report',
+		'Possess an EBC letter',
 	];
 	// asort($list);
 	return $list;
@@ -542,19 +542,19 @@ function employment_classification($string)
 	return $list[$string];
 }
 
-function household_damage_items()
+function items_lost_or_damaged()
 {
 	return [
-		'stove' => 'Stove',
-		'refrigerator' => 'Refrigerator',
-		'washing_machine' => 'Washing Machine',
-		'bed' => 'Bed',
-		'mattress' => 'Mattress',
-		'wardrobe' => 'Wardrobe',
-		'chest_of_drawers' => 'Chest of Drawers',
-		'living_room_set' => 'Living Room Set',
-		'dining_room_set' => 'Dining Room Set',
-		'school_supplies' => 'School Supplies',
+		'stove' => 'Stove (Maximum of $2500)',
+		'refrigerator' => 'Refrigerator (Maximum of $4000)',
+		'washing_machine' => 'Washing Machine (Maximum of $3500)',
+		'bed_mattress' => 'Bed & Mattress (Maximum of $2000)',
+		'wardrobe' => 'Wardrobe (Maximum of $3000)',
+		'chest_of_drawers' => 'Chest of Draws (Maximum of $2000)',
+		'living_room_set' => 'Living Room Set (Maximum of $3500)',
+		'dining_room_set' => 'Dining Room Set (Maximum of $3500)',
+		'kitchen_cupboards' => 'Kitchen Cupboards (Maximum of $3500)',
+		'school_supplies' => 'School Supplies (Maximum of $700 per primary school child and a maximum of $1000 per secondary school child)',
 	];
 }
 
@@ -562,9 +562,33 @@ function disasters()
 {
 	return [
 		'flooding' => 'Flooding',
-		'hurricane' => 'Hurricane',
+		'fire' => 'Fire',
 		'land_slide' => 'Land Slide',
 		'earthquake' => 'Earthquake',
-		'other_disaster' => 'Other (specify)',
+		'other_disaster' => 'Other (please specify)',
 	];
+}
+
+function demographic_data()
+{
+	$list = [
+		1 => 'Squatter',
+		2 => 'Owner',
+		3 => 'Renter/Tenant',
+	];
+	// asort($list);
+	return $list;
+}
+
+function total_income()
+{
+	$list = [
+		1 => 'No income',
+		2 => 'Less than $12,000',
+		3 => '$12,000 - $20,000',
+		4 => '$20,000-$50,000',
+		5 => 'Greater than $50,000',
+	];
+	// asort($list);
+	return $list;
 }
