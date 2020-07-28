@@ -41,7 +41,7 @@
         
         $('#householdInfoSection').html('2');
         $('#uploadsSection').html('4');
-        $('#critical_uploads').removeClass('hide');
+        $('.critical_uploads').removeClass('hide');
         $('#employer_recommender_letter_div').addClass('hide');
         
         // show/hide recovery_needs_input_group once damage household item is selected
