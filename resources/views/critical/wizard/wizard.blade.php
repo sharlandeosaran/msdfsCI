@@ -20,7 +20,7 @@
                 
                 @include('critical.wizard.guidelines')
                 @include('critical.wizard.general_info')
-                @include('common.wizard.household_info')
+                @include('critical.wizard.household_info')
                 @include('critical.wizard.disaster')
                 @include('common.wizard.uploads')
                 @include('critical.wizard.submit')
@@ -110,6 +110,42 @@
         // change classification of applicant after entered
         $(document).on('change', '#employment_classification', function(){
             $('#hi_emp_classification').val($(this).val());
+        });
+
+        // db datepicker
+        function dob() {
+            $('.dob').datepicker({
+                format: "yyyy-mm-dd",
+                endDate: "now()",
+                startView: 3,
+                autoclose: true
+            });
+        }
+        setTimeout(() => { dob(); }, 100);
+
+        // add household income rows
+        $(document).on('click', '.critical_add_household', function() {
+            var rows = $('.household_row').length;
+            if (rows < 10) {
+                    
+                // add income row
+                $('#household_tbody').append('<tr class="household_row" id="household_row_'+householdCount+'"><td>    <div class="form-group" id="" style="margin-bottom: 0;"><input type="text" class="form-control form-control-sm hi_name" count="'+householdCount+'" id="hi_first_name_'+householdCount+'" name="hi_first_name['+householdCount+']" aria-describedby="" required maxlength="100" placeholder="First Name"><span class="help-block">    <strong id="err-name"></strong></span>    </div> <div class="form-group" id="" style="margin-bottom: 0;"><input type="text" class="form-control form-control-sm hi_name" count="'+householdCount+'" id="hi_surname_'+householdCount+'" name="hi_surname['+householdCount+']" aria-describedby="" required maxlength="100" placeholder="Surname"><span class="help-block">    <strong id="err-name"></strong></span>    </div> </td><td>    <div class="form-group" id=""><input type="text" class="form-control form-control-sm" id="hi_national_id_'+householdCount+'" name="hi_national_id['+householdCount+']" aria-describedby="" required maxlength="11"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id="grp-organization_type"><div class="custom-control custom-radio">    <input type="radio" id="hi_gender1_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="M">    <label class="custom-control-label" for="hi_gender1_'+householdCount+'">Male</label></div><div class="custom-control custom-radio">    <input type="radio" id="hi_gender2_'+householdCount+'" name="hi_gender['+householdCount+']" class="custom-control-input" value="F">    <label class="custom-control-label" for="hi_gender2_'+householdCount+'">Female</label></div><span class="help-block">    <strong id="err-organization_type"></strong></span>    </div></td> <td>    <div class="form-group" id=""> <select class="form-control form-control-sm chosen-select" id="hi_relationship_'+householdCount+'" name="hi_relationship['+householdCount+']"> <option disabled="" selected="">select...</option> @foreach ($relationships as $id => $row) <option value="{{$id}}">{{$row}}</option> @endforeach </select> <span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td>    <div class="form-group" id=""><input type="text" class="form-control form-control-sm dob" id="hi_dob_'+householdCount+'" name="hi_dob['+householdCount+']" aria-describedby="" required placeholder="yyyy-mm-dd"><span class="help-block">    <strong id="err-name"></strong></span>    </div></td> <td>    <div class="form-group" id=""> <select class="form-control form-control-sm chosen-select" id="hi_emp_status_'+householdCount+'" name="hi_emp_status['+householdCount+']"> <option disabled="" selected="">select...</option> @foreach ($employment_status as $id => $row) <option value="{{$id}}">{{$row}}</option> @endforeach </select> <span class="help-block">    <strong id="err-name"></strong></span>    </div></td><td><button class="btn btn-sm btn-primary critical_del_household" type="button" num="'+householdCount+'"><i class="fa fa-remove" aria-hidden="true"></i></button></td></tr>');
+
+                // add uploads row
+                $('#uploads_tbody').append('<tr id="uploads_row_'+householdCount+'"> <td class=" table-active text-right align-middle" width="20%"> <div class="form-group mb-0" id="grp-proof_of_earnings_'+householdCount+'"> <label class="control-label mb-0" for="proof_of_earnings_'+householdCount+'"> Proof of Earnings for <span id="hi_name_'+householdCount+'_span"></span> <i class="fa fa-info-circle" aria-hidden="true" title="Proof of actual earnings must be submitted such as a payslip or job letter for employed household members."></i> </label> </div> </td> <td width="80%"> <div class="input-group mb-0"> <div class="custom-file"> <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_of_earnings_'+householdCount+'" name="proof_of_earnings['+householdCount+']" required> <label class="custom-file-label" for="proof_of_earnings_'+householdCount+'" id="proof_of_earnings_'+householdCount+'Label">Choose file</label> </div> </div><span class="help-block"> <strong id="err-proof_of_earnings_'+householdCount+'"></strong> </span> </td> </tr>');
+
+                // increment count
+                householdCount++;
+                
+                dob();
+            }
+        });
+        
+        // delete household income row
+        $(document).on('click', '.critical_del_household', function() {
+            var num = $(this).attr('num');
+            $('#household_row_'+num).remove();
+            $('#uploads_row_'+num).remove();
         });
         
     });
