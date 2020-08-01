@@ -13,6 +13,10 @@
     $("#div-household").find(".form-control").each(function(){ household.push(this.id); });
     // console.log(household);
 
+    var disaster = [];
+    $("#div-disaster").find(".form-control").each(function(){ disaster.push(this.id); });
+    // console.log(disaster);
+
     var employer = [];
     $("#div-employer").find(".form-control").each(function(){ employer.push(this.id); });
     // console.log(employer);
@@ -27,6 +31,7 @@
 
     // console.log(hasCommonElement(geninfo,errors));
     // console.log(hasCommonElement(household,errors));
+    // console.log(hasCommonElement(disaster,errors));
     // console.log(hasCommonElement(uploads,errors));
     // console.log(hasCommonElement(employer,errors));
     // console.log(hasCommonElement(recommender,errors));
@@ -35,10 +40,12 @@
         $('li[role="tab"]').removeClass('disabled').addClass('done');
 
         if(hasCommonElement(geninfo,errors)) errorClass($('span.number > i.fa-user'));
-        if(hasCommonElement(household,errors)) errorClass($('span.number > i.fa-home'));
+        if(hasCommonElement(household,errors)) errorClass($('span.number > i.fa-users'));
+        if(hasCommonElement(disaster,errors)) errorClass($('span.number > i.fa-home'));
         if(hasCommonElement(uploads,errors)) errorClass($('span.number > i.fa-upload'));
         if(hasCommonElement(employer,errors)) errorClass($('span.number > i.fa-building'));
         if(hasCommonElement(recommender,errors)) errorClass($('span.number > i.fa-comment'));
+        if(hasCommonElement(['declaration_signature'],errors)) errorClass($('span.number > i.fa-check'));
     }, 100);
 
     // clear error icon

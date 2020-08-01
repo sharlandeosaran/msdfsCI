@@ -16,10 +16,6 @@
                                 <i class="fa fa-info-circle" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
                             </th>
                             <th>
-                                National ID 
-                                <i class="fa fa-info-circle" aria-hidden="true" title=''></i>
-                            </th>
-                            <th>
                                 Gender <span class="red">*</span> 
                                 <i class="fa fa-info-circle" aria-hidden="true" title='Select the gender of the person stated in the row.'></i>
                             </th>
@@ -36,6 +32,10 @@
                                 <i class="fa fa-info-circle" aria-hidden="true" title='State current employment status of the person stated in the row, for example "Unemployed".'></i>
                             </th>
                             <th>
+                                National ID 
+                                <i class="fa fa-info-circle" aria-hidden="true" title=''></i>
+                            </th>
+                            <th>
                                 <button class="btn btn-sm btn-success critical_add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </th>
                         </tr>
@@ -46,11 +46,6 @@
                             <td>
                                 <div class="form-group">
                                     <input type="text" readonly="" class="form-control-plaintext nameField" value="{{old('first_name') || old('surname')? old('first_name').' '.old('surname') : '' }}">
-                                </div>
-                            </td>
-                            <td>
-                                <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext nationalIDField" value="{{old('national_id')}}">
                                 </div>
                             </td>
                             <td>
@@ -94,6 +89,11 @@
                                     </span>
                                 </div>
                             </td>
+                            <td>
+                                <div class="form-group">
+                                    <input type="text" readonly="" class="form-control-plaintext nationalIDField" value="{{old('national_id')}}">
+                                </div>
+                            </td>
                             <td></td>
                         </tr>
 
@@ -114,15 +114,6 @@
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_surname_{{$key}}">{{ $errors->first('hi_surname.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="form-group{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_national_id_{{$key}}" name="hi_national_id[{{$key}}]" aria-describedby="" value="{{old('hi_national_id.'.$key)? old('hi_national_id.'.$key) : '' }}" maxlength="11">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_national_id_{{$key}}">{{ $errors->first('hi_national_id.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>
@@ -176,6 +167,15 @@
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-group{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
+                                            <input type="text" class="form-control form-control-sm" id="hi_national_id_{{$key}}" name="hi_national_id[{{$key}}]" aria-describedby="" value="{{old('hi_national_id.'.$key)? old('hi_national_id.'.$key) : '' }}" maxlength="11">
+                                            
+                                            <span class="help-block">
+                                                <strong id="err-hi_national_id_{{$key}}">{{ $errors->first('hi_national_id.'.$key) }}</strong>
                                             </span>
                                         </div>
                                     </td>

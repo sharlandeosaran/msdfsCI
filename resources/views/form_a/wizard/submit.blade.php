@@ -17,9 +17,13 @@
                I acknowledge and agree that any misrepresentations in this application will be grounds for denial or immediate revocation of benefits. I declare, under penalty of perjury, that the information provided in this application and supporting documents is true and correct.
             </p>
 
-            <div class="form-group pt-4 mb-0">
-                  <input type="checkbox" class="" style="width: 25px; height: 25px;" id="declaration_signature" name="declaration_signature">
+            <div class="form-group pt-4 mb-0{{ $errors->has('declaration_signature') ? ' has-error' : '' }} grp-declaration_signature">
+                  <input type="checkbox" class="declaration_signature" style="width: 25px; height: 25px;" id="declaration_signature" name="declaration_signature">
                   <label style="position: relative; top: -5px;" for="declaration_signature"><h3><strong>Signature: "I agree with the information stated above"</strong></h3></label>
+                  <br>
+                  <span class="help-block">
+                    <strong id="err-declaration_signature">{{ $errors->first('declaration_signature') }}</strong>
+                </span>
             </div>
         </div>
     </div>

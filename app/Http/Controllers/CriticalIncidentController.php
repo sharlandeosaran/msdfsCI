@@ -33,7 +33,7 @@ class CriticalIncidentController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [
@@ -303,25 +303,25 @@ class CriticalIncidentController extends Controller
                 $new = (array) json_decode($uploads['list']);
                 $merge = array_merge($old,$new);
 
-                return redirect('/form/b')
+                return redirect('/form/critical')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('tempfiles', json_encode($merge))
                 ;
             } elseif ($uploads && $uploads['response']) {
-                return redirect('/form/b')
+                return redirect('/form/critical')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('tempfiles', $uploads['list'])
                 ;
             } elseif ($request->tempfiles) {
-                return redirect('/form/b')
+                return redirect('/form/critical')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('tempfiles', $request->tempfiles)
                 ;
             } else {
-                return redirect('/form/b')
+                return redirect('/form/critical')
                 ->withInput()
                 ->withErrors($validator)
                 ;
@@ -537,13 +537,13 @@ class CriticalIncidentController extends Controller
                 }
             } catch (\Throwable $th) {
                 $validator->errors()->add('post', $th);
-                return redirect('/form/b')
+                return redirect('/form/critical')
                         ->withInput()
                         ->withErrors($validator);
             }
         } else {
             $validator->errors()->add('uploadfail', 'Please upload files again.');
-            return redirect('/form/b')
+            return redirect('/form/critical')
                     ->withInput()
                     ->withErrors($validator);
         }
