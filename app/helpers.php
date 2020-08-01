@@ -569,25 +569,13 @@ function disasters()
 	];
 }
 
-function demographic_data()
-{
-	$list = [
-		1 => 'Squatter',
-		2 => 'Owner',
-		3 => 'Renter/Tenant',
-	];
-	// asort($list);
-	return $list;
-}
-
 function total_income()
 {
 	$list = [
-		1 => 'No income',
-		2 => 'Less than $12,000',
-		3 => '$12,000 - $20,000',
-		4 => '$20,000-$50,000',
-		5 => 'Greater than $50,000',
+		1 => 'Less than $12,000',
+		2 => '$12,000 - $20,000',
+		3 => '$20,000-$50,000',
+		4 => 'Greater than $50,000',
 	];
 	// asort($list);
 	return $list;
@@ -621,6 +609,33 @@ function employment_status()
 		3 => 'Unemployed',
 		4 => 'Pensioner',
 		5 => 'Retiree',
+		6 => 'Other',
+	];
+	// asort($list);
+	return $list;
+}
+
+function marital_status()
+{
+	$list = [
+		1 => 'Single',
+		2 => 'Married',
+		3 => 'Common-Law',
+		4 => 'Separated',
+		5 => 'Widow',
+		6 => 'Other',
+	];
+	// asort($list);
+	return $list;
+}
+
+function housing_type()
+{
+	$list = [
+		1 => 'Squatter',
+		2 => 'Owner',
+		3 => 'Free Lodging',
+		4 => 'Renter/Tenant',
 	];
 	// asort($list);
 	return $list;

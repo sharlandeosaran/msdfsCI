@@ -18,11 +18,11 @@
             
             <div id="wizard">
                 
-                @include('critical.wizard.guidelines')
-                @include('critical.wizard.general_info')
-                @include('critical.wizard.household_info')
                 @include('critical.wizard.disaster')
                 @include('common.wizard.uploads')
+                @include('critical.wizard.general_info')
+                @include('critical.wizard.guidelines')
+                @include('critical.wizard.household_info')
                 @include('critical.wizard.submit')
                 
             </div>
@@ -44,6 +44,20 @@
         $('.critical_uploads').removeClass('hide');
         $('#employer_recommender_letter_div').addClass('hide');
         
+        // items lost or damaged changed
+        $(document).on('change', '.items_lost_or_damaged', function() {
+            var checked = $(this).prop("checked");
+            var id = $(this).prop("id");
+            // console.log(checked)
+            // console.log(id)
+            
+            if (id == 'school_supplies' && checked) {
+                $('.school_supplies_div').removeClass('hide');
+            } else {
+                $('.school_supplies_div').addClass('hide');
+            }
+        });
+        
         // show/hide recovery_needs_input_group once damage household item is selected
         $(document).on('change', '.household_damage_items', function() {
             var boxes = $('.household_damage_items:checkbox:checked');
@@ -63,7 +77,7 @@
         // show/hide disaster remarks
         $(document).on('change', '.disaster', function() {
             var id = $( this ).prop('id');
-            $('#water_marks_div').addClass('hide');
+            $('.water_marks_div, .fire_div').addClass('hide');
             // console.log(id)
 
             // if disaster is other show remarks textarea
@@ -76,7 +90,12 @@
 
             // if flooding show water damages uploads
             if ($( this ).prop('id') == 'flooding') {
-                $('#water_marks_div').removeClass('hide');
+                $('.water_marks_div').removeClass('hide');
+            }
+            
+            // if fire show fire damages uploads
+            if ($( this ).prop('id') == 'fire') {
+                $('.fire_div').removeClass('hide');
             }
         });
         
@@ -146,6 +165,18 @@
             var num = $(this).attr('num');
             $('#household_row_'+num).remove();
             $('#uploads_row_'+num).remove();
+        });
+
+        // if rent selected get landlord info
+        $(document).on('change', '#housing_type', function() {
+            var val = $(this).val();
+            if (val == 4) {
+                $('.landlord-fields').removeClass('hide');
+                $('.landlord').prop('required', true);
+            } else {
+                $('.landlord-fields').addClass('hide');
+                $('.landlord').prop('required', false).val('');
+            }
         });
         
     });

@@ -113,6 +113,31 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
+                                    <label class="control-label mb-0" for="marital_status">
+                                        Marital Status <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
+                                    <select class="form-control chosen-select" id="marital_status" name="marital_status">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($marital_status as $key =>$row)
+                                        <option {{old('marital_status') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-marital_status">{{ $errors->first('marital_status') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }} grp-national_id">
                                     <label class="control-label mb-0" for="national_id">
                                         National Identification Card Number <span class="red">*</span> 
@@ -183,24 +208,104 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('demographic_data') ? ' has-error' : '' }} grp-demographic_data">
-                                    <label class="control-label mb-0" for="demographic_data">
-                                        Demographic Data <span class="red">*</span> 
+                                <div class="form-group mb-0{{ $errors->has('housing_type') ? ' has-error' : '' }} grp-housing_type">
+                                    <label class="control-label mb-0" for="housing_type">
+                                        Type of Housing <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('demographic_data') ? ' has-error' : '' }} grp-demographic_data">
-                                    <select class="form-control chosen-select" id="demographic_data" name="demographic_data">
+                                <div class="form-group mb-0{{ $errors->has('housing_type') ? ' has-error' : '' }} grp-housing_type">
+                                    <select class="form-control chosen-select" id="housing_type" name="housing_type">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($demographic_data as $key =>$row)
-                                        <option {{old('demographic_data') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @foreach ($housing_type as $key =>$row)
+                                        <option {{old('housing_type') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
                                         @endforeach
                                     </select>
                                     
                                     <span class="help-block">
-                                        <strong id="err-demographic_data">{{ $errors->first('demographic_data') }}</strong>
+                                        <strong id="err-housing_type">{{ $errors->first('housing_type') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields {{old('housing_type') == '4'? '' : 'hide' }}">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_first_name') ? ' has-error' : '' }} grp-landlord_first_name">
+                                    <label class="control-label mb-0" for="landlord_first_name">
+                                        Landlord First Name <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord first name as presented on identification that will be uploaded.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_first_name') ? ' has-error' : '' }} grp-landlord_first_name">
+                                    <input type="text" class="form-control landlord" id="landlord_first_name" name="landlord_first_name" aria-describedby="" value="{{old('landlord_first_name')? old('landlord_first_name') : '' }}" maxlength="50">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-landlord_first_name">{{ $errors->first('landlord_first_name') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields {{old('housing_type') == '4'? '' : 'hide' }}">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_surname') ? ' has-error' : '' }} grp-landlord_surname">
+                                    <label class="control-label mb-0" for="landlord_surname">
+                                        Landlord Surname <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord surname as presented on identification that will be uploaded.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_surname') ? ' has-error' : '' }} grp-landlord_surname">
+                                    <input type="text" class="form-control landlord" id="landlord_surname" name="landlord_surname" aria-describedby="" value="{{old('landlord_surname')? old('landlord_surname') : '' }}" maxlength="50">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-landlord_surname">{{ $errors->first('landlord_surname') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields {{old('housing_type') == '4'? '' : 'hide' }}">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }} grp-landlord_contact_no">
+                                    <label class="control-label mb-0" for="landlord_contact_no">
+                                        Landlord Contact Number <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone number to contact the landlord, for example "(868) 555-1234".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }} grp-landlord_contact_no">
+                                    <input type="text" class="form-control landlord phone" id="landlord_contact_no" name="landlord_contact_no" aria-describedby="" value="{{old('landlord_contact_no')? old('landlord_contact_no') : '' }}" placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-landlord_contact_no">{{ $errors->first('landlord_contact_no') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr class="landlord-fields {{old('housing_type') == '4'? '' : 'hide' }}">
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('rental_amount') ? ' has-error' : '' }} grp-rental_amount">
+                                    <label class="control-label mb-0" for="rental_amount">
+                                        Rental Amount <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the current rental amount in TT dollars that you are required to pay the landlord.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('rental_amount') ? ' has-error' : '' }} grp-rental_amount">
+                                    <input type="number" min="0" step="0.01" class="form-control landlord" id="rental_amount" name="rental_amount" aria-describedby="" value="{{old('rental_amount')? old('rental_amount') : '' }}">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-rental_amount">{{ $errors->first('rental_amount') }}</strong>
                                     </span>
                                 </div>
                             </td>

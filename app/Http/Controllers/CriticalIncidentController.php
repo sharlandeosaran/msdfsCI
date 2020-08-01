@@ -20,10 +20,11 @@ class CriticalIncidentController extends Controller
             'job_title' => job_title(),
             'items_lost_or_damaged' => items_lost_or_damaged(),
             'disasters' => disasters(),
-            'demographic_data' => demographic_data(),
+            'housing_type' => housing_type(),
             'total_income' => total_income(),
             'relationships' => relationships(),
             'employment_status' => employment_status(),
+            'marital_status' => marital_status(),
             'form' => 'critical',
         ];
         

@@ -288,25 +288,25 @@
 
                         <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('proof_landlord_ownership') ? ' has-error' : '' }} mb-0 grp-proof_landlord_ownership">
-                                    <label class="control-label mb-0" for="proof_landlord_ownership">
-                                        Proof of Property Ownership <strong>(Landlord)</strong> <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach landlord proof of ownership like WASA Bill, any other document that proves they are the owner of the property.'></i>
+                                <div class="form-group{{ $errors->has('landlord_id_card_front') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_front">
+                                    <label class="control-label mb-0" for="landlord_id_card_front">
+                                        Landlord ID Card (front) <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('proof_landlord_ownership') ? ' has-error' : '' }} mb-0 grp-proof_landlord_ownership">
+                                <div class="form-group{{ $errors->has('landlord_id_card_front') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_front">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="proof_landlord_ownership" name="proof_landlord_ownership">
-                                            <label class="custom-file-label uploadfail" for="proof_landlord_ownership" id="proof_landlord_ownershipLabel">{{old('proof_landlord_ownership_name')? old('proof_landlord_ownership_name') : 'Choose file'}}</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="landlord_id_card_front" name="landlord_id_card_front">
+                                            <label class="custom-file-label uploadfail" for="landlord_id_card_front" id="landlord_id_card_frontLabel">{{old('landlord_id_card_front_name')? old('landlord_id_card_front_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" class="uploadhelp" value="{{old('proof_landlord_ownership_name')}}" name="proof_landlord_ownership_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('landlord_id_card_front_name')}}" name="landlord_id_card_front_name">
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-proof_landlord_ownership">{{ $errors->first('proof_landlord_ownership') }}</strong>
+                                        <strong id="err-landlord_id_card_front">{{ $errors->first('landlord_id_card_front') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -314,25 +314,51 @@
 
                         <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
-                                <div class="form-group{{ $errors->has('landlord_id_card') ? ' has-error' : '' }} mb-0 grp-landlord_id_card">
-                                    <label class="control-label mb-0" for="landlord_id_card">
-                                        Landlord ID Card <span class="red">*</span> 
+                                <div class="form-group{{ $errors->has('landlord_id_card_back') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_back">
+                                    <label class="control-label mb-0" for="landlord_id_card_back">
+                                        Landlord ID Card (back) <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('landlord_id_card') ? ' has-error' : '' }} mb-0 grp-landlord_id_card">
+                                <div class="form-group{{ $errors->has('landlord_id_card_back') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_back">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="landlord_id_card" name="landlord_id_card">
-                                            <label class="custom-file-label uploadfail" for="landlord_id_card" id="landlord_id_cardLabel">{{old('landlord_id_card_name')? old('landlord_id_card_name') : 'Choose file'}}</label>
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="landlord_id_card_back" name="landlord_id_card_back">
+                                            <label class="custom-file-label uploadfail" for="landlord_id_card_back" id="landlord_id_card_backLabel">{{old('landlord_id_card_back_name')? old('landlord_id_card_back_name') : 'Choose file'}}</label>
                                         </div>
-                                        <input type="hidden" class="uploadhelp" value="{{old('landlord_id_card_name')}}" name="landlord_id_card_name">
+                                        <input type="hidden" class="uploadhelp" value="{{old('landlord_id_card_back_name')}}" name="landlord_id_card_back_name">
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-landlord_id_card">{{ $errors->first('landlord_id_card') }}</strong>
+                                        <strong id="err-landlord_id_card_back">{{ $errors->first('landlord_id_card_back') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('utility_bill') ? ' has-error' : '' }} mb-0 grp-utility_bill">
+                                    <label class="control-label mb-0" for="utility_bill">
+                                        Utility Bill <span class="red">*</span> 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach landlord proof of ownership like WASA Bill, any other document that proves they are the owner of the property.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('utility_bill') ? ' has-error' : '' }} mb-0 grp-utility_bill">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input landlord" id="utility_bill" name="utility_bill">
+                                            <label class="custom-file-label uploadfail" for="utility_bill" id="utility_billLabel">{{old('utility_bill_name')? old('utility_bill_name') : 'Choose file'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('utility_bill_name')}}" name="utility_bill_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-utility_bill">{{ $errors->first('utility_bill') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -442,7 +468,7 @@
                             </td>
                         </tr>
                             
-                        <tr class="hide" id="water_marks_div">
+                        <tr class="hide water_marks_div">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('water_marks') ? ' has-error' : '' }} mb-0 grp-water_marks">
                                     <label class="control-label mb-0" for="water_marks">
@@ -464,6 +490,33 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-water_marks">{{ $errors->first('water_marks') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="hide water_marks_div">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('regional_corporation_flooding_report') ? ' has-error' : '' }} mb-0 grp-regional_corporation_flooding_report">
+                                    <label class="control-label mb-0" for="regional_corporation_flooding_report">
+                                        Regional Corporation Flooding Report 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your regional_corporation_flooding_report that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('regional_corporation_flooding_report') ? ' has-error' : '' }} mb-0 grp-regional_corporation_flooding_report">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="regional_corporation_flooding_report" name="regional_corporation_flooding_report[]" value="{{old('regional_corporation_flooding_report')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="regional_corporation_flooding_report" id="regional_corporation_flooding_reportLabel">{{old('regional_corporation_flooding_report_name')? old('regional_corporation_flooding_report_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('regional_corporation_flooding_report_name')}}" name="regional_corporation_flooding_report_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-regional_corporation_flooding_report">{{ $errors->first('regional_corporation_flooding_report') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -545,6 +598,114 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-plumbing_damage">{{ $errors->first('plumbing_damage') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="hide fire_div">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('fire_service_report') ? ' has-error' : '' }} mb-0 grp-fire_service_report">
+                                    <label class="control-label mb-0" for="fire_service_report">
+                                        Fire Service Report 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your fire_service_report that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('fire_service_report') ? ' has-error' : '' }} mb-0 grp-fire_service_report">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="fire_service_report" name="fire_service_report[]" value="{{old('fire_service_report')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="fire_service_report" id="fire_service_reportLabel">{{old('fire_service_report_name')? old('fire_service_report_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('fire_service_report_name')}}" name="fire_service_report_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-fire_service_report">{{ $errors->first('fire_service_report') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('clothing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-clothing_relief_quotation">
+                                    <label class="control-label mb-0" for="clothing_relief_quotation">
+                                        Clothing Relief Quotation 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your clothing_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('clothing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-clothing_relief_quotation">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="clothing_relief_quotation" name="clothing_relief_quotation[]" value="{{old('clothing_relief_quotation')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="clothing_relief_quotation" id="clothing_relief_quotationLabel">{{old('clothing_relief_quotation_name')? old('clothing_relief_quotation_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('clothing_relief_quotation_name')}}" name="clothing_relief_quotation_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-clothing_relief_quotation">{{ $errors->first('clothing_relief_quotation') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('housing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-housing_relief_quotation">
+                                    <label class="control-label mb-0" for="housing_relief_quotation">
+                                        Household Relief Quotation 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your housing_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('housing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-housing_relief_quotation">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="housing_relief_quotation" name="housing_relief_quotation[]" value="{{old('housing_relief_quotation')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="housing_relief_quotation" id="housing_relief_quotationLabel">{{old('housing_relief_quotation_name')? old('housing_relief_quotation_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('housing_relief_quotation_name')}}" name="housing_relief_quotation_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-housing_relief_quotation">{{ $errors->first('housing_relief_quotation') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="hide school_supplies_div">
+                            <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('school_supplies_relief_quotation') ? ' has-error' : '' }} mb-0 grp-school_supplies_relief_quotation">
+                                    <label class="control-label mb-0" for="school_supplies_relief_quotation">
+                                        School Supplies Relief Quotation 
+                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your school_supplies_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple files allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('school_supplies_relief_quotation') ? ' has-error' : '' }} mb-0 grp-school_supplies_relief_quotation">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="school_supplies_relief_quotation" name="school_supplies_relief_quotation[]" value="{{old('school_supplies_relief_quotation')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="school_supplies_relief_quotation" id="school_supplies_relief_quotationLabel">{{old('school_supplies_relief_quotation_name')? old('school_supplies_relief_quotation_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('school_supplies_relief_quotation_name')}}" name="school_supplies_relief_quotation_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-school_supplies_relief_quotation">{{ $errors->first('school_supplies_relief_quotation') }}</strong>
                                     </span>
                                 </div>
                             </td>
