@@ -82,10 +82,10 @@
 
             // if disaster is other show remarks textarea
             if (val == 'other_disaster') {
-                $('#other_disaster_remarks_div').removeClass('hide');
-                $('#other_disaster_remarks').focus();
+                $('#other_disaster_div').removeClass('hide');
+                $('#other_disaster').focus();
             } else {
-                $('#other_disaster_remarks_div').addClass('hide');
+                $('#other_disaster_div').addClass('hide');
             }
 
             // if flooding show water damages uploads
