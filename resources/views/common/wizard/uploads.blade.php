@@ -522,7 +522,7 @@
                             </td>
                         </tr>
                             
-                        <tr class="critical_uploads hide">
+                        <tr class="hide housing_repairs_div">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('structural_damage') ? ' has-error' : '' }} mb-0 grp-structural_damage">
                                     <label class="control-label mb-0" for="structural_damage">

@@ -102,7 +102,7 @@
         // show/hide housing repairs required
         $(document).on('change', '[name = "housing_damage"]', function() {
             var val = $(this).val();
-            console.log(val);
+            // console.log(val);
 
             if (val == 'yes') {
                 $('.housing_repairs_div').removeClass('hide');
