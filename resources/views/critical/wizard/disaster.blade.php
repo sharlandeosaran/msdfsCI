@@ -20,17 +20,22 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('disaster') ? ' has-error' : '' }} grp-disaster">
-                                    <div class="col-md-12 radio-group required">
+                                    <select class="form-control other_remarks" id="disaster" name="disaster" required>
+                                        <option disabled="" selected="">select...</option>
+                                        @php $other = 'Other'; @endphp
                                         @foreach ($disasters as $key => $disaster)
-                                        <div class="custom-control custom-radio">
-                                            <input type="radio" class="custom-control-input disaster" id="{{$key}}" name="disaster" {{old('disaster.'.$key) == 'on'? 'checked' : '' }} value="{{$key}}">
-                                            <label class="custom-control-label my-1" for="{{$key}}">{{$disaster}}</label>
-                                        </div>
+                                            @if ($key !== 'other_disaster')
+                                                <option {{old('disaster') == $key? 'selected' : '' }} value="{{$key}}">{{$disaster}}</option>
+                                            @else
+                                                @php $other = $disaster; @endphp
+                                            @endif
                                         @endforeach
+    
+                                        <option {{old('disaster') == 'other_disaster'? 'selected' : '' }} value="other_disaster">{{$other}}</option>
+                                    </select>
 
-                                        <div class="mb-2 hide disaster_remarks_div" id="other_disaster_remarks_div">
-                                            <input type="text" class="form-control" id="other_disaster_remarks" name="other_disaster_remarks" value="{{old('other_disaster_remarks')}}" placeholder="Brief remarks on disaster" maxlength="150">
-                                        </div>
+                                    <div class="mb-2 hide disaster_remarks_div" id="other_disaster_remarks_div">
+                                        <input type="text" class="form-control" id="other_disaster_remarks" name="other_disaster_remarks" value="{{old('other_disaster_remarks')}}" placeholder="Brief remarks on disaster" maxlength="150">
                                     </div>
                                     
                                     <span class="help-block">

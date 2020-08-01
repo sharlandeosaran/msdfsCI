@@ -115,7 +115,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
                                     <label class="control-label mb-0" for="marital_status">
-                                        Marital Status <span class="red">*</span> 
+                                        Marital Status 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
                                     </label>
                                 </div>
@@ -420,14 +420,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
                                     <label class="control-label mb-0" for="email">
-                                        Email <span class="red">*</span> 
+                                        Email 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="" value="{{old('email')? old('email') : '' }}" required placeholder="example@email.com" maxlength="250">
+                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="" value="{{old('email')? old('email') : '' }}" placeholder="example@email.com" maxlength="250">
                                     
                                     <span class="help-block">
                                         <strong id="err-email">{{ $errors->first('email') }}</strong>

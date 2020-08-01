@@ -18,10 +18,10 @@
             
             <div id="wizard">
                 
+                @include('critical.wizard.disaster')
                 @include('critical.wizard.guidelines')
                 @include('critical.wizard.general_info')
                 @include('critical.wizard.household_info')
-                @include('critical.wizard.disaster')
                 @include('common.wizard.uploads')
                 @include('critical.wizard.submit')
                 
@@ -74,14 +74,14 @@
             }
         });
         
-        // show/hide disaster remarks
-        $(document).on('change', '.disaster', function() {
-            var id = $( this ).prop('id');
+        // disaster change function
+        $(document).on('change', '#disaster', function() {
+            var val = $( this ).val();
             $('.water_marks_div, .fire_div').addClass('hide');
-            // console.log(id)
+            // console.log(val)
 
             // if disaster is other show remarks textarea
-            if (id == 'other_disaster') {
+            if (val == 'other_disaster') {
                 $('#other_disaster_remarks_div').removeClass('hide');
                 $('#other_disaster_remarks').focus();
             } else {
@@ -89,12 +89,12 @@
             }
 
             // if flooding show water damages uploads
-            if ($( this ).prop('id') == 'flooding') {
+            if (val == 'flooding') {
                 $('.water_marks_div').removeClass('hide');
             }
             
             // if fire show fire damages uploads
-            if ($( this ).prop('id') == 'fire') {
+            if (val == 'fire') {
                 $('.fire_div').removeClass('hide');
             }
         });
