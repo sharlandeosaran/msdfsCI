@@ -34,8 +34,8 @@
                                         <option {{old('disaster') == 'other_disaster'? 'selected' : '' }} value="other_disaster">{{$other}}</option>
                                     </select>
 
-                                    <div class="mb-2 hide disaster_remarks_div" id="other_disaster_remarks_div">
-                                        <input type="text" class="form-control" id="other_disaster_remarks" name="other_disaster_remarks" value="{{old('other_disaster_remarks')}}" placeholder="Specify other disaster" maxlength="150">
+                                    <div class="mb-2 hide disaster_remarks_div" id="other_disaster_div">
+                                        <input type="text" class="form-control" id="other_disaster" name="other_disaster" value="{{old('other_disaster')}}" placeholder="Specify other disaster" maxlength="150">
                                     </div>
                                     
                                     <span class="help-block">
