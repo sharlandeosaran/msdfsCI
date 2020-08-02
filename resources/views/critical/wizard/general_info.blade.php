@@ -345,7 +345,7 @@
                                     <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="city_town" name="city_town">
                                         <option disabled="" selected="">select...</option>
                                         @foreach ($communities as $community)
-                                        <option {{old('city_town') == $community->id? 'selected' : '' }} value="{{$community->id}}">{{$community->community .' ('. $community->region .')'}}</option>
+                                        <option {{old('city_town') == $community->id? 'selected' : '' }} value="{{$community->id}}">{!! $community->community .' ('. $community->region .')' !!}</option>
                                         @endforeach
                                     </select>
                                     
