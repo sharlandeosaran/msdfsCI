@@ -422,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `communities` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.communities: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.communities: ~520 rows (approximately)
 /*!40000 ALTER TABLE `communities` DISABLE KEYS */;
 INSERT INTO `communities` (`id`, `community`, `code`, `region_code`) VALUES
 	(1, 'Abysinia Village (Oilfield area)', 5301, 11),
@@ -995,13 +995,21 @@ CREATE TABLE IF NOT EXISTS `demographic_data` (
 DROP TABLE IF EXISTS `disasters`;
 CREATE TABLE IF NOT EXISTS `disasters` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `slug` varchar(150) NOT NULL,
   `disaster` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `country` (`disaster`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+  UNIQUE KEY `country` (`disaster`) USING BTREE,
+  UNIQUE KEY `slug` (`slug`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.disasters: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.disasters: ~5 rows (approximately)
 /*!40000 ALTER TABLE `disasters` DISABLE KEYS */;
+INSERT INTO `disasters` (`id`, `slug`, `disaster`) VALUES
+	(1, 'flooding', 'Flooding'),
+	(2, 'fire', 'Fire'),
+	(3, 'land_slide', 'Land Slide'),
+	(4, 'earthquake', 'Earthquake'),
+	(5, 'other_disaster', 'Other');
 /*!40000 ALTER TABLE `disasters` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.email_log
@@ -1026,11 +1034,37 @@ CREATE TABLE IF NOT EXISTS `employment_list` (
   `slug` varchar(150) NOT NULL,
   `item` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.employment_list: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.employment_list: ~5 rows (approximately)
 /*!40000 ALTER TABLE `employment_list` DISABLE KEYS */;
+INSERT INTO `employment_list` (`id`, `slug`, `item`) VALUES
+	(1, 'retrenched', 'Retrenched'),
+	(2, 'terminated', 'Terminated'),
+	(3, 'income_loss', 'Loss of Income'),
+	(4, 'income_reduced', 'Income Reduced'),
+	(5, 'reduced_income', 'Reduced Income');
 /*!40000 ALTER TABLE `employment_list` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.employment_status
+DROP TABLE IF EXISTS `employment_status`;
+CREATE TABLE IF NOT EXISTS `employment_status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `country` (`status`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.employment_status: ~6 rows (approximately)
+/*!40000 ALTER TABLE `employment_status` DISABLE KEYS */;
+INSERT INTO `employment_status` (`id`, `status`) VALUES
+	(1, 'Employed'),
+	(6, 'Other'),
+	(4, 'Pensioner'),
+	(5, 'Retiree'),
+	(2, 'Self-Employed'),
+	(3, 'Unemployed');
+/*!40000 ALTER TABLE `employment_status` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.error_log
 DROP TABLE IF EXISTS `error_log`;
@@ -1144,6 +1178,24 @@ CREATE TABLE IF NOT EXISTS `form_critical_incident` (
 /*!40000 ALTER TABLE `form_critical_incident` DISABLE KEYS */;
 /*!40000 ALTER TABLE `form_critical_incident` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.housing_types
+DROP TABLE IF EXISTS `housing_types`;
+CREATE TABLE IF NOT EXISTS `housing_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `country` (`type`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.housing_types: ~0 rows (approximately)
+/*!40000 ALTER TABLE `housing_types` DISABLE KEYS */;
+INSERT INTO `housing_types` (`id`, `type`) VALUES
+	(3, 'Free Lodging'),
+	(2, 'Owner'),
+	(4, 'Renter/Tenant'),
+	(1, 'Squatter');
+/*!40000 ALTER TABLE `housing_types` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.id_states
 DROP TABLE IF EXISTS `id_states`;
 CREATE TABLE IF NOT EXISTS `id_states` (
@@ -1168,10 +1220,21 @@ CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   `slug` varchar(150) NOT NULL,
   `type` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~10 rows (approximately)
 /*!40000 ALTER TABLE `items_lost_or_damaged` DISABLE KEYS */;
+INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `type`) VALUES
+	(1, 'stove', 'Stove'),
+	(2, 'refrigerator', 'Refrigerator'),
+	(3, 'washing_machine', 'Washing Machine'),
+	(4, 'bed_mattress', 'Bed & Mattress'),
+	(5, 'wardrobe', 'Wardrobe'),
+	(6, 'chest_of_drawers', 'Chest of Draws'),
+	(7, 'living_room_set', 'Living Room Set'),
+	(8, 'dining_room_set', 'Dining Room Set'),
+	(9, 'kitchen_cupboards', 'Kitchen Cupboards'),
+	(10, 'school_supplies', 'School Supplies');
 /*!40000 ALTER TABLE `items_lost_or_damaged` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.jobs
@@ -1225,6 +1288,26 @@ INSERT INTO `job_titles` (`id`, `title`, `label`, `help`) VALUES
 	(17, 'Lecturer', NULL, NULL),
 	(18, 'Graduate Teacher I +', NULL, NULL);
 /*!40000 ALTER TABLE `job_titles` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.marital_status
+DROP TABLE IF EXISTS `marital_status`;
+CREATE TABLE IF NOT EXISTS `marital_status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `country` (`status`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.marital_status: ~6 rows (approximately)
+/*!40000 ALTER TABLE `marital_status` DISABLE KEYS */;
+INSERT INTO `marital_status` (`id`, `status`) VALUES
+	(3, 'Common-Law'),
+	(2, 'Married'),
+	(6, 'Other'),
+	(4, 'Separated'),
+	(1, 'Single'),
+	(5, 'Widow');
+/*!40000 ALTER TABLE `marital_status` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.migrations
 DROP TABLE IF EXISTS `migrations`;
@@ -1293,6 +1376,32 @@ INSERT INTO `regions` (`id`, `region`, `code`) VALUES
 	(22, 'Parish of St. John', 97);
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.relationships
+DROP TABLE IF EXISTS `relationships`;
+CREATE TABLE IF NOT EXISTS `relationships` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `relationship` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `country` (`relationship`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.relationships: ~12 rows (approximately)
+/*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
+INSERT INTO `relationships` (`id`, `relationship`) VALUES
+	(9, 'Aunt'),
+	(1, 'Brother'),
+	(11, 'Cousin'),
+	(4, 'Father'),
+	(8, 'Granddaughter'),
+	(6, 'Grandfather'),
+	(5, 'Grandmother'),
+	(7, 'Grandson'),
+	(3, 'Mother'),
+	(12, 'Other'),
+	(2, 'Sister'),
+	(10, 'Uncle');
+/*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.scotia_branches
 DROP TABLE IF EXISTS `scotia_branches`;
 CREATE TABLE IF NOT EXISTS `scotia_branches` (
@@ -1339,10 +1448,15 @@ CREATE TABLE IF NOT EXISTS `total_income` (
   `income` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `country` (`income`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.total_income: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.total_income: ~4 rows (approximately)
 /*!40000 ALTER TABLE `total_income` DISABLE KEYS */;
+INSERT INTO `total_income` (`id`, `income`) VALUES
+	(2, '$12,000 - $20,000'),
+	(3, '$20,000-$50,000'),
+	(4, 'Greater than $50,000'),
+	(1, 'Less than $12,000');
 /*!40000 ALTER TABLE `total_income` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.users
