@@ -1187,7 +1187,7 @@ CREATE TABLE IF NOT EXISTS `housing_types` (
   UNIQUE KEY `country` (`type`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.housing_types: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.housing_types: ~4 rows (approximately)
 /*!40000 ALTER TABLE `housing_types` DISABLE KEYS */;
 INSERT INTO `housing_types` (`id`, `type`) VALUES
 	(3, 'Free Lodging'),
@@ -1218,13 +1218,13 @@ DROP TABLE IF EXISTS `items_lost_or_damaged`;
 CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
-  `type` varchar(150) NOT NULL,
+  `item` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~10 rows (approximately)
+-- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~8 rows (approximately)
 /*!40000 ALTER TABLE `items_lost_or_damaged` DISABLE KEYS */;
-INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `type`) VALUES
+INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`) VALUES
 	(1, 'stove', 'Stove'),
 	(2, 'refrigerator', 'Refrigerator'),
 	(3, 'washing_machine', 'Washing Machine'),
