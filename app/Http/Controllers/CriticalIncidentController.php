@@ -12,20 +12,15 @@ class CriticalIncidentController extends Controller
     {
         $data = [
             'title' => 'Critical Incident Form',
-            'cities' => cities(),
             'communities' => \App\Community::all(),
-            'banks' => banks(),
-            'scotia' => scotia(),
-            'citizen_proof' => citizen_proof(),
-            'id_state' => id_state(),
-            'job_title' => job_title(),
-            'items_lost_or_damaged' => items_lost_or_damaged(),
-            'disasters' => disasters(),
-            'housing_type' => housing_type(),
-            'total_income' => total_income(),
-            'relationships' => relationships(),
-            'employment_status' => employment_status(),
-            'marital_status' => marital_status(),
+            'id_state' => \App\IDState::ordered(),
+            'items_lost_or_damaged' => \App\ItemsLostOrDamaged::all(),
+            'disasters' => \App\Disaster::all(),
+            'housing_type' => \App\HousingType::all(),
+            'total_income' => \App\TotalIncome::ordered(),
+            'relationships' => \App\Relationship::all(),
+            'employment_status' => \App\EmploymentStatus::ordered(),
+            'marital_status' => \App\MaritalStatus::ordered(),
             'form' => 'critical',
         ];
         // dd($data);

@@ -124,8 +124,8 @@
                                 <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
                                     <select class="form-control chosen-select" id="marital_status" name="marital_status">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($marital_status as $key =>$row)
-                                        <option {{old('marital_status') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @foreach ($marital_status as $status)
+                                        <option {{old('marital_status') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -154,7 +154,7 @@
                                         <select class="form-control" id="national_id_state" name="national_id_state">
                                             {{-- <option selected="" value="">select...</option> --}}
                                             @foreach ($id_state as $state)
-                                            <option {{old('national_id_state') == $state? 'selected' : '' }}>{{$state}}</option>
+                                            <option {{old('national_id_state') == $state->id? 'selected' : '' }} value="{{$state->id}}">{{$state->id_state}}</option>
                                             @endforeach
                                         </select>
                                       </div>
@@ -219,8 +219,8 @@
                                 <div class="form-group mb-0{{ $errors->has('housing_type') ? ' has-error' : '' }} grp-housing_type">
                                     <select class="form-control chosen-select" id="housing_type" name="housing_type">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($housing_type as $key =>$row)
-                                        <option {{old('housing_type') == $key? 'selected' : '' }} value="{{$key}}">{{$row}}</option>
+                                        @foreach ($housing_type as $row)
+                                        <option {{old('housing_type') == $row->id? 'selected' : '' }} value="{{$row->id}}">{{$row->type}}</option>
                                         @endforeach
                                     </select>
                                     

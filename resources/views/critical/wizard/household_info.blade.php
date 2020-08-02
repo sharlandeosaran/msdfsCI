@@ -79,8 +79,8 @@
                                 <div class="form-group{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
                                     <select class="form-control form-control-sm chosen-select" id="hi_emp_status_1" name="hi_emp_status[1]">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($employment_status as $id =>$row)
-                                        <option {{old('hi_emp_status.1') == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                        @foreach ($employment_status as $status)
+                                        <option {{old('hi_emp_status.1') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -137,8 +137,8 @@
                                         <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
                                             <select class="form-control form-control-sm chosen-select" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
                                                 <option disabled="" selected="">select...</option>
-                                                @foreach ($relationships as $id =>$row)
-                                                <option {{old('hi_relationship.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                                @foreach ($relationships as $relationship)
+                                                <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
                                                 @endforeach
                                             </select>
                                             
@@ -199,8 +199,8 @@
                                 <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }} grp-hi_total_income">
                                     <select class="form-control form-control-sm chosen-select" id="hi_total_income" name="hi_total_income">
                                         <option disabled="" selected="">select...</option>
-                                        @foreach ($total_income as $id =>$row)
-                                        <option {{old('hi_total_income') == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                        @foreach ($total_income as $income)
+                                        <option {{old('hi_total_income') == $income->id? 'selected' : '' }} value="{{$income->id}}">{{$income->income}}</option>
                                         @endforeach
                                     </select>
                                     

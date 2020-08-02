@@ -23,11 +23,11 @@
                                     <select class="form-control other_remarks" id="disaster" name="disaster" required>
                                         <option disabled="" selected="">select...</option>
                                         @php $other = 'Other'; @endphp
-                                        @foreach ($disasters as $key => $disaster)
-                                            @if ($key !== 'other_disaster')
-                                                <option {{old('disaster') == $key? 'selected' : '' }} value="{{$key}}">{{$disaster}}</option>
+                                        @foreach ($disasters as $disaster)
+                                            @if ($disaster->slug !== 'other_disaster')
+                                                <option {{old('disaster') == $disaster->slug? 'selected' : '' }} value="{{$disaster->slug}}">{{$disaster->disaster}}</option>
                                             @else
-                                                @php $other = $disaster; @endphp
+                                                @php $other = $disaster->disaster; @endphp
                                             @endif
                                         @endforeach
     
@@ -203,13 +203,13 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('items_lost_or_damaged') ? ' has-error' : '' }} grp-items_lost_or_damaged">
                                     <div class="col-md-12 checkbox-group required">
-                                        @foreach ($items_lost_or_damaged as $key => $item)
+                                        @foreach ($items_lost_or_damaged as $item)
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$key}}" name="items_lost_or_damaged[{{$key}}]" {{old('items_lost_or_damaged.'.$key) == 'on'? 'checked' : '' }}>
-                                            <label class="custom-control-label my-1" for="{{$key}}">{{$item}}</label>
+                                            <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == 'on'? 'checked' : '' }}>
+                                            <label class="custom-control-label my-1" for="{{$item->slug}}">{{$item->item}}</label>
                                         </div>
-                                        <div class="mb-2 hide recovery_needs_div" id="recovery_needs_{{$key}}">
-                                            <input type="text" class="form-control" id="recovery_needs_input_{{$key}}" aria-describedby="recovery_needs_{{$key}}" name="recovery_needs[{{$key}}]" value="{{old('recovery_needs.'.$key)}}" placeholder="Recovery needs for {{$item}}" maxlength="150">
+                                        <div class="mb-2 hide recovery_needs_div" id="recovery_needs_{{$item->slug}}">
+                                            <input type="text" class="form-control" id="recovery_needs_input_{{$item->slug}}" aria-describedby="recovery_needs_{{$item->slug}}" name="recovery_needs[{{$item->slug}}]" value="{{old('recovery_needs.'.$item->slug)}}" placeholder="Recovery needs for {{$item->item}}" maxlength="150">
                                         </div>
                                         @endforeach
                                     </div>
