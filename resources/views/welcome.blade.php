@@ -10,7 +10,7 @@
             <div class="card border-primary shadow">
                 <div class="card-body">
                     <h4 class="mb-4 text-">
-                        Application form for social assistance.
+                        Application forms for social assistance.
                     </h4>
 
                     <div class="list-group">

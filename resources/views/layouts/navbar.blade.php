@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light shadow-sm fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ url('/') }}" style="padding-top: 0; padding-bottom: 0;">
-            <img src="{{asset('/img/TTCrest.png')}}" alt="Trinidad and Tobago Crest" class="img-responsive" height="40px" style="padding-right: 10px;">
+            <img src="{{asset('/img/favicon.png')}}" alt="Trinidad and Tobago Crest" class="img-responsive" height="40px" style="padding-right: 10px;">
             <strong>{{ config('app.name', 'Laravel') }}</strong>
         </a>
 
