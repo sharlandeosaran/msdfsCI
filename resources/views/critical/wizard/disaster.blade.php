@@ -175,14 +175,14 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
                                     <label class="control-label mb-0" for="insurer_contact">
-                                        Insurer Contact <span class="red">*</span> 
+                                        Insurer Contact Information <span class="red">*</span> 
                                         <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
-                                    <input type="text" class="form-control phone" id="insurer_contact" name="insurer_contact" aria-describedby="" value="{{old('insurer_contact')? old('insurer_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
+                                    <textarea class="form-control" id="insurer_contact" name="insurer_contact" rows="2" required maxlength="250">{{old('insurer_contact')? old('insurer_contact') : '' }}</textarea>
                                     
                                     <span class="help-block">
                                         <strong id="err-insurer_contact">{{ $errors->first('insurer_contact') }}</strong>
