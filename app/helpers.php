@@ -55,6 +55,8 @@ function msTimeStamp()
 	return (string)round(microtime(1) * 1000);
 }
 
+// lookup lists
+
 function cities()
 {
 	$list = [
