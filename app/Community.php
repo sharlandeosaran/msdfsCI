@@ -8,4 +8,17 @@ class Community extends Model
 {
     protected $table = 'communities';
 	public $timestamps = false;
+
+    public function region()
+    {
+        return \App\Region::where('code', $this->region_code)->first();
+    }
+
+    public function getRegionAttribute($value)
+    {
+        $region = $this->region();
+        
+        
+        return $region? $region->region : 'N/A';
+    }
 }

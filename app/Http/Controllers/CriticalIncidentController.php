@@ -13,6 +13,7 @@ class CriticalIncidentController extends Controller
         $data = [
             'title' => 'Critical Incident Form',
             'cities' => cities(),
+            'communities' => \App\Community::all(),
             'banks' => banks(),
             'scotia' => scotia(),
             'citizen_proof' => citizen_proof(),
@@ -27,6 +28,7 @@ class CriticalIncidentController extends Controller
             'marital_status' => marital_status(),
             'form' => 'critical',
         ];
+        // dd($data);
         
         return view('critical.wizard.wizard', $data);
     }

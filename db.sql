@@ -11,12 +11,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
-
--- Dumping database structure for msdfs_forms_db
-CREATE DATABASE IF NOT EXISTS `msdfs_forms_db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `msdfs_forms_db`;
-
 -- Dumping structure for table msdfs_forms_db.applicants
+DROP TABLE IF EXISTS `applicants`;
 CREATE TABLE IF NOT EXISTS `applicants` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -39,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `applicants` (
 /*!40000 ALTER TABLE `applicants` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.applicant_docs
+DROP TABLE IF EXISTS `applicant_docs`;
 CREATE TABLE IF NOT EXISTS `applicant_docs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `applicant_id` bigint(20) unsigned NOT NULL,
@@ -55,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `applicant_docs` (
 /*!40000 ALTER TABLE `applicant_docs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.applications
+DROP TABLE IF EXISTS `applications`;
 CREATE TABLE IF NOT EXISTS `applications` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ip` text NOT NULL,
@@ -87,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
 /*!40000 ALTER TABLE `applications` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.banks
+DROP TABLE IF EXISTS `banks`;
 CREATE TABLE IF NOT EXISTS `banks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bank` varchar(150) NOT NULL,
@@ -106,6 +105,7 @@ INSERT INTO `banks` (`id`, `bank`) VALUES
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.cities
+DROP TABLE IF EXISTS `cities`;
 CREATE TABLE IF NOT EXISTS `cities` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `city` varchar(150) NOT NULL,
@@ -395,6 +395,7 @@ INSERT INTO `cities` (`id`, `city`) VALUES
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.citizen_proof
+DROP TABLE IF EXISTS `citizen_proof`;
 CREATE TABLE IF NOT EXISTS `citizen_proof` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `proof` varchar(150) NOT NULL,
@@ -412,6 +413,7 @@ INSERT INTO `citizen_proof` (`id`, `proof`) VALUES
 /*!40000 ALTER TABLE `citizen_proof` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.communities
+DROP TABLE IF EXISTS `communities`;
 CREATE TABLE IF NOT EXISTS `communities` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `community` varchar(150) NOT NULL,
@@ -420,7 +422,7 @@ CREATE TABLE IF NOT EXISTS `communities` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.communities: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.communities: ~520 rows (approximately)
 /*!40000 ALTER TABLE `communities` DISABLE KEYS */;
 INSERT INTO `communities` (`id`, `community`, `code`, `region_code`) VALUES
 	(1, 'Abysinia Village (Oilfield area)', 5301, 11),
@@ -946,6 +948,7 @@ INSERT INTO `communities` (`id`, `community`, `code`, `region_code`) VALUES
 /*!40000 ALTER TABLE `communities` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.cron_log
+DROP TABLE IF EXISTS `cron_log`;
 CREATE TABLE IF NOT EXISTS `cron_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `job` varchar(50) CHARACTER SET latin1 NOT NULL,
@@ -960,6 +963,7 @@ CREATE TABLE IF NOT EXISTS `cron_log` (
 /*!40000 ALTER TABLE `cron_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.dashboard_data
+DROP TABLE IF EXISTS `dashboard_data`;
 CREATE TABLE IF NOT EXISTS `dashboard_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -975,6 +979,7 @@ CREATE TABLE IF NOT EXISTS `dashboard_data` (
 /*!40000 ALTER TABLE `dashboard_data` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.demographic_data
+DROP TABLE IF EXISTS `demographic_data`;
 CREATE TABLE IF NOT EXISTS `demographic_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `demographic` varchar(150) NOT NULL,
@@ -987,6 +992,7 @@ CREATE TABLE IF NOT EXISTS `demographic_data` (
 /*!40000 ALTER TABLE `demographic_data` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.disasters
+DROP TABLE IF EXISTS `disasters`;
 CREATE TABLE IF NOT EXISTS `disasters` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `disaster` varchar(150) NOT NULL,
@@ -999,6 +1005,7 @@ CREATE TABLE IF NOT EXISTS `disasters` (
 /*!40000 ALTER TABLE `disasters` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.email_log
+DROP TABLE IF EXISTS `email_log`;
 CREATE TABLE IF NOT EXISTS `email_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `subject` text CHARACTER SET latin1 NOT NULL,
@@ -1013,6 +1020,7 @@ CREATE TABLE IF NOT EXISTS `email_log` (
 /*!40000 ALTER TABLE `email_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.employment_list
+DROP TABLE IF EXISTS `employment_list`;
 CREATE TABLE IF NOT EXISTS `employment_list` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
@@ -1025,6 +1033,7 @@ CREATE TABLE IF NOT EXISTS `employment_list` (
 /*!40000 ALTER TABLE `employment_list` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.error_log
+DROP TABLE IF EXISTS `error_log`;
 CREATE TABLE IF NOT EXISTS `error_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1041,6 +1050,7 @@ CREATE TABLE IF NOT EXISTS `error_log` (
 /*!40000 ALTER TABLE `error_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.failed_jobs
+DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `connection` text COLLATE utf8_unicode_ci NOT NULL,
@@ -1055,6 +1065,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.forms
+DROP TABLE IF EXISTS `forms`;
 CREATE TABLE IF NOT EXISTS `forms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `form` varchar(150) NOT NULL,
@@ -1071,6 +1082,7 @@ INSERT INTO `forms` (`id`, `form`, `slug`) VALUES
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_a
+DROP TABLE IF EXISTS `form_a`;
 CREATE TABLE IF NOT EXISTS `form_a` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -1091,6 +1103,7 @@ CREATE TABLE IF NOT EXISTS `form_a` (
 /*!40000 ALTER TABLE `form_a` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_b
+DROP TABLE IF EXISTS `form_b`;
 CREATE TABLE IF NOT EXISTS `form_b` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -1111,6 +1124,7 @@ CREATE TABLE IF NOT EXISTS `form_b` (
 /*!40000 ALTER TABLE `form_b` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_critical_incident
+DROP TABLE IF EXISTS `form_critical_incident`;
 CREATE TABLE IF NOT EXISTS `form_critical_incident` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -1131,6 +1145,7 @@ CREATE TABLE IF NOT EXISTS `form_critical_incident` (
 /*!40000 ALTER TABLE `form_critical_incident` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.id_states
+DROP TABLE IF EXISTS `id_states`;
 CREATE TABLE IF NOT EXISTS `id_states` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_state` varchar(150) NOT NULL,
@@ -1147,6 +1162,7 @@ INSERT INTO `id_states` (`id`, `id_state`) VALUES
 /*!40000 ALTER TABLE `id_states` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.items_lost_or_damaged
+DROP TABLE IF EXISTS `items_lost_or_damaged`;
 CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
@@ -1159,6 +1175,7 @@ CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
 /*!40000 ALTER TABLE `items_lost_or_damaged` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.jobs
+DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -1177,6 +1194,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 /*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.job_titles
+DROP TABLE IF EXISTS `job_titles`;
 CREATE TABLE IF NOT EXISTS `job_titles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
@@ -1209,6 +1227,7 @@ INSERT INTO `job_titles` (`id`, `title`, `label`, `help`) VALUES
 /*!40000 ALTER TABLE `job_titles` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.migrations
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1224,6 +1243,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.password_resets
+DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1236,6 +1256,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.regions
+DROP TABLE IF EXISTS `regions`;
 CREATE TABLE IF NOT EXISTS `regions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `region` varchar(150) NOT NULL,
@@ -1273,6 +1294,7 @@ INSERT INTO `regions` (`id`, `region`, `code`) VALUES
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.scotia_branches
+DROP TABLE IF EXISTS `scotia_branches`;
 CREATE TABLE IF NOT EXISTS `scotia_branches` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bank` varchar(150) NOT NULL,
@@ -1311,6 +1333,7 @@ INSERT INTO `scotia_branches` (`id`, `bank`, `transit_code`) VALUES
 /*!40000 ALTER TABLE `scotia_branches` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.total_income
+DROP TABLE IF EXISTS `total_income`;
 CREATE TABLE IF NOT EXISTS `total_income` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `income` varchar(150) NOT NULL,
@@ -1323,6 +1346,7 @@ CREATE TABLE IF NOT EXISTS `total_income` (
 /*!40000 ALTER TABLE `total_income` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -1349,6 +1373,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `admin`, `activ
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_audit
+DROP TABLE IF EXISTS `user_audit`;
 CREATE TABLE IF NOT EXISTS `user_audit` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -1370,6 +1395,7 @@ CREATE TABLE IF NOT EXISTS `user_audit` (
 /*!40000 ALTER TABLE `user_audit` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_logs
+DROP TABLE IF EXISTS `user_logs`;
 CREATE TABLE IF NOT EXISTS `user_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
