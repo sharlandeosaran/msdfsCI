@@ -36,7 +36,7 @@
                                 <i class="fa fa-info-circle" aria-hidden="true" title=''></i>
                             </th>
                             <th>
-                                <button class="btn btn-sm btn-success critical_add_household" type="button"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                                <button class="btn btn-sm btn-success critical_add_household" type="button" title="Add household member"><i class="fa fa-plus" aria-hidden="true"></i></button>
                             </th>
                         </tr>
                     </thead>
@@ -209,7 +209,9 @@
                                     </span>
                                 </div>
                             </th>
-                            <th></th>
+                            <th>
+                                <button class="btn btn-sm btn-success critical_add_household" type="button" title="Add household member"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                            </th>
                         </tr>
                     </tfoot>
                 </table>
