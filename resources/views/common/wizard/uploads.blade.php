@@ -14,7 +14,7 @@
             <div class="form-group mb-0 mb-4">
                 <div class="required">
                     <span class="red">*</span> Required Documents <br>
-                    <i class="fa fa-info-circle" aria-hidden="true"></i> Help <br>
+                    <i class="fa fa-info-circle hide" aria-hidden="true"></i> Help <br>
                     <strong>** Accepted File Types: pdf, doc, docx, png, jpg and jpeg **</strong><br>
                     <strong>** Maximum File Size: 10Mb **</strong>
                 </div>
@@ -29,7 +29,7 @@
                                 <div class="form-group{{ $errors->has('signature') ? ' has-error' : '' }} mb-0 grp-signature">
                                     <label class="control-label mb-0" for="signature">
                                         Signature <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your signature that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your signature that matches your national identification card and uploaded.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -55,7 +55,7 @@
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0 grp-id_card_front">
                                     <label class="control-label mb-0" for="id_card_front">
                                         National Identification Card <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='The front of the national identification card will have your picture. Take a copy of the front of your national identification card and upload.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='The front of the national identification card will have your picture. Take a copy of the front of your national identification card and upload.'></i>
                                         <br><strong>(Front)</strong>
                                     </label>
                                 </div>
@@ -82,7 +82,7 @@
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0 grp-id_card_back">
                                     <label class="control-label mb-0" for="id_card_back">
                                         National Identification Card <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='The back of the national identification card contains only words and has no picture. Take a copy of the back of your national identification card and upload.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='The back of the national identification card contains only words and has no picture. Take a copy of the back of your national identification card and upload.'></i>
                                         <br><strong>(Back)</strong>
                                     </label>
                                 </div>
@@ -109,7 +109,7 @@
                                 <div class="form-group{{ $errors->has('employer_recommender_letter') ? ' has-error' : '' }} mb-0 grp-employer_recommender_letter">
                                     <label class="control-label mb-0" for="employer_recommender_letter">
                                         Proof of Retrenchment/ Termination/ Reduced Income <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a signed letter from your employer or a letter from recommender.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a signed letter from your employer or a letter from recommender.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -135,7 +135,7 @@
                                 <div class="form-group{{ $errors->has('lost_id_police_report') ? ' has-error' : '' }} mb-0 grp-lost_id_police_report">
                                     <label class="control-label mb-0" for="lost_id_police_report">
                                         Lost ID Police Report <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Copy the report slip given to you by the police station where you report your lost identification card.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Copy the report slip given to you by the police station where you report your lost identification card.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -161,7 +161,7 @@
                                 <div class="form-group{{ $errors->has('ebc_id_letter') ? ' has-error' : '' }} mb-0 grp-ebc_id_letter">
                                     <label class="control-label mb-0" for="ebc_id_letter">
                                         Letter From EBC Showing ID Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='The EBC letter would have been given to you to replace your national identification card to allow you to collect the new card. Copy the Elections and Boundaries Commission (EBC) letter with your identification number identified and upload.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='The EBC letter would have been given to you to replace your national identification card to allow you to collect the new card. Copy the Elections and Boundaries Commission (EBC) letter with your identification number identified and upload.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -187,7 +187,7 @@
                                 <div class="form-group{{ $errors->has('cert_immigration_status') ? ' has-error' : '' }} mb-0 grp-cert_immigration_status">
                                     <label class="control-label mb-0" for="cert_immigration_status">
                                         Certificate of Immigration Status <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach a copy of your certificate of immigration status with your approved national classification.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach a copy of your certificate of immigration status with your approved national classification.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -213,7 +213,7 @@
                                 <div class="form-group{{ $errors->has('cert_residence') ? ' has-error' : '' }} mb-0 grp-cert_residence">
                                     <label class="control-label mb-0" for="cert_residence">
                                         Certificate of Residence <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach a copy of your certificate of residence issued by immigration with your approved national classification.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach a copy of your certificate of residence issued by immigration with your approved national classification.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -239,7 +239,7 @@
                                 <div class="form-group{{ $errors->has('passport_bio') ? ' has-error' : '' }} mb-0 grp-passport_bio">
                                     <label class="control-label mb-0" for="passport_bio">
                                         Passport Bio-Data Page <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach a copy of the identification page which states nationality on your passport.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach a copy of the identification page which states nationality on your passport.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -265,7 +265,7 @@
                                 <div class="form-group{{ $errors->has('passport_stamp') ? ' has-error' : '' }} mb-0 grp-passport_stamp">
                                     <label class="control-label mb-0" for="passport_stamp">
                                         Passport Registration Stamp Page <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='As a resident copy the stamp page the gives your length of stay and upload. As a citizen you can reattach identification page.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='As a resident copy the stamp page the gives your length of stay and upload. As a citizen you can reattach identification page.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -291,7 +291,7 @@
                                 <div class="form-group{{ $errors->has('landlord_id_card_front') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_front">
                                     <label class="control-label mb-0" for="landlord_id_card_front">
                                         Landlord ID Card (front) <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -317,7 +317,7 @@
                                 <div class="form-group{{ $errors->has('landlord_id_card_back') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_back">
                                     <label class="control-label mb-0" for="landlord_id_card_back">
                                         Landlord ID Card (back) <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide an identification for landlord like national identification card, passport or drivers permit.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -343,7 +343,7 @@
                                 <div class="form-group{{ $errors->has('utility_bill') ? ' has-error' : '' }} mb-0 grp-utility_bill">
                                     <label class="control-label mb-0" for="utility_bill">
                                         Utility Bill <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach landlord proof of ownership like WASA Bill, any other document that proves they are the owner of the property.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach landlord proof of ownership like WASA Bill, any other document that proves they are the owner of the property.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -369,7 +369,7 @@
                                 <div class="form-group{{ $errors->has('rental_agreement') ? ' has-error' : '' }} mb-0 grp-rental_agreement">
                                     <label class="control-label mb-0" for="rental_agreement">
                                         Rental Agreement <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach the legal agreement signed with landlord.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach the legal agreement signed with landlord.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -395,7 +395,7 @@
                                 <div class="form-group{{ $errors->has('rent_receipt') ? ' has-error' : '' }} mb-0 grp-rent_receipt">
                                     <label class="control-label mb-0" for="rent_receipt">
                                         Recent Rent Receipt <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach your most recent rent receipt.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach your most recent rent receipt.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -421,7 +421,7 @@
                                 <div class="form-group{{ $errors->has('cert_incorporation_registration') ? ' has-error' : '' }} mb-0" id="grp-cert_incorporation_registration">
                                     <label class="control-label mb-0" for="cert_incorporation_registration">
                                         Certificate of Registration/Incorporation 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Attach your certification establishing your business or company.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Attach your certification establishing your business or company.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -447,7 +447,7 @@
                                 <div class="form-group{{ $errors->has('recommendation_letter') ? ' has-error' : '' }} mb-0 grp-recommendation_letter">
                                     <label class="control-label mb-0" for="recommendation_letter">
                                         Recommendation 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a signed letter from your recommender.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a signed letter from your recommender.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -473,7 +473,7 @@
                                 <div class="form-group{{ $errors->has('fire_service_report') ? ' has-error' : '' }} mb-0 grp-fire_service_report">
                                     <label class="control-label mb-0" for="fire_service_report">
                                         Fire Service Report 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your fire_service_report that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your fire_service_report that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -500,7 +500,7 @@
                                 <div class="form-group{{ $errors->has('regional_corporation_flooding_report') ? ' has-error' : '' }} mb-0 grp-regional_corporation_flooding_report">
                                     <label class="control-label mb-0" for="regional_corporation_flooding_report">
                                         Regional Corporation Flooding Report 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your regional_corporation_flooding_report that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your regional_corporation_flooding_report that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -527,7 +527,7 @@
                                 <div class="form-group{{ $errors->has('clothing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-clothing_relief_quotation">
                                     <label class="control-label mb-0" for="clothing_relief_quotation">
                                         Clothing Relief Quotation 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your clothing_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your clothing_relief_quotation that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -554,7 +554,7 @@
                                 <div class="form-group{{ $errors->has('housing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-housing_relief_quotation">
                                     <label class="control-label mb-0" for="housing_relief_quotation">
                                         Household Relief Quotation 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your housing_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your housing_relief_quotation that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -581,7 +581,7 @@
                                 <div class="form-group{{ $errors->has('school_supplies_relief_quotation') ? ' has-error' : '' }} mb-0 grp-school_supplies_relief_quotation">
                                     <label class="control-label mb-0" for="school_supplies_relief_quotation">
                                         School Supplies Relief Quotation 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your school_supplies_relief_quotation that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your school_supplies_relief_quotation that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -614,7 +614,7 @@
                                 <div class="form-group{{ $errors->has('water_marks') ? ' has-error' : '' }} mb-0 grp-water_marks">
                                     <label class="control-label mb-0" for="water_marks">
                                         Water Marks on the Wall 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your water_marks that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your water_marks that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -641,7 +641,7 @@
                                 <div class="form-group{{ $errors->has('structural_damage') ? ' has-error' : '' }} mb-0 grp-structural_damage">
                                     <label class="control-label mb-0" for="structural_damage">
                                         Structural Damage 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your structural_damage that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your structural_damage that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -668,7 +668,7 @@
                                 <div class="form-group{{ $errors->has('electrical_damage') ? ' has-error' : '' }} mb-0 grp-electrical_damage">
                                     <label class="control-label mb-0" for="electrical_damage">
                                         Electrical Damage 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your electrical_damage that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your electrical_damage that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>
@@ -695,7 +695,7 @@
                                 <div class="form-group{{ $errors->has('plumbing_damage') ? ' has-error' : '' }} mb-0 grp-plumbing_damage">
                                     <label class="control-label mb-0" for="plumbing_damage">
                                         Plumbing Damage 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide copy of your plumbing_damage that matches your national identification card and uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your plumbing_damage that matches your national identification card and uploaded.'></i>
                                         <br>(multiple files allowed)
                                     </label>
                                 </div>

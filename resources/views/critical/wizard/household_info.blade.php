@@ -13,27 +13,27 @@
                         <tr>
                             <th>
                                 Full Name <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State the first name and surname of the person stated in the row.'></i>
                             </th>
                             <th>
                                 Gender <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='Select the gender of the person stated in the row.'></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the gender of the person stated in the row.'></i>
                             </th>
                             <th>
                                 Relationship to Applicant <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='State the connection to the applicant of each person listed as part of the household. '></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State the connection to the applicant of each person listed as part of the household. '></i>
                             </th>
                             <th>
                                 Date of Birth <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='State the date of birth of the person stated in the row in the format yyyy-mm-dd.'></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State the date of birth of the person stated in the row in the format yyyy-mm-dd.'></i>
                             </th>
                             <th>
                                 Employment Status <span class="red">*</span> 
-                                <i class="fa fa-info-circle" aria-hidden="true" title='State current employment status of the person stated in the row, for example "Unemployed".'></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State current employment status of the person stated in the row, for example "Unemployed".'></i>
                             </th>
                             <th>
                                 National ID 
-                                <i class="fa fa-info-circle" aria-hidden="true" title=''></i>
+                                <i class="fa fa-info-circle hide" aria-hidden="true" title=''></i>
                             </th>
                             <th>
                                 <button class="btn btn-sm btn-success critical_add_household" type="button" title="Add household member"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -77,12 +77,20 @@
                             </td>
                             <td>    
                                 <div class="form-group{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
-                                    <select class="form-control form-control-sm chosen-select" id="hi_emp_status_1" name="hi_emp_status[1]">
+                                    <select class="form-control form-control-sm chosen-select hi_emp_status" num="1" id="hi_emp_status_1" name="hi_emp_status[1]">
                                         <option disabled="" selected="">select...</option>
+                                        @php $other = 'Other'; $otherid = ''; @endphp
                                         @foreach ($employment_status as $status)
-                                        <option {{old('hi_emp_status.1') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                            @if ($status->status !== 'Other')
+                                                <option {{old('hi_emp_status.1') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                            @else
+                                                @php $other = $status->status; $otherid = $status->id; @endphp
+                                            @endif
                                         @endforeach
+    
+                                        <option {{old('hi_emp_status.1') == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
                                     </select>
+                                    <input type="text" class="form-control form-control-sm hi_emp_status_other {{old('hi_emp_status_other.1')? (old('hi_emp_status.1') == $otherid? '' : 'hide') : 'hide' }}" id="hi_emp_status_other_1" name="hi_emp_status_other[1]" aria-describedby="" value="{{old('hi_emp_status_other.1')? old('hi_emp_status_other.1') : '' }}" required maxlength="100" placeholder="Other employment status">
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_emp_status_1">{{ $errors->first('hi_emp_status.1') }}</strong>
@@ -135,12 +143,20 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <select class="form-control form-control-sm chosen-select" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
+                                            <select class="form-control form-control-sm chosen-select hi_relationship" num="{{$key}}" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
                                                 <option disabled="" selected="">select...</option>
+                                                @php $other = 'Other'; $otherid = ''; @endphp
                                                 @foreach ($relationships as $relationship)
-                                                <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
+                                                    @if ($relationship->relationship !== 'Other')
+                                                        <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
+                                                    @else
+                                                        @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                                    @endif
                                                 @endforeach
+            
+                                                <option {{old('hi_relationship.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
                                             </select>
+                                            <input type="text" class="form-control form-control-sm {{old('hi_relationship.'.$key) == $otherid? '' : 'hide' }}" id="hi_relationship_other_{{$key}}" name="hi_relationship_other[{{$key}}]" aria-describedby="" value="{{old('hi_relationship_other.'.$key)? old('hi_relationship_other.'.$key) : '' }}" required maxlength="100" placeholder="Other relationship">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
@@ -158,12 +174,20 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
-                                            <select class="form-control form-control-sm chosen-select" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
+                                            <select class="form-control form-control-sm chosen-select hi_emp_status" num="{{$key}}" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
                                                 <option disabled="" selected="">select...</option>
-                                                @foreach ($employment_status as $id =>$row)
-                                                <option {{old('hi_emp_status.'.$key) == $id? 'selected' : '' }} value="{{$id}}">{{$row}}</option>
+                                                @php $other = 'Other'; $otherid = ''; @endphp
+                                                @foreach ($employment_status as $status)
+                                                    @if ($status->status !== 'Other')
+                                                        <option {{old('hi_emp_status.'.$key) == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                                    @else
+                                                        @php $other = $status->status; $otherid = $status->id; @endphp
+                                                    @endif
                                                 @endforeach
+            
+                                                <option {{old('hi_emp_status.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
                                             </select>
+                                            <input type="text" class="form-control form-control-sm {{old('hi_emp_status.'.$key) == $otherid? '' : 'hide' }}" id="hi_emp_status_other_{{$key}}" name="hi_emp_status_other[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status_other.'.$key)? old('hi_emp_status_other.'.$key) : '' }}" required maxlength="100" placeholder="Other employment status">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
@@ -191,8 +215,8 @@
                         <tr style="background-color: rgba(0,0,0,0.05);">
                             <th colspan="5">
                                 <p class="text-right mb-0 {{$errors->has('hi_total_income')? 'text-primary' : ''}}">
-                                    Total Income <span class="red">*</span> 
-                                    <i class="fa fa-info-circle" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
+                                    Total Household Income <span class="red">*</span> 
+                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
                                 </p>
                             </th>
                             <th>

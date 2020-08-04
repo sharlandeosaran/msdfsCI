@@ -14,7 +14,7 @@
                                 <div class="form-group mb-0{{ $errors->has('disaster') ? ' has-error' : '' }} grp-disaster">
                                     <label class="control-label mb-0" for="disaster">
                                         Nature of Disaster <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -50,7 +50,7 @@
                                 <div class="form-group mb-0{{ $errors->has('housing_damage') ? ' has-error' : '' }} grp-housing_damage">
                                     <label class="control-label mb-0" for="housing_damage">
                                         Have you suffered damages to Housing Infrastructure? <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -83,7 +83,7 @@
                                 <div class="form-group mb-0{{ $errors->has('housing_repairs') ? ' has-error' : '' }} grp-housing_repairs">
                                     <label class="control-label mb-0" for="housing_repairs">
                                         Brief  Description of Housing Repairs Required <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -103,7 +103,7 @@
                                 <div class="form-group mb-0{{ $errors->has('housing_infrastructure_insured') ? ' has-error' : '' }} grp-housing_infrastructure_insured">
                                     <label class="control-label mb-0" for="housing_infrastructure_insured">
                                         Is the housing infrastructure insured? <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -136,7 +136,7 @@
                                 <div class="form-group mb-0{{ $errors->has('insurer_name') ? ' has-error' : '' }} grp-insurer_name">
                                     <label class="control-label mb-0" for="insurer_name">
                                         Insurer Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your insurer_name as indicated on your identification card.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your insurer_name as indicated on your identification card.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -156,7 +156,7 @@
                                 <div class="form-group mb-0{{ $errors->has('insurer_address') ? ' has-error' : '' }} grp-insurer_address">
                                     <label class="control-label mb-0" for="insurer_address">
                                         Insurer Address <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -176,7 +176,7 @@
                                 <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
                                     <label class="control-label mb-0" for="insurer_contact">
                                         Insurer Contact Information <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -196,7 +196,7 @@
                                 <div class="form-group mb-0{{ $errors->has('items_lost_or_damaged') ? ' has-error' : '' }} grp-items_lost_or_damaged">
                                     <label class="control-label mb-0" for="items_lost_or_damaged">
                                         Items Lost or Damaged <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the assistance desired.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>
                             </td>

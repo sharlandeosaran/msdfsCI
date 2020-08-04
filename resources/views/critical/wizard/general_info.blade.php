@@ -21,7 +21,7 @@
                                 <div class="form-group mb-0{{ $errors->has('first_name') ? ' has-error' : '' }} grp-first_name">
                                     <label class="control-label mb-0" for="first_name">
                                         First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
                                         <br>(as appearing in ID)
                                     </label>
                                 </div>
@@ -42,7 +42,7 @@
                                 <div class="form-group mb-0{{ $errors->has('surname') ? ' has-error' : '' }} grp-surname">
                                     <label class="control-label mb-0" for="surname">
                                         Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your surname as indicated on your identification card.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your surname as indicated on your identification card.'></i>
                                         <br>(as appearing in ID)
                                     </label>
                                 </div>
@@ -63,7 +63,7 @@
                                 <div class="form-group mb-0{{ $errors->has('othername') ? ' has-error' : '' }} grp-othername">
                                     <label class="control-label mb-0" for="othername">
                                         Other Name(s) 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your othername as indicated on your identification card.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your othername as indicated on your identification card.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -83,7 +83,7 @@
                                 <div class="form-group mb-0{{ $errors->has('gender') ? ' has-error' : '' }} grp-gender">
                                     <label class="control-label mb-0" for="gender">
                                         Gender <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select your gender.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select your gender.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -116,7 +116,7 @@
                                 <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
                                     <label class="control-label mb-0" for="marital_status">
                                         Marital Status 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -141,7 +141,7 @@
                                 <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }} grp-national_id">
                                     <label class="control-label mb-0" for="national_id">
                                         National Identification Card Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -171,7 +171,7 @@
                                 <div class="form-group mb-0{{ $errors->has('drivers_permit') ? ' has-error' : '' }} grp-drivers_permit">
                                     <label class="control-label mb-0" for="drivers_permit">
                                         Driver's Permit 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide your national insurance number (drivers_permit) if applicable, for example "2000010".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (drivers_permit) if applicable, for example "2000010".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -191,7 +191,7 @@
                                 <div class="form-group mb-0{{ $errors->has('passport') ? ' has-error' : '' }} grp-passport">
                                     <label class="control-label mb-0" for="passport">
                                         Passport 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -211,7 +211,7 @@
                                 <div class="form-group mb-0{{ $errors->has('housing_type') ? ' has-error' : '' }} grp-housing_type">
                                     <label class="control-label mb-0" for="housing_type">
                                         Type of Housing <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -236,7 +236,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_first_name') ? ' has-error' : '' }} grp-landlord_first_name">
                                     <label class="control-label mb-0" for="landlord_first_name">
                                         Landlord First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord first name as presented on identification that will be uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State the landlord first name as presented on identification that will be uploaded.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -256,7 +256,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_surname') ? ' has-error' : '' }} grp-landlord_surname">
                                     <label class="control-label mb-0" for="landlord_surname">
                                         Landlord Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the landlord surname as presented on identification that will be uploaded.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State the landlord surname as presented on identification that will be uploaded.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -276,7 +276,7 @@
                                 <div class="form-group mb-0{{ $errors->has('landlord_contact_no') ? ' has-error' : '' }} grp-landlord_contact_no">
                                     <label class="control-label mb-0" for="landlord_contact_no">
                                         Landlord Contact Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone number to contact the landlord, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone number to contact the landlord, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -296,7 +296,7 @@
                                 <div class="form-group mb-0{{ $errors->has('rental_amount') ? ' has-error' : '' }} grp-rental_amount">
                                     <label class="control-label mb-0" for="rental_amount">
                                         Rental Amount <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State the current rental amount in TT dollars that you are required to pay the landlord.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State the current rental amount in TT dollars that you are required to pay the landlord.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -316,7 +316,7 @@
                                 <div class="form-group mb-0{{ $errors->has('home_address') ? ' has-error' : '' }} grp-home_address">
                                     <label class="control-label mb-0" for="home_address">
                                         Home Address <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your residential address with street name and area in Trinidad and Tobago.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -336,7 +336,7 @@
                                 <div class="form-group mb-0{{ $errors->has('city_town') ? ' has-error' : '' }} grp-city_town">
                                     <label class="control-label mb-0" for="city_town">
                                         City/Town <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Select the city/town for your residential address.'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the city/town for your residential address.'></i>
                                     </label>
                                 </div>
                             </td>
@@ -361,7 +361,7 @@
                                 <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
                                     <label class="control-label mb-0" for="primary_mobile_contact">
                                         Primary Mobile Contact <span class="red">*</span> 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -381,7 +381,7 @@
                                 <div class="form-group mb-0{{ $errors->has('secondary_mobile_contact') ? ' has-error' : '' }} grp-secondary_mobile_contact">
                                     <label class="control-label mb-0" for="secondary_mobile_contact">
                                         Secondary Mobile Contact 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -401,7 +401,7 @@
                                 <div class="form-group mb-0{{ $errors->has('land_line_telephone_contact') ? ' has-error' : '' }} grp-land_line_telephone_contact">
                                     <label class="control-label mb-0" for="land_line_telephone_contact">
                                         Land Line Telephone Contact 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
                                     </label>
                                 </div>
                             </td>
@@ -421,7 +421,7 @@
                                 <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
                                     <label class="control-label mb-0" for="email">
                                         Email 
-                                        <i class="fa fa-info-circle" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
                                     </label>
                                 </div>
                             </td>
