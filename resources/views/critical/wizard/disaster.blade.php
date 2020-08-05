@@ -59,13 +59,13 @@
                                     <div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="housing_damage" id="housing_damage1" value="yes" {{old('housing_damage') == 'yes'? 'checked' : '' }}>
+                                                <input class="custom-control-input" type="radio" name="housing_damage" id="housing_damage1" value="Y" {{old('housing_damage') == 'Y'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="housing_damage1">Yes</label>
                                             </div>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="housing_damage" id="housing_damage2" value="no" {{old('housing_damage') == 'no'? 'checked' : '' }}>
+                                                <input class="custom-control-input" type="radio" name="housing_damage" id="housing_damage2" value="N" {{old('housing_damage') == 'N'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="housing_damage2">No</label>
                                             </div>
                                         </div>
@@ -78,7 +78,7 @@
                             </td>
                         </tr>
                         
-                        <tr class="hide housing_repairs_div">
+                        <tr class="{{old('housing_damage') == 'Y'? '' : 'hide' }} housing_repairs_div">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('housing_repairs') ? ' has-error' : '' }} grp-housing_repairs">
                                     <label class="control-label mb-0" for="housing_repairs">
@@ -98,7 +98,7 @@
                             </td>
                         </tr>
                         
-                        <tr class="hide housing_repairs_div">
+                        <tr class="{{old('housing_damage') == 'Y'? '' : 'hide' }} housing_repairs_div">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('housing_infrastructure_insured') ? ' has-error' : '' }} grp-housing_infrastructure_insured">
                                     <label class="control-label mb-0" for="housing_infrastructure_insured">
@@ -112,13 +112,13 @@
                                     <div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="housing_infrastructure_insured" id="housing_infrastructure_insured1" value="yes" {{old('housing_infrastructure_insured') == 'yes'? 'checked' : '' }}>
+                                                <input class="custom-control-input" type="radio" name="housing_infrastructure_insured" id="housing_infrastructure_insured1" value="Y" {{old('housing_infrastructure_insured') == 'Y'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="housing_infrastructure_insured1">Yes</label>
                                             </div>
                                         </div>
                                         <div class="custom-control custom-radio custom-control-inline">
                                             <div class="custom-control custom-radio">
-                                                <input class="custom-control-input" type="radio" name="housing_infrastructure_insured" id="housing_infrastructure_insured2" value="no" {{old('housing_infrastructure_insured') == 'no'? 'checked' : '' }}>
+                                                <input class="custom-control-input" type="radio" name="housing_infrastructure_insured" id="housing_infrastructure_insured2" value="N" {{old('housing_infrastructure_insured') == 'N'? 'checked' : '' }}>
                                                 <label class="custom-control-label my-1" for="housing_infrastructure_insured2">No</label>
                                             </div>
                                         </div>
@@ -131,7 +131,7 @@
                             </td>
                         </tr>
                         
-                        <tr class="hide housing_insurer_div">
+                        <tr class="{{old('housing_infrastructure_insured') == 'Y'? '' : 'hide' }} housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('insurer_name') ? ' has-error' : '' }} grp-insurer_name">
                                     <label class="control-label mb-0" for="insurer_name">
@@ -151,7 +151,7 @@
                             </td>
                         </tr>
                         
-                        <tr class="hide housing_insurer_div">
+                        <tr class="{{old('housing_infrastructure_insured') == 'Y'? '' : 'hide' }} housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('insurer_address') ? ' has-error' : '' }} grp-insurer_address">
                                     <label class="control-label mb-0" for="insurer_address">
@@ -171,7 +171,7 @@
                             </td>
                         </tr>
                         
-                        <tr class="hide housing_insurer_div">
+                        <tr class="{{old('housing_infrastructure_insured') == 'Y'? '' : 'hide' }} housing_insurer_div">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('insurer_contact') ? ' has-error' : '' }} grp-insurer_contact">
                                     <label class="control-label mb-0" for="insurer_contact">
@@ -205,7 +205,7 @@
                                     <div class="col-md-12 checkbox-group required">
                                         @foreach ($items_lost_or_damaged as $item)
                                         <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == 'on'? 'checked' : '' }}>
+                                            <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == $item->id? 'checked' : '' }} value="{{$item->id}}">
                                             <label class="custom-control-label my-1" for="{{$item->slug}}">{{$item->item}}</label>
                                         </div>
                                         <div class="mb-2 hide recovery_needs_div" id="recovery_needs_{{$item->slug}}">

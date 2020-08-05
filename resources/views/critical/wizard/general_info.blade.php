@@ -113,6 +113,26 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
+                                    <label class="control-label mb-0" for="email">
+                                        Email 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
+                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="" value="{{old('email')? old('email') : '' }}" placeholder="example@email.com" maxlength="250">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-email">{{ $errors->first('email') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
                                     <label class="control-label mb-0" for="marital_status">
                                         Marital Status 
@@ -411,26 +431,6 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-land_line_telephone_contact">{{ $errors->first('land_line_telephone_contact') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
-                                    <label class="control-label mb-0" for="email">
-                                        Email 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide an email address for additional communication and to get your reference number for your application sent to you, for example "example@email.com".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('email') ? ' has-error' : '' }} grp-email">
-                                    <input type="email" class="form-control" id="email" name="email" aria-describedby="" value="{{old('email')? old('email') : '' }}" placeholder="example@email.com" maxlength="250">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-email">{{ $errors->first('email') }}</strong>
                                     </span>
                                 </div>
                             </td>

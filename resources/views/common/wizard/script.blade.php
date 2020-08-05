@@ -14,7 +14,7 @@
     // console.log(household);
 
     var disaster = [];
-    $("#div-disaster").find(".form-control").each(function(){ disaster.push(this.id); });
+    $("#div-disasterinfo").find(".form-control").each(function(){ disaster.push(this.id); });
     // console.log(disaster);
 
     var employer = [];

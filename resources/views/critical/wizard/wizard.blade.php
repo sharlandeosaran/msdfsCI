@@ -15,6 +15,8 @@
         
         <form id="formb" method="POST" action="{{route('formcriticalpost')}}" enctype="multipart/form-data" role="form">
             @csrf
+            <input type="hidden" id="grecaptcha" name="grecaptcha">
+            <input type="hidden" id="tempfiles" name="tempfiles" value="{{old('tempfiles')}}">
             
             <div id="wizard">
                 
@@ -130,7 +132,7 @@
             var val = $(this).val();
             // console.log(val);
 
-            if (val == 'yes') {
+            if (val == 'Y') {
                 $('.housing_repairs_div').removeClass('hide');
                 $('#housing_repairs').focus();
             } else {
@@ -145,7 +147,7 @@
             var val = $(this).val();
             console.log(val);
 
-            if (val == 'yes') {
+            if (val == 'Y') {
                 $('.housing_insurer_div').removeClass('hide');
             } else {
                 $('.housing_insurer_div').addClass('hide');
