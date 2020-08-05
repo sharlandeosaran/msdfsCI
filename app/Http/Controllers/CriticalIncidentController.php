@@ -118,10 +118,7 @@ class CriticalIncidentController extends Controller
             "housing_repairs" => "required|max:250",
             "insurer_name" => "nullable|max:250",
             "insurer_address" => "nullable|max:250",
-            "insurer_contact" => [
-                "nullable",
-                "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
-            ],
+            "insurer_contact" => "nullable|max:250",
             "items_lost_or_damaged" => "array",
             "recovery_needs" => "array",
 
