@@ -42,7 +42,11 @@ class Application extends Model
 
     public function applicants()
     {
-        return \App\Applicant::where('application_id', $this->id)->orderBy('order', 'asc')->get();
+        return \App\Person::
+                leftJoin('applicants', 'applicants.person_id', 'persons.id')->
+                where('applicants.application_id', $this->id)->
+                orderBy('applicants.order', 'asc')->
+                get();
     }
 
     public function status()
