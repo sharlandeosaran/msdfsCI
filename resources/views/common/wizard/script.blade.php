@@ -65,7 +65,7 @@ $(document).on('change', '[name="employment_classification"]', function(){
 });
 
 // change national ID after entered
-$(document).on('change', '#national_id', function(){
+$(document).on('change', '#national_id, #hi_national_id_1', function(){
     $('.nationalIDField').val($(this).val());
 });
 

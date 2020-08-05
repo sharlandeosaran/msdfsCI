@@ -45,25 +45,27 @@
                         <tr>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext nameField" value="{{old('first_name') || old('surname')? old('first_name').' '.old('surname') : '' }}">
+                                    <input type="text" readonly="" class="form-control-plaintext nameField" value="{{old('hi_first_name.1') || old('hi_surname.1')? old('hi_first_name.1').' '.old('hi_surname.1') : '' }}">
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
                                     
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender1" name="hi_gender[1]" class="custom-control-input hi_gender_M" value="M" {{old('gender') == 'M'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender1" name="hi_gender_show[1]" class="custom-control-input hi_gender_M" value="M" {{old('hi_gender.1') == 'M'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender1">Male</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender2" name="hi_gender[1]" class="custom-control-input hi_gender_F" value="F" {{old('gender') == 'F'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender2" name="hi_gender_show[1]" class="custom-control-input hi_gender_F" value="F" {{old('hi_gender.1') == 'F'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender2">Female</label>
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext pl-2" value="Self">
+                                    <select class="form-control form-control-sm chosen-select hi_relationship" num="1" id="hi_relationship_1" name="hi_relationship[1]">
+                                        <option value="0" selected="">{{$relationships[0]->relationship}}</option>
+                                    </select>
                                 </div>
                             </td>
                             <td>
@@ -99,7 +101,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext nationalIDField" value="{{old('national_id')}}">
+                                    <input type="text" readonly="" class="form-control-plaintext nationalIDField" value="{{old('hi_national_id.1')}}">
                                 </div>
                             </td>
                             <td></td>
@@ -147,10 +149,12 @@
                                                 <option disabled="" selected="">select...</option>
                                                 @php $other = 'Other'; $otherid = ''; @endphp
                                                 @foreach ($relationships as $relationship)
-                                                    @if ($relationship->relationship !== 'Other')
-                                                        <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
-                                                    @else
-                                                        @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                                    @if ($relationship->id !== 0)
+                                                        @if ($relationship->relationship !== 'Other')
+                                                            <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
+                                                        @else
+                                                            @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                                        @endif
                                                     @endif
                                                 @endforeach
             

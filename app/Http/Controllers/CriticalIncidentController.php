@@ -10,7 +10,8 @@ class CriticalIncidentController extends Controller
 {
     public function index()
     {
-        $data = [
+        $data = 
+        [
             'title' => 'Critical Incident Form',
             'communities' => \App\Community::all(),
             'id_state' => \App\IDState::ordered(),
@@ -34,16 +35,13 @@ class CriticalIncidentController extends Controller
 
         $validator = Validator::make($request->all(), 
         [
-            "first_name" => "required|max:150",
-            "surname" => "required|max:150",
-            "othername" => "required|max:150",
-            "gender" => [
-                'required',
-                Rule::in(['M', 'F']),
-            ],
+            "othername" => "nullable|max:150",
+            // "gender" => [
+            //     'required',
+            //     Rule::in(['M', 'F']),
+            // ],
             "email" => "required|email|max:250",
             "marital_status" => "required|exists:marital_status,id",
-            "national_id" => "required|regex:/^[0-9]{11}+$/",
             "national_id_state" => "required|exists:id_states,id",
             "drivers_permit" => "nullable|max:150",
             "passport" => "nullable|max:150",
@@ -104,11 +102,12 @@ class CriticalIncidentController extends Controller
                 Rule::in(['M', 'F']),
             ],
             "hi_relationship.*" => "required|max:25",
-            "hi_relationship_other.*" => "required|max:25",
+            "hi_relationship_other.*" => "nullable|max:25",
             "hi_dob.*" => "required|date_format:Y-m-d",
             "hi_emp_status.*" => "required|exists:employment_status,id",
-            "hi_emp_status_other.*" => "required|max:25",
-            "hi_national_id.*" => "required|max:25",            
+            "hi_emp_status_other.*" => "nullable|max:25",
+            "hi_national_id.1" => "required|regex:/^[0-9]{11}+$/",
+            "hi_national_id.*" => "nullable|regex:/^[0-9]{11}+$/",
 
             "disaster" => "required|max:150",
             "other_disaster" => "nullable|max:150",
@@ -232,8 +231,12 @@ class CriticalIncidentController extends Controller
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
             'hi_relationship.*.required' => 'The household occupant relationship field is required.',
             'hi_emp_status.*.required' => 'The household occupant employment status field is required.',
+            'hi_first_name.1.required' => 'The first name field is required.',
             'hi_first_name.*.required' => 'The household occupant first name field is required.',
+            'hi_surname.1.required' => 'The surname field is required.',
             'hi_surname.*.required' => 'The household occupant surname field is required.',
+            'hi_national_id.*.regex' => 'The format for the national id is xxxxxxxxxxx (11 digits).',
+            'hi_national_id.*.required' => 'The national ID field is required.',
             'hi_total_income.1.required' => 'The applicant total income field is required.',
 
             'effective_date.date_format' => 'The effective date does not match the format yyyy-mm-dd.',
@@ -241,7 +244,6 @@ class CriticalIncidentController extends Controller
             'landlord_contact_no.regex' => 'The format for the contact number is (xxx) xxx-xxxx.',
             'recommender_contact_no.regex' => 'The format for the contact number is (xxx) xxx-xxxx.',
             'nis.regex' => 'The format for the national insurance number is xxxxxxxxx (9 digits).',
-            'national_id.regex' => 'The format for the national id is xxxxxxxxxxx (11 digits).',
 
             'scotia_area.required_if' => 'The branch area field is required when bank name is Scotiabank.',
             'bank_branch.required' => 'The bank branch field is required when bank name is present.',
@@ -255,16 +257,26 @@ class CriticalIncidentController extends Controller
         
         $validator->after(function ($validator)  use ($request) 
         {
-            if ($request->hi_name) {
-                foreach ($request->hi_name as $key => $value) {
+            if ($request->hi_dob) 
+            {
+                foreach ($request->hi_dob as $key => $value) {
                     if (!isset($request->hi_gender[$key])) {
                         $validator->errors()->add('hi_gender.'.$key, 'The gender field is required.');
+                    }
+                    
+                    if (!isset($request->hi_relationship[$key])) {
+                        $validator->errors()->add('hi_relationship.'.$key, 'The relationship field is required.');
+                    }
+                    
+                    if (!isset($request->hi_emp_status[$key])) {
+                        $validator->errors()->add('hi_emp_status.'.$key, 'The employment status field is required.');
                     }
                 }
             }
 
             // check recaptcha if in production
-            if (\App::environment('production')) {
+            if (\App::environment('production')) 
+            {
                 $url = 'https://www.google.com/recaptcha/api/siteverify';
                 $data = [
                     'secret' => config('captcha.secret', ''),
@@ -290,7 +302,8 @@ class CriticalIncidentController extends Controller
             }
         });
         
-        if ($validator->fails()) {
+        if ($validator->fails()) 
+        {
             $uploads = app('App\Http\Controllers\FileController')->store($request);
 
             if ($uploads && $uploads['response'] && $request->tempfiles) {
@@ -324,7 +337,169 @@ class CriticalIncidentController extends Controller
         }
 
         // store application
+        $application = new \App\Application();
+        $application->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
+        $application->form_id = 3;
+        $application->save();
+
+        // create CI form 
+        $ci_form = new \App\FormCriticalIncident();
+        $ci_form->application_id = $application->id;
+        $ci_form->disaster_id = $request->disaster;
+        $ci_form->disaster_other = $request->other_disaster;
+        $ci_form->housing_damage = $request->housing_damage;
+        $ci_form->housing_repairs = $request->housing_repairs;
+        $ci_form->insured = $request->housing_infrastructure_insured;
+        $ci_form->save();
+
+        // store insurer details
+        if ($request->housing_infrastructure_insured == 'Y') 
+        {
+            $insurer = new \App\Insurer();
+            $insurer->form_critical_incident_id = $ci_form->id;
+            $insurer->insurer_name = $request->insurer_name;
+            $insurer->insurer_address = $request->insurer_address;
+            $insurer->insurer_contact = $request->insurer_contact;
+            $insurer->save();
+        }
+
+        // store items damaged
+        if ($request->items_lost_or_damaged) 
+        {
+            foreach ($request->items_lost_or_damaged as $key => $id) {
+                $damageditem = new \App\FormCIItemsLost();
+                $damageditem->form_critical_incident_id  = $ci_form->id;
+                $damageditem->item_id  = $id;
+                $damageditem->save();
+            }
+        }
+
+        // create household
+        $household = new \App\Household();
+        $household->housing_type_id = $request->housing_type;
+        $household->address1 = $request->home_address;
+        $household->community_id = $request->city_town;
+        $household->save();
         
+        // store applicants
+        // sort list
+        $names = [];
+        foreach ($request->hi_first_name as $key => $value) 
+        {
+            $names[$key] = [
+                'first_name' => $request->hi_first_name[$key],
+                'surname' => $request->hi_surname[$key],
+                'key' => $key,
+            ];
+        }
+        array_multisort(
+            array_column($names, 'first_name'),  SORT_ASC,
+            array_column($names, 'surname'), SORT_ASC,
+            $names
+        );
+        // dd($names);
+
+        // create persons and applicant
+        foreach ($names as $order => $value) 
+        {
+            // create person
+            $person = new \App\Person();
+            $person->first_name = $request->hi_first_name[$value['key']];
+            $person->surname = $request->hi_surname[$value['key']];
+            $person->othername = $value['key'] == 1? $request->othername : null;
+            $person->email = $value['key'] == 1? $request->email : null;
+            $person->gender = $request->hi_gender[$value['key']];
+            $person->dob = $request->hi_dob[$value['key']];
+            $person->marital_status_id = $value['key'] == 1? $request->marital_status : null;
+            $person->national_id = $request->hi_national_id[$value['key']];
+            $person->national_id_state_id = $value['key'] == 1? $request->national_id_state : null;
+            $person->drivers_permit = $value['key'] == 1? $request->drivers_permit : null;
+            $person->passport = $value['key'] == 1? $request->passport : null;
+            $person->employment_status_id = $request->hi_emp_status[$value['key']];
+            $person->employment_status_other = $request->hi_emp_status_other[$value['key']];
+            $person->primary_mobile_contact = $value['key'] == 1? $request->primary_mobile_contact : null;
+            $person->secondary_mobile_contact = $value['key'] == 1? $request->secondary_mobile_contact : null;
+            $person->land_line_telephone_contact = $value['key'] == 1? $request->land_line_telephone_contact : null;
+            $person->save();
+
+            // add person to household
+            $person_household = new \App\PersonHousehold();
+            $person_household->person_id = $person->id;
+            $person_household->household_id = $household->id;
+            $person_household->relationship_id = $request->hi_relationship[$value['key']];
+            $person_household->relationship_other = isset($request->hi_relationship_other[$value['key']])? $request->hi_relationship_other[$value['key']] : null;
+            $person_household->save();
+
+            // create applicant
+            if ($value['key'] == 1) {
+                $applicant = new \App\Applicant();
+                $applicant->application_id = $application->id;
+                $applicant->person_id = $person->id;
+                $applicant->order = $order;
+                $applicant->save();
+            }
+        }
+
+        // documents 
+        // accepted file types
+        $types = ['application/msword', 'text/plain', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/png', 'image/jpg', 'image/jpeg'];
+
+        // dd($request->all());
+
+            
+        // signature
+        if ($request->file('signature') !== null) {
+            if ($request->file('signature')->isValid()) {
+                
+                // get file type
+                $type = $request->file('signature')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_'.$request->file('signature')->getClientOriginalName();
+                    // upload upload
+                    $request->signature->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'signature';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+        
+        // if ($request->file('other_documents_'.$value['key']) !== null) 
+        // {
+        //     foreach ($request->file('other_documents_'.$value['key']) as $i => $other) {
+        //         if ($request->file('other_documents_'.$value['key'].'.'.$i) !== null) {
+        //             if ($request->input('other_documents_'.$value['key'].'.'.$i)->isValid()) {
+                        
+        //                 $type = $request->file('other_documents_'.$value['key'].'.'.$i)->getMimeType();
+                        
+        //                 if (in_array($type, $types)) {
+        //                     $upload = $applicant->id.'_'.$request->file('other_documents_'.$value['key'].'.'.$i)->getClientOriginalName();
+        //                     // upload upload
+        //                     $request->input('other_documents_'.$value['key'].'.'.$i)->storeAs('public/uploads/'.$applicant->id, $upload);
+        //                     // save name to application
+        //                     $file = new \App\ApplicantDoc();
+        //                     $file->applicant_id = $applicant->id;
+        //                     $file->file = 'other_documents_'.$i;
+        //                     $file->upload = $upload;
+        //                     $file->upload_type = $type;
+        //                     $file->save();
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // dd();
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
     }

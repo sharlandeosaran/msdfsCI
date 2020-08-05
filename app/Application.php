@@ -17,24 +17,6 @@ class Application extends Model
         $this->attributes['ip'] = encrypt($value);
     }
 
-    public function getContactAttribute($value)
-    {
-        return decrypt($value);
-    }
-    public function setContactAttribute($value)
-    {
-        $this->attributes['contact'] = encrypt($value);
-    }
-
-    public function getEmailAttribute($value)
-    {
-        return decrypt($value);
-    }
-    public function setEmailAttribute($value)
-    {
-        $this->attributes['email'] = encrypt($value);
-    }
-
     public function getSinceAttribute($value)
     {
         return \Carbon\Carbon::parse($this->created_at)->format('F jS, Y');
@@ -43,7 +25,7 @@ class Application extends Model
     public function applicants()
     {
         return \App\Person::
-                leftJoin('applicants', 'applicants.person_id', 'persons.id')->
+                leftJoin('applicants', 'applicants.person_id', 'people.id')->
                 where('applicants.application_id', $this->id)->
                 orderBy('applicants.order', 'asc')->
                 get();

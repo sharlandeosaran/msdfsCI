@@ -72,7 +72,7 @@
                             </td>
                             <td>
                                 <div class="form-group">
-                                    <input type="text" readonly="" class="form-control-plaintext" value="Self">
+                                    <input type="text" readonly="" class="form-control-plaintext" value="Applicant">
                                 </div>
                             </td>
                             <td>
@@ -199,11 +199,11 @@
                                 </p>
                             </th>
                             <th>
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_total_income" value="{{old('hi_income')? number_format(array_sum(old('hi_income')), 2) : '0.00'}}">
+                                <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }}">
+                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_total_income" name="hi_total_income" value="{{old('hi_total_income')? number_format(array_sum(old('hi_total_income')), 2) : '0.00'}}">
                                     
                                     <span class="help-block">
-                                        <strong id="err-name">{{ $errors->first('name') }}</strong>
+                                        <strong id="err-hi_total_income">{{ $errors->first('hi_total_income') }}</strong>
                                     </span>
                                 </div>
                             </th>

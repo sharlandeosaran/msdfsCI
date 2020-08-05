@@ -24,14 +24,14 @@
                                         <option disabled="" selected="">select...</option>
                                         @php $other = 'Other'; @endphp
                                         @foreach ($disasters as $disaster)
-                                            @if ($disaster->slug !== 'other_disaster')
-                                                <option {{old('disaster') == $disaster->slug? 'selected' : '' }} value="{{$disaster->slug}}">{{$disaster->disaster}}</option>
+                                            @if ($disaster->id !== '5')
+                                                <option {{old('disaster') == $disaster->id? 'selected' : '' }} value="{{$disaster->id}}">{{$disaster->disaster}}</option>
                                             @else
                                                 @php $other = $disaster->disaster; @endphp
                                             @endif
                                         @endforeach
     
-                                        <option {{old('disaster') == 'other_disaster'? 'selected' : '' }} value="other_disaster">{{$other}}</option>
+                                        <option {{old('disaster') == '5'? 'selected' : '' }} value="5">{{$other}}</option>
                                     </select>
 
                                     <div class="mb-2 hide disaster_remarks_div" id="other_disaster_div">
