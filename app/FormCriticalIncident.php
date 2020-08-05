@@ -9,13 +9,13 @@ class FormCriticalIncident extends Model
     protected $table = 'form_critical_incident';
 	public $timestamps = false;
 
-    public function getOtherDisasterAttribute($value)
+    public function getDisasterOtherAttribute($value)
     {
         return decrypt($value);
     }
-    public function setOtherDisasterAttribute($value)
+    public function setDisasterOtherAttribute($value)
     {
-        $this->attributes['other_disaster'] = encrypt($value);
+        $this->attributes['disaster_other'] = encrypt($value);
     }
 
     public function getHousingDamageAttribute($value)

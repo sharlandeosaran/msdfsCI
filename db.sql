@@ -734,9 +734,9 @@ CREATE TABLE IF NOT EXISTS `document_types` (
   `mime` varchar(150) NOT NULL,
   `icon` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.document_types: ~4 rows (approximately)
+-- Dumping data for table msdfs_forms_db.document_types: ~7 rows (approximately)
 /*!40000 ALTER TABLE `document_types` DISABLE KEYS */;
 INSERT INTO `document_types` (`id`, `type`, `mime`, `icon`) VALUES
 	(1, 'PDF', 'application/pdf', 'fa-file-pdf-o'),
@@ -918,9 +918,9 @@ CREATE TABLE IF NOT EXISTS `form_critical_incident` (
   `application_id` bigint(20) unsigned NOT NULL,
   `disaster_id` int(10) unsigned NOT NULL,
   `disaster_other` text DEFAULT NULL,
-  `housing_damage` text DEFAULT NULL,
+  `housing_damage` varchar(1) DEFAULT NULL,
   `housing_repairs` text DEFAULT NULL,
-  `insured` varchar(1) NOT NULL DEFAULT 'N',
+  `insured` varchar(1) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_form_critical_incident_applications` (`application_id`),
   KEY `FK_form_critical_incident_disasters` (`disaster_id`),
@@ -1243,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `relationships` (
   UNIQUE KEY `country` (`relationship`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~13 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~11 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
 INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 	(0, 'Applicant', NULL),
@@ -1388,7 +1388,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table msdfs_forms_db.users: ~1 rows (approximately)
+-- Dumping data for table msdfs_forms_db.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
