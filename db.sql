@@ -16,40 +16,21 @@ DROP TABLE IF EXISTS `applicants`;
 CREATE TABLE IF NOT EXISTS `applicants` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
-  `first_name` text NOT NULL,
-  `surname` text NOT NULL,
-  `passport` varchar(50) NOT NULL,
-  `gender` char(1) NOT NULL,
-  `dob` date NOT NULL,
-  `nationality` int(10) unsigned NOT NULL,
-  `immigration_status` int(10) unsigned NOT NULL DEFAULT 1,
-  `medical_issues` varchar(1) DEFAULT NULL,
-  `medical_issues_remarks` text DEFAULT NULL,
+  `person_id` bigint(20) unsigned NOT NULL,
+  `active` int(1) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_applicants_applications` (`application_id`),
+  KEY `FK_applicants_persons` (`person_id`),
+  CONSTRAINT `FK_applicants_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
+  CONSTRAINT `FK_applicants_persons` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table msdfs_forms_db.applicants: ~0 rows (approximately)
 /*!40000 ALTER TABLE `applicants` DISABLE KEYS */;
 /*!40000 ALTER TABLE `applicants` ENABLE KEYS */;
-
--- Dumping structure for table msdfs_forms_db.applicant_docs
-DROP TABLE IF EXISTS `applicant_docs`;
-CREATE TABLE IF NOT EXISTS `applicant_docs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `applicant_id` bigint(20) unsigned NOT NULL,
-  `file` varchar(255) NOT NULL,
-  `upload` varchar(255) NOT NULL,
-  `upload_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_applicant_docs_applicants` (`applicant_id`) USING BTREE,
-  CONSTRAINT `applicant_docs_ibfk_1` FOREIGN KEY (`applicant_id`) REFERENCES `mns_exemption_db`.`applicants` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
--- Dumping data for table msdfs_forms_db.applicant_docs: ~0 rows (approximately)
-/*!40000 ALTER TABLE `applicant_docs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `applicant_docs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.applications
 DROP TABLE IF EXISTS `applications`;
@@ -57,32 +38,66 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ip` text NOT NULL,
   `form_id` int(10) unsigned NOT NULL,
-  `surname` text NOT NULL,
-  `contact` text NOT NULL,
-  `email` text NOT NULL,
-  `travel_party` varchar(50) NOT NULL DEFAULT 'individual',
-  `exemption_type` varchar(50) NOT NULL,
-  `country_id` int(10) unsigned NOT NULL DEFAULT 224,
-  `us_state_id` int(10) unsigned DEFAULT NULL,
-  `uk_country_id` int(10) unsigned DEFAULT NULL,
-  `canadian_province_id` int(10) unsigned DEFAULT NULL,
-  `city_state` varchar(150) DEFAULT NULL,
-  `quarantine_pay` varchar(1) DEFAULT NULL,
-  `travel_arrangements` varchar(1) DEFAULT NULL,
-  `exemption_basis` text DEFAULT NULL,
-  `corp_comm_responded` int(1) NOT NULL DEFAULT 0,
-  `date_acknowledged` date DEFAULT NULL,
-  `decision_date` date DEFAULT NULL,
   `status_id` int(10) unsigned NOT NULL DEFAULT 1,
-  `priority_id` int(10) unsigned NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_applications_forms` (`form_id`),
+  KEY `FK_applications_status` (`status_id`),
+  CONSTRAINT `FK_applications_forms` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`),
+  CONSTRAINT `FK_applications_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table msdfs_forms_db.applications: ~0 rows (approximately)
 /*!40000 ALTER TABLE `applications` DISABLE KEYS */;
 /*!40000 ALTER TABLE `applications` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.application_documents
+DROP TABLE IF EXISTS `application_documents`;
+CREATE TABLE IF NOT EXISTS `application_documents` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `application_id` bigint(20) unsigned NOT NULL,
+  `file` varchar(255) NOT NULL,
+  `document` varchar(255) NOT NULL,
+  `document_type_id` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_application_documents_applications` (`application_id`),
+  KEY `FK_application_documents_document_types` (`document_type_id`),
+  CONSTRAINT `FK_application_documents_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
+  CONSTRAINT `FK_application_documents_document_types` FOREIGN KEY (`document_type_id`) REFERENCES `document_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.application_documents: ~0 rows (approximately)
+/*!40000 ALTER TABLE `application_documents` DISABLE KEYS */;
+/*!40000 ALTER TABLE `application_documents` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.application_status_audit
+DROP TABLE IF EXISTS `application_status_audit`;
+CREATE TABLE IF NOT EXISTS `application_status_audit` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `application_id` bigint(20) unsigned NOT NULL,
+  `changed_by` bigint(20) unsigned NOT NULL,
+  `status_old` int(10) unsigned NOT NULL,
+  `status_new` int(10) unsigned NOT NULL,
+  `details` text CHARACTER SET latin1 NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_application_status_audit_applications` (`application_id`),
+  KEY `FK_application_status_audit_users` (`changed_by`),
+  KEY `FK_application_status_audit_status` (`status_old`),
+  KEY `FK_application_status_audit_status_2` (`status_new`),
+  CONSTRAINT `FK_application_status_audit_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
+  CONSTRAINT `FK_application_status_audit_status` FOREIGN KEY (`status_old`) REFERENCES `status` (`id`),
+  CONSTRAINT `FK_application_status_audit_status_2` FOREIGN KEY (`status_new`) REFERENCES `status` (`id`),
+  CONSTRAINT `FK_application_status_audit_users` FOREIGN KEY (`changed_by`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.application_status_audit: ~0 rows (approximately)
+/*!40000 ALTER TABLE `application_status_audit` DISABLE KEYS */;
+/*!40000 ALTER TABLE `application_status_audit` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.banks
 DROP TABLE IF EXISTS `banks`;
@@ -103,296 +118,6 @@ INSERT INTO `banks` (`id`, `bank`) VALUES
 	(2, 'Scotiabank'),
 	(5, 'Unit Trust');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
-
--- Dumping structure for table msdfs_forms_db.cities
-DROP TABLE IF EXISTS `cities`;
-CREATE TABLE IF NOT EXISTS `cities` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `city` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `country` (`city`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=277 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
--- Dumping data for table msdfs_forms_db.cities: ~276 rows (approximately)
-/*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` (`id`, `city`) VALUES
-	(1, 'Aranguez'),
-	(3, 'Arena'),
-	(2, 'Arima'),
-	(4, 'Arnos Vale'),
-	(5, 'Arouca'),
-	(6, 'Arquart Village'),
-	(7, 'Auchenskeoch '),
-	(8, 'Auzonville'),
-	(9, 'Avocat '),
-	(10, 'Bacolet'),
-	(11, 'Balmain'),
-	(12, 'Bamboo(#1 & #3) '),
-	(13, 'Bamboo #2 '),
-	(14, 'Bangladesh '),
-	(15, 'Barataria'),
-	(16, 'Barrackpore'),
-	(17, 'Basta Hall'),
-	(18, 'Beetham Estate Gardens'),
-	(20, 'Belle Garden'),
-	(21, 'Belmont'),
-	(22, 'Ben Lomond'),
-	(19, 'Bethel'),
-	(23, 'Biche'),
-	(24, 'Black Rock'),
-	(25, 'Blanchisseuse'),
-	(26, 'Boissiere Village'),
-	(29, 'Bonasse'),
-	(28, 'Bonne Aventure'),
-	(27, 'Bon Accord'),
-	(30, 'Borde Narve Village'),
-	(31, 'Bourg Mulatresse'),
-	(32, 'Brasso'),
-	(33, 'Brasso Seco'),
-	(34, 'Brazil'),
-	(35, 'Brickfield'),
-	(36, 'Brighton'),
-	(37, 'Buccoo'),
-	(39, 'Buenos Ayres'),
-	(38, 'Buen Intento Village'),
-	(40, 'Caigual'),
-	(41, 'Calcutta Settlement'),
-	(42, 'Calder Hall'),
-	(43, 'California'),
-	(44, 'Canaan, Tobago'),
-	(45, 'Canaan, Trinidad'),
-	(46, 'Cantaro'),
-	(47, 'Carapichaima'),
-	(48, 'Carenage'),
-	(49, 'Carli Bay'),
-	(50, 'Carlsen Field'),
-	(51, 'Carnbee'),
-	(52, 'Cascade'),
-	(53, 'Castara'),
-	(54, 'Caura'),
-	(55, 'Cedar Hill Village'),
-	(56, 'Cedros'),
-	(57, 'Centeno'),
-	(58, 'Chaguanas'),
-	(59, 'Chaguaramas'),
-	(60, 'Champs Fleurs'),
-	(61, 'Chandernagore Village'),
-	(62, 'Charlotteville'),
-	(63, 'Charuma'),
-	(64, 'Chase Village'),
-	(65, 'Chatham'),
-	(66, 'Churkoo Village'),
-	(67, 'Claxton Bay'),
-	(68, 'Cocorite'),
-	(69, 'Cocoyea Village'),
-	(70, 'Congo Village '),
-	(71, 'Coryal'),
-	(72, 'Couva'),
-	(73, 'Culloden'),
-	(74, 'Cumaca'),
-	(75, 'Cumuto'),
-	(76, 'Cunupia'),
-	(77, 'Curepe'),
-	(78, 'Cushe'),
-	(79, 'D&#39;Abadie'),
-	(80, 'Debe'),
-	(81, 'Delaford'),
-	(82, 'Diamond Village'),
-	(83, 'Dibe'),
-	(84, 'Diego Martin'),
-	(85, 'Dinsley'),
-	(86, 'Dow Village, California'),
-	(87, 'Dow Village, Siparia'),
-	(88, 'Duncan Village'),
-	(89, 'Ecclesville'),
-	(90, 'Eckel Village'),
-	(91, 'Edinburgh'),
-	(92, 'El Dorado'),
-	(93, 'El Socorro'),
-	(95, 'Endeavour'),
-	(94, 'Enterprise'),
-	(96, 'Erin'),
-	(97, 'Exchange'),
-	(98, 'Febeau Village'),
-	(99, 'Felicity'),
-	(100, 'Fifth Company'),
-	(101, 'Fishing Pond'),
-	(102, 'Flanigin Town'),
-	(104, 'Forres Park'),
-	(105, 'Four Roads'),
-	(106, 'Frederick Settlement'),
-	(103, 'Freeport'),
-	(107, 'Friendship Village'),
-	(108, 'Fullarton'),
-	(109, 'Fyzabad'),
-	(110, 'Gasparillo'),
-	(111, 'Glamorgan'),
-	(112, 'Glencoe'),
-	(113, 'Golconda'),
-	(114, 'Gonzales'),
-	(116, 'Goodwood'),
-	(117, 'Goodwood Park'),
-	(115, 'Gopaul Lands'),
-	(119, 'Grande Riviere'),
-	(118, 'Gran Couva'),
-	(120, 'Guaico'),
-	(121, 'Guanapo'),
-	(122, 'Guapo'),
-	(123, 'Guayaguayare'),
-	(124, 'Gulf View'),
-	(125, 'Hardbargain'),
-	(126, 'Hindustan'),
-	(127, 'Hope'),
-	(128, 'Icacos'),
-	(129, 'Iere Village'),
-	(130, 'Indian Chain'),
-	(131, 'Indian Walk'),
-	(132, 'Jerningham Junction'),
-	(133, 'John Dial'),
-	(134, 'John John'),
-	(135, 'Jordan Hill'),
-	(136, 'Kelly Village'),
-	(137, 'Kernaham'),
-	(138, 'Kumar Village'),
-	(139, 'L&#39;Anse Fourmi'),
-	(140, 'L&#39;Anse Mitan'),
-	(147, 'Lambeau, Tobago'),
-	(148, 'Las Cuevas'),
-	(146, 'Las Lomas'),
-	(149, 'Laventille'),
-	(141, 'La Brea'),
-	(142, 'La Canoa'),
-	(143, 'La Horquetta'),
-	(144, 'La Paille'),
-	(145, 'La Romaine'),
-	(150, 'Lengua'),
-	(151, 'Les Coteaux'),
-	(152, 'Longdenville'),
-	(153, 'Lopinot'),
-	(154, 'Los Bajos'),
-	(155, 'Louis D&#39;Or'),
-	(156, 'Lowlands'),
-	(157, 'Macoya'),
-	(158, 'Madras Settlement'),
-	(159, 'Mairao Village'),
-	(160, 'Malabar'),
-	(161, 'Malick'),
-	(162, 'Manzanilla'),
-	(163, 'Marabella'),
-	(164, 'Maracas'),
-	(165, 'Maraval'),
-	(166, 'Mason Hall'),
-	(167, 'Matelot'),
-	(168, 'Matura'),
-	(169, 'Mausica'),
-	(170, 'Mayaro'),
-	(171, 'Mayo'),
-	(172, 'Mc Bean'),
-	(173, 'Mohammedville'),
-	(176, 'Monkey Town '),
-	(175, 'Montrose'),
-	(177, 'Montserrat'),
-	(174, 'Mon Repos'),
-	(178, 'Moriah'),
-	(179, 'Morne Diablo'),
-	(180, 'Morne Quinton'),
-	(181, 'Moruga'),
-	(182, 'Morvant'),
-	(183, 'Mount D&#39;Or'),
-	(184, 'Mount Lambert'),
-	(185, 'Mount Saint George'),
-	(186, 'Mount Stewart'),
-	(187, 'Mucurapo'),
-	(188, 'Navet'),
-	(189, 'New Grant'),
-	(190, 'O&#39;Meara'),
-	(191, 'Orange Hill'),
-	(192, 'Orange Valley'),
-	(194, 'Oropouche'),
-	(193, 'Oropune Village'),
-	(195, 'Otaheite'),
-	(196, 'Palmyra '),
-	(197, 'Palo Seco'),
-	(198, 'Patna Village '),
-	(199, 'Pembroke'),
-	(200, 'Penal'),
-	(201, 'Penal Rock '),
-	(202, 'Petit Trou'),
-	(203, 'Petit Valley'),
-	(204, 'Phoenix Park'),
-	(205, 'Piarco'),
-	(206, 'Pierreville'),
-	(207, 'Piparo'),
-	(208, 'Plaisance'),
-	(209, 'Plaisance Park'),
-	(210, 'Plymouth'),
-	(213, 'Pointe-à-Pierre'),
-	(211, 'Point Fortin'),
-	(212, 'Point Lisas'),
-	(214, 'Poole'),
-	(215, 'Port of Spain'),
-	(216, 'Preysal'),
-	(217, 'Princes Town'),
-	(218, 'Quarry Village '),
-	(219, 'Quinam'),
-	(221, 'Rampanalgas'),
-	(222, 'Rancho Quemado'),
-	(223, 'Ravin Anglais'),
-	(224, 'Redhead'),
-	(225, 'Rio Claro'),
-	(220, 'Rockly Vale'),
-	(226, 'Roussillac'),
-	(227, 'Roxborough'),
-	(236, 'Saint Madeleine'),
-	(242, 'Sangre Chiquito'),
-	(243, 'Sangre Grande'),
-	(241, 'Sans Souci'),
-	(244, 'Santa Cruz'),
-	(245, 'Santa Flora'),
-	(246, 'Santa Margarita'),
-	(247, 'Santa Rosa'),
-	(237, 'San Fernando'),
-	(238, 'San Francique'),
-	(239, 'San Juan'),
-	(240, 'San Raphael'),
-	(248, 'Savonetta'),
-	(249, 'Scarborough'),
-	(250, 'Signal Hill'),
-	(251, 'Siparia'),
-	(252, 'South Oropouche'),
-	(253, 'Speyside'),
-	(228, 'St. Ann&#39;s'),
-	(229, 'St. Augustine'),
-	(230, 'St. Barb&#39;s'),
-	(231, 'St. Clair'),
-	(232, 'St. Helena'),
-	(233, 'St. James'),
-	(234, 'St. Joseph'),
-	(235, 'St. Mary&#39;s'),
-	(254, 'Studley Park'),
-	(255, 'Syne Village'),
-	(256, 'Tabaquite'),
-	(257, 'Tacarigua'),
-	(258, 'Talparo'),
-	(259, 'Techier Village'),
-	(260, 'Thick Village'),
-	(261, 'Third Company'),
-	(262, 'Toco'),
-	(263, 'Tortuga'),
-	(264, 'Trincity'),
-	(265, 'Trou Macaque'),
-	(266, 'Tunapuna'),
-	(267, 'Union Village'),
-	(268, 'Valencia'),
-	(269, 'Valsayn'),
-	(270, 'Vega de Oropouche'),
-	(271, 'Vessigny'),
-	(272, 'Vistabella'),
-	(273, 'Waterloo'),
-	(274, 'Westmoorings'),
-	(275, 'Whiteland'),
-	(276, 'Williamsville');
-/*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.citizen_proof
 DROP TABLE IF EXISTS `citizen_proof`;
@@ -419,7 +144,9 @@ CREATE TABLE IF NOT EXISTS `communities` (
   `community` varchar(255) NOT NULL,
   `code` int(11) DEFAULT NULL,
   `region_code` int(11) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_communities_regions` (`region_code`),
+  CONSTRAINT `FK_communities_regions` FOREIGN KEY (`region_code`) REFERENCES `regions` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=521 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table msdfs_forms_db.communities: ~520 rows (approximately)
@@ -978,19 +705,6 @@ CREATE TABLE IF NOT EXISTS `dashboard_data` (
 /*!40000 ALTER TABLE `dashboard_data` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dashboard_data` ENABLE KEYS */;
 
--- Dumping structure for table msdfs_forms_db.demographic_data
-DROP TABLE IF EXISTS `demographic_data`;
-CREATE TABLE IF NOT EXISTS `demographic_data` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `demographic` varchar(150) NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `country` (`demographic`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
--- Dumping data for table msdfs_forms_db.demographic_data: ~0 rows (approximately)
-/*!40000 ALTER TABLE `demographic_data` DISABLE KEYS */;
-/*!40000 ALTER TABLE `demographic_data` ENABLE KEYS */;
-
 -- Dumping structure for table msdfs_forms_db.disasters
 DROP TABLE IF EXISTS `disasters`;
 CREATE TABLE IF NOT EXISTS `disasters` (
@@ -1011,6 +725,25 @@ INSERT INTO `disasters` (`id`, `slug`, `disaster`) VALUES
 	(4, 'earthquake', 'Earthquake'),
 	(5, 'other_disaster', 'Other');
 /*!40000 ALTER TABLE `disasters` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.document_types
+DROP TABLE IF EXISTS `document_types`;
+CREATE TABLE IF NOT EXISTS `document_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` varchar(150) NOT NULL,
+  `mime` varchar(150) NOT NULL,
+  `icon` varchar(150) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.document_types: ~4 rows (approximately)
+/*!40000 ALTER TABLE `document_types` DISABLE KEYS */;
+INSERT INTO `document_types` (`id`, `type`, `mime`, `icon`) VALUES
+	(1, 'PDF', 'application/pdf', 'fa-file-pdf-o'),
+	(2, 'MS Word Docx', 'application/msword', 'fa-file-word-o'),
+	(3, 'MS Word Doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'fa-file-word-o'),
+	(4, 'Text', 'text/plain', 'fa-file-text-o');
+/*!40000 ALTER TABLE `document_types` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.email_log
 DROP TABLE IF EXISTS `email_log`;
@@ -1157,26 +890,66 @@ CREATE TABLE IF NOT EXISTS `form_b` (
 /*!40000 ALTER TABLE `form_b` DISABLE KEYS */;
 /*!40000 ALTER TABLE `form_b` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.form_ci_items_lost
+DROP TABLE IF EXISTS `form_ci_items_lost`;
+CREATE TABLE IF NOT EXISTS `form_ci_items_lost` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `form_critical_incident_id` bigint(20) unsigned NOT NULL,
+  `item_id` int(10) unsigned NOT NULL,
+  `cost` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_form_ci_items_lost_form_critical_incident` (`form_critical_incident_id`),
+  KEY `FK_form_ci_items_lost_items_lost_or_damaged` (`item_id`),
+  CONSTRAINT `FK_form_ci_items_lost_form_critical_incident` FOREIGN KEY (`form_critical_incident_id`) REFERENCES `form_critical_incident` (`id`),
+  CONSTRAINT `FK_form_ci_items_lost_items_lost_or_damaged` FOREIGN KEY (`item_id`) REFERENCES `items_lost_or_damaged` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.form_ci_items_lost: ~0 rows (approximately)
+/*!40000 ALTER TABLE `form_ci_items_lost` DISABLE KEYS */;
+/*!40000 ALTER TABLE `form_ci_items_lost` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.form_critical_incident
 DROP TABLE IF EXISTS `form_critical_incident`;
 CREATE TABLE IF NOT EXISTS `form_critical_incident` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
-  `first_name` text NOT NULL,
-  `surname` text NOT NULL,
-  `passport` varchar(50) NOT NULL,
-  `gender` char(1) NOT NULL,
-  `dob` date NOT NULL,
-  `nationality` int(10) unsigned NOT NULL,
-  `immigration_status` int(10) unsigned NOT NULL DEFAULT 1,
-  `medical_issues` varchar(1) DEFAULT NULL,
-  `medical_issues_remarks` text DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  `disaster_id` int(10) unsigned NOT NULL,
+  `disaster_other` text DEFAULT NULL,
+  `housing_damage` text DEFAULT NULL,
+  `housing_repairs` text DEFAULT NULL,
+  `insured` varchar(1) NOT NULL DEFAULT 'N',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_form_critical_incident_applications` (`application_id`),
+  KEY `FK_form_critical_incident_disasters` (`disaster_id`),
+  CONSTRAINT `FK_form_critical_incident_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
+  CONSTRAINT `FK_form_critical_incident_disasters` FOREIGN KEY (`disaster_id`) REFERENCES `disasters` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table msdfs_forms_db.form_critical_incident: ~0 rows (approximately)
 /*!40000 ALTER TABLE `form_critical_incident` DISABLE KEYS */;
 /*!40000 ALTER TABLE `form_critical_incident` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.households
+DROP TABLE IF EXISTS `households`;
+CREATE TABLE IF NOT EXISTS `households` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `housing_type_id` int(10) unsigned NOT NULL,
+  `address1` text NOT NULL,
+  `address2` text DEFAULT NULL,
+  `community_id` int(10) unsigned NOT NULL,
+  `active` int(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_households_housing_types` (`housing_type_id`),
+  KEY `FK_households_communities` (`community_id`),
+  CONSTRAINT `FK_households_communities` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`),
+  CONSTRAINT `FK_households_housing_types` FOREIGN KEY (`housing_type_id`) REFERENCES `housing_types` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.households: ~0 rows (approximately)
+/*!40000 ALTER TABLE `households` DISABLE KEYS */;
+/*!40000 ALTER TABLE `households` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.housing_types
 DROP TABLE IF EXISTS `housing_types`;
@@ -1213,28 +986,47 @@ INSERT INTO `id_states` (`id`, `id_state`) VALUES
 	(3, 'Possess an EBC letter');
 /*!40000 ALTER TABLE `id_states` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.insurers
+DROP TABLE IF EXISTS `insurers`;
+CREATE TABLE IF NOT EXISTS `insurers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `form_critical_incident_id` bigint(20) unsigned NOT NULL,
+  `insurer_name` text NOT NULL,
+  `insurer_address` text NOT NULL,
+  `insurer_contact` text DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_insurers_form_critical_incident` (`form_critical_incident_id`),
+  CONSTRAINT `FK_insurers_form_critical_incident` FOREIGN KEY (`form_critical_incident_id`) REFERENCES `form_critical_incident` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.insurers: ~0 rows (approximately)
+/*!40000 ALTER TABLE `insurers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `insurers` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.items_lost_or_damaged
 DROP TABLE IF EXISTS `items_lost_or_damaged`;
 CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
   `item` varchar(150) NOT NULL,
+  `max_value` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~8 rows (approximately)
+-- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~11 rows (approximately)
 /*!40000 ALTER TABLE `items_lost_or_damaged` DISABLE KEYS */;
-INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`) VALUES
-	(1, 'stove', 'Stove'),
-	(2, 'refrigerator', 'Refrigerator'),
-	(3, 'washing_machine', 'Washing Machine'),
-	(4, 'bed_mattress', 'Bed & Mattress'),
-	(5, 'wardrobe', 'Wardrobe'),
-	(6, 'chest_of_drawers', 'Chest of Draws'),
-	(7, 'living_room_set', 'Living Room Set'),
-	(8, 'dining_room_set', 'Dining Room Set'),
-	(9, 'kitchen_cupboards', 'Kitchen Cupboards'),
-	(10, 'school_supplies', 'School Supplies');
+INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`, `max_value`) VALUES
+	(1, 'stove', 'Stove', 2500),
+	(2, 'refrigerator', 'Refrigerator', 4000),
+	(3, 'washing_machine', 'Washing Machine', 3500),
+	(4, 'bed_mattress', 'Bed & Mattress', 2000),
+	(5, 'wardrobe', 'Wardrobe', 3000),
+	(6, 'chest_of_drawers', 'Chest of Draws', 2000),
+	(7, 'living_room_set', 'Living Room Set', 3500),
+	(8, 'dining_room_set', 'Dining Room Set', 3500),
+	(9, 'kitchen_cupboards', 'Kitchen Cupboards', 2000),
+	(10, 'school_supplies_primary', 'School Supplies (Primary)', 700),
+	(11, 'school_supplies_secondary', 'School Supplies (Secondary)', 1000);
 /*!40000 ALTER TABLE `items_lost_or_damaged` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.jobs
@@ -1338,6 +1130,68 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` DISABLE KEYS */;
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.people
+DROP TABLE IF EXISTS `people`;
+CREATE TABLE IF NOT EXISTS `people` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` text NOT NULL,
+  `surname` text NOT NULL,
+  `othername` text DEFAULT NULL,
+  `email` text DEFAULT NULL,
+  `gender` char(1) NOT NULL,
+  `dob` date NOT NULL,
+  `marital_status_id` int(10) unsigned DEFAULT NULL,
+  `national_id` bigint(20) DEFAULT NULL,
+  `national_id_state_id` int(10) unsigned DEFAULT NULL,
+  `drivers_permit` text DEFAULT NULL,
+  `passport` text DEFAULT NULL,
+  `employment_status_id` int(10) unsigned NOT NULL,
+  `employment_status_other` text DEFAULT NULL,
+  `primary_mobile_contact` text DEFAULT NULL,
+  `secondary_mobile_contact` text DEFAULT NULL,
+  `land_line_telephone_contact` text DEFAULT NULL,
+  `income_id` int(10) unsigned DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_persons_id_states` (`national_id_state_id`),
+  KEY `FK_persons_employment_status` (`employment_status_id`),
+  KEY `FK_persons_total_income` (`income_id`),
+  KEY `FK_persons_marital_status` (`marital_status_id`),
+  CONSTRAINT `FK_persons_employment_status` FOREIGN KEY (`employment_status_id`) REFERENCES `employment_status` (`id`),
+  CONSTRAINT `FK_persons_id_states` FOREIGN KEY (`national_id_state_id`) REFERENCES `id_states` (`id`),
+  CONSTRAINT `FK_persons_marital_status` FOREIGN KEY (`marital_status_id`) REFERENCES `marital_status` (`id`),
+  CONSTRAINT `FK_persons_total_income` FOREIGN KEY (`income_id`) REFERENCES `total_income` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.people: ~0 rows (approximately)
+/*!40000 ALTER TABLE `people` DISABLE KEYS */;
+/*!40000 ALTER TABLE `people` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.person_household
+DROP TABLE IF EXISTS `person_household`;
+CREATE TABLE IF NOT EXISTS `person_household` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `person_id` bigint(20) unsigned NOT NULL,
+  `household_id` bigint(20) unsigned NOT NULL,
+  `relationship_id` int(10) unsigned DEFAULT NULL,
+  `relationship_other` varchar(150) DEFAULT NULL,
+  `active` int(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_person_household_persons` (`person_id`),
+  KEY `FK_person_household_households` (`household_id`),
+  KEY `FK_person_household_relationships` (`relationship_id`),
+  CONSTRAINT `FK_person_household_households` FOREIGN KEY (`household_id`) REFERENCES `households` (`id`),
+  CONSTRAINT `FK_person_household_persons` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
+  CONSTRAINT `FK_person_household_relationships` FOREIGN KEY (`relationship_id`) REFERENCES `relationships` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.person_household: ~0 rows (approximately)
+/*!40000 ALTER TABLE `person_household` DISABLE KEYS */;
+/*!40000 ALTER TABLE `person_household` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.regions
 DROP TABLE IF EXISTS `regions`;
 CREATE TABLE IF NOT EXISTS `regions` (
@@ -1381,26 +1235,49 @@ DROP TABLE IF EXISTS `relationships`;
 CREATE TABLE IF NOT EXISTS `relationships` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `relationship` varchar(150) NOT NULL,
+  `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `country` (`relationship`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~12 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~11 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
-INSERT INTO `relationships` (`id`, `relationship`) VALUES
-	(9, 'Aunt'),
-	(1, 'Brother'),
-	(11, 'Cousin'),
-	(4, 'Father'),
-	(8, 'Granddaughter'),
-	(6, 'Grandfather'),
-	(5, 'Grandmother'),
-	(7, 'Grandson'),
-	(3, 'Mother'),
-	(12, 'Other'),
-	(2, 'Sister'),
-	(10, 'Uncle');
+INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
+	(0, 'Applicant', NULL),
+	(1, 'Brother', NULL),
+	(2, 'Sister', NULL),
+	(3, 'Mother', NULL),
+	(4, 'Father', NULL),
+	(5, 'Grandmother', NULL),
+	(6, 'Grandfather', NULL),
+	(7, 'Grandson', NULL),
+	(8, 'Granddaughter', NULL),
+	(9, 'Aunt', NULL),
+	(10, 'Uncle', NULL),
+	(11, 'Cousin', NULL),
+	(12, 'Other', NULL);
 /*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.roles
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `role` varchar(150) NOT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.roles: ~7 rows (approximately)
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` (`id`, `role`, `description`) VALUES
+	(1, 'Administrator', NULL),
+	(2, 'Intake Officer', NULL),
+	(3, 'Registration Clerk', NULL),
+	(4, 'Welfare Officer I', NULL),
+	(5, 'Welfare Officer II', NULL),
+	(6, 'Schedule Clerk', NULL),
+	(7, 'Supervisor', NULL);
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.scotia_branches
 DROP TABLE IF EXISTS `scotia_branches`;
@@ -1441,6 +1318,31 @@ INSERT INTO `scotia_branches` (`id`, `bank`, `transit_code`) VALUES
 	(23, 'Tunapuna', 42135);
 /*!40000 ALTER TABLE `scotia_branches` ENABLE KEYS */;
 
+-- Dumping structure for table msdfs_forms_db.status
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE IF NOT EXISTS `status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(150) NOT NULL,
+  `description` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.status: ~11 rows (approximately)
+/*!40000 ALTER TABLE `status` DISABLE KEYS */;
+INSERT INTO `status` (`id`, `status`, `description`) VALUES
+	(1, 'Active', NULL),
+	(2, 'Forwarded', NULL),
+	(3, 'Logged', NULL),
+	(4, 'Pending', NULL),
+	(5, 'Updated', NULL),
+	(6, 'Recommended', NULL),
+	(7, 'Under Review', NULL),
+	(8, 'Approved', NULL),
+	(9, 'Sent For Payment', NULL),
+	(10, 'On Hold', NULL),
+	(11, 'Rejected', NULL);
+/*!40000 ALTER TABLE `status` ENABLE KEYS */;
+
 -- Dumping structure for table msdfs_forms_db.total_income
 DROP TABLE IF EXISTS `total_income`;
 CREATE TABLE IF NOT EXISTS `total_income` (
@@ -1463,10 +1365,11 @@ INSERT INTO `total_income` (`id`, `income`) VALUES
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `surname` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `role_id` int(10) unsigned DEFAULT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `admin` int(1) NOT NULL DEFAULT 0,
   `active` int(1) NOT NULL DEFAULT 1,
   `password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -1477,13 +1380,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `FK_users_users` (`created_by`),
+  KEY `FK_users_roles` (`role_id`),
+  CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `FK_users_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table msdfs_forms_db.users: ~1 rows (approximately)
+-- Dumping data for table msdfs_forms_db.users: ~0 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `admin`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Admin', 'admin@email.com', NULL, 1, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
+INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
+	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_audit
