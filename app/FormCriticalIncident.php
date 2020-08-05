@@ -18,15 +18,6 @@ class FormCriticalIncident extends Model
         $this->attributes['disaster_other'] = encrypt($value);
     }
 
-    public function getHousingDamageAttribute($value)
-    {
-        return decrypt($value);
-    }
-    public function setHousingDamageAttribute($value)
-    {
-        $this->attributes['housing_damage'] = encrypt($value);
-    }
-
     public function getHousingRepairsAttribute($value)
     {
         return decrypt($value);
