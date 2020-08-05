@@ -742,7 +742,10 @@ INSERT INTO `document_types` (`id`, `type`, `mime`, `icon`) VALUES
 	(1, 'PDF', 'application/pdf', 'fa-file-pdf-o'),
 	(2, 'MS Word Docx', 'application/msword', 'fa-file-word-o'),
 	(3, 'MS Word Doc', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'fa-file-word-o'),
-	(4, 'Text', 'text/plain', 'fa-file-text-o');
+	(4, 'Text', 'text/plain', 'fa-file-text-o'),
+	(5, 'PNG Image', 'image/png', 'fa-image'),
+	(6, 'JPG Image', 'image/jpg', 'fa-image'),
+	(7, 'Jpeg Image', 'image/jpeg', 'fa-image');
 /*!40000 ALTER TABLE `document_types` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.email_log
@@ -1240,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `relationships` (
   UNIQUE KEY `country` (`relationship`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~11 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~13 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
 INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 	(0, 'Applicant', NULL),
@@ -1385,7 +1388,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table msdfs_forms_db.users: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.users: ~1 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
