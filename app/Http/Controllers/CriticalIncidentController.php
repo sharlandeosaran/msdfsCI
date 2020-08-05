@@ -115,7 +115,7 @@ class CriticalIncidentController extends Controller
                 'required',
                 Rule::in(['Y', 'N']),
             ],
-            "housing_repairs" => "required|max:250",
+            "housing_repairs" => "nullable|max:250",
             "insurer_name" => "nullable|max:250",
             "insurer_address" => "nullable|max:250",
             "insurer_contact" => "nullable|max:250",
