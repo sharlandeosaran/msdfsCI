@@ -522,7 +522,7 @@
                             </td>
                         </tr>
                             
-                        <tr class="critical_uploads hide">
+                        <tr class="clothing_div items_lost_or_damaged_div hide">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('clothing_relief_quotation') ? ' has-error' : '' }} mb-0 grp-clothing_relief_quotation">
                                     <label class="control-label mb-0" for="clothing_relief_quotation">
@@ -576,7 +576,7 @@
                             </td>
                         </tr>
                             
-                        <tr class="hide school_supplies_div">
+                        <tr class="school_supplies_div school_supplies_primary_div school_supplies_secondary_div items_lost_or_damaged_div hide">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('school_supplies_relief_quotation') ? ' has-error' : '' }} mb-0 grp-school_supplies_relief_quotation">
                                     <label class="control-label mb-0" for="school_supplies_relief_quotation">

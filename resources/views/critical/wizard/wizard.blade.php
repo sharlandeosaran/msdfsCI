@@ -20,12 +20,12 @@
             
             <div id="wizard">
                 
+                @include('critical.wizard.disaster')
+                @include('common.wizard.uploads')
                 @include('critical.wizard.guidelines')
                 @include('critical.wizard.general_info')
                 {{-- @include('critical.wizard.household_info') --}}
                 @include('critical.wizard.household_info')
-                @include('critical.wizard.disaster')
-                @include('common.wizard.uploads')
                 @include('critical.wizard.submit')
                 
             </div>
@@ -101,9 +101,18 @@
             $('.items_lost_or_damaged_school_supplies').addClass('hide');
             if ($.inArray('7', vals) !== -1) {
                 $('#items_div_school_supplies_primary').removeClass('hide');
+            }else{
+                $('#school_supplies_primary').prop('checked', false);
             }
             if ($.inArray('8', vals) !== -1) {
                 $('#items_div_school_supplies_secondary').removeClass('hide');
+            }else{
+                $('#school_supplies_secondary').prop('checked', false);
+            }
+            
+            // console.log(($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1))
+            if ($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1) {
+                $('.school_supplies_div').addClass('hide');
             }
         }
         school_supplies();
@@ -111,14 +120,19 @@
         // items lost or damaged changed
         $(document).on('change', '.items_lost_or_damaged', function() {
             var checked = $(this).prop("checked");
+            var boxes = $('.items_lost_or_damaged:checkbox:checked');
             var id = $(this).prop("id");
-            // console.log(checked)
+            // console.log(boxes)
             // console.log(id)
-            
-            if (id == 'school_supplies' && checked) {
-                $('.school_supplies_div').removeClass('hide');
+
+            if (boxes.length > 0) {
+                $('.items_lost_or_damaged_div').addClass('hide');
+                boxes.each(function( index ) {
+                    $('.'+ $( this ).prop('id') + '_div').removeClass('hide');
+                    // console.log($( this ).prop('id'))
+                });
             } else {
-                $('.school_supplies_div').addClass('hide');
+                $('.items_lost_or_damaged_div').addClass('hide');
             }
         });
         
@@ -244,6 +258,7 @@
                 $('#household_row_'+num).remove();
                 $('#uploads_row_'+num).remove();
                 countHousehold();
+                school_supplies();
             }
         });
 

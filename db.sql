@@ -1032,7 +1032,8 @@ INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`, `max_value`) VALUES
 	(8, 'dining_room_set', 'Dining Room Set', 3500),
 	(9, 'kitchen_cupboards', 'Kitchen Cupboards', 2000),
 	(10, 'school_supplies_primary', 'School Supplies (Primary)', 700),
-	(11, 'school_supplies_secondary', 'School Supplies (Secondary)', 1000);
+	(11, 'school_supplies_secondary', 'School Supplies (Secondary)', 1000),
+	(12, 'clothing', 'Clothing', NULL);
 /*!40000 ALTER TABLE `items_lost_or_damaged` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.jobs
@@ -1389,7 +1390,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table msdfs_forms_db.users: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.users: ~1 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
