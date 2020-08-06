@@ -141,7 +141,7 @@
             console.log(val)
 
             // if disaster is other show remarks textarea
-            if (val == 'other_disaster') {
+            if (val == '5') {
                 $('#other_disaster_div').removeClass('hide');
                 $('#other_disaster').focus();
             } else {
