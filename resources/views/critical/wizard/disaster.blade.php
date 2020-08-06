@@ -24,7 +24,7 @@
                                         <option disabled="" selected="">select...</option>
                                         @php $other = 'Other'; @endphp
                                         @foreach ($disasters as $disaster)
-                                            @if ($disaster->id !== '5')
+                                            @if ($disaster->id != '5')
                                                 <option {{old('disaster') == $disaster->id? 'selected' : '' }} value="{{$disaster->id}}">{{$disaster->disaster}}</option>
                                             @else
                                                 @php $other = $disaster->disaster; @endphp
