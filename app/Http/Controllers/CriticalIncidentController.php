@@ -15,7 +15,6 @@ class CriticalIncidentController extends Controller
             'title' => 'Critical Incident Form',
             'regions' => \App\Region::ordered(),
             'communities' => \App\Community::ordered(),
-            // 'community_groups' => \App\Community::groups(),
             'id_state' => \App\IDState::ordered(),
             'items_lost_or_damaged' => \App\ItemsLostOrDamaged::all(),
             'disasters' => \App\Disaster::all(),
@@ -25,6 +24,12 @@ class CriticalIncidentController extends Controller
             'employment_status' => \App\EmploymentStatus::ordered(),
             'marital_status' => \App\MaritalStatus::ordered(),
             'form' => 'critical',
+
+            'occupations' => [],
+            'countries' => [],
+            'immigration_status' => [],
+            'covid_status' => [],
+            'illnesses' => [],
         ];
         // dd($data);
         
@@ -410,6 +415,7 @@ class CriticalIncidentController extends Controller
             $person->gender = $request->hi_gender[$value['key']];
             $person->dob = $request->hi_dob[$value['key']];
             $person->marital_status_id = $value['key'] == 1? $request->marital_status : null;
+            $person->marital_status_other = $value['key'] == 1? $request->hi_emp_status_other[$value['key']] : null;
             $person->national_id = $request->hi_national_id[$value['key']];
             $person->national_id_state_id = $value['key'] == 1? $request->national_id_state : null;
             $person->drivers_permit = $value['key'] == 1? $request->drivers_permit : null;

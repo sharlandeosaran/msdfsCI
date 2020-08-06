@@ -16,7 +16,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <tbody>
-                        <tr>
+                        {{-- <tr>
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-first_name">
                                     <label class="control-label mb-0" for="first_name">
@@ -109,7 +109,7 @@
                                     </span>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> --}}
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
@@ -131,7 +131,7 @@
                             </td>
                         </tr>
                         
-                        <tr>
+                        {{-- <tr>
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
                                     <label class="control-label mb-0" for="marital_status">
@@ -154,77 +154,7 @@
                                     </span>
                                 </div>
                             </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
-                                    <label class="control-label mb-0" for="hi_national_id_1">
-                                        National Identification Card Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
-
-                                    <div class="input-group">
-                                        <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="hi_national_id_1" name="hi_national_id[1]" aria-describedby="" value="{{old('hi_national_id.1')? old('hi_national_id.1') : '' }}" required placeholder="xxxxxxxxxxx">
-
-                                        <select class="form-control" id="national_id_state" name="national_id_state">
-                                            {{-- <option selected="" value="">select...</option> --}}
-                                            @foreach ($id_state as $state)
-                                            <option {{old('national_id_state') == $state->id? 'selected' : '' }} value="{{$state->id}}">{{$state->id_state}}</option>
-                                            @endforeach
-                                        </select>
-                                      </div>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-hi_national_id_1">{{ $errors->first('hi_national_id.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('drivers_permit') ? ' has-error' : '' }} grp-drivers_permit">
-                                    <label class="control-label mb-0" for="drivers_permit">
-                                        Driver's Permit 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (drivers_permit) if applicable, for example "2000010".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('drivers_permit') ? ' has-error' : '' }} grp-drivers_permit">
-                                    <input type="text" class="form-control" id="drivers_permit" name="drivers_permit" aria-describedby="" value="{{old('drivers_permit')? old('drivers_permit') : '' }}">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-drivers_permit">{{ $errors->first('drivers_permit') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('passport') ? ' has-error' : '' }} grp-passport">
-                                    <label class="control-label mb-0" for="passport">
-                                        Passport 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('passport') ? ' has-error' : '' }} grp-passport">
-                                    <input type="text" class="form-control" id="passport" name="passport" aria-describedby="" value="{{old('passport')? old('passport') : '' }}">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-passport">{{ $errors->first('passport') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
+                        </tr> --}}
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
@@ -401,7 +331,7 @@
                             </td>
                         </tr>
                         
-                        <tr>
+                        {{-- <tr>
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
                                     <label class="control-label mb-0" for="primary_mobile_contact">
@@ -459,7 +389,7 @@
                                     </span>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> --}}
                         
                     </tbody>
                 </table>

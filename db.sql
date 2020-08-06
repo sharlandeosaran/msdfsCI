@@ -799,7 +799,7 @@ INSERT INTO `employment_status` (`id`, `status`) VALUES
 	(4, 'Pensioner'),
 	(7, 'Primary Student'),
 	(5, 'Retiree'),
-	(8, 'Secondary student'),
+	(8, 'Secondary Student'),
 	(2, 'Self-Employed'),
 	(9, 'Tertiary Student'),
 	(3, 'Unemployed');
@@ -988,7 +988,7 @@ CREATE TABLE IF NOT EXISTS `id_states` (
 /*!40000 ALTER TABLE `id_states` DISABLE KEYS */;
 INSERT INTO `id_states` (`id`, `id_state`) VALUES
 	(2, 'Currently lost but have police report'),
-	(1, 'Have identification'),
+	(1, 'Have identification card'),
 	(3, 'Possess an EBC letter');
 /*!40000 ALTER TABLE `id_states` ENABLE KEYS */;
 
@@ -1147,6 +1147,7 @@ CREATE TABLE IF NOT EXISTS `people` (
   `gender` char(1) NOT NULL,
   `dob` date NOT NULL,
   `marital_status_id` int(10) unsigned DEFAULT NULL,
+  `marital_status_other` text DEFAULT NULL,
   `national_id` bigint(20) DEFAULT NULL,
   `national_id_state_id` int(10) unsigned DEFAULT NULL,
   `drivers_permit` text DEFAULT NULL,
@@ -1246,7 +1247,7 @@ CREATE TABLE IF NOT EXISTS `relationships` (
   UNIQUE KEY `country` (`relationship`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~12 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~10 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
 INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 	(0, 'Applicant', NULL),

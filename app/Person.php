@@ -67,6 +67,15 @@ class Person extends Model
         $this->attributes['passport'] = $value? encrypt($value) : null;
     }
 
+    public function getMaritalStatusOtherAttribute($value)
+    {
+        return decrypt($value);
+    }
+    public function setMaritalStatusOtherAttribute($value)
+    {
+        $this->attributes['marital_status_other'] = encrypt($value);
+    }
+
     public function getEmploymentStatusOtherAttribute($value)
     {
         return decrypt($value);
