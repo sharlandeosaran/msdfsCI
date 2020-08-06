@@ -43,11 +43,7 @@ class CriticalIncidentController extends Controller
         $validator = Validator::make($request->all(), 
         [
             "othername" => "nullable|max:150",
-            // "gender" => [
-            //     'required',
-            //     Rule::in(['M', 'F']),
-            // ],
-            "email" => "required|email|max:250",
+            "email" => "nullable|email|max:250",
             "marital_status" => "required|exists:marital_status,id",
             "national_id_state" => "required|exists:id_states,id",
             "drivers_permit" => "nullable|max:150",
