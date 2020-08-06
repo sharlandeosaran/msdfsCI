@@ -21,4 +21,8 @@ class Community extends Model
         
         return $region? $region->region : 'N/A';
     }
+	
+	public function scopeOrdered($query){
+		return $query->orderBy('community', 'asc')->get();
+	}
 }

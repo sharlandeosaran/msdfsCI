@@ -353,6 +353,31 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('region') ? ' has-error' : '' }} grp-region">
+                                    <label class="control-label mb-0" for="region">
+                                        Region <span class="red">*</span> 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the city/town for your residential address.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('region') ? ' has-error' : '' }} grp-region">
+                                    <select class="form-control chosen-select" id="region" name="region">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($regions as $region)
+                                        <option {{old('region') == $region->code? 'selected' : '' }} value="{{$region->code}}">{!! $region->region!!}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-region">{{ $errors->first('region') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('city_town') ? ' has-error' : '' }} grp-city_town">
                                     <label class="control-label mb-0" for="city_town">
                                         City/Town <span class="red">*</span> 
@@ -363,9 +388,9 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('city_town') ? ' has-error' : '' }} grp-city_town">
                                     <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="city_town" name="city_town">
-                                        <option disabled="" selected="">select...</option>
+                                        <option disabled="" selected="" value="0">select...</option>
                                         @foreach ($communities as $community)
-                                        <option {{old('city_town') == $community->id? 'selected' : '' }} value="{{$community->id}}">{!! $community->community .' ('. $community->region .')' !!}</option>
+                                        <option {{old('city_town') == $community->id? 'selected' : '' }} value="{{$community->id}}" class="hide communities region_{{$community->region_code}}">{!! $community->community !!}</option>
                                         @endforeach
                                     </select>
                                     

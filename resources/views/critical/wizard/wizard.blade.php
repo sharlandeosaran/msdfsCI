@@ -20,11 +20,11 @@
             
             <div id="wizard">
                 
+                @include('critical.wizard.guidelines')
+                @include('critical.wizard.general_info')
                 @include('critical.wizard.household_info')
                 @include('critical.wizard.disaster')
                 @include('common.wizard.uploads')
-                @include('critical.wizard.guidelines')
-                @include('critical.wizard.general_info')
                 @include('critical.wizard.submit')
                 
             </div>
@@ -45,6 +45,15 @@
         $('#uploadsSection').html('4');
         $('.critical_uploads').removeClass('hide');
         $('#employer_recommender_letter_div').addClass('hide');
+                
+        // show community based on region
+        $(document).on('change', '#region', function(){
+            var val = $(this).val();
+            $('#city_town').val('0');
+            $('.communities').addClass('hide');
+            $('.region_'+ val).removeClass('hide');
+            // console.log(val)
+        });
 
         // change gender of applicant after entered
         $(document).on('change', '.hi_gender', function(){

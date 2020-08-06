@@ -13,7 +13,9 @@ class CriticalIncidentController extends Controller
         $data = 
         [
             'title' => 'Critical Incident Form',
-            'communities' => \App\Community::all(),
+            'regions' => \App\Region::ordered(),
+            'communities' => \App\Community::ordered(),
+            // 'community_groups' => \App\Community::groups(),
             'id_state' => \App\IDState::ordered(),
             'items_lost_or_damaged' => \App\ItemsLostOrDamaged::all(),
             'disasters' => \App\Disaster::all(),

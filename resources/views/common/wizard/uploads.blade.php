@@ -14,7 +14,7 @@
             <div class="form-group mb-0 mb-4">
                 <div class="required">
                     <span class="red">*</span> Required Documents <br>
-                    <i class="fa fa-info-circle hide" aria-hidden="true"></i> Help <br>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i> Help <br>
                     <strong>** Accepted File Types: pdf, doc, docx, png, jpg and jpeg **</strong><br>
                     <strong>** Maximum File Size: 10Mb **</strong>
                 </div>
