@@ -49,12 +49,16 @@
                 
         // show community based on region
         $(document).on('change', '#region', function(){
-            var val = $(this).val();
+            region_community();
+        });
+        function region_community() {
+            var val = $('#region').val();
             $('#city_town').val('0');
             $('.communities').addClass('hide');
             $('.region_'+ val).removeClass('hide');
             // console.log(val)
-        });
+        }
+        region_community();
 
         // change gender of applicant after entered
         $(document).on('change', '.hi_gender', function(){
