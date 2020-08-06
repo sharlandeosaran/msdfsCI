@@ -789,16 +789,19 @@ CREATE TABLE IF NOT EXISTS `employment_status` (
   `status` varchar(150) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `country` (`status`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.employment_status: ~6 rows (approximately)
+-- Dumping data for table msdfs_forms_db.employment_status: ~9 rows (approximately)
 /*!40000 ALTER TABLE `employment_status` DISABLE KEYS */;
 INSERT INTO `employment_status` (`id`, `status`) VALUES
 	(1, 'Employed'),
 	(6, 'Other'),
 	(4, 'Pensioner'),
+	(7, 'Primary Student'),
 	(5, 'Retiree'),
+	(8, 'Secondary student'),
 	(2, 'Self-Employed'),
+	(9, 'Tertiary Student'),
 	(3, 'Unemployed');
 /*!40000 ALTER TABLE `employment_status` ENABLE KEYS */;
 
@@ -1241,24 +1244,21 @@ CREATE TABLE IF NOT EXISTS `relationships` (
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `country` (`relationship`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~11 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~12 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
 INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 	(0, 'Applicant', NULL),
-	(1, 'Brother', NULL),
-	(2, 'Sister', NULL),
-	(3, 'Mother', NULL),
-	(4, 'Father', NULL),
-	(5, 'Grandmother', NULL),
-	(6, 'Grandfather', NULL),
-	(7, 'Grandson', NULL),
-	(8, 'Granddaughter', NULL),
-	(9, 'Aunt', NULL),
-	(10, 'Uncle', NULL),
-	(11, 'Cousin', NULL),
-	(12, 'Other', NULL);
+	(1, 'Spouse', NULL),
+	(2, 'Child', NULL),
+	(3, 'Sibling', NULL),
+	(4, 'Parent', NULL),
+	(5, 'Grandparent', NULL),
+	(6, 'Grandchild', NULL),
+	(7, 'Relative', NULL),
+	(8, 'Relative by Law', NULL),
+	(9, 'Other', NULL);
 /*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.roles
