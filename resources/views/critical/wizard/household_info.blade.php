@@ -9,7 +9,7 @@
             </h3>
             {{-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p> --}}
             
-            <div class="table-responsive household_row">
+            <div class="table-responsive critical_household_row">
                 <table class="table table-bordered table-sm">
                     <tbody>
                         <tr class=" table-active text-center">
@@ -363,7 +363,7 @@
             @if (old('hi_dob'))
                 @foreach (old('hi_dob') as $key => $item)
                     @if ($key != 1)
-                    <div class="table-responsive household_row travel_hi_row" id="household_row_{{$key}}">
+                    <div class="table-responsive critical_household_row travel_hi_row" id="household_row_{{$key}}">
                         <table class="table table-bordered table-sm">
                             <tbody>
                                 <tr class=" table-active text-center">
@@ -561,7 +561,7 @@
 
             <div id="additional_persons_div"></div>
             
-            <div class="table-responsive household_row">
+            <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <tfoot>
                         <tr>
