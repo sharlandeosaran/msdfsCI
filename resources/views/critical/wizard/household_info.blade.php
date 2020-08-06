@@ -367,7 +367,7 @@
                         <table class="table table-bordered table-sm">
                             <tbody>
                                 <tr class=" table-active text-center">
-                                    <td colspan="2">Person # {{$key}} <button class="btn btn-sm btn-primary del_household pull-right" type="button" num="{{$key}}"><i class="fa fa-remove" aria-hidden="true"></i> remove member</button></td>
+                                    <td colspan="2">Person # {{$key}} <button class="btn btn-sm btn-primary critical_del_household pull-right" type="button" num="{{$key}}"><i class="fa fa-remove" aria-hidden="true"></i> remove member</button></td>
                                 </tr>
                                 <tr>
                                     <td class="table-active text-right align-middle" width="20%">
