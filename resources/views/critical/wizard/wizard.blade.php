@@ -20,12 +20,12 @@
             
             <div id="wizard">
                 
-                @include('critical.wizard.disaster')
-                @include('common.wizard.uploads')
                 @include('critical.wizard.guidelines')
                 @include('critical.wizard.general_info')
                 {{-- @include('critical.wizard.household_info') --}}
                 @include('critical.wizard.household_info')
+                @include('critical.wizard.disaster')
+                @include('common.wizard.uploads')
                 @include('critical.wizard.submit')
                 
             </div>
