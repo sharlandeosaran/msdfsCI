@@ -560,6 +560,57 @@
             @endif
 
             <div id="additional_persons_div"></div>
+            
+            <div class="table-responsive household_row">
+                <table class="table table-bordered table-sm">
+                    <tfoot>
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <p class="text-right mb-0 {{$errors->has('hi_total_income')? 'text-primary' : ''}}">
+                                    Total Household Income <span class="red">*</span> 
+                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
+                                </p>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }} grp-hi_total_income">
+                                    <select class="form-control chosen-select" id="hi_total_income" name="hi_total_income">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($total_income as $income)
+                                        <option {{old('hi_total_income') == $income->id? 'selected' : '' }} value="{{$income->id}}">{{$income->income}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_total_income">{{ $errors->first('hi_total_income') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        {{-- <tr style="background-color: rgba(0,0,0,0.05);">
+                            <th colspan="5">
+                                <p class="text-right mb-0 {{$errors->has('hi_total_income')? 'text-primary' : ''}}">
+                                    Total Household Income <span class="red">*</span> 
+                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='The income before is only required for the main applicant on behalf of the household even if more than one person may be impacted. Please state your income before retrenchment, termination or reduction of income.'></i>:
+                                </p>
+                            </th>
+                            <th>
+                                <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }} grp-hi_total_income">
+                                    <select class="form-control form-control-sm chosen-select" id="hi_total_income" name="hi_total_income">
+                                        <option disabled="" selected="">select...</option>
+                                        @foreach ($total_income as $income)
+                                        <option {{old('hi_total_income') == $income->id? 'selected' : '' }} value="{{$income->id}}">{{$income->income}}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_total_income">{{ $errors->first('hi_total_income') }}</strong>
+                                    </span>
+                                </div>
+                            </th>
+                        </tr> --}}
+                    </tfoot>
+                </table>
+            </div>
 
             <div>
                 <button class="btn btn-sm btn-success critical_add_household pull-right" type="button"><i class="fa fa-plus" aria-hidden="true"></i> add member</button>

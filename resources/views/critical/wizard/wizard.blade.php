@@ -230,9 +230,12 @@
         // delete household income row
         $(document).on('click', '.critical_del_household', function() {
             var num = $(this).attr('num');
-            $('#household_row_'+num).remove();
-            $('#uploads_row_'+num).remove();
-            countHousehold();
+            var chk = confirm('Remove Person #' + num+ '?');
+            if (chk) {
+                $('#household_row_'+num).remove();
+                $('#uploads_row_'+num).remove();
+                countHousehold();
+            }
         });
 
         // if rent selected get landlord info

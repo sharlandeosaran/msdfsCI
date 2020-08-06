@@ -146,9 +146,12 @@ $(function () {
     // delete household income row
     $(document).on('click', '.del_household', function() {
         var num = $(this).attr('num');
-        $('#household_row_'+num).remove();
-        $('#uploads_row_'+num).remove();
-        hiTotal();
+        var chk = confirm('Remove Person #' + num+ '?');
+        if (chk) {
+            $('#household_row_'+num).remove();
+            $('#uploads_row_'+num).remove();
+            hiTotal();
+        }
     });
 
     // sum total income
