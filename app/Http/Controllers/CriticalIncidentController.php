@@ -73,6 +73,7 @@ class CriticalIncidentController extends Controller
             ],
             
             "home_address" => "required|max:250",
+            "region" => "required|max:25",
             "city_town" => "required|max:25",
             "primary_mobile_contact" => [
                 "required",
