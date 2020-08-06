@@ -5,6 +5,11 @@ function version()
 	return 'Version 0.1';
 }
 
+function support_email()
+{
+	return 'support@gov.tt';
+}
+
 function sanitize($input) 
 { 
 	if(is_string($input)){
@@ -53,6 +58,10 @@ function age($dob)
 function msTimeStamp()
 {
 	return (string)round(microtime(1) * 1000);
+}
+
+function dashboard_sort_categories($a, $b) {
+    return $b->count - $a->count;
 }
 
 // lookup lists

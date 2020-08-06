@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->attributes['first_name'] .' '. $this->attributes['surname'];
     }
+
+    public function getRoleAttribute($value)
+    {
+        return \App\Role::find($this->attributes['role_id']);
+    }
 }
