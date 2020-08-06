@@ -204,7 +204,7 @@
                                 <div class="form-group mb-0{{ $errors->has('items_lost_or_damaged') ? ' has-error' : '' }} grp-items_lost_or_damaged">
                                     <div class="col-md-12 checkbox-group required">
                                         @foreach ($items_lost_or_damaged as $item)
-                                        <div class="custom-control custom-checkbox">
+                                        <div class="custom-control custom-checkbox {{in_array($item->id, [10, 11])? 'hide items_lost_or_damaged_school_supplies' : ''}}" id="items_div_{{$item->slug}}">
                                             <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == $item->id? 'checked' : '' }} value="{{$item->id}}">
                                             <label class="custom-control-label my-1" for="{{$item->slug}}">{{$item->item}}</label>
                                         </div>

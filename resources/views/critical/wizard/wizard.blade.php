@@ -20,11 +20,11 @@
             
             <div id="wizard">
                 
-                @include('critical.wizard.guidelines')
-                @include('critical.wizard.general_info')
                 @include('critical.wizard.household_info')
                 @include('critical.wizard.disaster')
                 @include('common.wizard.uploads')
+                @include('critical.wizard.guidelines')
+                @include('critical.wizard.general_info')
                 @include('critical.wizard.submit')
                 
             </div>
@@ -70,12 +70,22 @@
         $(document).on('change', '.hi_emp_status', function() {
             var num = $( this ).attr('num');
             var text = $('#hi_emp_status_'+num+' option:selected').text();
+            var vals = $('.hi_emp_status').map((_,el) => el.value).get();
 
             // if status is other show remarks textarea
             if (text == 'Other') {
                 $('#hi_emp_status_other_'+num).removeClass('hide').focus();
             } else {
                 $('#hi_emp_status_other_'+num).addClass('hide').val('');
+            }
+
+            // if student selected show school supplies in items lost
+            $('.items_lost_or_damaged_school_supplies').addClass('hide');
+            if ($.inArray('7', vals) !== -1) {
+                $('#items_div_school_supplies_primary').removeClass('hide');
+            }
+            if ($.inArray('8', vals) !== -1) {
+                $('#items_div_school_supplies_secondary').removeClass('hide');
             }
         });
         
@@ -113,7 +123,7 @@
         $(document).on('change', '#disaster', function() {
             var val = $( this ).val();
             $('.water_marks_div, .fire_div').addClass('hide');
-            // console.log(val)
+            console.log(val)
 
             // if disaster is other show remarks textarea
             if (val == 'other_disaster') {
@@ -124,12 +134,12 @@
             }
 
             // if flooding show water damages uploads
-            if (val == 'flooding') {
+            if (val == '1') {
                 $('.water_marks_div').removeClass('hide');
             }
             
             // if fire show fire damages uploads
-            if (val == 'fire') {
+            if (val == '2') {
                 $('.fire_div').removeClass('hide');
             }
         });
