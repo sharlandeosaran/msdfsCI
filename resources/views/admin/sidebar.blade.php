@@ -55,11 +55,11 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class=" {{isset($activelink) && $activelink == 'logs'? 'active' : ''}}"><a href="{{route('logs')}}"><i class="fa fa-circle-o"></i> Logs</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'emaillogs'? 'active' : ''}}"><a href="{{route('emaillogs')}}"><i class="fa fa-circle-o"></i> Email Logs</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'errorlogs'? 'active' : ''}}"><a href="{{route('errorlogs')}}"><i class="fa fa-circle-o"></i> Error Logs</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'userlogs'? 'active' : ''}}"><a href="{{route('userlogs')}}"><i class="fa fa-circle-o"></i> User Logs</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'versionlog'? 'active' : ''}}"><a href="{{route('versionlog')}}"><i class="fa fa-circle-o"></i> Version Log</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'logs'? 'active' : ''}}"><a href="{{route('logs')}}"><i class="fa fa-circle"></i> Logs</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'emaillogs'? 'active' : ''}}"><a href="{{route('emaillogs')}}"><i class="fa fa-circle"></i> Email Logs</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'errorlogs'? 'active' : ''}}"><a href="{{route('errorlogs')}}"><i class="fa fa-circle"></i> Error Logs</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'userlogs'? 'active' : ''}}"><a href="{{route('userlogs')}}"><i class="fa fa-circle"></i> User Logs</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'versionlog'? 'active' : ''}}"><a href="{{route('versionlog')}}"><i class="fa fa-circle"></i> Version Log</a></li>
                 </ul>
             </li>
             <li class=" treeview  {{isset($active) && $active == 'users'? 'active' : ''}}">
@@ -70,8 +70,8 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class=" {{isset($activelink) && $activelink == 'users'? 'active' : ''}}"><a href="{{route('users')}}"><i class="fa fa-circle-o"></i> Users</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'newuser'? 'active' : ''}}"><a href="{{route('newuser')}}"><i class="fa fa-circle-o"></i> New User</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'users'? 'active' : ''}}"><a href="{{route('users')}}"><i class="fa fa-circle"></i> Users</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'newuser'? 'active' : ''}}"><a href="{{route('newuser')}}"><i class="fa fa-circle"></i> New User</a></li>
                 </ul>
             </li>
             @endcan
