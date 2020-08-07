@@ -231,7 +231,10 @@
                                 @foreach ($applications as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
-                                    <td>{!!$item->applicant->name!!}</td>
+                                    <td>
+                                        {!!$item->applicant->name!!} <br>
+                                        ({{count($item->household_people)}} in household)
+                                    </td>
                                     <td>
                                         {!!$item->form_type!!}
                                     </td>
