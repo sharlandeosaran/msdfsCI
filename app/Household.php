@@ -58,4 +58,16 @@ class Household extends Model
 
         return $address;
     }
+    
+    public function scopeCommunities($query){
+        return $query->groupBy('community_id')->pluck('community_id')->toArray();
+    }
+    
+    public function scopeRegions($query){
+        return \App\Community::
+                        leftJoin('regions', 'communities.region_code', 'regions.code')->
+                        whereIn('communities.id', \App\Household::communities())->
+                        pluck('regions.id')->
+                        toArray();
+    }
 }

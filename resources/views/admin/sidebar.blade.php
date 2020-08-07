@@ -43,7 +43,7 @@
                     <i class="fa fa-table"></i> <span>Applications</span>
                 </a>
             </li>
-            {{-- @yield('filters') --}}
+            @yield('filters')
             @endcan
             
             @can('access','admin')

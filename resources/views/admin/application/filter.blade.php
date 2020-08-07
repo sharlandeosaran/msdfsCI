@@ -19,14 +19,7 @@
     <ul class="treeview-menu">
         <li>
             <div class="box box-danger">
-                {{-- <div class="box-header with-border box-header-dark">
-                    <h3 class="box-title" data-widget="collapse" style="cursor: pointer;"><i class="fa fa-filter"></i> Filters</h3>
-                    
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                        </button>
-                    </div>
-                </div> --}}
+                
                 <div class="box-body">
                 
                     <form role="form" method="POST" action="#">
@@ -51,65 +44,51 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="stat">Exemption Type</label>
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input exemption_type" type="checkbox" value="inbound" id="type_inbound">
-                                                <label class="form-check-label" for="type_inbound">
-                                                    Inbound
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input exemption_type" type="checkbox" value="outbound" id="type_outbound">
-                                                <label class="form-check-label" for="type_outbound">
-                                                    Outbound
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label" for="stat">Travel Party</label>
-                                    <div class="panel panel-default">
-                                        <div class="panel-body">
-                                            <div class="form-check">
-                                                <input class="form-check-input travel_party" type="checkbox" value="individual" id="type_individual">
-                                                <label class="form-check-label" for="type_individual">
-                                                    Individual
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input travel_party" type="checkbox" value="family" id="type_family">
-                                                <label class="form-check-label" for="type_family">
-                                                    Family
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input travel_party" type="checkbox" value="group" id="type_group">
-                                                <label class="form-check-label" for="type_group">
-                                                    Other Gorup
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="control-label" for="stat">Country</label>
+                                    <label class="control-label" for="stat">Form Type</label>
                                     <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
                                         <div class="panel-body">
-                                            @foreach($countries as $country)
-                                                @if (in_array($country->id, $country_filter))
-                                                    <div class="form-check" title="{{$country->country}}" data-toggle="tooltip">
-                                                        <input class="form-check-input countries" type="checkbox" value="{{ $country->id }}" id="country_{{$country->id}}">
-                                                        <label class="form-check-label" for="country_{{$country->id}}">
-                                                            {{$country->country}}
+                                            @foreach($forms as $form)
+                                                <div class="form-check" title="{{$form->form}}" data-toggle="tooltip">
+                                                    <input class="form-check-input forms" type="checkbox" value="{{ $form->id }}" id="form_{{$form->id}}">
+                                                    <label class="form-check-label" for="form_{{$form->id}}">
+                                                        {{$form->form}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Status</label>
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            @foreach($status as $stat)
+                                            <div class="form-check">
+                                                <input class="form-check-input status" type="checkbox" value="{{ $stat->id }}" id="status_{{$stat->id}}">
+                                                <label class="form-check-label" for="status_{{$stat->id}}">
+                                                    {{$stat->status}}
+                                                </label>
+                                            </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Regions</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($regions as $region)
+                                                @if (in_array($region->id, $region_filter))
+                                                    <div class="form-check" title="{{$region->region}}" data-toggle="tooltip">
+                                                        <input class="form-check-input regions" type="checkbox" value="{{ $region->id }}" id="region_{{$region->id}}">
+                                                        <label class="form-check-label" for="region_{{$region->id}}">
+                                                            {{$region->region}}
                                                         </label>
                                                     </div>
                                                 @endif
@@ -119,16 +98,74 @@
                                 </div>
                             </div>
 
-                            {{-- <div class="col-md-12 hide">
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="stat">City</label>
-                                    <div class="panel panel-default" style="max-height: 200px; overflow: hidden scroll;">
+                                    <label class="control-label" for="stat">Communities</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
                                         <div class="panel-body">
-                                            @foreach($countries as $country)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="{{ $country->id }}" id="country_{{$country->id}}">
-                                                    <label class="form-check-label" for="country_{{$country->id}}">
-                                                        {{$country->country}}
+                                            @foreach($communities as $community)
+                                                @if (in_array($community->id, $community_filter))
+                                                    <div class="form-check" title="{{$community->community}}" data-toggle="tooltip">
+                                                        <input class="form-check-input communities" type="checkbox" value="{{ $community->id }}" id="community_{{$community->id}}">
+                                                        <label class="form-check-label" for="community_{{$community->id}}">
+                                                            {{$community->community}}
+                                                        </label>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Lost/Damaged Items</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($items as $item)
+                                                @if (in_array($item->id, $item_filter))
+                                                    <div class="form-check" title="{{$item->item}}" data-toggle="tooltip">
+                                                        <input class="form-check-input items" type="checkbox" value="{{ $item->id }}" id="item_{{$item->id}}">
+                                                        <label class="form-check-label" for="item_{{$item->id}}">
+                                                            {{$item->item}}
+                                                        </label>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {{-- <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">National ID States</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($id_states as $id_state)
+                                                <div class="form-check" title="{{$id_state->id_state}}" data-toggle="tooltip">
+                                                    <input class="form-check-input id_states" type="checkbox" value="{{ $id_state->id }}" id="id_state_{{$id_state->id}}">
+                                                    <label class="form-check-label" for="id_state_{{$id_state->id}}">
+                                                        {{$id_state->id_state}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+
+                            {{-- <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Insurer</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($insurers as $insurer_name)
+                                                <div class="form-check" title="{{$insurer_name->insurer_name}}" data-toggle="tooltip">
+                                                    <input class="form-check-input insurers" type="checkbox" value="{{ $insurer_name->id }}" id="insurer_name_{{$insurer_name->id}}">
+                                                    <label class="form-check-label" for="insurer_name_{{$insurer_name->id}}">
+                                                        {{$insurer_name->insurer_name}}
                                                     </label>
                                                 </div>
                                             @endforeach
@@ -147,28 +184,130 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="col-md-12" id="pay_for_quarantine_filter">
+                            
+                            <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="stat">Pay For Quarantine</label>
+                                    <label class="control-label" for="stat">Relationships</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($relationships as $relationship)
+                                                <div class="relationship-check" title="{{$relationship->relationship}}" data-toggle="tooltip">
+                                                    <input class="form-check-input relationships" type="checkbox" value="{{ $relationship->id }}" id="relationship_{{$relationship->id}}">
+                                                    <label class="form-check-label" for="relationship_{{$relationship->id}}">
+                                                        {{$relationship->relationship}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Incomes</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($incomes as $income)
+                                                <div class="income-check" title="{{$income->income}}" data-toggle="tooltip">
+                                                    <input class="form-check-input incomes" type="checkbox" value="{{ $income->id }}" id="income_{{$income->id}}">
+                                                    <label class="form-check-label" for="income_{{$income->id}}">
+                                                        {{$income->income}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Disasters</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($disasters as $disaster)
+                                                <div class="disaster-check" title="{{$disaster->disaster}}" data-toggle="tooltip">
+                                                    <input class="form-check-input disasters" type="checkbox" value="{{ $disaster->id }}" id="disaster_{{$disaster->id}}">
+                                                    <label class="form-check-label" for="disaster_{{$disaster->id}}">
+                                                        {{$disaster->disaster}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Employment Status</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($employments as $employment)
+                                                <div class="employment-check" title="{{$employment->status}}" data-toggle="tooltip">
+                                                    <input class="form-check-input employments" type="checkbox" value="{{ $employment->id }}" id="employment_{{$employment->id}}">
+                                                    <label class="form-check-label" for="employment_{{$employment->id}}">
+                                                        {{$employment->status}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Marital Status</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($marital_status as $status)
+                                                <div class="status-check" title="{{$status->status}}" data-toggle="tooltip">
+                                                    <input class="form-check-input marital_status" type="checkbox" value="{{ $status->id }}" id="marital_status_{{$status->id}}">
+                                                    <label class="form-check-label" for="marital_status_{{$status->id}}">
+                                                        {{$status->status}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Housing Type</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($housing_types as $housing_type)
+                                                <div class="housing_type-check" title="{{$housing_type->type}}" data-toggle="tooltip">
+                                                    <input class="form-check-input housing_types" type="checkbox" value="{{ $housing_type->id }}" id="housing_type_{{$housing_type->id}}">
+                                                    <label class="form-check-label" for="housing_type_{{$housing_type->id}}">
+                                                        {{$housing_type->type}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-12" id="">
+                                <div class="form-group">
+                                    <label class="control-label" for="stat">Housing Damages</label>
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="form-check">
-                                                <input class="form-check-input quarantine_pay" type="checkbox" value="Y" id="quarantine_pay_Y">
-                                                <label class="form-check-label" for="quarantine_pay_Y">
+                                                <input class="form-check-input housing_damages" type="checkbox" value="Y" id="housing_damages_Y">
+                                                <label class="form-check-label" for="housing_damages_Y">
                                                     Yes
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input quarantine_pay" type="checkbox" value="N" id="quarantine_pay_N">
-                                                <label class="form-check-label" for="quarantine_pay_N">
+                                                <input class="form-check-input housing_damages" type="checkbox" value="N" id="housing_damages_N">
+                                                <label class="form-check-label" for="housing_damages_N">
                                                     No
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input quarantine_pay" type="checkbox" value="O" id="quarantine_pay_O">
-                                                <label class="form-check-label" for="quarantine_pay_O">
-                                                    Not Specified
                                                 </label>
                                             </div>
                                         </div>
@@ -285,12 +424,22 @@
         // filter table with ajax
         function filtertable() {
             var data = {
-                'exemption_types': $('.exemption_type:checkbox:checked').map(function(){ return $(this).val(); }).get(),
-                'travel_party': $('.travel_party:checkbox:checked').map(function(){ return $(this).val(); }).get(),
-                'countries': $('.countries:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'forms': $('.forms:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'status': $('.status:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'regions': $('.regions:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'communities': $('.communities:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'items': $('.items:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'id_states': $('.id_states:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'insurers': $('.insurers:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'relationships': $('.relationships:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'incomes': $('.incomes:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'disasters': $('.disasters:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'employments': $('.employments:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'marital_status': $('.marital_status:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'housing_types': $('.housing_types:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'housing_damages': $('.housing_damages:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'period_start': $('#period_start_date').val(),
                 'period_end': $('#period_end_date').val(),
-                'quarantine_pay': $('.quarantine_pay:checkbox:checked').map(function(){ return $(this).val(); }).get(),
             }
             
             $.ajax({
@@ -304,12 +453,13 @@
 
                     jQuery.each(response.data, function(index, item) {
                         table.row.add( [
-                            item.id,
-                            item.first_name + ' ' + item.surname + '<br>' + item.email,
-                            item.travel_party == 'Individual'? item.travel_party : item.travel_party + ' (' + item.applicants + ')',
-                            item.exemption_type,
+                            item.application_id,
+                            item.first_name + ' ' + item.surname + '<br>(' + item.applicants + ' in household)',
+                            item.form,
+                            item.region,
+                            item.status,
                             formatDate(item.created_at),
-                            '<a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="' + item.id + '"><i class="fa fa-eye" aria-hidden="true"></i> view</a>'
+                            '<a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="' + item.application_id + '"><i class="fa fa-eye" aria-hidden="true"></i> view</a>'
                         ] ).draw( false );
                     });
                 },
