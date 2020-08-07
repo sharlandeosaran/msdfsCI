@@ -139,6 +139,7 @@ class ApplicationController extends Controller
 				if($request->period_start) $query->whereDate('applications.created_at', '>=', $request->period_start);
 				if($request->period_end) $query->whereDate('applications.created_at', '<=', $request->period_end);
 			})->
+			whereNotNull('applicants.person_id')->
 			distinct('applications.id')->
 			get();
 	
