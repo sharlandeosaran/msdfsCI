@@ -23,7 +23,7 @@ class HomeController extends Controller
         // dispatch(new \App\Jobs\UpdateDashboardData());
 
         $data = [
-            'title' => 'Dashboard',
+            'title' => \Auth::user()->role->role . ' Dashboard',
             'active' => 'home',
 
             // general users

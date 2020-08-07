@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <ol class="breadcrumb">
-    <li><a href="{{route('adminhome')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+    <li><a href="{{route('adminhome')}}"><i class="fa fa-tachometer-alt"></i> Home</a></li>
     @if (isset($activelink) && $activelink == 'users')
     <li><a href="{{route('users')}}">Users</a></li>
     @endif
