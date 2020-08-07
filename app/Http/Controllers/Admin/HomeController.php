@@ -37,9 +37,9 @@ class HomeController extends Controller
             // admin users
             'users' => \App\User::all()->count(),
             'inactiveusers' => \App\User::all()->where('active', 0)->count(),
-            'emaillogs' => [],//\App\EmailLog::all()->count(),
+            'emaillogs' => \App\EmailLog::all()->count(),
             'userlogs' => \App\UserLog::all()->count(),
-            'errors' => [],//\App\ErrorLog::adminDashboard(),
+            'errors' => \App\ErrorLog::adminDashboard(),
 
         ];
 

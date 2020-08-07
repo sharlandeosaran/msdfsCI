@@ -10,7 +10,7 @@
 @section('content')
 <section class="content">
 
-    @cannot('admin')
+    @cannot('access','admin')
         <!-- Info boxes -->
         <div class="row">
             <div class="col-md-3 col-sm-6 col-xs-12">
@@ -116,7 +116,7 @@
         </div>
     @endcannot
 
-    @can('admin')
+    @can('access','admin')
         
         <!-- Info boxes -->
         <div class="row">
@@ -161,7 +161,7 @@
             
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
-                    <span class="info-box-icon bg-green"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
+                    <span class="info-box-icon bg-green"><i class="fa fa-sign-in-alt" aria-hidden="true"></i></span>
                     
                     <div class="info-box-content">
                         <span class="info-box-text">User Logs</span>
@@ -229,7 +229,7 @@
 <script src="{{ asset('plugins/Chart.js-2.9.3/Chart.min.js') }}"></script>
 <script>
     
-    @cannot('admin')
+    @cannot('access','admin')
     // submit forms
     $('#submissionsGo').click(function() {
         $('#submissionForm').submit();
@@ -278,7 +278,7 @@
     });
     @endcannot
 
-    @can('admin')
+    @can('access','admin')
     // stacked bars
     var ctx = document.getElementById('adminChart');
     var barChartData                     = {
