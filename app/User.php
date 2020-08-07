@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
     public function getNameAttribute($value)
     {
         return $this->attributes['first_name'] .' '. $this->attributes['surname'];
@@ -45,5 +50,21 @@ class User extends Authenticatable
     public function getRoleAttribute($value)
     {
         return \App\Role::find($this->attributes['role_id']);
+    }
+
+    public function getAdminAttribute($value)
+    {
+        return $this->attributes['role_id'] == 1;
+    }
+
+    public function getLastOnlineAttribute($value)
+    {
+        return $this->attributes['last_online']? $this->attributes['last_online'] : 'never';
+    }
+
+    public function history()
+    {
+        $list = \App\UserAudit::where('user_id', $this->id)->get();
+        return $list->sortByDesc('created_at');
     }
 }

@@ -43,7 +43,7 @@ class UserController extends Controller
             'title' => 'New User',
 			'active' => 'users',
             'activelink' => 'newuser',
-            'categories' => [],//\App\Category::all(),
+            'roles' => \App\Role::all(),
         ];
 
         return view('admin.users.new', $data);
@@ -56,10 +56,10 @@ class UserController extends Controller
 
         $validator = Validator::make($request->all(), 
         [
-            "name" => "required|max:150",
+            "first_name" => "required|max:150",
+            "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email",
-            "categories" => "array",
-            "admin" => "required|boolean",
+            "role" => "required|exists:roles,id",
             "active" => "required|boolean",
         ],
         [
@@ -75,21 +75,14 @@ class UserController extends Controller
 
         // new user
         $user = new \App\User();
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->surname = $request->surname;
         $user->email = $request->email;
-        $user->admin = $request->admin;
+        $user->role_id = $request->role;
         $user->active = $request->active;
         $user->created_by = \Auth::user()->id;
         $user->password = 'password';
         $user->save();
-
-        if($request->categories)
-            foreach ($request->categories as $key => $value) {
-                $cat = new \App\UserCategory;
-                $cat->user_id = $user->id;
-                $cat->category_id = $key;
-                $cat->save();
-            }
 
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
@@ -150,7 +143,7 @@ class UserController extends Controller
 			'active' => 'users',
             'activelink' => 'users',
             'data' => $user,
-            'categories' => \App\Category::all(),
+            'roles' => \App\Role::all(),
         ];
 
         return view('admin.users.new', $data);
@@ -164,10 +157,10 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), 
         [
             "id" => "required|exists:users,id",
-            "name" => "required|max:150",
+            "first_name" => "required|max:150",
+            "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email,".$request->id,
-            "categories" => "array",
-            "admin" => "required|boolean",
+            "role" => "required|exists:roles,id",
             "active" => "required|boolean",
         ],
         [
@@ -185,12 +178,21 @@ class UserController extends Controller
         $user = \App\User::find($request->id);
 
         // log status audit
-        if($request->name != $user->name){
+        if($request->first_name != $user->first_name){
 	        $log = new \App\UserAudit;
 	        $log->user_id = $request->id;
-	        $log->attribute = 'name';
-	        $log->old = $user->name;
-	        $log->new = $request->name;
+	        $log->attribute = 'first_name';
+	        $log->old = $user->first_name;
+	        $log->new = $request->first_name;
+	        $log->changed_by = \Auth::user()->id;
+	        $log->save();
+    	}
+        if($request->surname != $user->surname){
+	        $log = new \App\UserAudit;
+	        $log->user_id = $request->id;
+	        $log->attribute = 'surname';
+	        $log->old = $user->surname;
+	        $log->new = $request->surname;
 	        $log->changed_by = \Auth::user()->id;
 	        $log->save();
     	}
@@ -203,12 +205,12 @@ class UserController extends Controller
 	        $log->changed_by = \Auth::user()->id;
 	        $log->save();
     	}
-        if($request->admin != $user->admin){
+        if($request->role != $user->role_id){
 	        $log = new \App\UserAudit;
 	        $log->user_id = $request->id;
-	        $log->attribute = 'admin';
-	        $log->old = $user->admin;
-	        $log->new = $request->admin;
+	        $log->attribute = 'role_id';
+	        $log->old = $user->role_id;
+	        $log->new = $request->role;
 	        $log->changed_by = \Auth::user()->id;
 	        $log->save();
     	}
@@ -222,36 +224,11 @@ class UserController extends Controller
 	        $log->save();
         }
 
-        // check if categories have been changed
-        $list = [];
-        if ($request->categories) {
-            foreach ($request->categories as $key => $value) {
-                $list[] = $key;
-            }
-        }
-        if($list != $user->category_id()->toArray()){
-	        $log = new \App\UserAudit;
-	        $log->user_id = $request->id;
-	        $log->attribute = 'categories';
-	        $log->old = json_encode($user->category_id()->toArray());
-	        $log->new = json_encode($list);
-	        $log->changed_by = \Auth::user()->id;
-            $log->save();
-            
-            // update categories
-            DB::delete('delete from user_categories where user_id = ?', [$request->id]);
-            foreach ($request->categories as $key => $value) {
-                $cat = new \App\UserCategory;
-                $cat->user_id = $user->id;
-                $cat->category_id = $key;
-                $cat->save();
-            }
-        }
-
         // update user
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->surname = $request->surname;
         $user->email = $request->email;
-        $user->admin = $request->admin;
+        $user->role_id = $request->role;
         $user->active = $request->active;
         $user->save();
 

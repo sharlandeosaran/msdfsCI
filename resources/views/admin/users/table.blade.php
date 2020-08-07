@@ -31,7 +31,7 @@
                                     <th width='5%'>id</th>
                                     <th width='25%'>Name</th>
                                     <th width='20%'>Email</th>
-                                    <th width='27%'>Categories</th>
+                                    <th width='27%'>Role</th>
                                     <th width='15%'>Last Online</th>
                                     <th width='15%'>Action</th>
                                 </tr>
@@ -50,11 +50,7 @@
                                         @endif
                                     </td>
                                     <td>{{$item->email}}</td>
-                                    <td>
-                                        @foreach ($item->categories() as $sub)
-                                        - {{$sub}} <br>
-                                        @endforeach
-                                    </td>
+                                    <td>{{$item->role->role}}</td>
                                     <td>{{$item->last_online}}</td>
                                     <td>
                                         <a href="{{url('/admin/users/view/'.$item->id)}}" class="btn btn-danger btn-xs">view</a>
@@ -68,7 +64,7 @@
                                     <th>id</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Categories</th>
+                                    <th>Role</th>
                                     <th>Last Online</th>
                                     <th>Action</th>
                                 </tr>

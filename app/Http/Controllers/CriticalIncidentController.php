@@ -380,6 +380,7 @@ class CriticalIncidentController extends Controller
         $household->housing_type_id = $request->housing_type;
         $household->address1 = $request->home_address;
         $household->community_id = $request->city_town;
+        $household->total_income_id = $request->hi_total_income;
         $household->save();
         
         // store applicants

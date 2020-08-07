@@ -23,10 +23,10 @@ class ApplicationController extends Controller
 			'active' => 'applicationfilter',
 			
 			'status' => \App\Status::all(),
-			'immigration_status' => \App\ImmigrationStatus::all(),
+			'immigration_status' => [],//\App\ImmigrationStatus::all(),
 			'applications' => \App\Application::all(),
-			'countries' => \App\Country::all(),
-			'country_filter' => \App\Application::countries(),
+			'countries' => [],//\App\Country::all(),
+			'country_filter' => [],//\App\Application::countries(),
 		);
 	
 		return view('admin.application.filter', $data);

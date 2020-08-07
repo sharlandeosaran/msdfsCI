@@ -219,9 +219,10 @@
                             <thead>
                                 <tr>
                                     <th width='5%'>ID</th>
-                                    <th width='35%'>Representative</th>
-                                    <th width='20%'>Travel Party</th>
-                                    <th width='20%'>Type</th>
+                                    <th width='25%'>Applicant</th>
+                                    <th width='20%'>Form Type</th>
+                                    <th width='20%'>Region</th>
+                                    <th width='10%'>Status</th>
                                     <th width='15%'>Date</th>
                                     <th width='5%'>Action</th>
                                 </tr>
@@ -230,14 +231,14 @@
                                 @foreach ($applications as $item)
                                 <tr>
                                     <td>{{$item->id}}</td>
+                                    <td>{!!$item->applicant->name!!}</td>
                                     <td>
-                                        {!!$item->name!!} <br>
-                                        {{$item->email}}
+                                        {!!$item->form_type!!}
                                     </td>
                                     <td>
-                                        {!!$item->travel_party_text!!}
+                                        {!!$item->applicant->region!!}
                                     </td>
-                                    <td>{{$item->exemption_type}}</td>
+                                    <td>{{$item->status}}</td>
                                     <td>{{$item->created_at->format('Y-m-d')}}</td>
                                     <td><a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="{{$item->id}}"><i class="fa fa-eye" aria-hidden="true"></i> view</a></td>
                                 </tr>
@@ -246,9 +247,10 @@
                             <tfoot>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Representative</th>
-                                    <th>Travel Party</th>
-                                    <th>Type</th>
+                                    <th>Applicant</th>
+                                    <th>Form Type</th>
+                                    <th>Region</th>
+                                    <th>Status</th>
                                     <th>Date</th>
                                     <th>Action</th>
                                 </tr>

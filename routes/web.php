@@ -44,12 +44,6 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/applications/ajaxfilter', 'Admin\ApplicationController@applicationfilter')->name('applicationfilterajax');
         Route::get('/applications/view/{id}', 'Admin\ApplicationController@view');
         
-        // applicant filter
-        Route::get('/applicants/filter', 'Admin\ApplicantController@applicant')->name('applicantfilter');
-        Route::post('/applicants/ajaxfilter', 'Admin\ApplicantController@applicantfilter')->name('applicantfilterajax');
-        Route::get('/applicants/view/{id}', 'Admin\ApplicantController@view');
-
-        
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');
         Route::put('/profile/password', 'Admin\UserController@password');
@@ -58,7 +52,7 @@ Route::group(['prefix' => 'admin'], function () {
             Route::get('/', 'Admin\HomeController@index')->name('adminhome');
             
             // non admin routes
-            Route::group(['middleware' => ['notadmin']], function () {
+            Route::group(['middleware' => ["access:admin"]], function () {
                 // assignments
                 Route::get('/submissions/assignments/submissions', 'Admin\AssignmentController@submissions')->name('assignmentssubmissions');
                 Route::get('/submissions/assignments/comments', 'Admin\AssignmentController@comments')->name('assignmentscomments');
@@ -99,7 +93,7 @@ Route::group(['prefix' => 'admin'], function () {
             });
 
             // admin routes
-            Route::group(['middleware' => ['admin']], function () {
+            Route::group(['middleware' => ["access:admin"]], function () {
                 // logs
                 Route::get('/logs', 'Admin\LogController@index')->name('logs');
                 Route::get('/logs/emaillogs', 'Admin\EmailLogController@index')->name('emaillogs');

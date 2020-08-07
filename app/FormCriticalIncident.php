@@ -37,6 +37,11 @@ class FormCriticalIncident extends Model
         return \App\Disaster::find($this->attributes['disaster_id']);
     }
 
+    public function insurer()
+    {
+        return \App\Insurer::where('form_critical_incident_id', $this->id)->first();
+    }
+
     public function getDisasterAttribute($value)
     {
         $disaster = \App\Disaster::find($this->disaster_id);

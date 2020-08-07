@@ -33,25 +33,20 @@
             <li class="header">MAIN NAVIGATION</li>
             <li class=" {{isset($active) && $active == 'home'? 'active' : ''}}">
                 <a href="{{url('/admin')}}">
-                    <i class="fa fa-tachometer-alt"></i> <span>Dashboard</span>
+                    <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
             </li>
             
-            @cannot('admin')
+            {{-- @can('access','admin') --}}
             <li class=" {{isset($active) && $active == 'applicationfilter'? 'active' : ''}}">
                 <a href="{{route('applicationfilter')}}">
                     <i class="fa fa-table"></i> <span>Applications</span>
                 </a>
             </li>
-            <li class=" {{isset($active) && $active == 'applicantfilter'? 'active' : ''}}">
-                <a href="{{route('applicantfilter')}}">
-                    <i class="fa fa-table"></i> <span>Applicants</span>
-                </a>
-            </li>
-            @yield('filters')
-            @endcannot
+            {{-- @yield('filters') --}}
+            {{-- @endcan --}}
             
-            @can('admin')
+            @can('access','admin')
             <li class=" treeview  {{isset($active) && $active == 'logs'? 'active' : ''}}">
                 <a href="#">
                     <i class="fa fa-th"></i> <span>Logs</span>

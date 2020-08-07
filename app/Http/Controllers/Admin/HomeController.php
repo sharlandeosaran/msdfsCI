@@ -9,7 +9,6 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // dd('show');
         
         $feedback_count = 0;//\App\DashboardData::valueBySlug('feedback_count');
         $comments = 0;//\App\DashboardData::valueBySlug('comments');
