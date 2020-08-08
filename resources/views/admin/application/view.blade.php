@@ -2,6 +2,9 @@
 
 @section('content')
 
+<!-- Lightbox -->
+<link rel="stylesheet" href="{{ asset('css/admin/lightbox/ekko-lightbox.css') }}">
+
 <style>
     
     /*  bhoechie tab */
@@ -78,7 +81,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        @if(isset($title)) {{ $title }} @endif  | <strong>{{$application->applicant->region}}</strong>
+        Application Region | <strong>{{$application->applicant->region}}</strong>
     </h1>
 </section>
 
@@ -86,29 +89,38 @@
     
     <div class="box box-danger my-0">
         <div class="box-body box-profile">
-            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 bhoechie-tab-menu text-center" style="margin-top: 10px;">
+            {{-- tabs --}}
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 bhoechie-tab-menu text-center">
                 <div class="list-group">
                     <a href="#" class="list-group-item active text-center">
-                        <h4 class="glyphicon glyphicon-file"></h4><br/>Application Details
+                        <h4 class="glyphicon"><i class="fas fa-file-alt fa-lg"></i></h4><br/>Application Details
                     </a>
                     <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-home"></h4><br/>Household
+                        <h4 class="glyphicon"><i class="fas fa-home fa-lg"></i></h4><br/>Household
                     </a>
-                    @if ($application->household->housing_type_id == 4)
+                    @if ($application->household->housing_type_id == 4 && $application->household->landlord)
                     <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-user"></h4><br/>Landlord Details
+                        <h4 class="glyphicon"><i class="fas fa-user fa-lg"></i></h4><br/>Landlord Details
                     </a>
                     @endif
                     <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-alert"></h4><br/>Disaster Details
+                        <h4 class="glyphicon"><i class="fas fa-exclamation-triangle fa-lg"></i></h4><br/>Disaster Details
                     </a>
-                    @if (1 == 2)
+                    @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
                     <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon glyphicon-picture"></h4><br/>Photos
+                        <h4 class="glyphicon"><i class="fas fa-images fa-lg"></i></h4><br/>Photos
                     </a>
                     @endif
+                    @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon"><i class="fas fa-file-pdf fa-lg"></i></h4><br/>Documents
+                    </a>
+                    @endif
+                    
                 </div>
             </div>
+
+            {{-- tab content --}}
             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 bhoechie-tab">
                 
                 {{-- application details --}}
@@ -151,6 +163,9 @@
                                     <span class="label label-{{$application->status_colour}}" style="font-size: 100%;">{{$application->status}}</span>
                                 </strong>
                             </p>
+                            <hr>
+
+                            <p><strong><i class="fa fa-envelope margin-r-5"></i> Email | <a href="mailto:{{$application->applicant->email}}">{{$application->applicant->email}}</a></strong></p>
                             <hr>
 
                             @if ($application->household)
@@ -234,7 +249,7 @@
                         <div class="box-body box-profile text-center" style="padding-bottom: 5px;">
                             
                             <h3 class="profile-username">
-                                <strong>Household{{count($application->household_people) == 1? '' : ' ('.count($application->household_people).')'}}</strong>
+                                <strong>{{$application->household->housing_type->type}} Household{{count($application->household_people) == 1? '' : ' ('.count($application->household_people).')'}}</strong>
                                 @if (count($application->household_people) > 1)
                                     <small><button class="btn btn-danger btn-sm pull-right" id="btn_applicant_tabs" style="font-size: 10px;"><i class="fa fa-eye-slash"></i> hide names</button></small>
                                 @endif
@@ -249,20 +264,28 @@
                             <div class="post">
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-tabs" style="/* display: none */" role="tablist" id="applicant_tabs">
-                                    
-                                    @foreach ($application->household_people as $applicant)
-                                    <li role="presentation" class="{{$loop->first? 'active' : ''}} applicant_tabs">
-                                        <a href="#applicanttab{{$applicant->person->id}}" aria-controls="applicanttab{{$applicant->person->id}}" role="tab" data-toggle="tab">
-                                            <strong>{{$applicant->person->name}}</strong>
+
+                                    <li role="presentation" class="active applicant_tabs">
+                                        <a href="#applicanttab{{$application->applicant->person_id}}" aria-controls="applicanttab{{$application->applicant->person_id}}" role="tab" data-toggle="tab">
+                                            <strong>{{$application->applicant->name}} <span style="color: red;">*</span> </strong>
                                         </a>
                                     </li>
+
+                                    @foreach ($application->household_people as $applicant)
+                                        @if ($applicant->person->id != $application->applicant->person_id)
+                                            <li role="presentation" class="applicant_tabs">
+                                                <a href="#applicanttab{{$applicant->person->id}}" aria-controls="applicanttab{{$applicant->person->id}}" role="tab" data-toggle="tab">
+                                                    <strong>{{$applicant->person->name}}</strong>
+                                                </a>
+                                            </li>
+                                        @endif
                                     @endforeach
                                 </ul>
                                 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     @foreach ($application->household_people as $applicant)
-                                    <div role="tabpanel" class="tab-pane {{$loop->first? 'active' : ''}}" id="applicanttab{{$applicant->person->id}}">
+                                    <div role="tabpanel" class="tab-pane {{$applicant->person->id == $application->applicant->person_id? 'active' : ''}}" id="applicanttab{{$applicant->person->id}}">
 
                                         <div class="post">
                                             <div class="user-block">
@@ -348,178 +371,195 @@
                                                     </div>
                                                 @endif --}}
                                                 
-                                                <div class="">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered table-sm">
-                                                            <tbody>
-                                                                
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Name
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->name}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                                @if ($applicant->person->household_people_relationship)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Relationship to Applicant
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->household_people_relationship->relationship}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Gender
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->gender}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Age
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->age}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                
-                                                                @if ($applicant->person->national_id)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                National ID
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> 
-                                                                            {{$applicant->person->national_id}}
-                                                                            @if ($applicant->person->national_id_state)
-                                                                                <br>{{$applicant->person->national_id_state}}
-                                                                            @endif
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-sm">
+                                                        <tbody>
+                                                            
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Name
                                                                         </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->passport)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Passport #
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->passport}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->drivers_permit)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Driver's Permit
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->drivers_permit}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->employment_status)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Employment Status
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->employment_status}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->primary_mobile_contact)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Primary Mobile Contact
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->primary_mobile_contact}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->secondary_mobile_contact)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Secondary Mobile Contact
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->secondary_mobile_contact}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                                @if ($applicant->person->land_line_telephone_contact)
-                                                                <tr>
-                                                                    <td class="active text-right align-middle" width="30%">
-                                                                        <div class="">
-                                                                            <label class="control-label">
-                                                                                Land Line Telephone Contact
-                                                                            </label>
-                                                                        </div>
-                                                                    </td>
-                                                                    <td width="70%">
-                                                                        <label class="control-label"> {{$applicant->person->land_line_telephone_contact}} </label>
-                                                                    </td>
-                                                                </tr>
-                                                                @endif
-                                                                
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->name}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            @if ($applicant->relationship)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Relationship to Applicant
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->relationship->relationship}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+
+                                                            @if (count($application->applicant_documents) && $applicant->person->id == $application->applicant->person_id)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Documents
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <p class="text-muted">
+                                                                        @foreach ($application->applicant_documents as $doc)
+                                                                        <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                                                        @endforeach
+                                                                    </p>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Gender
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->gender}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Age
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->age}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                            @if ($applicant->person->national_id)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            National ID
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> 
+                                                                        {{$applicant->person->national_id}}
+                                                                        @if ($applicant->person->national_id_state)
+                                                                            <br>{{$applicant->person->national_id_state}}
+                                                                        @endif
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->passport)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Passport #
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->passport}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->drivers_permit)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Driver's Permit
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->drivers_permit}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->employment_status)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Employment Status
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->employment_status}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->primary_mobile_contact)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Primary Mobile Contact
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->primary_mobile_contact}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->secondary_mobile_contact)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Secondary Mobile Contact
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->secondary_mobile_contact}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->land_line_telephone_contact)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Land Line Telephone Contact
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->land_line_telephone_contact}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                        </tbody>
+                                                    </table>
                                                 </div>
 
                                             </div>
@@ -536,7 +576,7 @@
                 </div>
                 
                 {{-- landlord --}}
-                @if ($application->household->housing_type_id == 4)
+                @if ($application->household->housing_type_id == 4 && $application->household->landlord)
                     <div class="bhoechie-tab-content">
                         <!-- Profile Image -->
                         <div class="my-0">
@@ -555,25 +595,27 @@
                                 
                                 <strong><i class="fa fa-user margin-r-5"></i> Name</strong>                                
                                 <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
+                                    {{$application->household->landlord->name}}
                                 </p>
                                 <hr>
                                 
                                 <strong><i class="fa fa-phone margin-r-5"></i> Contact Number</strong>                                
                                 <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
+                                    {{$application->household->landlord->contact}}
                                 </p>
                                 <hr>
                                 
                                 <strong><i class="fa fa-dollar margin-r-5"></i> Rental Amount</strong>                                
                                 <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
+                                    {{$application->household->landlord->rental_amount}}
                                 </p>
                                 <hr>
                                 
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Documents</strong>                                
                                 <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
+                                    @foreach ($application->landlord_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
                                 </p>
                                 <hr>
 
@@ -663,7 +705,7 @@
                     <div class="my-0">
                         <div class="box-body box-profile text-center">
                             
-                            <h3 class="profile-username"><strong>Uploaded Files</strong></h3>
+                            <h3 class="profile-username"><strong>Uploaded Photos</strong></h3>
                         </div>
                         <!-- /.box-body -->
                     </div>
@@ -671,19 +713,163 @@
                     <div class="box box-danger">
                         <!-- /.box-header -->
                         <div class="box-body">
-                            @if ($application->documents)
+                            @if (count($application->water_marks))
                                 <p>
-                                    <strong><i class="far fa-file-alt margin-r-5"></i> Uploads</strong>
+                                    <strong><i class="far fa-images margin-r-5"></i> Water Marks</strong>
                                 </p>
-                                
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->water_marks as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="water_marks">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                            
+                            @if (count($application->structural_damage))
                                 <p>
-                                    @foreach ($application->documents as $doc)
-                                    <button class="btn btn-danger btn-sm" style="margin-bottom: 5px"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
-                                    <img src="{{$doc->document_url}}" alt="" height="30px">  <br>
+                                    <strong><i class="far fa-images margin-r-5"></i> Structural Damage</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->structural_damage as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="structural_damage">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                            
+                            @if (count($application->electrical_damage))
+                                <p>
+                                    <strong><i class="far fa-images margin-r-5"></i> Electrical Damage</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->electrical_damage as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="electrical_damage">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                            
+                            @if (count($application->plumbing_damage))
+                                <p>
+                                    <strong><i class="far fa-images margin-r-5"></i> Plumbing Damage</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->plumbing_damage as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="plumbing_damage">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                {{-- Documents --}}
+                <div class="bhoechie-tab-content">
+                    <!-- Profile Image -->
+                    <div class="my-0">
+                        <div class="box-body box-profile text-center">
+                            
+                            <h3 class="profile-username"><strong>Uploaded Documents</strong></h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    <div class="box box-danger">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            @if (count($application->fire_service_report_documents))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Fire Service Report</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->fire_service_report_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
                             @endif
+
+                            @if (count($application->regional_corporation_flooding_report_documents))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Regional Corporation Flooding Report</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->regional_corporation_flooding_report_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+                                <hr>
+                            @endif
+
+                            @if (count($application->clothing_relief_quotation_documents))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Clothing Relief Quotation</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->clothing_relief_quotation_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+                                <hr>
+                            @endif
+
+                            @if (count($application->housing_relief_quotation_documents))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Housing Relief Quotation</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->housing_relief_quotation_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+
+                                <hr>
+                            @endif
+
+                            @if (count($application->school_supplies_relief_quotation_documents))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> School Supplies Relief Quotation</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->school_supplies_relief_quotation_documents as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+                                <hr>
+                            @endif
+                            
                         </div>
                     </div>
                 </div>
@@ -693,10 +879,45 @@
     </div>
 </section>
 
+{{-- document view modal --}}
+<div class="modal fade" id="documentViewModal" tabindex="-1" role="dialog" aria-labelledby="documentViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document" style="height: 100%;">
+        <div class="modal-content" style="height: 95%; overflow: auto;">
+            <div class="modal-header">
+                {{-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times" style="color: red"></i>
+                </button>
+            </div>
+            <div class="modal-body" style="height: 100%;">
+                <iframe class="doc" src="" id="documentViewModalFrame" style="height: 100%;"></iframe>
+            </div>
+            {{-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+            </div> --}}
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
+<!-- Lightbox -->
+<script src="{{ asset('js/admin/lightbox/ekko-lightbox.min.js') }}"></script>
+
 <script>
+
+    // view document in modal
+    $(document).on('click', '.documentModalView', function() {
+        var url = $(this).attr('document');
+        $('#documentViewModalFrame').prop('src', url);
+        $('#documentViewModal').modal('show');
+    });
+
+    // lightbox
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
+    });
 
     // tab control
     $(document).ready(function() {

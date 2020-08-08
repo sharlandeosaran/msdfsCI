@@ -123,4 +123,112 @@ class Application extends Model
     {
         return \App\ApplicationDocument::where('application_id', $this->id)->get();
     }
+
+    public function getWaterMarksAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'water_marks_%')->
+                get();
+    }
+
+    public function getStructuralDamageAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'structural_damage_%')->
+                get();
+    }
+
+    public function getElectricalDamageAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'electrical_damage_%')->
+                get();
+    }
+
+    public function getPlumbingDamageAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'plumbing_damage_%')->
+                get();
+    }
+
+    public function getLandlordDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'landlord_%');
+                    $query->orWhere('file', 'LIKE', 'utility_bill%');
+                    $query->orWhere('file', 'LIKE', 'rent%');
+                })->
+                get();
+    }
+
+    public function getApplicantDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'signature%');
+                    $query->orWhere('file', 'LIKE', 'id_card_front%');
+                    $query->orWhere('file', 'LIKE', 'id_card_back%');
+                    $query->orWhere('file', 'LIKE', 'lost_id_police_report%');
+                    $query->orWhere('file', 'LIKE', 'ebc_id_letter%');
+                })->
+                get();
+    }
+
+    public function getHousingReliefQuotationDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->where('file', 'LIKE', 'housing_relief_quotation%');
+                })->
+                get();
+    }
+
+    public function getSchoolSuppliesReliefQuotationDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->where('file', 'LIKE', 'school_supplies_relief_quotation%');
+                })->
+                get();
+    }
+
+    public function getFireServiceReportDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'fire_service_report%');
+                })->
+                get();
+    }
+
+    public function getRegionalCorporationFloodingReportDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'regional_corporation_flooding_report%');
+                })->
+                get();
+    }
+
+    public function getClothingReliefQuotationDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'clothing_relief_quotation%');
+                })->
+                get();
+    }
 }

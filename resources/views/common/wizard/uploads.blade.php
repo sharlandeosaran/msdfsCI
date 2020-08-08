@@ -605,7 +605,7 @@
 
                         
 
-                        @if (old('hi_dob'))
+                        {{-- @if (old('hi_dob'))
                             @foreach (old('hi_dob') as $key => $item)
                                 @if ($key != 1)
 
@@ -636,7 +636,7 @@
 
                                 @endif
                             @endforeach
-                        @endif
+                        @endif --}}
 
                     </tbody>
                 </table>
@@ -646,7 +646,14 @@
 
                         <tr class="critical_uploads hide">
                             <td class="pt-4" colspan="2">
-                                <h5><strong>Please Upload Pictures For The Following</strong></h5>
+                                <h5><strong>Please Upload Images For The Following</strong></h5>
+
+                                <div class="form-group mb-0 mb-4">
+                                    <div class="required">
+                                        <strong>** Accepted Image Types: png, jpg and jpeg **</strong><br>
+                                        <strong>** Maximum Image Size: 10Mb **</strong>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                             
@@ -656,7 +663,7 @@
                                     <label class="control-label mb-0" for="water_marks">
                                         Water Marks on the Wall 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your water_marks that matches your national identification card and uploaded.'></i>
-                                        <br>(multiple files allowed)
+                                        <br>(multiple images allowed)
                                     </label>
                                 </div>
                             </td>
@@ -664,7 +671,7 @@
                                 <div class="form-group{{ $errors->has('water_marks') ? ' has-error' : '' }} mb-0 grp-water_marks">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="water_marks" name="water_marks[]" value="{{old('water_marks')}}" multiple>
+                                            <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="water_marks" name="water_marks[]" value="{{old('water_marks')}}" multiple>
                                             <label class="custom-file-label uploadfail" for="water_marks" id="water_marksLabel">{{old('water_marks_name')? old('water_marks_name') : 'Choose files'}}</label>
                                         </div>
                                         <input type="hidden" class="uploadhelp" value="{{old('water_marks_name')}}" name="water_marks_name">
@@ -683,7 +690,7 @@
                                     <label class="control-label mb-0" for="structural_damage">
                                         Structural Damage 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your structural_damage that matches your national identification card and uploaded.'></i>
-                                        <br>(multiple files allowed)
+                                        <br>(multiple images allowed)
                                     </label>
                                 </div>
                             </td>
@@ -691,7 +698,7 @@
                                 <div class="form-group{{ $errors->has('structural_damage') ? ' has-error' : '' }} mb-0 grp-structural_damage">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="structural_damage" name="structural_damage[]" value="{{old('structural_damage')}}" multiple>
+                                            <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="structural_damage" name="structural_damage[]" value="{{old('structural_damage')}}" multiple>
                                             <label class="custom-file-label uploadfail" for="structural_damage" id="structural_damageLabel">{{old('structural_damage_name')? old('structural_damage_name') : 'Choose files'}}</label>
                                         </div>
                                         <input type="hidden" class="uploadhelp" value="{{old('structural_damage_name')}}" name="structural_damage_name">
@@ -710,7 +717,7 @@
                                     <label class="control-label mb-0" for="electrical_damage">
                                         Electrical Damage 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your electrical_damage that matches your national identification card and uploaded.'></i>
-                                        <br>(multiple files allowed)
+                                        <br>(multiple images allowed)
                                     </label>
                                 </div>
                             </td>
@@ -718,7 +725,7 @@
                                 <div class="form-group{{ $errors->has('electrical_damage') ? ' has-error' : '' }} mb-0 grp-electrical_damage">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="electrical_damage" name="electrical_damage[]" value="{{old('electrical_damage')}}" multiple>
+                                            <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="electrical_damage" name="electrical_damage[]" value="{{old('electrical_damage')}}" multiple>
                                             <label class="custom-file-label uploadfail" for="electrical_damage" id="electrical_damageLabel">{{old('electrical_damage_name')? old('electrical_damage_name') : 'Choose files'}}</label>
                                         </div>
                                         <input type="hidden" class="uploadhelp" value="{{old('electrical_damage_name')}}" name="electrical_damage_name">
@@ -737,7 +744,7 @@
                                     <label class="control-label mb-0" for="plumbing_damage">
                                         Plumbing Damage 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your plumbing_damage that matches your national identification card and uploaded.'></i>
-                                        <br>(multiple files allowed)
+                                        <br>(multiple images allowed)
                                     </label>
                                 </div>
                             </td>
@@ -745,7 +752,7 @@
                                 <div class="form-group{{ $errors->has('plumbing_damage') ? ' has-error' : '' }} mb-0 grp-plumbing_damage">
                                     <div class="input-group mb-0">
                                         <div class="custom-file">
-                                            <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="plumbing_damage" name="plumbing_damage[]" value="{{old('plumbing_damage')}}" multiple>
+                                            <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="plumbing_damage" name="plumbing_damage[]" value="{{old('plumbing_damage')}}" multiple>
                                             <label class="custom-file-label uploadfail" for="plumbing_damage" id="plumbing_damageLabel">{{old('plumbing_damage_name')? old('plumbing_damage_name') : 'Choose files'}}</label>
                                         </div>
                                         <input type="hidden" class="uploadhelp" value="{{old('plumbing_damage_name')}}" name="plumbing_damage_name">

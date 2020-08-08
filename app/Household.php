@@ -58,6 +58,11 @@ class Household extends Model
 
         return $address;
     }
+
+    public function landlord()
+    {
+        return $this->hasOne('App\Landlord', 'household_id', 'id');
+    }
     
     public function scopeCommunities($query){
         return $query->groupBy('community_id')->pluck('community_id')->toArray();

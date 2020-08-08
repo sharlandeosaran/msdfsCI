@@ -198,18 +198,24 @@ class CriticalIncidentController extends Controller
             'school_supplies_relief_quotation' => "nullable|array",
             'school_supplies_relief_quotation.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
-            "proof_of_earnings" => "array",
-            "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            "fire_service_report" => "array",
+            "fire_service_report.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            "regional_corporation_flooding_report" => "array",
+            "regional_corporation_flooding_report.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            "clothing_relief_quotation" => "array",
+            "clothing_relief_quotation.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
             
             'water_marks' => "nullable|array",
-            'water_marks.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'water_marks.*' => "max:10000|mimes:jpg,jpeg,png",
             'structural_damage' => "nullable|array",
-            'structural_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'structural_damage.*' => "max:10000|mimes:jpg,jpeg,png",
             'electrical_damage' => "nullable|array",
-            'electrical_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'electrical_damage.*' => "max:10000|mimes:jpg,jpeg,png",
             'plumbing_damage' => "nullable|array",
-            'plumbing_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'plumbing_damage.*' => "max:10000|mimes:jpg,jpeg,png",
 
             // "cert_incorporation_registration" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             // "recommendation_letter" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
@@ -812,14 +818,14 @@ class CriticalIncidentController extends Controller
             }
         }
         
-        // proof_of_earnings
-        if ($request->file('proof_of_earnings') !== null) {
-            foreach ($request->file('proof_of_earnings') as $i => $other) {
-                if ($request->file('proof_of_earnings'.'.'.$i) !== null) {
-                    if ($request->file('proof_of_earnings'.'.'.$i)->isValid()) {
+        // fire_service_report
+        if ($request->file('fire_service_report') !== null) {
+            foreach ($request->file('fire_service_report') as $i => $other) {
+                if ($request->file('fire_service_report'.'.'.$i) !== null) {
+                    if ($request->file('fire_service_report'.'.'.$i)->isValid()) {
                         
                         // get file type
-                        $type = $request->file('proof_of_earnings.'.$i)->getMimeType();
+                        $type = $request->file('fire_service_report.'.$i)->getMimeType();
                         $get = \App\DocumentType::where('mime', $type)->first();
                         if ($get) {
                             $mime = $get->id;
@@ -828,13 +834,13 @@ class CriticalIncidentController extends Controller
                         }
                         
                         if (in_array($type, $types)) {
-                            $document = $application->id.'_proof_of_earnings_'.$i.'_'.$request->file('proof_of_earnings'.'.'.$i)->getClientOriginalName();
+                            $document = $application->id.'_fire_service_report_'.$i.'_'.$request->file('fire_service_report'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $path = $request->file('proof_of_earnings'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/proof_of_earnings', $document);
+                            $path = $request->file('fire_service_report'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/fire_service_report', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
-                            $file->file = 'proof_of_earnings_'.$i;
+                            $file->file = 'fire_service_report_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
                     $file->path = $path;
@@ -844,6 +850,76 @@ class CriticalIncidentController extends Controller
                 }
             }
         }
+        
+        // regional_corporation_flooding_report
+        if ($request->file('regional_corporation_flooding_report') !== null) {
+            foreach ($request->file('regional_corporation_flooding_report') as $i => $other) {
+                if ($request->file('regional_corporation_flooding_report'.'.'.$i) !== null) {
+                    if ($request->file('regional_corporation_flooding_report'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('regional_corporation_flooding_report.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_regional_corporation_flooding_report_'.$i.'_'.$request->file('regional_corporation_flooding_report'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $path = $request->file('regional_corporation_flooding_report'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/regional_corporation_flooding_report', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'regional_corporation_flooding_report_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                    $file->path = $path;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // clothing_relief_quotation
+        if ($request->file('clothing_relief_quotation') !== null) {
+            foreach ($request->file('clothing_relief_quotation') as $i => $other) {
+                if ($request->file('clothing_relief_quotation'.'.'.$i) !== null) {
+                    if ($request->file('clothing_relief_quotation'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('clothing_relief_quotation.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_clothing_relief_quotation_'.$i.'_'.$request->file('clothing_relief_quotation'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $path = $request->file('clothing_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/clothing_relief_quotation', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'clothing_relief_quotation_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                    $file->path = $path;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+
+        // images 
+        // accepted file types
+        $images = ['image/png', 'image/jpg', 'image/jpeg'];
         
         // water_marks
         if ($request->file('water_marks') !== null) {
@@ -860,7 +936,7 @@ class CriticalIncidentController extends Controller
                             $mime = null;
                         }
                         
-                        if (in_array($type, $types)) {
+                        if (in_array($type, $images)) {
                             $document = $application->id.'_water_marks_'.$i.'_'.$request->file('water_marks'.'.'.$i)->getClientOriginalName();
                             // upload upload
                             $path = $request->file('water_marks'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/water_marks', $document);
@@ -893,7 +969,7 @@ class CriticalIncidentController extends Controller
                             $mime = null;
                         }
                         
-                        if (in_array($type, $types)) {
+                        if (in_array($type, $images)) {
                             $document = $application->id.'_structural_damage_'.$i.'_'.$request->file('structural_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
                             $path = $request->file('structural_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/structural_damage', $document);
@@ -926,7 +1002,7 @@ class CriticalIncidentController extends Controller
                             $mime = null;
                         }
                         
-                        if (in_array($type, $types)) {
+                        if (in_array($type, $images)) {
                             $document = $application->id.'_electrical_damage_'.$i.'_'.$request->file('electrical_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
                             $path = $request->file('electrical_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/electrical_damage', $document);
@@ -959,7 +1035,7 @@ class CriticalIncidentController extends Controller
                             $mime = null;
                         }
                         
-                        if (in_array($type, $types)) {
+                        if (in_array($type, $images)) {
                             $document = $application->id.'_plumbing_damage_'.$i.'_'.$request->file('plumbing_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
                             $path = $request->file('plumbing_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/plumbing_damage', $document);

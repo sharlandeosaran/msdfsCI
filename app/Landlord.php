@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Landlord extends Model
 {
 
+    public function getNameAttribute($value)
+    {
+        return decrypt($this->attributes['first_name']) .' '. decrypt($this->attributes['surname']);
+    }
+
     public function getFirstNameAttribute($value)
     {
         return $value? decrypt($value) : null;
@@ -32,6 +37,11 @@ class Landlord extends Model
     public function setContactAttribute($value)
     {
         $this->attributes['contact'] = $value? encrypt($value) : null;
+    }
+
+    public function getRentalAmountAttribute($value)
+    {
+        return '$'.number_format($this->attributes['rental_amount'],2);
     }
 
     public function household()
