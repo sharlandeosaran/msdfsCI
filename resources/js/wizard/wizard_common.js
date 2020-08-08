@@ -217,14 +217,14 @@ $(function () {
         $('.id_card_state').addClass('hide');
 
         switch (state) {
-            case 'Have identification':
+            case '1':    // Have identification
                 break;
         
-            case 'Have EBC letter':
+            case '3':    // Have EBC letter
                 $('#ebc_id_letter_row').removeClass('hide');
                 break;
         
-            case 'Lost but have police report':
+            case '2':    // Lost but have police report
                 $('#lost_id_police_report_row').removeClass('hide');
                 break;
         
@@ -265,7 +265,7 @@ $(function () {
 function idCardCheck() {
     var state = $('[name="national_id_state"]').val();
     var proof = $('#proof_of_citizenship').val();
-    if (state == 'Have identification' || proof == 'National ID') {
+    if (state == 'Have identification' || proof == '1') {
         $('.id_card_row').removeClass('hide');
     } else {
         $('.id_card_row').addClass('hide');
