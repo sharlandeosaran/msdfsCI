@@ -603,6 +603,41 @@
                             </td>
                         </tr>
 
+                        
+
+                        @if (old('hi_dob'))
+                            @foreach (old('hi_dob') as $key => $item)
+                                @if ($key != 1)
+
+                                    <tr id="uploads_row_{{$key}}"> 
+                                        <td class=" table-active text-right align-middle" width="20%"> 
+                                            <div class="form-group{{ $errors->has('proof_of_earnings.'.$key) ? ' has-error' : '' }} mb-0 grp-proof_of_earnings_{{$key}}" id="grp-proof_of_earnings_{{$key}}"> 
+                                                <label class="control-label mb-0" for="proof_of_earnings_{{$key}}"> 
+                                                    Proof of Earnings for <span id="hi_name_{{$key}}_span">{{old('hi_first_name.'.$key) || old('hi_surname.'.$key)? old('hi_first_name.'.$key) .' '. old('hi_surname.'.$key) : '' }}</span> <i class="fa fa-info-circle" aria-hidden="true" title="Proof of actual earnings must be submitted such as a payslip or job letter for employed household members."></i> 
+                                                </label> 
+                                            </div> 
+                                        </td> 
+                                        <td width="80%"> 
+                                            <div class="form-group{{ $errors->has('proof_of_earnings.'.$key) ? ' has-error' : '' }} mb-0 grp-proof_of_earnings_{{$key}}">
+                                            <div class="input-group mb-0"> 
+                                                <div class="custom-file"> 
+                                                    <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_of_earnings_{{$key}}" name="proof_of_earnings[{{$key}}]"> 
+                                                    <label class="custom-file-label" for="proof_of_earnings_{{$key}}" id="proof_of_earnings_{{$key}}Label">{{old('proof_of_earnings_name.'.$key)? old('proof_of_earnings_name.'.$key) : 'Choose file'}}</label> 
+                                                </div> 
+                                                <input type="hidden" class="uploadhelp" value="{{old('proof_of_earnings_name.'.$key)}}" name="proof_of_earnings_name[{{$key}}]">
+                                            </div>
+                                            </div>
+                                            
+                                            <span class="help-block"> 
+                                                <strong id="err-proof_of_earnings_{{$key}}">{{ $errors->first('proof_of_earnings.'.$key) }}</strong> 
+                                            </span> 
+                                        </td> 
+                                    </tr>
+
+                                @endif
+                            @endforeach
+                        @endif
+
                     </tbody>
                 </table>
                 

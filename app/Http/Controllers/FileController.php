@@ -18,10 +18,12 @@ class FileController extends Controller
         foreach ($_FILES as $name => $file) {
             if ($file['name'] != '' && $request->file($name)) {
                 if (is_array($file['name'])) {
+                    // dd($file['name']);
+
                     foreach ($file['name'] as $key => $value) {
                         // dd($_FILES[$name]);
                         // dd($request->file($name)[$key]);
-                        if($request->file($name)[$key]->isValid()) {
+                        if($value && $request->file($name)[$key]->isValid()) {
                             $file = tempnam(sys_get_temp_dir(), 'POST');
                             file_put_contents($file, $request->file($name[$key]));//$_FILES[$name][$key]);
                             
