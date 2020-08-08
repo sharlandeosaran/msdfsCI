@@ -134,46 +134,32 @@ class CriticalIncidentController extends Controller
 
             // uploaded files
             "signature" => "required_without:signature_name|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-            // "employer_recommender_letter" => "required_without:employer_recommender_letter_name|max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
-            // "id_card_front" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_front_name),
-            // ],
-            // "id_card_back" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_back_name),
-            // ],
+            "id_card_front" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf(($request->national_id_state == '1') && !$request->id_card_front_name),
+            ],
+            "id_card_back" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf(($request->national_id_state == '1') && !$request->id_card_back_name),
+            ],
 
-            // "lost_id_police_report" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->national_id_state == 'Lost but have police report' && !$request->lost_id_police_report_name),
-            // ],
-            // "ebc_id_letter" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->national_id_state == 'Have EBC letter' && !$request->ebc_id_letter_name),
-            // ],
-
-            // "cert_immigration_status" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status' && !$request->cert_immigration_status_name),
-            // ],
-            // "cert_residence" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence' && !$request->cert_residence_name),
-            // ],
+            "lost_id_police_report" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == '2' && !$request->lost_id_police_report_name),
+            ],
+            "ebc_id_letter" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->national_id_state == '3' && !$request->ebc_id_letter_name),
+            ],
 
             // "passport_bio" => [
             //     'nullable',

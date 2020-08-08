@@ -603,6 +603,12 @@
                             </td>
                         </tr>
 
+                    </tbody>
+                </table>
+                
+                <table class="table table-bordered table-sm">
+                    <tbody>
+
                         <tr class="critical_uploads hide">
                             <td class="pt-4" colspan="2">
                                 <h5><strong>Please Upload Pictures For The Following</strong></h5>
