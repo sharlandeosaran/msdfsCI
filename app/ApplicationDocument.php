@@ -8,14 +8,23 @@ class ApplicationDocument extends Model
 {
 	public $timestamps = false;
 
+    public function getPathAttribute($value)
+    {
+        return $value? decrypt($value) : null;
+    }
+    public function setPathAttribute($value)
+    {
+        $this->attributes['path'] = $value? encrypt($value) : null;
+    }
+
     public function getDocumentUrlAttribute($value)
     {
-        return $this->attributes['document']? asset('/storage/uploads').'/'.$this->applicant_id.'/'.$this->attributes['document'] : null;
-        // **** change back - remove '!' ****
-        // if (file_exists(public_path().'/storage/uploads/'.$this->id.'/'.$this->attributes['upload1'])){
-            return $this->attributes['document'];
-        // }else
-            return;
+        return $this->attributes['path']? url('/storage/'. $this->path) : null;
+    }
+
+    public function type()
+    {
+        return $this->hasOne('App\DocumentType', 'id', 'document_type_id');
     }
 
     public function getFileIconAttribute($value)

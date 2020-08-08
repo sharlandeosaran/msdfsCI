@@ -118,4 +118,9 @@ class Application extends Model
         return \App\FormCriticalIncident::where('application_id', $this->id)->first();
         return $this->hasOne('App\FormCriticalIncident', 'application_id', $this->id);
     }
+
+    public function getDocumentsAttribute($value)
+    {
+        return \App\ApplicationDocument::where('application_id', $this->id)->get();
+    }
 }

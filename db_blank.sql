@@ -60,6 +60,7 @@ CREATE TABLE IF NOT EXISTS `application_documents` (
   `file` varchar(255) NOT NULL,
   `document` varchar(255) NOT NULL,
   `document_type_id` int(10) unsigned DEFAULT NULL,
+  `path` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -943,14 +944,17 @@ CREATE TABLE IF NOT EXISTS `households` (
   `address1` text NOT NULL,
   `address2` text DEFAULT NULL,
   `community_id` int(10) unsigned NOT NULL,
+  `total_income_id` int(10) unsigned NOT NULL DEFAULT 1,
   `active` int(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_households_housing_types` (`housing_type_id`),
   KEY `FK_households_communities` (`community_id`),
+  KEY `FK_households_total_income` (`total_income_id`),
   CONSTRAINT `FK_households_communities` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`),
-  CONSTRAINT `FK_households_housing_types` FOREIGN KEY (`housing_type_id`) REFERENCES `housing_types` (`id`)
+  CONSTRAINT `FK_households_housing_types` FOREIGN KEY (`housing_type_id`) REFERENCES `housing_types` (`id`),
+  CONSTRAINT `FK_households_total_income` FOREIGN KEY (`total_income_id`) REFERENCES `total_income` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table msdfs_forms_db.households: ~0 rows (approximately)
@@ -1019,7 +1023,7 @@ CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~12 rows (approximately)
+-- Dumping data for table msdfs_forms_db.items_lost_or_damaged: ~11 rows (approximately)
 /*!40000 ALTER TABLE `items_lost_or_damaged` DISABLE KEYS */;
 INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`, `max_value`) VALUES
 	(1, 'stove', 'Stove', 2500),
@@ -1268,20 +1272,21 @@ DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role` varchar(150) NOT NULL,
+  `slug` varchar(150) NOT NULL,
   `description` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.roles: ~7 rows (approximately)
+-- Dumping data for table msdfs_forms_db.roles: ~6 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`id`, `role`, `description`) VALUES
-	(1, 'Administrator', NULL),
-	(2, 'Intake Officer', NULL),
-	(3, 'Registration Clerk', NULL),
-	(4, 'Welfare Officer I', NULL),
-	(5, 'Welfare Officer II', NULL),
-	(6, 'Schedule Clerk', NULL),
-	(7, 'Supervisor', NULL);
+INSERT INTO `roles` (`id`, `role`, `slug`, `description`) VALUES
+	(1, 'Administrator', 'admin', NULL),
+	(2, 'Intake Officer', 'intake_officer', NULL),
+	(3, 'Registration Clerk', 'registration_clerk', NULL),
+	(4, 'Welfare Officer I', 'welfare_officer_1', NULL),
+	(5, 'Welfare Officer II', 'welfare_officer_2', NULL),
+	(6, 'Schedule Clerk', 'schedule_clerk', NULL),
+	(7, 'Supervisor', 'supervisor', NULL);
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.scotia_branches
@@ -1388,12 +1393,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   KEY `FK_users_roles` (`role_id`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`),
   CONSTRAINT `FK_users_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table msdfs_forms_db.users: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.users: ~3 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-07-27 17:58:30', NULL, '2020-05-02 04:29:15', '2020-07-27 17:58:30');
+	(1, 'Admin', NULL, 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-08-08 01:20:43', NULL, '2020-05-02 04:29:15', '2020-08-08 01:20:43'),
+	(2, 'Morgan', 'Merritt', 2, 'xebubodyg@mailinator.com', NULL, 1, '$2y$10$QnAKGQFoMMSzWUZ.NL2atuXDKsCSjxE8gRDDt1IMOucFu7wTgJcFq', NULL, NULL, 1, '2020-08-06 22:02:35', '2020-08-07 02:31:40'),
+	(3, 'Social', 'Admin', 1, 'admin@social.gov.tt', NULL, 1, '$2y$10$eYk3SMODJZZcGQXE6HK1Y.f5WsaGVlnAPu.q/lOaETHPKK5NqgnGG', NULL, NULL, 1, '2020-08-07 02:25:15', '2020-08-07 02:33:25');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_audit

@@ -53,23 +53,23 @@ class CriticalIncidentController extends Controller
             "landlord_first_name" => [
                 "nullable",
                 "max:150",
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->housing_type == 4),
             ],
             "landlord_surname" => [
                 "nullable",
                 "max:150",
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->housing_type == 4),
             ],
             "landlord_contact_no" => [
                 "nullable",
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->housing_type == 4),
             ],
             "rental_amount" => [
                 "nullable",
                 "numeric",
                 "min:0",
-                Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought)),
+                Rule::requiredIf($request->housing_type == 4),
             ],
             
             "home_address" => "required|max:250",
@@ -377,6 +377,17 @@ class CriticalIncidentController extends Controller
         $household->community_id = $request->city_town;
         $household->total_income_id = $request->hi_total_income;
         $household->save();
+
+        // landlord info
+        if ($request->housing_type == 4) {
+            $landlord = new \App\Landlord();
+            $landlord->household_id = $household->id;
+            $landlord->first_name = $request->landlord_first_name;
+            $landlord->surname = $request->landlord_surname;
+            $landlord->contact = $request->landlord_contact_no;
+            $landlord->rental_amount = $request->rental_amount;
+            $landlord->save();
+        }
         
         // store applicants
         // sort list
@@ -461,13 +472,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_signature_'.$request->file('signature')->getClientOriginalName();
                     // upload upload
-                    $request->signature->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->signature->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'signature';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -489,13 +501,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_id_card_front_'.$request->file('id_card_front')->getClientOriginalName();
                     // upload upload
-                    $request->id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->id_card_front->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'id_card_front';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -517,13 +530,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_id_card_back_'.$request->file('id_card_back')->getClientOriginalName();
                     // upload upload
-                    $request->id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->id_card_back->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'id_card_back';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -545,13 +559,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_lost_id_police_report_'.$request->file('lost_id_police_report')->getClientOriginalName();
                     // upload upload
-                    $request->lost_id_police_report->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->lost_id_police_report->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'lost_id_police_report';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -573,13 +588,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_ebc_id_letter_'.$request->file('ebc_id_letter')->getClientOriginalName();
                     // upload upload
-                    $request->ebc_id_letter->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->ebc_id_letter->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'ebc_id_letter';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -601,13 +617,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_landlord_id_card_front_'.$request->file('landlord_id_card_front')->getClientOriginalName();
                     // upload upload
-                    $request->landlord_id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->landlord_id_card_front->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'landlord_id_card_front';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -629,13 +646,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_landlord_id_card_back_'.$request->file('landlord_id_card_back')->getClientOriginalName();
                     // upload upload
-                    $request->landlord_id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->landlord_id_card_back->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'landlord_id_card_back';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -657,13 +675,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_utility_bill_'.$request->file('utility_bill')->getClientOriginalName();
                     // upload upload
-                    $request->utility_bill->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->utility_bill->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'utility_bill';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -685,13 +704,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_rental_agreement_'.$request->file('rental_agreement')->getClientOriginalName();
                     // upload upload
-                    $request->rental_agreement->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->rental_agreement->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'rental_agreement';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -713,13 +733,14 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_rent_receipt_'.$request->file('rent_receipt')->getClientOriginalName();
                     // upload upload
-                    $request->rent_receipt->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->rent_receipt->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
                     $file->file = 'rent_receipt';
                     $file->document = $document;
                     $file->document_type_id = $mime;
+                    $file->path = $path;
                     $file->save();
                 }
             }
@@ -743,13 +764,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_housing_relief_quotation_'.$i.'_'.$request->file('housing_relief_quotation'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('housing_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/housing_relief_quotation', $document);
+                            $path = $request->file('housing_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/housing_relief_quotation', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'housing_relief_quotation_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }
@@ -775,12 +797,13 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_school_supplies_relief_quotation_'.$i.'_'.$request->file('school_supplies_relief_quotation'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('school_supplies_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/school_supplies_relief_quotation', $document);
+                            $path = $request->file('school_supplies_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/school_supplies_relief_quotation', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'school_supplies_relief_quotation_'.$i;
                             $file->document = $document;
+                    $file->path = $path;
                             $file->document_type_id = $mime;
                             $file->save();
                         }
@@ -807,13 +830,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_proof_of_earnings_'.$i.'_'.$request->file('proof_of_earnings'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('proof_of_earnings'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/proof_of_earnings', $document);
+                            $path = $request->file('proof_of_earnings'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/proof_of_earnings', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'proof_of_earnings_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }
@@ -839,13 +863,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_water_marks_'.$i.'_'.$request->file('water_marks'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('water_marks'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/water_marks', $document);
+                            $path = $request->file('water_marks'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/water_marks', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'water_marks_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }
@@ -871,13 +896,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_structural_damage_'.$i.'_'.$request->file('structural_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('structural_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/structural_damage', $document);
+                            $path = $request->file('structural_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/structural_damage', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'structural_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }
@@ -903,13 +929,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_electrical_damage_'.$i.'_'.$request->file('electrical_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('electrical_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/electrical_damage', $document);
+                            $path = $request->file('electrical_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/electrical_damage', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'electrical_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }
@@ -935,13 +962,14 @@ class CriticalIncidentController extends Controller
                         if (in_array($type, $types)) {
                             $document = $application->id.'_plumbing_damage_'.$i.'_'.$request->file('plumbing_damage'.'.'.$i)->getClientOriginalName();
                             // upload upload
-                            $request->file('plumbing_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/plumbing_damage', $document);
+                            $path = $request->file('plumbing_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/plumbing_damage', $document);
                             // save name to application
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'plumbing_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
+                    $file->path = $path;
                             $file->save();
                         }
                     }

@@ -60,8 +60,18 @@ function msTimeStamp()
 	return (string)round(microtime(1) * 1000);
 }
 
-function dashboard_sort_categories($a, $b) {
+function dashboard_sort_categories($a, $b) 
+{
     return $b->count - $a->count;
+}
+
+function applicant_docs()
+{
+	$list = [
+		'',
+	];
+	asort($list);
+	return $list;
 }
 
 // lookup lists
