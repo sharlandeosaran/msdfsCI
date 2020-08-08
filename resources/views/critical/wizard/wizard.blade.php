@@ -46,6 +46,29 @@
         $('#uploadsSection').html('4');
         $('.critical_uploads').removeClass('hide');
         $('#employer_recommender_letter_div').addClass('hide');
+            
+        // change ID uploads based on ID state
+        $(document).on('change', '#critical_national_id_state', function(){
+            var state = $(this).val();
+            $('.id_card_state').addClass('hide');
+    
+            switch (state) {
+                case '1':    // Have identification
+                    $('.id_card_row').removeClass('hide');
+                    break;
+            
+                case '3':    // Have EBC letter
+                    $('#ebc_id_letter_row').removeClass('hide');
+                    break;
+            
+                case '2':    // Lost but have police report
+                    $('#lost_id_police_report_row').removeClass('hide');
+                    break;
+            
+                default:
+                    break;
+            }
+        });
                 
         // show community based on region
         $(document).on('change', '#region', function(){

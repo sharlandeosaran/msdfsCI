@@ -45,7 +45,7 @@ class CriticalIncidentController extends Controller
             "othername" => "nullable|max:150",
             "email" => "nullable|email|max:250",
             "marital_status" => "required|exists:marital_status,id",
-            "national_id_state" => "required|exists:id_states,id",
+            "critical_national_id_state" => "required|exists:id_states,id",
             "drivers_permit" => "nullable|max:150",
             "passport" => "nullable|max:150",
             "housing_type" => "required|exists:housing_types,id",
@@ -139,71 +139,80 @@ class CriticalIncidentController extends Controller
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf(($request->national_id_state == '1') && !$request->id_card_front_name),
+                Rule::requiredIf(($request->critical_national_id_state == '1') && !$request->id_card_front_name),
             ],
             "id_card_back" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf(($request->national_id_state == '1') && !$request->id_card_back_name),
+                Rule::requiredIf(($request->critical_national_id_state == '1') && !$request->id_card_back_name),
             ],
 
             "lost_id_police_report" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == '2' && !$request->lost_id_police_report_name),
+                Rule::requiredIf($request->critical_national_id_state == '2' && !$request->lost_id_police_report_name),
             ],
             "ebc_id_letter" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == '3' && !$request->ebc_id_letter_name),
+                Rule::requiredIf($request->critical_national_id_state == '3' && !$request->ebc_id_letter_name),
             ],
 
-            // "passport_bio" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_bio_name),
-            // ],
-            // "passport_stamp" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_stamp_name),
-            // ],
+            "landlord_id_card_front" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->housing_type == 4 && !$request->landlord_id_card_front_name),
+            ],
+            "landlord_id_card_back" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->housing_type == 4 && !$request->landlord_id_card_back_name),
+            ],
+            "utility_bill" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->housing_type == 4 && !$request->utility_bill_name),
+            ],
+            "rental_agreement" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->housing_type == 4 && !$request->rental_agreement_name),
+            ],
+            "rent_receipt" => [
+                'nullable',
+                'max:10000',
+                'mimes:pdf,doc,docx,jpg,jpeg,png',
+                Rule::requiredIf($request->housing_type == 4 && !$request->rent_receipt_name),
+            ],
 
-            // "proof_landlord_ownership" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->proof_landlord_ownership_name),
-            // ],
-            // "landlord_id_card" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->landlord_id_card_name),
-            // ],
-            // "rental_agreement" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rental_agreement_name),
-            // ],
-            // "rent_receipt" => [
-            //     'nullable',
-            //     'max:10000',
-            //     'mimes:pdf,doc,docx,jpg,jpeg,png',
-            //     Rule::requiredIf($request->assistance_sought && array_key_exists(2, $request->assistance_sought) && !$request->rent_receipt_name),
-            // ],
+            'housing_relief_quotation' => "nullable|array",
+            'housing_relief_quotation.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            'school_supplies_relief_quotation' => "nullable|array",
+            'school_supplies_relief_quotation.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            "proof_of_earnings" => "array",
+            "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+
+            
+            'water_marks' => "nullable|array",
+            'water_marks.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'structural_damage' => "nullable|array",
+            'structural_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'electrical_damage' => "nullable|array",
+            'electrical_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
+            'plumbing_damage' => "nullable|array",
+            'plumbing_damage.*' => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
 
             // "cert_incorporation_registration" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
             // "recommendation_letter" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
-
-            // "proof_of_earnings" => "array",
-            // "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
             'landlord_first_name.required' => 'The landlord first name field is required when rental assistance is sought.',
@@ -401,7 +410,7 @@ class CriticalIncidentController extends Controller
             $person->marital_status_id = $value['key'] == 1? $request->marital_status : null;
             $person->marital_status_other = $value['key'] == 1? $request->hi_emp_status_other[$value['key']] : null;
             $person->national_id = $request->hi_national_id[$value['key']];
-            $person->national_id_state_id = $value['key'] == 1? $request->national_id_state : null;
+            $person->national_id_state_id = $value['key'] == 1? $request->critical_national_id_state : null;
             $person->drivers_permit = $value['key'] == 1? $request->drivers_permit : null;
             $person->passport = $value['key'] == 1? $request->passport : null;
             $person->employment_status_id = $request->hi_emp_status[$value['key']];
@@ -450,7 +459,7 @@ class CriticalIncidentController extends Controller
                 }
                 
                 if (in_array($type, $types)) {
-                    $document = $application->id.'_'.$request->file('signature')->getClientOriginalName();
+                    $document = $application->id.'_signature_'.$request->file('signature')->getClientOriginalName();
                     // upload upload
                     $request->signature->storeAs('uploads/applications/'.$application->id, $document);
                     // save name to application
@@ -463,31 +472,482 @@ class CriticalIncidentController extends Controller
                 }
             }
         }
+            
+        // id_card_front
+        if ($request->file('id_card_front') !== null) {
+            if ($request->file('id_card_front')->isValid()) {
+                
+                // get file type
+                $type = $request->file('id_card_front')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_id_card_front_'.$request->file('id_card_front')->getClientOriginalName();
+                    // upload upload
+                    $request->id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'id_card_front';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // id_card_back
+        if ($request->file('id_card_back') !== null) {
+            if ($request->file('id_card_back')->isValid()) {
+                
+                // get file type
+                $type = $request->file('id_card_back')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_id_card_back_'.$request->file('id_card_back')->getClientOriginalName();
+                    // upload upload
+                    $request->id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'id_card_back';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // lost_id_police_report
+        if ($request->file('lost_id_police_report') !== null) {
+            if ($request->file('lost_id_police_report')->isValid()) {
+                
+                // get file type
+                $type = $request->file('lost_id_police_report')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_lost_id_police_report_'.$request->file('lost_id_police_report')->getClientOriginalName();
+                    // upload upload
+                    $request->lost_id_police_report->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'lost_id_police_report';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // ebc_id_letter
+        if ($request->file('ebc_id_letter') !== null) {
+            if ($request->file('ebc_id_letter')->isValid()) {
+                
+                // get file type
+                $type = $request->file('ebc_id_letter')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_ebc_id_letter_'.$request->file('ebc_id_letter')->getClientOriginalName();
+                    // upload upload
+                    $request->ebc_id_letter->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'ebc_id_letter';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // landlord_id_card_front
+        if ($request->file('landlord_id_card_front') !== null) {
+            if ($request->file('landlord_id_card_front')->isValid()) {
+                
+                // get file type
+                $type = $request->file('landlord_id_card_front')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_landlord_id_card_front_'.$request->file('landlord_id_card_front')->getClientOriginalName();
+                    // upload upload
+                    $request->landlord_id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'landlord_id_card_front';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // landlord_id_card_back
+        if ($request->file('landlord_id_card_back') !== null) {
+            if ($request->file('landlord_id_card_back')->isValid()) {
+                
+                // get file type
+                $type = $request->file('landlord_id_card_back')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_landlord_id_card_back_'.$request->file('landlord_id_card_back')->getClientOriginalName();
+                    // upload upload
+                    $request->landlord_id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'landlord_id_card_back';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // utility_bill
+        if ($request->file('utility_bill') !== null) {
+            if ($request->file('utility_bill')->isValid()) {
+                
+                // get file type
+                $type = $request->file('utility_bill')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_utility_bill_'.$request->file('utility_bill')->getClientOriginalName();
+                    // upload upload
+                    $request->utility_bill->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'utility_bill';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // rental_agreement
+        if ($request->file('rental_agreement') !== null) {
+            if ($request->file('rental_agreement')->isValid()) {
+                
+                // get file type
+                $type = $request->file('rental_agreement')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_rental_agreement_'.$request->file('rental_agreement')->getClientOriginalName();
+                    // upload upload
+                    $request->rental_agreement->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'rental_agreement';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
+            
+        // rent_receipt
+        if ($request->file('rent_receipt') !== null) {
+            if ($request->file('rent_receipt')->isValid()) {
+                
+                // get file type
+                $type = $request->file('rent_receipt')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_rent_receipt_'.$request->file('rent_receipt')->getClientOriginalName();
+                    // upload upload
+                    $request->rent_receipt->storeAs('uploads/applications/'.$application->id, $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'rent_receipt';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->save();
+                }
+            }
+        }
         
-        // if ($request->file('other_documents_'.$value['key']) !== null) 
-        // {
-        //     foreach ($request->file('other_documents_'.$value['key']) as $i => $other) {
-        //         if ($request->file('other_documents_'.$value['key'].'.'.$i) !== null) {
-        //             if ($request->input('other_documents_'.$value['key'].'.'.$i)->isValid()) {
+        // housing_relief_quotation
+        if ($request->file('housing_relief_quotation') !== null) {
+            foreach ($request->file('housing_relief_quotation') as $i => $other) {
+                if ($request->file('housing_relief_quotation'.'.'.$i) !== null) {
+                    if ($request->file('housing_relief_quotation'.'.'.$i)->isValid()) {
                         
-        //                 $type = $request->file('other_documents_'.$value['key'].'.'.$i)->getMimeType();
+                        // get file type
+                        $type = $request->file('housing_relief_quotation.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
                         
-        //                 if (in_array($type, $types)) {
-        //                     $upload = $applicant->id.'_'.$request->file('other_documents_'.$value['key'].'.'.$i)->getClientOriginalName();
-        //                     // upload upload
-        //                     $request->input('other_documents_'.$value['key'].'.'.$i)->storeAs('public/uploads/'.$applicant->id, $upload);
-        //                     // save name to application
-        //                     $file = new \App\ApplicantDoc();
-        //                     $file->applicant_id = $applicant->id;
-        //                     $file->file = 'other_documents_'.$i;
-        //                     $file->upload = $upload;
-        //                     $file->upload_type = $type;
-        //                     $file->save();
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_housing_relief_quotation_'.$i.'_'.$request->file('housing_relief_quotation'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('housing_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/housing_relief_quotation', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'housing_relief_quotation_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // school_supplies_relief_quotation
+        if ($request->file('school_supplies_relief_quotation') !== null) {
+            foreach ($request->file('school_supplies_relief_quotation') as $i => $other) {
+                if ($request->file('school_supplies_relief_quotation'.'.'.$i) !== null) {
+                    if ($request->file('school_supplies_relief_quotation'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('school_supplies_relief_quotation.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_school_supplies_relief_quotation_'.$i.'_'.$request->file('school_supplies_relief_quotation'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('school_supplies_relief_quotation'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/school_supplies_relief_quotation', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'school_supplies_relief_quotation_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // proof_of_earnings
+        if ($request->file('proof_of_earnings') !== null) {
+            foreach ($request->file('proof_of_earnings') as $i => $other) {
+                if ($request->file('proof_of_earnings'.'.'.$i) !== null) {
+                    if ($request->file('proof_of_earnings'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('proof_of_earnings.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_proof_of_earnings_'.$i.'_'.$request->file('proof_of_earnings'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('proof_of_earnings'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/proof_of_earnings', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'proof_of_earnings_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // water_marks
+        if ($request->file('water_marks') !== null) {
+            foreach ($request->file('water_marks') as $i => $other) {
+                if ($request->file('water_marks'.'.'.$i) !== null) {
+                    if ($request->file('water_marks'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('water_marks.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_water_marks_'.$i.'_'.$request->file('water_marks'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('water_marks'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/water_marks', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'water_marks_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // structural_damage
+        if ($request->file('structural_damage') !== null) {
+            foreach ($request->file('structural_damage') as $i => $other) {
+                if ($request->file('structural_damage'.'.'.$i) !== null) {
+                    if ($request->file('structural_damage'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('structural_damage.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_structural_damage_'.$i.'_'.$request->file('structural_damage'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('structural_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/structural_damage', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'structural_damage_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // electrical_damage
+        if ($request->file('electrical_damage') !== null) {
+            foreach ($request->file('electrical_damage') as $i => $other) {
+                if ($request->file('electrical_damage'.'.'.$i) !== null) {
+                    if ($request->file('electrical_damage'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('electrical_damage.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_electrical_damage_'.$i.'_'.$request->file('electrical_damage'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('electrical_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/electrical_damage', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'electrical_damage_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // plumbing_damage
+        if ($request->file('plumbing_damage') !== null) {
+            foreach ($request->file('plumbing_damage') as $i => $other) {
+                if ($request->file('plumbing_damage'.'.'.$i) !== null) {
+                    if ($request->file('plumbing_damage'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('plumbing_damage.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $types)) {
+                            $document = $application->id.'_plumbing_damage_'.$i.'_'.$request->file('plumbing_damage'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $request->file('plumbing_damage'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/plumbing_damage', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'plumbing_damage_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
         // dd();
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');

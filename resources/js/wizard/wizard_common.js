@@ -212,7 +212,7 @@ $(function () {
     });
             
     // change ID uploads based on ID state
-    $(document).on('change', '[name="national_id_state"]', function(){
+    $(document).on('change', '#national_id_state', function(){
         var state = $(this).val();
         $('.id_card_state').addClass('hide');
 

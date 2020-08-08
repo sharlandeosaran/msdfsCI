@@ -177,25 +177,25 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('national_id_state') ? ' has-error' : '' }} grp-national_id_state">
-                                    <label class="control-label mb-0" for="national_id_state">
+                                <div class="form-group mb-0{{ $errors->has('critical_national_id_state') ? ' has-error' : '' }} grp-critical_national_id_state">
+                                    <label class="control-label mb-0" for="critical_national_id_state">
                                         National Identification Card Condition <span class="red">*</span> 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
                                     </label>
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('national_id_state') ? ' has-error' : '' }} grp-national_id_state">
+                                <div class="form-group mb-0{{ $errors->has('critical_national_id_state') ? ' has-error' : '' }} grp-critical_national_id_state">
                                     
-                                    <select class="form-control" id="national_id_state" name="national_id_state">
+                                    <select class="form-control" id="critical_national_id_state" name="critical_national_id_state">
                                         {{-- <option selected="" value="">select...</option> --}}
                                         @foreach ($id_state as $state)
-                                        <option {{old('national_id_state') == $state->id? 'selected' : '' }} value="{{$state->id}}">{{$state->id_state}}</option>
+                                        <option {{old('critical_national_id_state') == $state->id? 'selected' : '' }} value="{{$state->id}}">{{$state->id_state}}</option>
                                         @endforeach
                                     </select>
                                     
                                     <span class="help-block">
-                                        <strong id="err-national_id_state">{{ $errors->first('national_id_state') }}</strong>
+                                        <strong id="err-critical_national_id_state">{{ $errors->first('critical_national_id_state') }}</strong>
                                     </span>
                                 </div>
                             </td>
