@@ -694,7 +694,7 @@
                                 @if ($application->form_critical_incident()->housing_damage)
                                     <p>
                                         <strong>
-                                            <i class="fa fa-dollar margin-r-5"></i> Housing Damage | 
+                                            <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
                                             @if ($application->form_critical_incident()->housing_damage == 'Y')
                                                 <i class="fa fa-check-square fa-lg text-green" style="margin-left: 5px"></i>
                                             @else
@@ -707,7 +707,7 @@
                                     @if ($application->form_critical_incident()->housing_damage == 'Y')
 
                                         @if ($application->form_critical_incident()->housing_repairs)
-                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs</strong>                                
+                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs Required </strong>                                
                                         <p class="text-muted">
                                             {{$application->form_critical_incident()->housing_repairs}}
                                         </p>
@@ -925,8 +925,8 @@
         <div class="modal-content" style="height: 95%; overflow: auto;">
             <div class="modal-header">
                 {{-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> --}}
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <i class="fas fa-times" style="color: red"></i>
+                <button type="button" class="close" style="color: red" data-dismiss="modal" aria-label="Close">
+                    <i class="fas fa-times"></i> close
                 </button>
             </div>
             <div class="modal-body" style="height: 100%;">
