@@ -37,7 +37,7 @@ class Person extends Model
     }
     public function setOthernameAttribute($value)
     {
-        $this->attributes['othername'] = encrypt($value);
+        $this->attributes['othername'] = $value? encrypt($value) : null;
     }
 
     public function getEmailAttribute($value)
@@ -160,7 +160,20 @@ class Person extends Model
         } else {
             return;
         }
-        
+    }
+
+    public function getMaritalStatusAttribute($value)
+    {
+        $marital_status = \App\MaritalStatus::find($this->marital_status_id);
+        if ($marital_status) {
+            if ($marital_status->status == 'Other' && $this->attributes['marital_status_other']) {
+                return $this->marital_status_other;
+            } else {
+                return $marital_status->status;
+            }
+        } else {
+            return;
+        }
     }
 
     public function person_household()

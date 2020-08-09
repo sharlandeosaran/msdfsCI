@@ -388,6 +388,21 @@
                                                                 </td>
                                                             </tr>
                                                             
+                                                            @if ($applicant->person->othername)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Other Names
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->othername}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
                                                             @if ($applicant->relationship)
                                                             <tr>
                                                                 <td class="active text-right align-middle" width="30%">
@@ -418,6 +433,21 @@
                                                                         <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                                                         @endforeach
                                                                     </p>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->marital_status_id)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Marital Status
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->marital_status}} </label>
                                                                 </td>
                                                             </tr>
                                                             @endif
@@ -650,6 +680,16 @@
                                     {{$application->form_critical_incident()->disaster}}
                                 </p>
                                 <hr>
+                                    
+                                @if ($application->form_critical_incident()->items_lost)
+                                    <strong><i class="fa fa-medkit margin-r-5"></i> Items Lost or Damaged</strong>                                
+                                    <h4>
+                                        @foreach ($application->form_critical_incident()->items_lost as $item)
+                                            <span class="label label-default">{{$item->item}}</span>
+                                        @endforeach
+                                    </h4>
+                                    <hr>
+                                @endif
                                     
                                 @if ($application->form_critical_incident()->housing_damage)
                                     <p>

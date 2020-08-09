@@ -42,6 +42,15 @@ class FormCriticalIncident extends Model
         return \App\Insurer::where('form_critical_incident_id', $this->id)->first();
     }
 
+    public function getItemsLostAttribute()
+    {
+        return \App\FormCIItemsLost::
+            leftJoin('items_lost_or_damaged', 'items_lost_or_damaged.id', 'form_ci_items_lost.item_id')->
+            where('form_ci_items_lost.form_critical_incident_id', $this->id)->
+            orderBy('items_lost_or_damaged.item', 'asc')->
+            get();
+    }
+
     public function getDisasterAttribute($value)
     {
         $disaster = \App\Disaster::find($this->disaster_id);
