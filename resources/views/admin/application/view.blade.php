@@ -154,7 +154,7 @@
                         <!-- /.box-header -->
                         <div class="box-body">
 
-                            <p><strong><i class="fa fa-hashtag margin-r-5"></i> Ref Number | {{$application->id}}</strong></p>
+                            <p><strong><i class="fa fa-hashtag margin-r-5"></i> Ref Number | {{$application->form_critical_incident()? $application->form_critical_incident()->reference_number : ''}}</strong></p>
                             <hr>
 
                             <p>
