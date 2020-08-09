@@ -682,7 +682,7 @@
                                 <hr>
                                     
                                 @if ($application->form_critical_incident()->items_lost)
-                                    <strong><i class="fa fa-medkit margin-r-5"></i> Items Lost or Damaged</strong>                                
+                                    <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
                                     <h4>
                                         @foreach ($application->form_critical_incident()->items_lost as $item)
                                             <span class="label label-default">{{$item->item}}</span>
