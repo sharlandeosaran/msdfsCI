@@ -85,7 +85,15 @@
 
         <span class="pull-right">
             @foreach ($status as $stat)
-                @if (in_array($stat->id, \Auth::user()->role_permissions) && $stat->id > $application->status_id && ($stat->id == $application->status_id + 1 || ($stat->id == $application->status_id + 3 && $application->status_id == 8)))
+                @if (
+                    in_array($stat->id, \Auth::user()->role_permissions) && 
+                    $stat->id > $application->status_id && 
+                    (
+                        $stat->id == $application->status_id + 1 || 
+                        ($stat->id == $application->status_id + 3 && $application->status_id == 8) ||
+                        ($stat->id == $application->status_id + 2 && $application->status_id == 1)
+                    )
+                )
                     <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}">{{$stat->button}}</button>
                 @endif
                 
