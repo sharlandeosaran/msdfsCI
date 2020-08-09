@@ -337,7 +337,9 @@
 
 @section('content')
 <link href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" /> 
-<link href="{{ asset('css/tables.css') }}" rel="stylesheet" /> 
+<link href="{{ asset('css/tables.css') }}" rel="stylesheet" />
+<input type="hidden" id="update_row">
+<input type="hidden" id="rowId">
 
 <section class="content">
     
@@ -451,7 +453,7 @@
                     // clear table
                     table.clear().draw();
 
-                    jQuery.each(response.data, function(index, item) {
+                    $.each(response.data, function(index, item) {
                         table.row.add( [
                             item.application_id,
                             item.first_name + ' ' + item.surname + '<br>(' + item.applicants + ' in household)',
@@ -465,14 +467,60 @@
                 },
                 error: function(response) {
                     // console.log(response)
-                    alert(response.responseText.message)
+                    alert(response.responseJSON.msg)
                 }
             });
         }
+
+        // value to update after row viewed
+        $('#example1').on( 'click', 'tr', function () {
+            var id = table.row( this ).index();
+            $('#rowId').val(id);
+            // console.log(table.row( this ).index())
+            // console.log( 'Clicked row id '+ id );
+        } );
+
+        // update row after modal closed
+        $('#modalview').on('hidden.bs.modal', function (e) {
+            setTimeout(() => {
+                var update_row = $('#update_row').val();
+                var rowId = $('#rowId').val();
+                var data = {
+                    'id': update_row,
+                }
+                
+                $.ajax({
+                    type: 'POST',
+                    url: "{{route('updatedrowajax')}}",
+                    data: data,
+                    success: function(response) {
+                        // console.log(response)
+                        // console.log(response.data[0])
+                        
+                        // update changed row
+                        newData = [
+                            response.data[0].application_id,
+                            response.data[0].first_name + ' ' + response.data[0].surname + '<br>(' + response.data[0].applicants + ' in household)',
+                            response.data[0].form,
+                            response.data[0].region,
+                            response.data[0].status,
+                            formatDate(response.data[0].created_at),
+                            '<a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="' + response.data[0].application_id + '"><i class="fa fa-eye" aria-hidden="true"></i> view</a>'
+                        ];
+                        table.row(rowId).data( newData ).draw(false);
+                    },
+                    error: function(response) {
+                        // console.log(response)
+                        alert(response.responseJSON.msg)
+                    }
+                });
+            }, 1000);
+        });
     })
 
     $(document).on('click', '.application_view', function (e) {
         var application = $(this).attr('application');
+        $('#update_row').val(application);
         var page = "{{url('/admin/applications/view')}}/" + application;
         $('#modalviewbody').html('<iframe style="border: 0px; height: -webkit-fill-available; height: 100%;" src="' + page + '" width="100%"></iframe>');
     })

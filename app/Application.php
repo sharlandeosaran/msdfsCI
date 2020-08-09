@@ -231,4 +231,12 @@ class Application extends Model
                 })->
                 get();
     }
+
+    public function getHistoryAttribute($value)
+    {
+        return \App\ApplicationStatusAudit::
+                where('application_id', $this->id)->
+                orderBy('id', 'desc')->
+                get();
+    }
 }

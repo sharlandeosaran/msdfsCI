@@ -82,6 +82,14 @@
 <section class="content-header">
     <h1>
         Application Region | <strong>{{$application->applicant->region}}</strong>
+
+        <span class="pull-right">
+            @foreach ($status as $stat)
+                @if (in_array($stat->id, \Auth::user()->role_permissions) && $stat->id > $application->status_id)
+                    <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}">{{$stat->button}}</button>
+                @endif
+            @endforeach
+        </span>
     </h1>
 </section>
 
@@ -95,25 +103,36 @@
                     <a href="#" class="list-group-item active text-center">
                         <h4 class="glyphicon"><i class="fas fa-file-alt fa-lg"></i></h4><br/>Application Details
                     </a>
+
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-home fa-lg"></i></h4><br/>Household
                     </a>
+
                     @if ($application->household->housing_type_id == 4 && $application->household->landlord)
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-user fa-lg"></i></h4><br/>Landlord Details
                     </a>
                     @endif
+
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-exclamation-triangle fa-lg"></i></h4><br/>Disaster Details
                     </a>
+
                     @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-images fa-lg"></i></h4><br/>Photos
                     </a>
                     @endif
-                    @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
+
+                    @if (count($application->fire_service_report_documents) + count($application->regional_corporation_flooding_report_documents) + count($application->clothing_relief_quotation_documents) + count($application->housing_relief_quotation_documents) + count($application->school_supplies_relief_quotation_documents))
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-file-pdf fa-lg"></i></h4><br/>Documents
+                    </a>
+                    @endif
+                    
+                    @if (count($application->history))
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon"><i class="fas fa-history fa-lg"></i></h4><br/>History
                     </a>
                     @endif
                     
@@ -202,44 +221,6 @@
                         </div>
                         <!-- /.box-body -->
                     </div>
-                    <!-- /.box -->
-                    
-                    <!-- feedback audit trail -->
-                    {{-- @if (count($application->history))
-                        <div class="box box-danger">
-                            <!-- /.box-header -->
-                            <div class="box-body">
-                                <h3>
-                                    History <i class="fa fa-history margin-r-5"></i> 
-                                    <button class="btn btn-sm btn-danger pull-right" id="viewhistory"><i class="fa fa-eye margin-r-5"></i>view</button>
-                                </h3>
-
-                                <div id="history" class="" style="display:none">
-                                    @foreach ($application->history as $item)
-                                    <hr>
-                                    {{$item->oldStatus->status}} <i class="fa fa-arrow-right"></i> {{$item->newStatus->status}} <br>
-
-                                    @if ($item->assignment)
-                                    <i class="fa fa-user-plus margin-r-5"></i> {{$item->assignment->assignedTo->name}} <br>
-                                    @endif
-
-                                    <br>
-                                    <blockquote>
-                                        <p class="text-justify">{!!$item->details!!}</p>
-                                        <small><cite title="Source Title">
-                                            <i class="fa fa-user margin-r-5"></i> {{$item->changedBy->name}}
-                                        </cite></small>
-                                        <small><cite title="Source Title">
-                                            <i class="fa fa-calendar margin-r-5"></i> {{$item->since}}
-                                        </cite></small>
-                                    </blockquote>
-                                    @endforeach
-                                </div>
-
-                            </div>
-                            <!-- /.box-body -->
-                        </div>
-                    @endif --}}
                     <!-- /.box -->
                 </div>
                 
@@ -753,6 +734,7 @@
                     <div class="box box-danger">
                         <!-- /.box-header -->
                         <div class="box-body">
+                            
                             @if (count($application->water_marks))
                                 <p>
                                     <strong><i class="far fa-images margin-r-5"></i> Water Marks</strong>
@@ -914,6 +896,47 @@
                     </div>
                 </div>
 
+                {{-- History --}}
+                <div class="bhoechie-tab-content">
+                    <!-- Profile Image -->
+                    <div class="my-0">
+                        <div class="box-body box-profile text-center">
+                            
+                            <h3 class="profile-username"><strong>History</strong></h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    <div class="box box-danger">
+                        <!-- /.box-header -->
+                        <div class="box-body" style="padding-top: 20px">
+                    
+                            <!-- application audit trail -->
+                            @if (count($application->history))
+
+                                @foreach ($application->history as $item)
+                                    {{$item->oldStatus->status}} <i class="fa fa-arrow-right"></i> {{$item->newStatus->status}} <br>
+
+                                    <br>
+                                    <blockquote>
+                                        <p class="text-justify">{!!$item->details!!}</p>
+                                        <small><cite title="Source Title">
+                                            <i class="fa fa-user margin-r-5"></i> {{$item->changedBy->name}}
+                                        </cite></small>
+                                        <small><cite title="Source Title">
+                                            <i class="fa fa-calendar margin-r-5"></i> {{$item->since}}
+                                        </cite></small>
+                                    </blockquote>
+                                    <hr>
+                                @endforeach
+
+                            @endif
+                            <!-- /.box -->
+                            
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -938,6 +961,49 @@
         </div>
     </div>
 </div>
+
+{{-- status change modal --}}
+
+
+<div class="modal fade" id="stateDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Status Change Details For Application</h4>
+            </div>
+            
+            <form method="POST" action="#">
+                {{-- @csrf
+                @method('PUT') --}}
+                
+                <div class="modal-body">
+                    
+                    <input type="hidden" value="{{$application->id}}" name="id">
+                    
+                    <div class="form-group">
+                        <label class="">Intended Status: <span class="label label-default" style="font-size: larger; margin-left:15px" id="newstatus">New Status</span></label>
+                        {{-- <p class="form-control-static"></p> --}}
+                        <input type="hidden" name="status" id="status">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Details</label>
+                        <textarea class="form-control" rows="3" name="details" id="details" maxlength="1000"></textarea>
+                                    
+                        <span class="help-block text-danger" style="color: #a94442;">
+                            <strong id="err-status"></strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="btn_status_submit">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('scripts')
@@ -945,6 +1011,56 @@
 <script src="{{ asset('js/admin/lightbox/ekko-lightbox.min.js') }}"></script>
 
 <script>
+
+    // setup ajax
+    $.ajaxSetup({
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+    });
+    
+    // status change
+    $(document).on('click', '#btn_status_submit', function() {
+        $(this).button('loading');
+
+        var data = {
+            'id': $('[name="id"]').val(),
+            'status': $('[name="status"]').val(),
+            'details': $('[name="details"]').val(),
+        }
+        // console.log(applicant);
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{route('updatestatus')}}",
+            data: data,
+            success: function(response) {
+                $('#loadingModal').modal('show');
+                location.reload();
+                // console.log(response)
+            },
+            error: function(response) {
+                $('#btn_status_submit').button('reset');
+                $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
+                // console.log(response)
+            }
+        });
+    });
+
+    // focus on details textarea after modal shown
+    $('#stateDetailsModal').on('shown.bs.modal', function (e) {
+        $('#details').focus();
+    })
+
+    // status change modal show
+    $(document).on('click', '.status', function() {
+        $('#stateDetailsModal').modal('show');
+        var status = $(this).attr('status');
+        var statusId = $(this).attr('statusId');
+
+        $('#newstatus').html(status);
+        $('#status').val(statusId);
+        // console.log(status);
+        // console.log(statusId);
+    });
 
     // view document in modal
     $(document).on('click', '.documentModalView', function() {
@@ -969,23 +1085,6 @@
             $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
             $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
         });
-    });
-
-    $(document).on('click', '.status', function() {
-        $('#stateDetailsModal').modal('show');
-        var status = $(this).attr('status');
-        var statusId = $(this).attr('statusId');
-
-        $('#newstatus').html(status);
-        $('#status').val(statusId);
-        // console.log(status);
-        // console.log(statusId);
-
-        if (statusId == 2) {
-            $('#grp-assign').removeClass('hide');
-        }else{
-            $('#grp-assign').addClass('hide');
-        }
     });
 
     $(document).on('click', '.commentstatus', function() {

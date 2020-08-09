@@ -154,8 +154,122 @@ class ApplicationController extends Controller
         $data = [
             'title' => 'Application View',
             'application' => $application,
+			'status' => \App\Status::all(),
         ];
 
         return view('admin.application.view', $data);
     }
+
+    public function updatestatus(Request $request)
+    {
+        // dd($request->all());
+        // return response()->json(['msg' => $request->all()], 400);
+
+        $validator = Validator::make($request->all(), 
+        [
+            "id" => "required|exists:applications,id",
+            "status" => "required|exists:status,id",
+            "details" => "required|max:1000",
+        ],
+        [
+            
+        ]
+        );
+        
+        $validator->after(function($validator)  use ($request) {
+            
+            // if ($feedback && $request->status == 3 && ($feedback->assignment() && !(in_array($feedback->status_id, [2]) && $feedback->assignment()->assignee == \Auth::user()->id))) {
+            //     $validator->errors()->add('status', 'The submission cannot be completed.');
+            // }
+            
+            // if ($feedback && $request->status == 4 && $feedback->assignment() && !((!in_array($feedback->status_id, [3,4,5]) && !$feedback->assignment()) || ($feedback->assignment() && ($feedback->assignment()->assignee == \Auth::user()->id || $feedback->assignment()->assigned_by == \Auth::user()->id)))) {
+            //     $validator->errors()->add('status', 'The submission cannot be put on hold.');
+            // }
+            
+            // if ($feedback && $request->status == 5 && $feedback->assignment() && !((!in_array($feedback->status_id, [3,5]) && !$feedback->assignment()) || ($feedback->assignment() && ($feedback->assignment()->assignee == \Auth::user()->id || $feedback->assignment()->assigned_by == \Auth::user()->id) && !in_array($feedback->status_id, [3,5])))) {
+            //     $validator->errors()->add('status', 'The submission cannot be put on hold.');
+            // }
+		});
+
+        if ($validator->fails()) {
+            $msg = 'Process failed.';
+            foreach ($validator->errors()->all() as $key => $value) {
+                $msg .= '<br>- '.$value;
+            }
+            return response()->json(['msg' => $msg, 'errors' => $validator->errors()], 412);
+        }
+
+        // update feedback
+        $application = \App\Application::find($request->id);
+        $old = $application->status_id;
+
+        $application->status_id = $request->status;
+        $application->save();
+
+        // log update
+        $log = new \App\ApplicationStatusAudit();
+        $log->application_id = $application->id;
+        $log->changed_by = \Auth::user()->id;
+        $log->status_old = $old;
+        $log->status_new = $request->status;
+        $log->details = $request->details;
+        $log->save();
+
+        // send emails
+        // dispatch(new \App\Jobs\SubmissionEmail($user->id));
+        
+        return response()->json(['msg' => 'Success'], 200);
+    }
+
+	public function updatedrow(Request $request)
+	{
+        // return response()->json(['msg' => $request->all()], 400);
+        // return response()->json(['msg' => \App\Application::all()], 200);
+		
+		$validator = Validator::make($request->all(), [
+			'id' => 'required|exists:applications,id',
+		]);
+	
+		if ($validator->fails()) {
+            $msg = 'Filter failed.';
+            foreach ($validator->errors()->all() as $key => $value) {
+                $msg .= '<br>- '.$value;
+            }
+            return response()->json(['msg' => $msg, 'errors' => $validator->errors()], 412);
+		}
+
+
+		$data = \App\Person::
+			select(DB::raw('applications.*, applications.id as application_id, applicant_count.applicants, forms.*, people.*, regions.*, status.*'))->
+			leftJoin('person_household', 'person_household.person_id', 'people.id')->
+			leftJoin('households', 'households.id', 'person_household.household_id')->
+			leftJoin('communities', 'communities.id', 'households.community_id')->
+			leftJoin('regions', 'regions.code', 'communities.region_code')->
+			leftJoin('applicants', 'applicants.person_id', 'people.id')->
+			leftJoin('applications', 'applications.id', 'applicants.application_id')->
+			leftJoin('form_critical_incident', 'form_critical_incident.application_id', 'applications.id')->
+			leftJoin('form_ci_items_lost', 'form_ci_items_lost.form_critical_incident_id', 'form_critical_incident.id')->
+			leftJoin('forms', 'forms.id', 'applications.form_id')->
+			leftJoin('status', 'status.id', 'applications.status_id')->
+			leftJoin(DB::raw( '(
+					SELECT count(p.id) as applicants, ph.household_id
+					FROM people p
+					LEFT JOIN applicants a
+					ON a.application_id = p.id
+					LEFT JOIN person_household ph
+					ON ph.person_id = p.id
+					LEFT JOIN households h
+					ON ph.household_id = h.id
+					WHERE h.active = 1
+					GROUP BY ph.household_id
+				) applicant_count'), function ($join) {
+				$join->on( 'person_household.household_id', '=', 'applicant_count.household_id');
+			})->
+			where('applications.id', $request->id)->
+			whereNotNull('applicants.person_id')->
+			distinct('applications.id')->
+			get();
+	
+		return response()->json(['data' => $data], 200);
+	}
 }

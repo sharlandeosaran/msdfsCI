@@ -43,6 +43,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/applications/filter', 'Admin\ApplicationController@application')->name('applicationfilter');
         Route::post('/applications/ajaxfilter', 'Admin\ApplicationController@applicationfilter')->name('applicationfilterajax');
         Route::get('/applications/view/{id}', 'Admin\ApplicationController@view');
+        Route::post('/applications/status', 'Admin\ApplicationController@updatestatus')->name('updatestatus');
+        Route::post('/applications/ajaxupdatedrow', 'Admin\ApplicationController@updatedrow')->name('updatedrowajax');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');
@@ -59,7 +61,6 @@ Route::group(['prefix' => 'admin'], function () {
 
                 // feedback/ submissions
                 Route::get('/submissions/view/{id}', 'Admin\FeedbackController@view');
-                Route::put('/submissions/status', 'Admin\FeedbackController@updatestatus')->name('updatestatus');
                 Route::get('/submissions/pdf/{id}', 'PDF\FeedbackController@index');
                 Route::get('/submissions/trash', 'Admin\TrashController@index')->name('trashfeedback');
                 

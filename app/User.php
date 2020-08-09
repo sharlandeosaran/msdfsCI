@@ -67,4 +67,14 @@ class User extends Authenticatable
         $list = \App\UserAudit::where('user_id', $this->id)->get();
         return $list->sortByDesc('created_at');
     }
+
+    public function getRolePermissionsAttribute($value)
+    {
+        return \App\RolePermission::
+                where('role_id', $this->role_id)->
+                pluck('status_id')->
+                toArray();
+    }
+
+
 }
