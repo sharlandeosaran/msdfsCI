@@ -45,6 +45,9 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/applications/view/{id}', 'Admin\ApplicationController@view');
         Route::post('/applications/status', 'Admin\ApplicationController@updatestatus')->name('updatestatus');
         Route::post('/applications/ajaxupdatedrow', 'Admin\ApplicationController@updatedrow')->name('updatedrowajax');
+
+        // pdf
+        Route::get('/applications/pdf/{id}', 'PDF\ApplicationController@index');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');

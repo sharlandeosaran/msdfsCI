@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Ixudra\Curl\CurlServiceProvider::class,
+        Barryvdh\Snappy\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -228,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Curl' => Ixudra\Curl\Facades\Curl::class,
+        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 
     ],
 

@@ -50,6 +50,5 @@ class ApplicationDocument extends Model
                 return 'fa-file-text-o';
                 break;
         }
-        return $value? decrypt($value) : null;
     }
 }

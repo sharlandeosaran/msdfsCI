@@ -84,6 +84,7 @@
         Application Region | <strong>{{$application->applicant->region}}</strong>
 
         <span class="pull-right">
+            <a class="btn btn-success btn-sm" href="{{url('/admin/applications/pdf/'.$application->id)}}" target="_blank"><i class="fas fa-file-pdf fa-lg"></i> export</a>
             @foreach ($status as $stat)
                 @if (
                     in_array($stat->id, \Auth::user()->role_permissions) && 
