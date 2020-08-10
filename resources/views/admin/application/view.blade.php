@@ -810,6 +810,7 @@
                 </div>
 
                 {{-- Photos --}}
+                @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
                 <div class="bhoechie-tab-content">
                     <!-- Profile Image -->
                     <div class="my-0">
@@ -936,8 +937,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
                 {{-- Documents --}}
+                @if (count($application->fire_service_report_documents) + count($application->regional_corporation_flooding_report_documents) + count($application->clothing_relief_quotation_documents) + count($application->housing_relief_quotation_documents) + count($application->school_supplies_relief_quotation_documents))
                 <div class="bhoechie-tab-content">
                     <!-- Profile Image -->
                     <div class="my-0">
@@ -1006,8 +1009,10 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
                 {{-- History --}}
+                @if (count($application->history))
                 <div class="bhoechie-tab-content">
                     <!-- Profile Image -->
                     <div class="my-0">
@@ -1047,6 +1052,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
 
             </div>
         </div>
