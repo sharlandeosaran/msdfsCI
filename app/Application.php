@@ -239,4 +239,61 @@ class Application extends Model
                 orderBy('id', 'desc')->
                 get();
     }
+
+    public function step($step)
+    {
+        switch ($step) {
+            case '1':
+                $log = \App\ApplicationStatusAudit::
+                    where('application_id', $this->id)->
+                    whereIn('status_new', [1])->
+                    first();
+                if ($log) {
+                    return $log->created_at->format('Y-m-d');
+                } else {
+                    return;
+                }
+                break;
+            
+            case '2':
+                $log = \App\ApplicationStatusAudit::
+                    where('application_id', $this->id)->
+                    whereIn('status_new', [3])->
+                    first();
+                if ($log) {
+                    return $log->created_at->format('Y-m-d');
+                } else {
+                    return;
+                }
+                break;
+            
+            case '3':
+                $log = \App\ApplicationStatusAudit::
+                    where('application_id', $this->id)->
+                    whereIn('status_new', [6])->
+                    first();
+                if ($log) {
+                    return $log->created_at->format('Y-m-d');
+                } else {
+                    return;
+                }
+                break;
+            
+            case '4':
+                $log = \App\ApplicationStatusAudit::
+                    where('application_id', $this->id)->
+                    whereIn('status_new', [9,11])->
+                    first();
+                if ($log) {
+                    return $log->created_at->format('Y-m-d');
+                } else {
+                    return;
+                }
+                break;
+            
+            default:
+                return;
+                break;
+        }
+    }
 }

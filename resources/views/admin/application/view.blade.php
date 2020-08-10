@@ -76,6 +76,34 @@
     div.bhoechie-tab div.bhoechie-tab-content:not(.active){
         display: none;
     }
+    
+    .show-grid [class^=col-] {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid #ddd;
+        border: 1px solid rgba(86,61,124,.2);
+        list-style: none;
+    }
+    
+    .steps.glyphicon {
+        margin-top: 5px;
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+    
+    .steps.inactive { 
+        color: #ccc;
+        background-color: #fafafa;
+    } 
+    
+    .steps.active { 
+        color: #fff;
+        background-color: #dd4b39;
+    } 
+
+    .media-body {
+        font-size: 13px;
+    }
 </style>
 
 <!-- Content Header (Page header) -->
@@ -110,6 +138,7 @@
             {{-- tabs --}}
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 bhoechie-tab-menu text-center">
                 <div class="list-group">
+
                     <a href="#" class="list-group-item active text-center">
                         <h4 class="glyphicon"><i class="fas fa-file-alt fa-lg"></i></h4><br/>Application Details
                     </a>
@@ -182,6 +211,55 @@
                     <div class="box box-danger">
                         <!-- /.box-header -->
                         <div class="box-body">
+
+                            <div class="row">
+                                <ol class="show-grid col-md-12">
+                                      <li class="col-md-3 steps {{$application->status()->step >= 1? 'active' : 'inactive'}}">
+                                       <div class="media">
+                                          <div class="pull-left" href="#">
+                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                          </div>
+                                        <div class="media-body">
+                                            <strong>Recieved</strong><br>
+                                            {{$application->step(1)}}
+                                        </div>
+                                    </div>
+                                      </li>
+                                      <li class="col-md-3 steps {{$application->status()->step >= 2? 'active' : 'inactive'}}">
+                                      <div class="media">
+                                          <div class="pull-left" href="#">
+                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                          </div>
+                                        <div class="media-body">
+                                            <strong>Pending Assessment</strong><br>
+                                            {{$application->step(2)}}
+                                        </div>
+                                    </div>
+                                      </li>
+                                      <li class="col-md-3 steps {{$application->status()->step >= 3? 'active' : 'inactive'}}">
+                                       <div class="media">
+                                          <div class="pull-left" href="#">
+                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                          </div>
+                                        <div class="media-body">
+                                            <strong>Pending Approval</strong><br>
+                                            {{$application->step(3)}}
+                                        </div>
+                                    </div>
+                                      </li>
+                                      <li class="col-md-3 steps {{$application->status()->step >= 4? 'active' : 'inactive'}}">
+                                       <div class="media">
+                                          <div class="pull-left" href="#">
+                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                          </div>
+                                        <div class="media-body">
+                                            <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Approved/Rejected'}}</strong><br>
+                                            {{$application->step(4)}}
+                                        </div>
+                                    </div>
+                                      </li>
+                                </ol>
+                            </div>
 
                             <p><strong><i class="fa fa-hashtag margin-r-5"></i> Ref Number | {{$application->form_critical_incident()? $application->form_critical_incident()->reference_number : ''}}</strong></p>
                             <hr>
