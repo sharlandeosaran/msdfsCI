@@ -217,7 +217,7 @@
                                       <li class="col-md-3 steps {{$application->status()->step >= 1? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
-                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                            <span class="glyphicon steps"><i class="fas fa-inbox fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
                                             <strong>{{$application->status()->step >= 1? 'Recieved' : 'Pending Receipt'}}</strong><br>
@@ -228,7 +228,7 @@
                                       <li class="col-md-3 steps {{$application->status()->step >= 2? 'active' : 'inactive'}}">
                                       <div class="media">
                                           <div class="pull-left" href="#">
-                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                            <span class="glyphicon steps"><i class="fas fa-eye fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
                                             <strong>{{$application->status()->step >= 2? 'Assessed' : 'Pending Assessment'}}</strong><br>
@@ -239,7 +239,7 @@
                                       <li class="col-md-3 steps {{$application->status()->step >= 3? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
-                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                            <span class="glyphicon steps"><i class="fas fa-hourglass-start fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
                                             <strong>Pending Approval</strong><br>
@@ -250,7 +250,7 @@
                                       <li class="col-md-3 steps {{$application->status()->step >= 4? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
-                                            <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
+                                            <span class="glyphicon steps"><i class="fas fa-{{$application->status_id == 11? 'thumbs-down' : 'thumbs-up'}} fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
                                             <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Pending Approval/Rejection'}}</strong><br>
