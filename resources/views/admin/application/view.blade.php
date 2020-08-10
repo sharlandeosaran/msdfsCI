@@ -220,7 +220,7 @@
                                             <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
-                                            <strong>Recieved</strong><br>
+                                            <strong>{{$application->status()->step >= 1? 'Recieved' : 'Pending Receipt'}}</strong><br>
                                             {{$application->step(1)}}
                                         </div>
                                     </div>
@@ -231,7 +231,7 @@
                                             <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
-                                            <strong>Pending Assessment</strong><br>
+                                            <strong>{{$application->status()->step >= 2? 'Assessed' : 'Pending Assessment'}}</strong><br>
                                             {{$application->step(2)}}
                                         </div>
                                     </div>
@@ -253,7 +253,7 @@
                                             <span class="glyphicon steps"><i class="fas fa-file-alt fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
-                                            <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Approved/Rejected'}}</strong><br>
+                                            <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Pending Approval/Rejection'}}</strong><br>
                                             {{$application->step(4)}}
                                         </div>
                                     </div>
