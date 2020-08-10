@@ -824,6 +824,28 @@
                         <!-- /.box-header -->
                         <div class="box-body">
                             
+                            @if (count($application->site_evidence))
+                                <p>
+                                    <strong><i class="far fa-images margin-r-5"></i> ** Site Evidence **</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->site_evidence as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="site_evidence">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                            
                             @if (count($application->water_marks))
                                 <p>
                                     <strong><i class="far fa-images margin-r-5"></i> Water Marks</strong>
@@ -1062,9 +1084,9 @@
                 <h4 class="modal-title" id="myModalLabel">Status Change Details For Application</h4>
             </div>
             
-            <form method="POST" action="#">
-                {{-- @csrf
-                @method('PUT') --}}
+            <form method="POST" action="#" enctype="multipart/form-data" id="statusForm">
+                @csrf
+                @method('PUT')
                 
                 <div class="modal-body">
                     
@@ -1083,6 +1105,19 @@
                         @if ($application->status_id == 0)
                         <label for="reference_number">Reference Number</label>
                         <input type="text" class="form-control" name="reference_number" id="reference_number">
+                        @endif
+                        
+                        @if ($application->status_id == 5)
+                        <label for="reference_number" style="margin-top: 20px">Site Evidence</label>
+                        <div class="input-group mb-0">
+                            <div class="custom-file">
+                                <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="site_evidence" name="site_evidence[]" value="" multiple>
+                            </div>
+                        </div>
+
+                        <span class="help-block">
+                            <strong>* Accepted Image Types: png, jpg and jpeg | Maximum Image Size: 10Mb</strong>
+                        </span>
                         @endif
                                     
                         <span class="help-block text-danger" style="color: #a94442;">
@@ -1116,30 +1151,38 @@
     // status change
     $(document).on('click', '#btn_status_submit', function() {
         $(this).button('loading');
+        var status = $('[name="status"]').val();
+        console.log(status)
 
-        var data = {
-            'id': $('[name="id"]').val(),
-            'status': $('[name="status"]').val(),
-            'details': $('[name="details"]').val(),
-            'reference_number': $('[name="reference_number"]').val(),
-        }
-        // console.log(applicant);
-        
-        $.ajax({
-            type: 'POST',
-            url: "{{route('updatestatus')}}",
-            data: data,
-            success: function(response) {
-                $('#loadingModal').modal('show');
-                location.reload();
-                // console.log(response)
-            },
-            error: function(response) {
-                $('#btn_status_submit').button('reset');
-                $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
-                // console.log(response)
+        if (status == 6) {
+            $('#statusForm').prop('action', "{{route('updatestatusimages')}}").submit();
+        } else {
+            var data = {
+                'id': $('[name="id"]').val(),
+                'status': status,
+                'details': $('[name="details"]').val(),
+                'reference_number': $('[name="reference_number"]').val(),
+                'site_evidence': $('[name="site_evidence"]').val(),
             }
-        });
+            // console.log(applicant);
+            
+            $.ajax({
+                type: 'POST',
+                url: "{{route('updatestatus')}}",
+                data: data,
+                success: function(response) {
+                    $('#loadingModal').modal('show');
+                    location.reload();
+                    // console.log(response)
+                },
+                error: function(response) {
+                    $('#btn_status_submit').button('reset');
+                    $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
+                    // console.log(response)
+                }
+            });
+        }
+
     });
 
     // focus on details textarea after modal shown

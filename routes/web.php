@@ -44,6 +44,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/applications/ajaxfilter', 'Admin\ApplicationController@applicationfilter')->name('applicationfilterajax');
         Route::get('/applications/view/{id}', 'Admin\ApplicationController@view');
         Route::post('/applications/status', 'Admin\ApplicationController@updatestatus')->name('updatestatus');
+        Route::put('/applications/status', 'Admin\ApplicationController@updatestatusimages')->name('updatestatusimages');
         Route::post('/applications/ajaxupdatedrow', 'Admin\ApplicationController@updatedrow')->name('updatedrowajax');
 
         // pdf

@@ -163,7 +163,6 @@ class ApplicationController extends Controller
 
     public function updatestatus(Request $request)
     {
-        // dd($request->all());
         // return response()->json(['msg' => $request->all()], 400);
 
         $validator = Validator::make($request->all(), 
@@ -233,6 +232,118 @@ class ApplicationController extends Controller
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
         return response()->json(['msg' => 'Success'], 200);
+    }
+
+    public function updatestatusimages(Request $request)
+    {
+        // dd($request->all());
+
+        $validator = Validator::make($request->all(), 
+        [
+            "id" => "required|exists:applications,id",
+            "status" => "required|exists:status,id",
+			"details" => "required|max:1000",
+            'site_evidence' => "nullable|array",
+            'site_evidence.*' => "max:10000|mimes:jpg,jpeg,png",
+        ],
+        [
+            
+        ]
+        );
+        
+        $validator->after(function($validator)  use ($request) {
+		});
+
+        if ($validator->fails()) {
+            $uploads = app('App\Http\Controllers\FileController')->store($request);
+
+            if ($uploads && $uploads['response'] && $request->tempfiles) {
+                $old = (array) json_decode($request->tempfiles);
+                $new = (array) json_decode($uploads['list']);
+                $merge = array_merge($old,$new);
+
+                return redirect('/admin/applications/view/'.$request->id)
+                ->withInput()
+                ->withErrors($validator)
+                ->with('tempfiles', json_encode($merge))
+                ;
+            } elseif ($uploads && $uploads['response']) {
+                return redirect('/admin/applications/view/'.$request->id)
+                ->withInput()
+                ->withErrors($validator)
+                ->with('tempfiles', $uploads['list'])
+                ;
+            } elseif ($request->tempfiles) {
+                return redirect('/admin/applications/view/'.$request->id)
+                ->withInput()
+                ->withErrors($validator)
+                ->with('tempfiles', $request->tempfiles)
+                ;
+            } else {
+                return redirect('/admin/applications/view/'.$request->id)
+                ->withInput()
+                ->withErrors($validator)
+                ;
+            }
+        }
+
+        // update feedback
+        $application = \App\Application::find($request->id);
+        $old = $application->status_id;
+
+        $application->status_id = $request->status;
+        $application->save();
+
+        // log update
+        $log = new \App\ApplicationStatusAudit();
+        $log->application_id = $request->id;
+        $log->changed_by = \Auth::user()->id;
+        $log->status_old = $old;
+        $log->status_new = $request->status;
+        $log->details = $request->details;
+		$log->save();
+		
+		// upload images
+        // accepted file types
+        $images = ['image/png', 'image/jpg', 'image/jpeg'];
+        
+        // site_evidence
+        if ($request->file('site_evidence') !== null) {
+            foreach ($request->file('site_evidence') as $i => $other) {
+                if ($request->file('site_evidence'.'.'.$i) !== null) {
+                    if ($request->file('site_evidence'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('site_evidence.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $images)) {
+                            $document = $application->id.'_site_evidence_'.$i.'_'.$request->file('site_evidence'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $path = $request->file('site_evidence'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/site_evidence', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'site_evidence_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+							$file->path = $path;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+
+        // send emails
+		// dispatch(new \App\Jobs\SubmissionEmail($user->id));
+		
+        return redirect('/admin/applications/view/'.$request->id)->with('success', 'Submission sent successfully.');
     }
 
 	public function updatedrow(Request $request)

@@ -156,6 +156,14 @@ class Application extends Model
                 get();
     }
 
+    public function getSiteEvidenceAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'site_evidence_%')->
+                get();
+    }
+
     public function getLandlordDocumentsAttribute($value)
     {
         return \App\ApplicationDocument::
