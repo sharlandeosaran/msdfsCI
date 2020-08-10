@@ -35,7 +35,7 @@ class ApplicationController extends Controller
         return $pdf
                 ->setOptions($pageOptions)
                 ->setOrientation('portrait')
-                // ->setPaper('Legal')
+                ->setPaper('Letter')
                 ->inline('application_'. $id . '.pdf');
     }
 }
