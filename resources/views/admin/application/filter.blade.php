@@ -185,7 +185,7 @@
                                 </div>
                             </div>
                             
-                            <div class="col-md-12">
+                            {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label" for="stat">Relationships</label>
                                     <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
@@ -201,7 +201,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             
                             <div class="col-md-12">
                                 <div class="form-group">
