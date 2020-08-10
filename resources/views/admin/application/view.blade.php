@@ -1077,13 +1077,20 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="exampleInputPassword1">Details</label>
+                        <label for="details">Details</label>
                         <textarea class="form-control" rows="3" name="details" id="details" maxlength="1000"></textarea>
+                        
+                        @if ($application->status_id == 0)
+                        <label for="reference_number">Reference Number</label>
+                        <input type="text" class="form-control" name="reference_number" id="reference_number">
+                        @endif
                                     
                         <span class="help-block text-danger" style="color: #a94442;">
                             <strong id="err-status"></strong>
                         </span>
                     </div>
+                    
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -1114,6 +1121,7 @@
             'id': $('[name="id"]').val(),
             'status': $('[name="status"]').val(),
             'details': $('[name="details"]').val(),
+            'reference_number': $('[name="reference_number"]').val(),
         }
         // console.log(applicant);
         
@@ -1137,6 +1145,12 @@
     // focus on details textarea after modal shown
     $('#stateDetailsModal').on('shown.bs.modal', function (e) {
         $('#details').focus();
+    })
+
+    // clear form after modal hidden
+    $('#stateDetailsModal').on('hidden.bs.modal', function (e) {
+        $('.form-control').val('');
+        $('#err-status').html('');
     })
 
     // status change modal show

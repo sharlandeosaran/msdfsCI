@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 use App\Http\Requests;
 use DB;
 use Validator;
@@ -169,7 +170,13 @@ class ApplicationController extends Controller
         [
             "id" => "required|exists:applications,id",
             "status" => "required|exists:status,id",
-            "details" => "required|max:1000",
+			"details" => "required|max:1000",
+			"reference_number" => [
+				"nullable",
+				"unique:form_critical_incident,reference_number",
+                "max:150",
+                Rule::requiredIf($request->status == 1),
+            ],
         ],
         [
             
@@ -208,12 +215,19 @@ class ApplicationController extends Controller
 
         // log update
         $log = new \App\ApplicationStatusAudit();
-        $log->application_id = $application->id;
+        $log->application_id = $request->id;
         $log->changed_by = \Auth::user()->id;
         $log->status_old = $old;
         $log->status_new = $request->status;
         $log->details = $request->details;
         $log->save();
+
+		// log reference number
+		if ($request->status == 1) {
+			$log = \App\FormCriticalIncident::where('application_id', $request->id)->first();
+			$log->reference_number = $request->reference_number;
+			$log->save();
+		}
 
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
