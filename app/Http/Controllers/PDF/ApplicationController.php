@@ -21,7 +21,7 @@ class ApplicationController extends Controller
         ];
 
         // return view('pdf.application', $data);
-        $pdf = PDF::loadView('pdf.application', $data);
+        $pdf = PDF::loadView('admin.pdf.application', $data);
         $pageOptions = [
             'margin-top'       => 2,
             'margin-bottom'    => 10,
