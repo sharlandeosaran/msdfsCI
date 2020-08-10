@@ -11,7 +11,7 @@
                     <table>
                         <tr>
                             <td class="title" width="20%">
-                                <img src="{{public_path()}}/img/msdfs_logo.jpg" alt="MSDFS Logo" style="width:150px;">
+                                <img src="{{url('/')}}/img/msdfs_logo.jpg" alt="MSDFS Logo" style="width:150px;">
                             </td>
                             <td width="60%">
                                 <h1 style="margin-bottom: 15px; line-height: 35px;">Ministry Of The People And Social Development</h1>
