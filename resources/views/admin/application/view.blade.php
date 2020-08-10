@@ -83,6 +83,7 @@
         border: 1px solid #ddd;
         border: 1px solid rgba(86,61,124,.2);
         list-style: none;
+        margin-bottom: 5px;
     }
     
     .steps.glyphicon {
@@ -214,7 +215,7 @@
 
                             <div class="row">
                                 <ol class="show-grid col-md-12">
-                                      <li class="col-md-3 steps {{$application->status()->step >= 1? 'active' : 'inactive'}}">
+                                      <li class="col-sm-3 steps {{$application->status()->step >= 1? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
                                             <span class="glyphicon steps"><i class="fas fa-inbox fa-lg"></i></span>
@@ -225,7 +226,7 @@
                                         </div>
                                     </div>
                                       </li>
-                                      <li class="col-md-3 steps {{$application->status()->step >= 2? 'active' : 'inactive'}}">
+                                      <li class="col-sm-3 steps {{$application->status()->step >= 2? 'active' : 'inactive'}}">
                                       <div class="media">
                                           <div class="pull-left" href="#">
                                             <span class="glyphicon steps"><i class="fas fa-eye fa-lg"></i></span>
@@ -236,7 +237,7 @@
                                         </div>
                                     </div>
                                       </li>
-                                      <li class="col-md-3 steps {{$application->status()->step >= 3? 'active' : 'inactive'}}">
+                                      <li class="col-sm-3 steps {{$application->status()->step >= 3? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
                                             <span class="glyphicon steps"><i class="fas fa-hourglass-start fa-lg"></i></span>
@@ -247,13 +248,13 @@
                                         </div>
                                     </div>
                                       </li>
-                                      <li class="col-md-3 steps {{$application->status()->step >= 4? 'active' : 'inactive'}}">
+                                      <li class="col-sm-3 steps {{$application->status()->step >= 4? 'active' : 'inactive'}}">
                                        <div class="media">
                                           <div class="pull-left" href="#">
                                             <span class="glyphicon steps"><i class="fas fa-{{$application->status_id == 11? 'thumbs-down' : 'thumbs-up'}} fa-lg"></i></span>
                                           </div>
                                         <div class="media-body">
-                                            <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Pending Approval/Rejection'}}</strong><br>
+                                            <strong>{{$application->status()->step == 4? ($application->status_id == 11? 'Rejected' : 'Approved') : 'Approval/ Rejection'}}</strong><br>
                                             {{$application->step(4)}}
                                         </div>
                                     </div>
