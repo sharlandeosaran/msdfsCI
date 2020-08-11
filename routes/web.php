@@ -52,6 +52,9 @@ Route::group(['prefix' => 'admin'], function () {
         // approval
         Route::post('/approval/approvalrequest', 'Admin\ApprovalController@approvalrequest')->name('approvalrequest');
         Route::post('/approval/approvalpost', 'Admin\ApprovalController@approvalpost')->name('approvalpost');
+
+        // schedule filter
+        Route::get('/schedule', 'Admin\ScheduleController@index')->name('schedule');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');

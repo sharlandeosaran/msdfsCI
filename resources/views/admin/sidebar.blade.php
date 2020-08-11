@@ -48,6 +48,15 @@
             {{-- @endcan --}}
             
             {{-- @can('access','admin') --}}
+            <li class=" {{isset($active) && $active == 'schedule'? 'active' : ''}}">
+                <a href="{{route('schedule')}}">
+                    <i class="fa fa-table"></i> <span>Schedule</span>
+                </a>
+            </li>
+            @yield('filters')
+            {{-- @endcan --}}
+            
+            {{-- @can('access','admin') --}}
             <li class=" treeview  {{isset($active) && $active == 'logs'? 'active' : ''}}">
                 <a href="#">
                     <i class="fa fa-th"></i> <span>Logs</span>

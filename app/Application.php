@@ -85,6 +85,11 @@ class Application extends Model
         }
     }
 
+    public function getReferenceNumberAttribute($value)
+    {
+        return $this->form_critical_incident()? $this->form_critical_incident()->reference_number : '';
+    }
+
     public function getApplicantAttribute($value)
     {
         return \App\Person::
@@ -304,4 +309,12 @@ class Application extends Model
                 break;
         }
     }
+	
+	public function scopeSchedule($query){
+        return $query->
+            where('status_id', 10)->
+            where('scheduled', 0)->
+            orderBy('id', 'desc')->
+            get();
+	}
 }
