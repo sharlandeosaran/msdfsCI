@@ -128,6 +128,14 @@
                 @endif
                 
             @endforeach
+
+            <form method="POST" action="#" id="approvalrequestForm">
+                @csrf
+                <input type="hidden" value="{{$application->id}}" name="id">
+                <input type="hidden" value="" name="status_id" id="approvalrequestStatusID">
+                <input type="hidden" value="" name="status" id="approvalrequestStatus">
+
+            </form>
         </span>
     </h1>
 </section>
@@ -136,6 +144,8 @@
     
     <div class="box box-danger my-0">
         <div class="box-body box-profile">
+            @include('common.errors')
+            
             {{-- tabs --}}
             <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12 bhoechie-tab-menu text-center">
                 <div class="list-group">
@@ -1080,8 +1090,6 @@
 </div>
 
 {{-- status change modal --}}
-
-
 <div class="modal fade" id="stateDetailsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -1096,34 +1104,21 @@
                 
                 <div class="modal-body">
                     
-                    <input type="hidden" value="{{$application->id}}" name="id">
+                    <input type="hidden" value="{{$application->id}}" name="id" id="statusFormID">
                     
                     <div class="form-group">
                         <label class="">Intended Status: <span class="label label-default" style="font-size: larger; margin-left:15px" id="newstatus">New Status</span></label>
                         {{-- <p class="form-control-static"></p> --}}
-                        <input type="hidden" name="status" id="status">
+                        <input type="hidden" name="status" id="statusFormStatus">
                     </div>
                     
                     <div class="form-group">
                         <label for="details">Details</label>
-                        <textarea class="form-control" rows="3" name="details" id="details" maxlength="1000"></textarea>
+                        <textarea class="form-control" rows="3" name="details" id="statusFormDetails" maxlength="1000"></textarea>
                         
                         @if ($application->status_id == 0)
                         <label for="reference_number">Reference Number</label>
-                        <input type="text" class="form-control" name="reference_number" id="reference_number">
-                        @endif
-                        
-                        @if ($application->status_id == 5)
-                        <label for="reference_number" style="margin-top: 20px">Site Evidence</label>
-                        <div class="input-group mb-0">
-                            <div class="custom-file">
-                                <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="site_evidence" name="site_evidence[]" value="" multiple>
-                            </div>
-                        </div>
-
-                        <span class="help-block">
-                            <strong>* Accepted Image Types: png, jpg and jpeg | Maximum Image Size: 10Mb</strong>
-                        </span>
+                        <input type="text" class="form-control" name="reference_number" id="statusFormReferenceNumber">
                         @endif
                                     
                         <span class="help-block text-danger" style="color: #a94442;">
@@ -1157,43 +1152,38 @@
     // status change
     $(document).on('click', '#btn_status_submit', function() {
         $(this).button('loading');
-        var status = $('[name="status"]').val();
-        console.log(status)
+        var status = $('#statusFormStatus').val();
+        // console.log(status)
 
-        if (status == 6) {
-            $('#statusForm').prop('action', "{{route('updatestatusimages')}}").submit();
-        } else {
-            var data = {
-                'id': $('[name="id"]').val(),
-                'status': status,
-                'details': $('[name="details"]').val(),
-                'reference_number': $('[name="reference_number"]').val(),
-                'site_evidence': $('[name="site_evidence"]').val(),
-            }
-            // console.log(applicant);
-            
-            $.ajax({
-                type: 'POST',
-                url: "{{route('updatestatus')}}",
-                data: data,
-                success: function(response) {
-                    $('#loadingModal').modal('show');
-                    location.reload();
-                    // console.log(response)
-                },
-                error: function(response) {
-                    $('#btn_status_submit').button('reset');
-                    $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
-                    // console.log(response)
-                }
-            });
+        var data = {
+            'id': $('#statusFormID').val(),
+            'status': status,
+            'details': $('#statusFormDetails').val(),
+            'reference_number': $('#statusFormReferenceNumber').val(),
         }
+        // console.log(applicant);
+        
+        $.ajax({
+            type: 'POST',
+            url: "{{route('updatestatus')}}",
+            data: data,
+            success: function(response) {
+                $('#loadingModal').modal('show');
+                location.reload();
+                // console.log(response)
+            },
+            error: function(response) {
+                $('#btn_status_submit').button('reset');
+                $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
+                // console.log(response)
+            }
+        });
 
     });
 
     // focus on details textarea after modal shown
     $('#stateDetailsModal').on('shown.bs.modal', function (e) {
-        $('#details').focus();
+        $('#statusFormDetails').focus();
     })
 
     // clear form after modal hidden
@@ -1204,14 +1194,20 @@
 
     // status change modal show
     $(document).on('click', '.status', function() {
-        $('#stateDetailsModal').modal('show');
         var status = $(this).attr('status');
         var statusId = $(this).attr('statusId');
-
-        $('#newstatus').html(status);
-        $('#status').val(statusId);
         // console.log(status);
         // console.log(statusId);
+
+        if (statusId == 5 || statusId == 9) {
+            $('#approvalrequestStatus').val(status);
+            $('#approvalrequestStatusID').val(statusId);
+            $('#approvalrequestForm').prop('action', "{{route('approvalrequest')}}").submit();
+        } else {
+            $('#stateDetailsModal').modal('show');
+            $('#newstatus').html(status);
+            $('#statusFormStatus').val(statusId);
+        }
     });
 
     // view document in modal

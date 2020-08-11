@@ -44,11 +44,14 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/applications/ajaxfilter', 'Admin\ApplicationController@applicationfilter')->name('applicationfilterajax');
         Route::get('/applications/view/{id}', 'Admin\ApplicationController@view');
         Route::post('/applications/status', 'Admin\ApplicationController@updatestatus')->name('updatestatus');
-        Route::put('/applications/status', 'Admin\ApplicationController@updatestatusimages')->name('updatestatusimages');
         Route::post('/applications/ajaxupdatedrow', 'Admin\ApplicationController@updatedrow')->name('updatedrowajax');
 
         // pdf
         Route::get('/applications/pdf/{id}', 'PDF\ApplicationController@index');
+
+        // approval
+        Route::post('/approval/approvalrequest', 'Admin\ApprovalController@approvalrequest')->name('approvalrequest');
+        Route::post('/approval/approvalpost', 'Admin\ApprovalController@approvalpost')->name('approvalpost');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');
