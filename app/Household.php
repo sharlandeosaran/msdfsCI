@@ -63,6 +63,48 @@ class Household extends Model
     {
         return $this->hasOne('App\Landlord', 'household_id', 'id');
     }
+
+    public function children()
+    {
+        return \App\Person::
+            leftJoin('person_household', 'person_household.person_id', 'people.id')->
+            where('person_household.household_id', $this->id)->
+            whereIn('person_household.relationship_id',[2,6] )->
+            get();
+    }
+
+    public function getChildrenCountAttribute()
+    {
+        return count($this->children());
+    }
+
+    public function primary_students()
+    {
+        return \App\Person::
+            leftJoin('person_household', 'person_household.person_id', 'people.id')->
+            where('person_household.household_id', $this->id)->
+            whereIn('people.employment_status_id',[7] )->
+            get();
+    }
+
+    public function getPrimaryStudentCountAttribute()
+    {
+        return count($this->primary_students());
+    }
+
+    public function secondary_students()
+    {
+        return \App\Person::
+            leftJoin('person_household', 'person_household.person_id', 'people.id')->
+            where('person_household.household_id', $this->id)->
+            whereIn('people.employment_status_id',[8] )->
+            get();
+    }
+
+    public function getSecondaryStudentCountAttribute()
+    {
+        return count($this->secondary_students());
+    }
     
     public function scopeCommunities($query){
         return $query->groupBy('community_id')->pluck('community_id')->toArray();
@@ -70,9 +112,9 @@ class Household extends Model
     
     public function scopeRegions($query){
         return \App\Community::
-                        leftJoin('regions', 'communities.region_code', 'regions.code')->
-                        whereIn('communities.id', \App\Household::communities())->
-                        pluck('regions.id')->
-                        toArray();
+            leftJoin('regions', 'communities.region_code', 'regions.code')->
+            whereIn('communities.id', \App\Household::communities())->
+            pluck('regions.id')->
+            toArray();
     }
 }

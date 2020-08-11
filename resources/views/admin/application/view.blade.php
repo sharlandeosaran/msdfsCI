@@ -297,7 +297,19 @@
                                 @if ($application->household->housing_type)
                                 <strong><i class="fa fa-home margin-r-5"></i> Household Type</strong>                                
                                 <p class="text-muted">
-                                    {{$application->household->housing_type->type}}
+                                    {{$application->household->housing_type->type}} Household
+
+                                    @if ($application->household->children_count)
+                                        <br>{{$application->household->children_count}} Children
+                                    @endif
+                                     
+                                    @if ($application->household->primary_student_count)
+                                        <br>{{$application->household->primary_student_count}} Primary School Student{{$application->household->primary_student_count == 1? '' : 's'}}
+                                    @endif
+                                    
+                                    @if ($application->household->secondary_student_count)
+                                        <br>{{$application->household->secondary_student_count}} Secondary School Student{{$application->household->secondary_student_count == 1? '' : 's'}}
+                                    @endif
                                 </p>
                                 <hr>
                                 @endif
