@@ -297,7 +297,7 @@
                                 @if ($application->household->housing_type)
                                 <strong><i class="fa fa-home margin-r-5"></i> Household Type</strong>                                
                                 <p class="text-muted">
-                                    {{$application->household->housing_type->type}} Household
+                                    {{$application->household->housing_type->type}} Household of {{count($application->household_people) == 1? '1 Person' : count($application->household_people).' People'}}
 
                                     @if ($application->household->children_count)
                                         <br>{{$application->household->children_count}} Children
