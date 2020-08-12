@@ -48,10 +48,17 @@
             {{-- @endcan --}}
             
             {{-- @can('access','admin') --}}
-            <li class=" {{isset($active) && $active == 'schedule'? 'active' : ''}}">
-                <a href="{{route('schedule')}}">
-                    <i class="fa fa-table"></i> <span>Schedule</span>
+            <li class=" treeview  {{isset($active) && $active == 'schedules'? 'active' : ''}}">
+                <a href="#">
+                    <i class="fa fa-th"></i> <span>Schedules</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
+                <ul class="treeview-menu">
+                    <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="{{route('schedules')}}"><i class="fa fa-circle"></i> Schedules</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'newschedule'? 'active' : ''}}"><a href="{{route('newschedule')}}"><i class="fa fa-circle"></i> New Schedule</a></li>
+                </ul>
             </li>
             @yield('filters')
             {{-- @endcan --}}

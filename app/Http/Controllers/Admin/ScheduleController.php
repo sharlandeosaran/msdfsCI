@@ -11,12 +11,24 @@ class ScheduleController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'New Schedule',
-			'active' => 'schedule',
+            'title' => 'Schedules',
+			'active' => 'schedules',
+            'activelink' => 'schedules',
             'applications' => \App\Application::schedule(),
         ];
 
         return view('admin.schedule.schedule', $data);
+    }
+    public function new()
+    {
+        $data = [
+            'title' => 'New Schedule',
+			'active' => 'schedules',
+            'activelink' => 'newschedule',
+            'applications' => \App\Application::schedule(),
+        ];
+
+        return view('admin.schedule.new', $data);
     }
 
     public function report(Request $request)
