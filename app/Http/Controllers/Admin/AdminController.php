@@ -6,14 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use Validator;
-use App\AccountManager as AccountManager;
-use App\MinistryAgency as MinistryAgency;
-use App\Requester as Requester;
-use App\Category as Category;
-use App\Service as Service;
 use App\User as User;
-use App\CurrentInstitution as CurrentInstitution;
-use App\InstitutionHasManager as InstitutionHasManager;
 
 class AdminController extends Controller
 {
@@ -35,7 +28,7 @@ class AdminController extends Controller
         $log->save();
 
         // send email to user with credentials
-        dispatch(new \App\Jobs\ResetPassword($id));
+        // dispatch(new \App\Jobs\ResetPassword($id));
 
         return redirect('/admin/users/view/'.$id)->with('reset', 'success');
     }
