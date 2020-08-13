@@ -57,9 +57,11 @@ class ApprovalController extends Controller
             "status" => "required|exists:status,id",
             "details" => "required|max:1000",
             
+            "household" => "array",
             "items_lost_or_damaged" => "array",
             "recovery_needs" => "array",
 
+            "household.*" => "nullable|exists:people,id",            
             "items_lost_or_damaged.*" => "nullable|exists:items_lost_or_damaged,id",            
             "recovery_needs.*" => "nullable|numeric", 
 
@@ -83,7 +85,6 @@ class ApprovalController extends Controller
 
         // update feedback
         $application = \App\Application::find($request->id);
-        // dd($application->form_critical_incident()->items_lost);
         $old = $application->status_id;
 
         $application->status_id = $request->status;
@@ -97,21 +98,48 @@ class ApprovalController extends Controller
         $log->status_new = $request->status;
         $log->details = $request->details;
         $log->save();
+
+        // update household members
+        if ($request->household) {
+            foreach ($application->household_people as $person) {
+                if (in_array($person->person_id, $request->household)) {
+                    $household = \App\PersonHousehold::
+                        where('person_id', $person->person_id)->
+                        where('household_id', $person->household_id)->
+                        first();
+                    $household->confirm = 1;
+                    $household->save();
+                }
+            }
+            
+        }
         
+        // update recommended items
         if ($request->items_lost_or_damaged && $application->form_critical_incident() && $application->form_critical_incident()->items_lost) {
             foreach ($application->form_critical_incident()->items_lost as $item) {
                 if (isset($request->items_lost_or_damaged[$item->slug])) {
                     if (isset($request->recovery_needs[$item->slug])) {
-                        if ($request->recovery_needs[$item->slug] <= $item->max_value) {
-                            $recommended = \App\FormCIItemsLost::find($item->id);
-                            $recommended->approved = 1;
-                            $recommended->cost = $request->recovery_needs[$item->slug];
+                        // if ($request->recovery_needs[$item->slug] <= $item->max_value) {
+                            $recommended = \App\FormCIItemsLost::
+                                where('item_id', $item->id)->
+                                where('form_critical_incident_id', $item->form_critical_incident_id)->
+                                first();
+                            if ($recommended) {
+                                $recommended->approved = 1;
+                                $recommended->cost = $request->recovery_needs[$item->slug];
+                                $recommended->save();
+                            }
+                        // }
+                    } else {
+                        $recommended = \App\FormCIItemsLost::
+                            where('item_id', $item->id)->
+                            where('form_critical_incident_id', $item->form_critical_incident_id)->
+                            first();
+                        if ($recommended) {
+                            $recommended->recommended = 1;
                             $recommended->save();
                         }
-                    } else {
-                        $recommended = \App\FormCIItemsLost::find($item->id);
-                        $recommended->recommended = 1;
-                        $recommended->save();
+                        
                     }
                 }
             }

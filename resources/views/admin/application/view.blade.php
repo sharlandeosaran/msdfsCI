@@ -1211,7 +1211,7 @@
         // console.log(status);
         // console.log(statusId);
 
-        if (statusId == 5 || statusId == 9) {
+        if (statusId == 6 || statusId == 9) {
             $('#approvalrequestStatus').val(status);
             $('#approvalrequestStatusID').val(statusId);
             $('#approvalrequestForm').prop('action', "{{route('approvalrequest')}}").submit();

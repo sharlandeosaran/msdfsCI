@@ -8,16 +8,18 @@
 @endsection
 
 @section('content')
+@include('common.errors')
+
 <section class="content">
     
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 
-                <form id="form" method="POST" action="{{route('newschedulepost')}}" role="form">
+                <form id="scheduleForm" method="POST" action="{{route('newschedulepost')}}" role="form">
                     @csrf
 
-                    <input type="hidden" id="categories" name="categories">
+                    <input type="hidden" id="applications" name="applications">
                     <div class="box-body">
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
@@ -30,7 +32,7 @@
                                             <h3>
                                                 Applications
                                                 <small>
-                                                    <button type="button" id="submitBtn" class="btn btn-danger pull-right"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> generate</button>
+                                                    <button type="button" class="btn btn-danger pull-right submitBtn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> generate</button>
                                                 </small>
                                             </h3>
                                         </th>
@@ -56,7 +58,7 @@
                                             <h3>
                                                 Applications
                                                 <small>
-                                                    <button type="button" id="submitBtn" class="btn btn-danger pull-right"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> generate</button>
+                                                    <button type="button" class="btn btn-danger pull-right submitBtn"><i class="fa fa-arrow-circle-right" aria-hidden="true"></i> generate</button>
                                                 </small>
                                             </h3>
                                         </th>
@@ -78,8 +80,16 @@
 <script>
     var applications = [];
     var allApplications = {!! json_encode($applications->pluck('id')->toJson()) !!};
+    
+    // submit if checked applications
+    $(document).on('click', '.submitBtn', function() {
+        if (applications.length > 0) {
+            $('#scheduleForm').submit();
+        }
+        console.log(applications);
+    });
 
-    $('.checkboxRow').on('click', function() {
+    $(document).on('click', '.checkboxRow', function() {
         var id = $(this).attr('catId');
         if ($('#checkbox'+id).hasClass('far')) {
             $('#checkbox'+id).removeClass('far').addClass('fas');
@@ -88,11 +98,11 @@
             $('.checkboxAll, #checkbox'+id).addClass('far').removeClass('fas');
             removeValueFromArray(id);          
         }
-        $('#categories').val(applications);
+        $('#applications').val(applications);
         // console.log(applications);
     });
     
-    $('.checkboxAllRow').on('click', function() {
+    $(document).on('click', '.checkboxAllRow', function() {
         if ($('.checkboxAll').hasClass('far')) {
             $('.checkboxes').removeClass('far').addClass('fas');
             applications = allApplications;
@@ -100,7 +110,7 @@
             $('.checkboxes').addClass('far').removeClass('fas');
             applications = [];
         }
-        $('#categories').val(applications);
+        $('#applications').val(applications);
         // console.log(applications);
     });
 

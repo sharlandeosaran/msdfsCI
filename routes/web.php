@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
 
         // pdf
         Route::get('/applications/pdf/{id}', 'PDF\ApplicationController@index');
+        Route::get('/schedules/pdf/{id}', 'PDF\ScheduleController@index');
 
         // approval
         Route::post('/approval/approvalrequest', 'Admin\ApprovalController@approvalrequest')->name('approvalrequest');
@@ -56,6 +57,7 @@ Route::group(['prefix' => 'admin'], function () {
         // schedules
         Route::get('/schedules', 'Admin\ScheduleController@index')->name('schedules');
         Route::get('/schedule/new', 'Admin\ScheduleController@new')->name('newschedule');
+        Route::get('/schedule/view/{id}', 'Admin\ScheduleController@view');
         Route::post('/schedule/newschedulepost', 'Admin\ScheduleController@newschedulepost')->name('newschedulepost');
         
         // profile

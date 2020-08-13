@@ -16,10 +16,10 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <a href="#" id="submissionsGo">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fas fa-plane-arrival"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fas fa-"></i></span>
                         
                         <div class="info-box-content">
-                            <span class="info-box-text">Inbound Requests</span>
+                            <span class="info-box-text"></span>
                             <span class="info-box-number">{{$feedback_count}}</span>
                         </div>
                         <!-- /.info-box-content -->
@@ -36,10 +36,10 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <a href="#" id="commentsGo">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fas fa-plane-departure"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fas fa-"></i></span>
                         
                         <div class="info-box-content">
-                            <span class="info-box-text">Outbound Requests</span>
+                            <span class="info-box-text"></span>
                             <span class="info-box-number">{{$comments}}</span>
                         </div>
                         <!-- /.info-box-content -->

@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
 
-    public function application()
+    public function applications()
     {
-        return $this->belongsTo('App\Application');
+        $nums = \App\ScheduleApplication::where('schedule_id', $this->id)->pluck('application_id')->toArray();
+        return \App\Application::whereIn('id', $nums)->get();
     }
 
     public function getSinceAttribute($value)

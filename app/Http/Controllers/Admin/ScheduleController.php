@@ -19,6 +19,22 @@ class ScheduleController extends Controller
 
         return view('admin.schedule.schedule', $data);
     }
+    
+    public function view($id)
+    {
+		$schedule = \App\Schedule::find($id);
+        if(!$schedule) return back()->with('flashed', 'That does not exist');
+        
+        $data = [
+            'title' => 'Schedule View',
+			'active' => 'schedules',
+            'activelink' => 'schedules',
+            'schedule' => $schedule,
+        ];
+
+        return view('admin.schedule.view', $data);
+    }
+
     public function new()
     {
         $data = [
@@ -31,38 +47,52 @@ class ScheduleController extends Controller
         return view('admin.schedule.new', $data);
     }
 
-    public function report(Request $request)
+    public function newschedulepost(Request $request)
     {
         // dd($request->all());
-        // dd($request->upload1->getClientOriginalName());
 
         $validator = Validator::make($request->all(), 
         [
-            "categories" => "required",
+            "applications" => "required",
         ]
         );
         
         if ($validator->fails()) {
-            return redirect('/admin/reports/category')
+            return redirect('/admin/schedule/new')
             ->withInput()
             ->withErrors($validator);
         }
 
-        if(is_string($request->categories)){
+        if(is_string($request->applications)){
             $bad = array("[", "]");
             $safe = array('', '');
-            $request->categories = str_replace($bad,$safe,$request->categories);
+            $request->applications = str_replace($bad,$safe,$request->applications);
         }
-        $cats = explode(',', $request->categories);
-        // dd($cats);
-        
-        $data = [
-            'title' => 'Submissions By Category',
-			'active' => 'reports',
-            'activelink' => 'reportbycategory',
-            'feedback' => \App\Feedback::whereIn('category', $cats)->whereNotIn('status_id', [5])->get(),
-        ];
+        $explode = explode(',', $request->applications);
+        $list = array_filter($explode);
+        // dd($list);
 
-        return view('admin.reports.feedback.table', $data);
+        if ($list) {
+            // create schedule
+            $schedule = new \App\Schedule();
+            $schedule->created_by = \Auth::user()->id;
+            $schedule->save();
+            
+            // store applications
+            foreach ($list as $value) {
+                $schedule_application = new \App\ScheduleApplication();
+                $schedule_application->schedule_id = $schedule->id;
+                $schedule_application->application_id = $value;
+                $schedule_application->save();
+
+                // change status of application to scheduled
+                $application = \App\Application::find($value);
+                $application->status_id = 10;
+                $application->scheduled = 1;
+                $application->save();
+            }
+        }
+        
+        return redirect('/admin/schedule/view/'.$schedule->id)->with('success', 'Submission sent successfully.');
     }
 }

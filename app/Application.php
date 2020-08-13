@@ -253,6 +253,15 @@ class Application extends Model
                 get();
     }
 
+    public function getWelfareOfficerReportAttribute($value)
+    {
+        return \App\ApplicationStatusAudit::
+                where('application_id', $this->id)->
+                where('status_new', 6)->
+                orderBy('id', 'desc')->
+                first();
+    }
+
     public function step($step)
     {
         switch ($step) {
@@ -312,7 +321,7 @@ class Application extends Model
 	
 	public function scopeSchedule($query){
         return $query->
-            where('status_id', 10)->
+            where('status_id', 9)->
             where('scheduled', 0)->
             orderBy('id', 'desc')->
             get();
