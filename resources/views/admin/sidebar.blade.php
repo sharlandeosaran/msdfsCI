@@ -64,7 +64,6 @@
                     <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> School Supplies</a></li>
                 </ul>
             </li>
-            @yield('filters')
             {{-- @endcan --}}
             
             {{-- @can('access','admin') --}}
