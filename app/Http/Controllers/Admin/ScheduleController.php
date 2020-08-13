@@ -76,20 +76,23 @@ class ScheduleController extends Controller
             // create schedule
             $schedule = new \App\Schedule();
             $schedule->created_by = \Auth::user()->id;
+            $schedule->type_id = 1;
             $schedule->save();
             
             // store applications
             foreach ($list as $value) {
-                $schedule_application = new \App\ScheduleApplication();
-                $schedule_application->schedule_id = $schedule->id;
-                $schedule_application->application_id = $value;
-                $schedule_application->save();
 
                 // change status of application to scheduled
                 $application = \App\Application::find($value);
                 $application->status_id = 10;
                 $application->scheduled = 1;
                 $application->save();
+
+                // attach applications to schedules
+                $schedule_application = new \App\ScheduleApplication();
+                $schedule_application->schedule_id = $schedule->id;
+                $schedule_application->application_id = $value;
+                $schedule_application->save();
             }
         }
         
