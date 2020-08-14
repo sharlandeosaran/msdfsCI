@@ -1128,7 +1128,7 @@
                         <label for="details">Details</label>
                         <textarea class="form-control" rows="3" name="details" id="statusFormDetails" maxlength="1000"></textarea>
                         
-                        @if ($application->status_id == 0)
+                        @if ($application->status_id == 3)
                         <label for="reference_number">Reference Number</label>
                         <input type="text" class="form-control" name="reference_number" id="statusFormReferenceNumber">
                         @endif

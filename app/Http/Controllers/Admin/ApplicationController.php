@@ -174,7 +174,7 @@ class ApplicationController extends Controller
 				"nullable",
 				"unique:form_critical_incident,reference_number",
                 "max:150",
-                Rule::requiredIf($request->status == 1),
+                Rule::requiredIf($request->status == 4),
             ],
         ],
         [
