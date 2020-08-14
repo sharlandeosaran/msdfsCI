@@ -262,6 +262,30 @@ class Application extends Model
                 first();
     }
 
+    public function getGrantFoodCardAttribute($value)
+    {
+        return \App\ApplicationGrant::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'emergency_food_card_%')->
+                get();
+    }
+
+    public function getGrantRentAttribute($value)
+    {
+        return \App\ApplicationGrant::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'general_assistance_rent_%')->
+                get();
+    }
+
+    public function getGrantCounsellingServicesAttribute($value)
+    {
+        return \App\ApplicationGrant::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'counselling_services%')->
+                get();
+    }
+
     public function step($step)
     {
         switch ($step) {

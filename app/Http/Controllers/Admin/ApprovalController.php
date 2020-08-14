@@ -67,6 +67,40 @@ class ApprovalController extends Controller
 
             'site_evidence' => "nullable|array",
             'site_evidence.*' => "max:10000|mimes:jpg,jpeg,png",
+
+            "grants" => "array",
+            "grant_values" => "array",
+
+            "grant_values.emergency_food_card.emergency_food_card_value" => [
+                'nullable',
+                'numeric',
+                Rule::requiredIf(isset($request->grants['emergency_food_card']) && $request->grants['emergency_food_card'] == 'on'),
+            ],
+            "grant_values.emergency_food_card.emergency_food_card_period" => [
+                'nullable',
+                'numeric',
+                Rule::requiredIf(isset($request->grants['emergency_food_card']) && $request->grants['emergency_food_card'] == 'on'),
+            ],
+            "grant_values.general_assistance_rent.general_assistance_rent_value" => [
+                'nullable',
+                'numeric',
+                Rule::requiredIf(isset($request->grants['general_assistance_rent']) && $request->grants['general_assistance_rent'] == 'on'),
+            ],
+            "grant_values.general_assistance_rent.general_assistance_rent_period" => [
+                'nullable',
+                'numeric',
+                Rule::requiredIf(isset($request->grants['general_assistance_rent']) && $request->grants['general_assistance_rent'] == 'on'),
+            ],
+            "grant_values.general_assistance_rent.general_assistance_rent_month" => [
+                'nullable',
+                'date_format:F Y',
+                Rule::requiredIf(isset($request->grants['general_assistance_rent']) && $request->grants['general_assistance_rent'] == 'on'),
+            ],
+            "grant_values.counselling_services.counselling_services" => [
+                'nullable',
+                // '',
+                Rule::requiredIf(isset($request->grants['counselling_services']) && $request->grants['counselling_services'] == 'on'),
+            ],
         ],
         [
             
@@ -140,6 +174,21 @@ class ApprovalController extends Controller
                             $recommended->save();
                         }
                         
+                    }
+                }
+            }
+        }
+
+        // create grants
+        if ($request->grants) {
+            foreach ($request->grants as $grant => $on) {
+                if (isset($request->grant_values[$grant]) && $on == 'on') {
+                    foreach ($request->grant_values[$grant] as $key => $value) {
+                        $grant = new \App\ApplicationGrant();
+                        $grant->application_id = $application->id;
+                        $grant->key = $key;
+                        $grant->value = $value;
+                        $grant->save();
                     }
                 }
             }

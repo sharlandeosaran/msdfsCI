@@ -167,11 +167,11 @@
                                 <label for="reference_number">Confirmed Household Members</label>
                                 <div class="col-md-12 checkbox-group required">
                                     <h4 style="margin-top: 0">
-                                        <span class="label label-danger">{{$application->applicant->name}} (Applicant)</span>
+                                        <span class="label label-danger label-list">{{$application->applicant->name}} (Applicant)</span>
                                         @foreach ($application->household_people as $applicant)
                                             @if ($applicant->person->id != $application->applicant->person_id)
                                                 @if ($applicant->confirm)
-                                                    <span class="label label-default">{{$applicant->person->name}} ({{$applicant->relationship->relationship}})</span>
+                                                    <span class="label label-default label-list">{{$applicant->person->name}} ({{$applicant->relationship->relationship}})</span>
                                                 @else
                                                     @php $rejected[] = $applicant->person->name .' ('. $applicant->relationship->relationship .')' ; @endphp
                                                 @endif
@@ -187,7 +187,7 @@
                                     <div class="col-md-12 checkbox-group required">
                                         <h4 style="margin-top: 0">
                                             @foreach ($rejected as $applicant)
-                                                <span class="label label-default">{{$applicant}}</span>
+                                                <span class="label label-default label-list">{{$applicant}}</span>
                                             @endforeach
                                         </h4>
                                     </div>
@@ -217,7 +217,10 @@
                                 @foreach ($application->form_critical_incident()->items_lost as $item)
                                     <div class="custom-control custom-checkbox" id="items_div_{{$item->slug}}">
                                         <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == $item->id? 'checked' : '' }} value="{{$item->id}}">
-                                        <label class="custom-control-label my-1" for="{{$item->slug}}">{{$item->item}}</label>
+                                        <label class="custom-control-label my-1" for="{{$item->slug}}" title="{{$item->recommended? '' : 'Not '}}Recommended by Welfare Officer I" data-toggle="tooltip">
+                                            {{$item->item}} 
+                                            <i class="fa {{$item->recommended? 'fa-check-square text-green' : 'fa-window-close text-red'}} fa-lg" style="margin-left: 5px"></i>
+                                        </label>
                                     </div>
                                     
                                     @if ($application->status_id == 8)
@@ -264,43 +267,51 @@
                                 <label for="reference_number">Award Other Grants</label>
                                 <div class="col-md-12 checkbox-group required">
                                     <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="emergency_food_card" name="grants['emergency_food_card']">
+                                        <input type="checkbox" class="custom-control-input grants" id="emergency_food_card" name="grants[emergency_food_card]">
                                         <label class="custom-control-label my-1" for="emergency_food_card">Emergency Food Card </label>
                                     </div>
-                                    <div class="mb-2 hide recovery_needs_div" style="margin-bottom: 10px" id="recovery_needs_emergency_food_card">
-                                        <input type="number" min="0" step="1" class="form-control recovery_needs_input" id="recovery_needs_input_emergency_food_card" aria-describedby="recovery_needs_emergency_food_card" name="recovery_needs['emergency_food_card']" value="old('recovery_needs.'.$item->slug)}}" placeholder="maximum value $item->max_value}}" max="$item->max_value}}">
+                                    <div class="mb-2 hide grants_div" style="margin-bottom: 10px" id="grants_emergency_food_card">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="number" min="0" step="0.01" class="form-control grants_emergency_food_card" id="emergency_food_card_value" aria-describedby="emergency_food_card_value" name="grant_values[emergency_food_card][emergency_food_card_value]" value="{{old('emergency_food_card_value')}}" placeholder="food card value">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <input type="number" min="0" step="1" class="form-control grants_emergency_food_card" id="emergency_food_card_period" aria-describedby="emergency_food_card_period" name="grant_values[emergency_food_card][emergency_food_card_period]" value="{{old('emergency_food_card_period')}}" placeholder="months">
+                                            <span class="input-group-addon">months</span>
+                                        </div>
                                     </div>
                                     
                                     <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="general_assistance_grant" name="grants['general_assistance_grant']">
-                                        <label class="custom-control-label my-1" for="general_assistance_grant">General Assistance Grant</label>
+                                        <input type="checkbox" class="custom-control-input grants" id="general_assistance_rent" name="grants[general_assistance_rent]">
+                                        <label class="custom-control-label my-1" for="general_assistance_rent">General Assistance - Rental</label>
                                     </div>
-                                    <div class="mb-2 hide recovery_needs_div" style="margin-bottom: 10px" id="recovery_needs_general_assistance_grant">
-                                        <input type="number" min="0" step="1" class="form-control recovery_needs_input" id="recovery_needs_input_general_assistance_grant" aria-describedby="recovery_needs_general_assistance_grant" name="recovery_needs['general_assistance_grant']" value="old('recovery_needs.'.$item->slug)}}" placeholder="maximum value $item->max_value}}" max="$item->max_value}}">
+                                    <div class="mb-2 hide grants_div" style="margin-bottom: 10px" id="grants_general_assistance_rent">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="number" min="0" step="0.01" class="form-control grants_general_assistance_rent" id="general_assistance_rent_value" aria-describedby="general_assistance_rent_value" name="grant_values[general_assistance_rent][general_assistance_rent_value]" value="{{old('general_assistance_rent_value')}}" placeholder="rental value">
+                                        </div>
+
+                                        <div class="input-group">
+                                            <input type="number" min="0" step="1" class="form-control grants_general_assistance_rent" id="general_assistance_rent_period" aria-describedby="general_assistance_rent_period" name="grant_values[general_assistance_rent][general_assistance_rent_period]" value="{{old('general_assistance_rent_period')}}" placeholder="period">
+                                            <span class="input-group-addon">months</span>
+                                        </div>
+
+                                        <input type="text" class="form-control grants_general_assistance_rent" id="general_assistance_rent_month" aria-describedby="general_assistance_rent_month" name="grant_values[general_assistance_rent][general_assistance_rent_month]" value="{{old('general_assistance_rent_month')}}" placeholder="start month">
+                                        
                                     </div>
-                                    
-                                    {{-- <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="clothing_grant" name="grants['clothing_grant']">
-                                        <label class="custom-control-label my-1" for="clothing_grant">Clothing Grant</label>
-                                    </div>
-                                    <div class="mb-2 hide recovery_needs_div" style="margin-bottom: 10px" id="recovery_needs_clothing_grant">
-                                        <input type="number" min="0" step="1" class="form-control recovery_needs_input" id="recovery_needs_input_clothing_grant" aria-describedby="recovery_needs_clothing_grant" name="recovery_needs['clothing_grant']" value="old('recovery_needs.'.$item->slug)}}" placeholder="maximum value $item->max_value}}" max="$item->max_value}}">
-                                    </div>
-                                    
-                                    <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="school_supplies" name="grants['school_supplies']">
-                                        <label class="custom-control-label my-1" for="school_supplies">School Supplies</label>
-                                    </div>
-                                    <div class="mb-2 hide recovery_needs_div" style="margin-bottom: 10px" id="recovery_needs_school_supplies">
-                                        <input type="number" min="0" step="1" class="form-control recovery_needs_input" id="recovery_needs_input_school_supplies" aria-describedby="recovery_needs_school_supplies" name="recovery_needs['school_supplies']" value="old('recovery_needs.'.$item->slug)}}" placeholder="maximum value $item->max_value}}" max="$item->max_value}}">
-                                    </div> --}}
                                     
                                     <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="counselling_services" name="grants['counselling_services']">
+                                        <input type="checkbox" class="custom-control-input grants" id="counselling_services" name="grants[counselling_services]">
                                         <label class="custom-control-label my-1" for="counselling_services">Counselling Services</label>
                                     </div>
-                                    <div class="mb-2 hide recovery_needs_div" style="margin-bottom: 10px" id="recovery_needs_counselling_services">
-                                        <input type="number" min="0" step="1" class="form-control recovery_needs_input" id="recovery_needs_input_counselling_services" aria-describedby="recovery_needs_counselling_services" name="recovery_needs['counselling_services']" value="old('recovery_needs.'.$item->slug)}}" placeholder="maximum value $item->max_value}}" max="$item->max_value}}">
+                                    <div class="mb-2 hide grants_div" style="margin-bottom: 10px" id="grants_counselling_services">
+                                        <select class="form-control grants_counselling_services" id="counselling_services" name="grant_values[counselling_services][counselling_services]">
+                                            <option value="">select...</option>
+                                            <option>person 1 name (type of counsellor)</option>
+                                            <option>person 2 name (type of counsellor)</option>
+                                            <option>person 3 name (type of counsellor)</option>
+                                        </select>
                                     </div>
                                     
                                 </div>
@@ -349,23 +360,52 @@
 @endsection
 
 @section('scripts')
+@include('admin.includes.datepicker')
 
 <script>
+
+    // datepicker for rental month
+    $('#general_assistance_rent_month').datepicker({
+        format: "MM yyyy",
+        startDate: "now()",
+        startView: 1,
+        minViewMode: 1,
+        maxViewMode: 2,
+        autoclose: true
+    });
+
+    // other grants show/hide
+    $(document).on('change', '.grants', function() {
+        var id = $(this).prop('id');
+        var chk = $(this).is(':checked');
+        console.log(chk)
+
+        if (chk) {
+            $('#grants_'+ id).removeClass('hide');
+            $('.grants_'+ id).prop('required', true);
+        } else {
+            $('#grants_'+ id).addClass('hide');
+            $('.grants_'+ id).prop('required', false).val('');
+        }
+    });
         
     // items lost or damaged changed
     $(document).on('change', '.items_lost_or_damaged', function() {
+        var id = $( this ).prop('id');
         var boxes = $('.items_lost_or_damaged:checkbox:checked');
         $('.recovery_needs_div').addClass('hide');
         // console.log(boxes)
 
         if (boxes.length > 0) {
+            $('.recovery_needs_input').prop('required', false);
             boxes.each(function( index ) {
                 $('#recovery_needs_'+ $( this ).prop('id')).removeClass('hide');
-                $('#recovery_needs_input_'+ $( this ).prop('id')).focus();
+                $('#recovery_needs_input_'+ $( this ).prop('id')).prop('required', true);
                 // console.log($( this ).prop('id'))
             });
+            $('#recovery_needs_input_'+ id).focus();
         } else {
-            $('.recovery_needs_input').val('');
+            $('.recovery_needs_input').val('').prop('required', false);
         }
     });
 

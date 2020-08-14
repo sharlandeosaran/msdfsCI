@@ -777,7 +777,7 @@
                                     <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
                                     <h4>
                                         @foreach ($application->form_critical_incident()->items_lost as $item)
-                                            <span class="label label-default">{{$item->item}}</span>
+                                            <span class="label label-default label-list">{{$item->item}}</span>
                                         @endforeach
                                     </h4>
                                     <hr>
@@ -788,9 +788,9 @@
                                         <strong>
                                             <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
                                             @if ($application->form_critical_incident()->housing_damage == 'Y')
-                                                <i class="fa fa-check-square fa-lg text-green" style="margin-left: 5px"></i>
+                                                <i class="fa fa-check-square text-green fa-lg" style="margin-left: 5px"></i>
                                             @else
-                                                <i class="fa fa-window-close fa-lg text-red" style="margin-left: 5px"></i>
+                                                <i class="fa fa-window-close text-red fa-lg" style="margin-left: 5px"></i>
                                             @endif
                                         </strong>
                                     </p>

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ApplicationDocument extends Model
 {
-	public $timestamps = false;
 
     public function getPathAttribute($value)
     {
