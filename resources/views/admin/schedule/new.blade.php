@@ -84,9 +84,10 @@
     // submit if checked applications
     $(document).on('click', '.submitBtn', function() {
         if (applications.length > 0) {
-            $('#scheduleForm').submit();
+            var chk = confirm('Create Schedule?');
+            if (chk) $('#scheduleForm').submit();
         }
-        console.log(applications);
+        // console.log(applications);
     });
 
     $(document).on('click', '.checkboxRow', function() {

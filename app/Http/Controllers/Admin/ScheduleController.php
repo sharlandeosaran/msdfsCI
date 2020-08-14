@@ -49,7 +49,7 @@ class ScheduleController extends Controller
 
     public function newschedulepost(Request $request)
     {
-        // dd($request->all());
+        dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [
