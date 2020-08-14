@@ -97,6 +97,8 @@
 <script src="{{ asset('bower_components/fastclick/lib/fastclick.js') }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('js/admin/adminlte.min.js') }}"></script>
+<!-- Notify.js -->
+<script src="{{ asset('js/admin/notify.min.js') }}"></script>
 <!-- Sparkline -->
 <script src="{{ asset('bower_components/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <!-- jvectormap  -->
@@ -137,6 +139,17 @@
                 $('#loadingModal').modal('show');
             }
         } */
+
+        @if(session('success'))
+            $.notify(
+                "{{session('success')}}", 
+                { 
+                    position:"top center",
+                    className: "success", 
+                    showDuration: 500,
+                }
+            );
+        @endif
     });
 
     function formatDate(date) {
