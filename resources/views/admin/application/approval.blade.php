@@ -134,8 +134,12 @@
                             <p class="text-muted">
                                 {{$application->household->housing_type->type}} Household of {{count($application->household_people) == 1? '1 Person' : count($application->household_people).' People'}}
 
+                                @if ($application->household->housing_type_id == 4)
+                                    <br>{{$application->household->landlord->rental_amount}} Rent
+                                @endif
+
                                 @if ($application->household->children_count)
-                                    <br>{{$application->household->children_count}} Children
+                                    <br>{{$application->household->children_count == 1? $application->household->children_count .' Child' : $application->household->children_count .' Children'}} 
                                 @endif
                                     
                                 @if ($application->household->primary_student_count)
@@ -164,7 +168,7 @@
                         @else
                             @php $rejected = []; @endphp
                             <div class="form-group">
-                                <label for="reference_number">Confirmed Household Members</label>
+                                <label for="reference_number"><i class="fas fa-users margin-r-5"></i> Confirmed Household Members</label>
                                 <div class="col-md-12 checkbox-group required">
                                     <h4 style="margin-top: 0">
                                         <span class="label label-danger label-list">{{$application->applicant->name}} (Applicant)</span>
@@ -183,7 +187,7 @@
 
                             @if (count($rejected))
                                 <div class="form-group">
-                                    <label for="reference_number">Rejected Household Members</label>
+                                    <label for="reference_number"><i class="fas fa-users-slash margin-r-5"></i> Rejected Household Members</label>
                                     <div class="col-md-12 checkbox-group required">
                                         <h4 style="margin-top: 0">
                                             @foreach ($rejected as $applicant)
@@ -196,7 +200,7 @@
                             <hr style="clear: both; padding-bottom: 10px;">
 
                             <div class="form-group">
-                                <label for="reference_number">Welfare Officer I Report</label>
+                                <label for="reference_number"><i class="far fa-file-alt margin-r-5"></i> Welfare Officer I Report</label>
                                 <div class="col-md-12 checkbox-group required">
                                     <blockquote>
                                         <p>{{$application->welfare_officer_report->details}}</p>
@@ -204,6 +208,27 @@
                                     </blockquote>
                                 </div>
                             </div>
+
+                            @if (count($application->site_evidence))
+                                <p>
+                                    <strong><i class="far fa-images margin-r-5"></i> ** Site Evidence **</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->site_evidence as $doc)
+                                            <div class="col-sm-2 col-xs-6" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="site_evidence">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
                         @endif
                         <hr style="clear: both; padding-bottom: 10px;">
@@ -217,9 +242,12 @@
                                 @foreach ($application->form_critical_incident()->items_lost as $item)
                                     <div class="custom-control custom-checkbox" id="items_div_{{$item->slug}}">
                                         <input type="checkbox" class="custom-control-input items_lost_or_damaged" id="{{$item->slug}}" name="items_lost_or_damaged[{{$item->slug}}]" {{old('items_lost_or_damaged.'.$item->slug) == $item->id? 'checked' : '' }} value="{{$item->id}}">
-                                        <label class="custom-control-label my-1" for="{{$item->slug}}" title="{{$item->recommended? '' : 'Not '}}Recommended by Welfare Officer I" data-toggle="tooltip">
+                                        <label class="custom-control-label my-1" for="{{$item->slug}}" @if ($application->status_id == 8) title="{{$item->recommended? '' : 'Not '}}Recommended by Welfare Officer I" @endif>
                                             {{$item->item}} 
-                                            <i class="fa {{$item->recommended? 'fa-check-square text-green' : 'fa-window-close text-red'}} fa-lg" style="margin-left: 5px"></i>
+
+                                            @if ($application->status_id == 8)
+                                                <i class="fa {{$item->recommended? 'fa-check-square text-green' : 'fa-window-close text-red'}} fa-lg" style="margin-left: 5px"></i>
+                                            @endif
                                         </label>
                                     </div>
                                     
@@ -282,24 +310,26 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="custom-control custom-checkbox" id="grant_">
-                                        <input type="checkbox" class="custom-control-input grants" id="general_assistance_rent" name="grants[general_assistance_rent]">
-                                        <label class="custom-control-label my-1" for="general_assistance_rent">General Assistance - Rental</label>
-                                    </div>
-                                    <div class="mb-2 hide grants_div" style="margin-bottom: 10px" id="grants_general_assistance_rent">
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="number" min="0" step="0.01" class="form-control grants_general_assistance_rent" id="general_assistance_rent_value" aria-describedby="general_assistance_rent_value" name="grant_values[general_assistance_rent][general_assistance_rent_value]" value="{{old('general_assistance_rent_value')}}" placeholder="rental value">
+                                    @if ($application->household->housing_type_id == 4)
+                                        <div class="custom-control custom-checkbox" id="grant_">
+                                            <input type="checkbox" class="custom-control-input grants" id="general_assistance_rent" name="grants[general_assistance_rent]">
+                                            <label class="custom-control-label my-1" for="general_assistance_rent">General Assistance - Rental</label>
                                         </div>
+                                        <div class="mb-2 hide grants_div" style="margin-bottom: 10px" id="grants_general_assistance_rent">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">$</span>
+                                                <input type="number" min="0" step="0.01" class="form-control grants_general_assistance_rent" id="general_assistance_rent_value" aria-describedby="general_assistance_rent_value" name="grant_values[general_assistance_rent][general_assistance_rent_value]" value="{{old('general_assistance_rent_value')}}" placeholder="rental value">
+                                            </div>
 
-                                        <div class="input-group">
-                                            <input type="number" min="0" step="1" class="form-control grants_general_assistance_rent" id="general_assistance_rent_period" aria-describedby="general_assistance_rent_period" name="grant_values[general_assistance_rent][general_assistance_rent_period]" value="{{old('general_assistance_rent_period')}}" placeholder="period">
-                                            <span class="input-group-addon">months</span>
+                                            <div class="input-group">
+                                                <input type="number" min="0" step="1" class="form-control grants_general_assistance_rent" id="general_assistance_rent_period" aria-describedby="general_assistance_rent_period" name="grant_values[general_assistance_rent][general_assistance_rent_period]" value="{{old('general_assistance_rent_period')}}" placeholder="period">
+                                                <span class="input-group-addon">months</span>
+                                            </div>
+
+                                            <input type="text" class="form-control grants_general_assistance_rent" id="general_assistance_rent_month" aria-describedby="general_assistance_rent_month" name="grant_values[general_assistance_rent][general_assistance_rent_month]" value="{{old('general_assistance_rent_month')}}" placeholder="start month">
+                                            
                                         </div>
-
-                                        <input type="text" class="form-control grants_general_assistance_rent" id="general_assistance_rent_month" aria-describedby="general_assistance_rent_month" name="grant_values[general_assistance_rent][general_assistance_rent_month]" value="{{old('general_assistance_rent_month')}}" placeholder="start month">
-                                        
-                                    </div>
+                                    @endif
                                     
                                     <div class="custom-control custom-checkbox" id="grant_">
                                         <input type="checkbox" class="custom-control-input grants" id="counselling_services" name="grants[counselling_services]">
@@ -360,6 +390,9 @@
 @endsection
 
 @section('scripts')
+<!-- Lightbox -->
+<script src="{{ asset('js/admin/lightbox/ekko-lightbox.min.js') }}"></script>
+
 @include('admin.includes.datepicker')
 
 <script>
@@ -372,6 +405,12 @@
         minViewMode: 1,
         maxViewMode: 2,
         autoclose: true
+    });
+
+    // lightbox
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+        event.preventDefault();
+        $(this).ekkoLightbox();
     });
 
     // other grants show/hide

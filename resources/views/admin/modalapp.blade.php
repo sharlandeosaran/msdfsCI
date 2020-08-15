@@ -141,16 +141,31 @@
         } */
 
         @if(session('success'))
-            $.notify(
-                "{{session('success')}}", 
-                { 
-                    position:"top center",
-                    className: "success", 
-                    showDuration: 500,
-                }
-            );
+            success("{{session('success')}}");
         @endif
     });
+
+    function success(msg) {
+        $.notify(
+            msg, 
+            { 
+                position:"top center",
+                className: "success", 
+                showDuration: 500,
+            }
+        );
+    }
+
+    function failure(msg) {
+        $.notify(
+            msg, 
+            { 
+                position:"top center",
+                className: "error", 
+                showDuration: 500,
+            }
+        );
+    }
 
     function formatDate(date) {
         var d = new Date(date),

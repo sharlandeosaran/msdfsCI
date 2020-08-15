@@ -299,8 +299,12 @@
                                 <p class="text-muted">
                                     {{$application->household->housing_type->type}} Household of {{count($application->household_people) == 1? '1 Person' : count($application->household_people).' People'}}
 
+                                    @if ($application->household->housing_type_id == 4)
+                                        <br>{{$application->household->landlord->rental_amount}} Rent
+                                    @endif
+
                                     @if ($application->household->children_count)
-                                        <br>{{$application->household->children_count}} Children
+                                        <br>{{$application->household->children_count == 1? $application->household->children_count .' Child' : $application->household->children_count .' Children'}} 
                                     @endif
                                      
                                     @if ($application->household->primary_student_count)
@@ -1058,6 +1062,124 @@
                                     <br>
                                     <blockquote>
                                         <p class="text-justify">{!!$item->details!!}</p>
+                                        
+                                        {{-- supervisor remarks --}}
+                                        @if ($item->status_new == 9)
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <p>Approved Items Lost or Damaged</p>
+                                                    <div class="col-md-12">
+                                                        @foreach ($application->form_critical_incident()->items_lost as $items_lost)
+                                                            @if ($items_lost->approved)
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <p class="custom-control-label my-1">
+                                                                        {{$items_lost->item}} 
+                                                                        <span class="label label-default label-list">${{number_format($items_lost->cost,2)}}</span>
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            @if ($application->grants)
+                                                <div class="panel panel-default">
+                                                    <div class="panel-body">
+                                                        <p>Approved Grants</p>
+                                                        <div class="col-md-12">
+                                                            @if ($application->grant_food_card && isset($application->grant_food_card['emergency_food_card_value']) && isset($application->grant_food_card['emergency_food_card_period']))
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <p class="custom-control-label my-1">
+                                                                        Emergency Food Card 
+                                                                        <span class="label label-default label-list">${{number_format($application->grant_food_card['emergency_food_card_value'],2)}} for {{$application->grant_food_card['emergency_food_card_period'] == '1'? $application->grant_food_card['emergency_food_card_period'] .' month' : $application->grant_food_card['emergency_food_card_period'] .' months'}}</span>
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            
+                                                            @if ($application->grant_rent && isset($application->grant_rent['general_assistance_rent_value']) && isset($application->grant_rent['general_assistance_rent_period']))
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <p class="custom-control-label my-1">
+                                                                        General Assistance - Rental
+                                                                        <span class="label label-default label-list">${{number_format($application->grant_rent['general_assistance_rent_value'],2)}} for {{$application->grant_rent['general_assistance_rent_period'] == '1'? $application->grant_rent['general_assistance_rent_period'] .' month' : $application->grant_rent['general_assistance_rent_period'] .' months'}} from {{$application->grant_rent['general_assistance_rent_month']}}</span>
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                            
+                                                            @if ($application->grant_counselling_services && isset($application->grant_counselling_services['counselling_services']))
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <p class="custom-control-label my-1">
+                                                                        Counselling Services 
+                                                                        <span class="label label-default label-list">{{$application->grant_counselling_services['counselling_services']}}</span>
+                                                                    </p>
+                                                                </div>
+                                                            @endif
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        @endif
+
+                                        {{-- welfare officer I remarks --}}
+                                        @if ($item->status_new == 6)
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    @php $rejected = []; @endphp
+                                                    <div class="form-group">
+                                                        <p>Confirmed Household Members</p>
+                                                        <div class="col-md-12 checkbox-group required">
+                                                            <h4 style="margin-top: 0">
+                                                                <span class="label label-danger label-list">{{$application->applicant->name}} (Applicant)</span>
+                                                                @foreach ($application->household_people as $applicant)
+                                                                    @if ($applicant->person->id != $application->applicant->person_id)
+                                                                        @if ($applicant->confirm)
+                                                                            <span class="label label-default label-list">{{$applicant->person->name}} ({{$applicant->relationship->relationship}})</span>
+                                                                        @else
+                                                                            @php $rejected[] = $applicant->person->name .' ('. $applicant->relationship->relationship .')' ; @endphp
+                                                                        @endif
+                                                                    @endif
+                                                                @endforeach
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                        
+                                                    @if (count($rejected))
+                                                        <div class="form-group">
+                                                            <p>Rejected Household Members</p>
+                                                            <div class="col-md-12">
+                                                                <h4 style="margin-top: 0">
+                                                                    @foreach ($rejected as $applicant)
+                                                                        <span class="label label-default label-list">{{$applicant}}</span>
+                                                                    @endforeach
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    @endif
+                                                </div>
+                                            </div>
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-body">
+                                                    <p>Recommended Items Lost or Damaged</p>
+                                                    <div class="col-md-12">
+                                                        @foreach ($application->form_critical_incident()->items_lost as $items_lost)
+                                                            <div class="custom-control custom-checkbox">
+                                                                <p class="custom-control-label my-1">
+                                                                    {{$items_lost->item}} 
+                                                                    
+                                                                    <i class="fa {{$items_lost->recommended? 'fa-check-square text-green' : 'fa-window-close text-red'}} fa-lg" style="margin-left: 5px"></i>
+                                                                </p>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                        
                                         <small><cite title="Source Title">
                                             <i class="fa fa-user margin-r-5"></i> {{$item->changedBy->name}}
                                         </cite></small>
@@ -1065,6 +1187,7 @@
                                             <i class="fa fa-calendar margin-r-5"></i> {{$item->since}}
                                         </cite></small>
                                     </blockquote>
+
                                     <hr>
                                 @endforeach
 
@@ -1112,7 +1235,7 @@
             
             <form method="POST" action="#" enctype="multipart/form-data" id="statusForm">
                 @csrf
-                @method('PUT')
+                {{-- @method('PUT') --}}
                 
                 <div class="modal-body">
                     
@@ -1180,13 +1303,18 @@
             url: "{{route('updatestatus')}}",
             data: data,
             success: function(response) {
+                success('Submission sent successfully.');
                 $('#loadingModal').modal('show');
-                location.reload();
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
                 // console.log(response)
             },
             error: function(response) {
+                var msg = response.responseJSON.msg;
                 $('#btn_status_submit').button('reset');
-                $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + response.responseJSON.msg);
+                $('#err-status').html('<i class="fas fa-exclamation-triangle"></i> ' + msg);
+                failure(msg);
                 // console.log(response)
             }
         });

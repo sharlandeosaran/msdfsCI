@@ -236,16 +236,31 @@
         } */
 
         @if(session('success'))
+            success("{{session('success')}}");
+        @endif
+    });
+
+    function success(msg) {
         $.notify(
-            "{{session('success')}}", 
+            msg, 
             { 
                 position:"top center",
                 className: "success", 
                 showDuration: 500,
             }
         );
-        @endif
-    });
+    }
+
+    function failure(msg) {
+        $.notify(
+            msg, 
+            { 
+                position:"top center",
+                className: "error", 
+                showDuration: 500,
+            }
+        );
+    }
 
     function formatDate(date) {
         var d = new Date(date),

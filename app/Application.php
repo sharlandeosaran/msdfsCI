@@ -262,28 +262,56 @@ class Application extends Model
                 first();
     }
 
-    public function getGrantFoodCardAttribute($value)
+    public function getGrantsAttribute($value)
     {
         return \App\ApplicationGrant::
                 where('application_id', $this->id)->
-                where('file', 'LIKE', 'emergency_food_card_%')->
                 get();
+    }
+
+    public function getGrantFoodCardAttribute($value)
+    {
+        $list = [];
+        $get = \App\ApplicationGrant::
+                where('application_id', $this->id)->
+                where('key', 'LIKE', 'emergency_food_card_%')->
+                orderBy('created_at', 'desc')->
+                get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
     }
 
     public function getGrantRentAttribute($value)
     {
-        return \App\ApplicationGrant::
+        $list = [];
+        $get = \App\ApplicationGrant::
                 where('application_id', $this->id)->
-                where('file', 'LIKE', 'general_assistance_rent_%')->
+                where('key', 'LIKE', 'general_assistance_rent_%')->
+                orderBy('created_at', 'desc')->
                 get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
     }
 
     public function getGrantCounsellingServicesAttribute($value)
     {
-        return \App\ApplicationGrant::
+        $list = [];
+        $get = \App\ApplicationGrant::
                 where('application_id', $this->id)->
-                where('file', 'LIKE', 'counselling_services%')->
+                where('key', 'LIKE', 'counselling_services%')->
+                orderBy('created_at', 'desc')->
                 get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
     }
 
     public function step($step)

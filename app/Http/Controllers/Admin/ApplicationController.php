@@ -222,7 +222,7 @@ class ApplicationController extends Controller
         $log->save();
 
 		// log reference number
-		if ($request->status == 1) {
+		if ($request->status == 4) {
 			$log = \App\FormCriticalIncident::where('application_id', $request->id)->first();
 			$log->reference_number = $request->reference_number;
 			$log->save();
@@ -231,7 +231,7 @@ class ApplicationController extends Controller
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
-        return response()->json(['msg' => 'Success'], 200);
+        return response()->json(['msg' => 'Submission sent successfully.'], 200);
     }
 
     public function updatestatusimages(Request $request)
