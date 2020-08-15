@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/schedule/new', 'Admin\ScheduleController@new')->name('newschedule');
         Route::get('/schedule/view/{id}', 'Admin\ScheduleController@view');
         Route::post('/schedule/newschedulepost', 'Admin\ScheduleController@newschedulepost')->name('newschedulepost');
+        Route::get('/schedule/create', 'Admin\ScheduleController@createschedule')->name('createschedule');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');

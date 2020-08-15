@@ -49,7 +49,7 @@ class ScheduleController extends Controller
 
     public function newschedulepost(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [
@@ -69,33 +69,116 @@ class ScheduleController extends Controller
             $request->applications = str_replace($bad,$safe,$request->applications);
         }
         $explode = explode(',', $request->applications);
-        $list = array_filter($explode);
-        // dd($list);
+        $ids = array_filter($explode);
+        // dd($ids);
 
-        if ($list) {
-            // create schedule
-            $schedule = new \App\Schedule();
-            $schedule->created_by = \Auth::user()->id;
-            $schedule->type_id = 1;
-            $schedule->save();
-            
-            // store applications
-            foreach ($list as $value) {
+        $applications = \App\Application::whereIn('id', $ids)->get();
+        // dd($applications);
+        
+        // initialize schedules
+        $list = [];
+        if ($applications) {
 
-                // change status of application to scheduled
-                $application = \App\Application::find($value);
-                $application->status_id = 10;
-                $application->scheduled = 1;
-                $application->save();
+            // loop through applications
+            foreach ($applications as $application) {
+                // load rental rows
+                if (1 == 1) 
+                {
+                    $list['rental'][] = [
+                        'ref_num' => '',
+                        'applicant_name' => '',
+                        'id_card' => '',
+                        'address' => '',
+                        'item' => '',
+                        'amount' => '',
+                        'total' => '',
+                        'landlord' => '',
+                        'contact' => '',
+                    ];
+                }
 
-                // attach applications to schedules
-                $schedule_application = new \App\ScheduleApplication();
-                $schedule_application->schedule_id = $schedule->id;
-                $schedule_application->application_id = $value;
-                $schedule_application->save();
+                // load household rows
+                if (1 == 1) 
+                {
+                    $list['household'][] = [
+                        'ref_num' => '',
+                        'applicant_name' => '',
+                        'id_card' => '',
+                        'address' => '',
+                        'quantity' => '',
+                        'items' => '',
+                        'cost' => '',
+                    ];
+                }
+
+                // load clothing rows
+                if (1 == 1) 
+                {
+                    $list['clothing'][] = [
+                        'ref_num' => '',
+                        'applicant_name' => '',
+                        'id_card' => '',
+                        'address' => '',
+                        'quantity' => '',
+                        'items' => '',
+                        'cost' => '',
+                    ];
+                }
+
+                // load school rows
+                if (1 == 1) 
+                {
+                    $list['school'][] = [
+                        'ref_num' => '',
+                        'applicant_name' => '',
+                        'id_card' => '',
+                        'address' => '',
+                        'quantity' => '',
+                        'items' => '',
+                        'cost' => '',
+                    ];
+                }
+
             }
         }
+        dd($list);
         
         return redirect('/admin/schedule/view/'.$schedule->id)->with('success', 'Submission sent successfully.');
     }
+    
+    public function createschedule()
+    {
+        $data = [
+            'title' => 'Schedules',
+			'active' => 'schedules',
+            'activelink' => 'newschedule',
+            'application' => \App\Application::first(),
+			'status' => \App\Status::all(),
+        ];
+
+        return view('admin.schedule.create', $data);
+    }
 }
+
+
+            // // create schedule
+            // $schedule = new \App\Schedule();
+            // $schedule->created_by = \Auth::user()->id;
+            // $schedule->type_id = 1;
+            // $schedule->save();
+            
+            // // store applications
+            // foreach ($list as $value) {
+
+            //     // change status of application to scheduled
+            //     $application = \App\Application::find($value);
+            //     $application->status_id = 10;
+            //     $application->scheduled = 1;
+            //     $application->save();
+
+            //     // attach applications to schedules
+            //     $schedule_application = new \App\ScheduleApplication();
+            //     $schedule_application->schedule_id = $schedule->id;
+            //     $schedule_application->application_id = $value;
+            //     $schedule_application->save();
+            // }
