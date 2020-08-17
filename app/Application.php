@@ -90,6 +90,16 @@ class Application extends Model
         return $this->form_critical_incident()? $this->form_critical_incident()->reference_number : '';
     }
 
+    public function getRegionAttribute($value)
+    {
+        return $this->applicant? $this->applicant->region : '';
+    }
+
+    public function region()
+    {
+        return \App\Region::where('code', $this->applicant->region_code)->first();
+    }
+
     public function getApplicantAttribute($value)
     {
         return \App\Person::
@@ -394,6 +404,13 @@ class Application extends Model
 	
 	public function scopeSchedule($query){
         return $query->
+            select('applications.*', 'schedules.schedules', 'regions.id as region_id')->
+            leftJoin('applicants', 'applicants.application_id', 'applications.id')->
+            leftJoin('people', 'people.id', 'applicants.person_id')->
+            leftJoin('person_household', 'person_household.person_id', 'people.id')->
+            leftJoin('households', 'person_household.household_id', 'households.id')->
+            leftJoin('communities', 'households.community_id', 'communities.id')->
+            leftJoin('regions', 'communities.region_code', 'regions.code')->
 			leftJoin(DB::raw( '(
                     SELECT count(*) as schedules, sa.application_id
                     FROM schedule_applications sa
@@ -404,7 +421,7 @@ class Application extends Model
             })->
             whereIn('applications.status_id', [9,10])->
             where('applications.schedules', '>', 'schedules.schedules')->
-            orderBy('id', 'desc')->
+            orderBy('applications.id', 'desc')->
             get();
 	}
 }

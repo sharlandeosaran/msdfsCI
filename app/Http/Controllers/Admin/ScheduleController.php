@@ -14,7 +14,7 @@ class ScheduleController extends Controller
             'title' => 'Schedules',
 			'active' => 'schedules',
             'activelink' => 'schedules',
-            'applications' => \App\Application::schedule(),
+            'schedules' => \App\Schedule::all(),
         ];
 
         return view('admin.schedule.schedule', $data);

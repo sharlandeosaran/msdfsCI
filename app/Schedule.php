@@ -13,6 +13,34 @@ class Schedule extends Model
         return \App\Application::whereIn('id', $nums)->get();
     }
 
+    public function type()
+    {
+        return \App\ScheduleType::find($this->type_id);
+    }
+
+    public function getTypeAttribute($value)
+    {
+        if ($this->type()) {
+            return $this->type()->type;
+        } else {
+            return;
+        }
+    }
+
+    public function region()
+    {
+        return \App\Region::find($this->region_id);
+    }
+
+    public function getRegionAttribute($value)
+    {
+        if ($this->region()) {
+            return $this->region()->region;
+        } else {
+            return;
+        }
+    }
+
     public function getSinceAttribute($value)
     {
         return \Carbon\Carbon::parse($this->created_at)->format('F jS, Y');
