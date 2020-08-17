@@ -49,7 +49,7 @@
                                     </td>
                                     <td>{{$item->created_at->format('Y-m-d')}}</td>
                                     <td>{{$item->createdBy->name}}</td>
-                                    <td><a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="{{$item->id}}"><i class="fa fa-eye" aria-hidden="true"></i> view</a></td>
+                                    <td><a href="{{url('/admin/schedule/view/'.$item->type_id.'/'.$item->id)}}" class="btn btn-danger btn-xs application_view"><i class="fa fa-eye" aria-hidden="true"></i> view</a></td>
                                 </tr>
                                 @endforeach
                             </tbody>

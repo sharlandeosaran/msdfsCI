@@ -87,12 +87,20 @@
                         <div class="col-md-4">
                             <img src="{{ asset('img/avatar.png') }}" class="img-thumbnail img-profile" alt="User Image">
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-4">
                             <h3>Role <i class="fa fa-user fa-fw" aria-hidden="true"></i></h3>
                             <h4>{{ $data->role->role }}</h4>
                             <h3>Email <i class="fa fa-envelope fa-fw" aria-hidden="true"></i></h3>
                             <h4>
                                 <a href="mailto:{{ $data->email }}" title="send email to {{ $data->email }}">{{ $data->email }}</a>
+                            </h4>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Regions <i class="fa fa-map fa-fw" aria-hidden="true"></i></h3>
+                            <h4>
+                                @foreach ($data->regions() as $region)
+                                - {{$region}} <br>
+                                @endforeach
                             </h4>
                         </div>
                     </div>

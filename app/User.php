@@ -76,5 +76,31 @@ class User extends Authenticatable
                 toArray();
     }
 
+    public function userregions()
+    {
+        $links = \App\UserRegion::where('user_id', $this->id)->pluck('region_id');
+        return \App\Region::whereIn('id', $links)->get();
+    }
+    
+    public function regions()
+    {
+        $list = [];
+        foreach (\App\UserRegion::where('user_id', $this->id)->get() as $key => $value) {
+            if ($value) {
+                $sub = \App\Region::find($value->region);
+                if ($sub) {
+                    $list[] = $sub->region;
+                }
+            }
+        }
+        asort($list);
+        return $list;
+    }
+    
+    public function region_id()
+    {
+        return \App\UserRegion::where('user_id', $this->id)->pluck('region_id');
+    }
+
 
 }

@@ -20,7 +20,7 @@ class ScheduleController extends Controller
         return view('admin.schedule.schedule', $data);
     }
     
-    public function view($id)
+    public function view($type, $id)
     {
 		$schedule = \App\Schedule::find($id);
         if(!$schedule) return back()->with('flashed', 'That does not exist');
@@ -30,6 +30,7 @@ class ScheduleController extends Controller
 			'active' => 'schedules',
             'activelink' => 'schedules',
             'schedule' => $schedule,
+            'type' => $type,
         ];
 
         return view('admin.schedule.view', $data);

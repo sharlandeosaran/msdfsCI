@@ -22,59 +22,185 @@
                 
                 <div class="box-body">
                     
-                    <div class="table-responsive">
-                        <table id="example1" class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th width='5%'>id</th>
-                                    <th width='25%'>Submitter</th>
-                                    <th width='10%'>Status</th>
-                                    <th width='15%'>Type</th>
-                                    <th width='25%'>Category (Sub-Categories)</th>
-                                    <th width='15%' class="text-right">Date</th>
-                                    <th width='5%'>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- @foreach ($feedback as $item)
+                    @if ($type == 1)
+                        <div class="tab-pane active" id="tab_1">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>No.</th>
+                                            <th>Ref No.</th>
+                                            <th>Applicant Name</th>
+                                            <th>ID Card #</th>
+                                            <th>Address</th>
+                                            <th>Item</th>
+                                            <th>Amount</th>
+                                            <th>Total TTD</th>
+                                            <th>Invoice</th>
+                                            <th>Landlord</th>
+                                            <th>Contact#</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        @foreach ($schedule->schedule_applications() as $row)
+                                            <tr>
+                                                <td>{{$row->number}}</td>
+                                                <td>{{$row->reference_number}}</td>
+                                                <td>{{$row->applicant_name}}</td>
+                                                <td>{{$row->id_card}}</td>
+                                                <td>{!! $row->address !!}</td>
+                                                <td>
+                                                    {!! $row->schedule_rent->item !!}
+                                                </td>
+                                                <td>
+                                                    {{$row->schedule_rent->amount}}
+                                                </td>
+                                                <td>{{$row->total}}</td>
+                                                <td>{{$row->invoice}}</td>
+                                                <td>
+                                                    {{$row->schedule_rent->landlord}}
+                                                </td>
+                                                <td>{{$row->contact}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    
+                                </table>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($type == 2)
+                    <div class="tab-pane" id="tab_2">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover table-bordered">
+                                <thead>
                                     <tr>
-                                        <td>{{$item->id}}</td>
-                                        <td>
-                                            {!!$item->name!!} <br>
-                                            {{$item->email}}
-                                        </td>
-                                        <td>
-                                            <span class="label label-{{$item->status_colour}}">{{$item->status}}</span>
-                                            @if ($item->status_id == 2)
-                                            <br>
-                                            <small>{{$item->assigner}} <i class="fa fa-arrow-right margin-r-5"></i> {{$item->assignee}}</small>
-                                            @endif
-                                        </td>
-                                        <td>{{$item->submission_type}}</td>
-                                        <td>
-                                            {{$item->category}}
-                                            @foreach ($item->subcategories() as $sub)
-                                            <small><br> - {{$sub}}</small> 
-                                            @endforeach
-                                        </td>
-                                        <td class="text-right">{{$item->created_at->format('Y-m-d')}}</td>
-                                        <td><a href="{{url('/admin/submissions/view/'.$item->id)}}" class="btn btn-danger btn-xs" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i> view</a></td>
+                                        <th width="5%">No.</th>
+                                        <th width="5%">Ref No.</th>
+                                        <th width="10%">Applicant Name</th>
+                                        <th width="8%">ID Card #</th>
+                                        <th width="14%">Address</th>
+                                        <th width="7%">Quantity</th>
+                                        <th width="15%">Items</th>
+                                        <th width="10%">Cost TTD</th>
+                                        <th width="10%">Supplier</th>
+                                        <th width="8%">Invoice</th>
+                                        <th width="8%">Contact#</th>
                                     </tr>
-                                @endforeach --}}
-                            </tbody>
-                            {{-- <tfoot>
-                                <tr>
-                                    <th>id</th>
-                                    <th>Submitter</th>
-                                    <th>Status</th>
-                                    <th>Type</th>
-                                    <th>Category (Sub-Categories)</th>
-                                    <th class="text-right">Date</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot> --}}
-                        </table>
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                        @foreach ($schedule->schedule_applications() as $row)
+                                            <tr>
+                                                <td>{{$row->number}}</td>
+                                                <td>{{$row->reference_number}}</td>
+                                                <td>{{$row->applicant_name}}</td>
+                                                <td>{{$row->id_card}}</td>
+                                                <td>{!! $row->address !!}</td>
+                                                <td>{!! $row->items['quantity'] !!}</td>
+                                                <td>{!! $row->items['item'] !!}</td>
+                                                <td>{!! $row->items['cost'] !!}</td>
+                                                <td>{{$row->supplier}}</td>
+                                                <td>{{$row->invoice}}</td>
+                                                <td>{{$row->contact}}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tr>
+                                </tbody>
+                                
+                            </table>
+                        </div>
                     </div>
+                    @endif
+
+                    @if ($type == 3)
+                    <div class="tab-pane" id="tab_3">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">No.</th>
+                                        <th width="5%">Ref No.</th>
+                                        <th width="10%">Applicant Name</th>
+                                        <th width="8%">ID Card #</th>
+                                        <th width="14%">Address</th>
+                                        <th width="7%">Quantity</th>
+                                        <th width="15%">Items</th>
+                                        <th width="10%">Cost TTD</th>
+                                        <th width="10%">Supplier</th>
+                                        <th width="8%">Invoice</th>
+                                        <th width="8%">Contact#</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($schedule->schedule_applications() as $row)
+                                        <tr>
+                                            <td>{{$row->number}}</td>
+                                            <td>{{$row->reference_number}}</td>
+                                            <td>{{$row->applicant_name}}</td>
+                                            <td>{{$row->id_card}}</td>
+                                            <td>{!! $row->address !!}</td>
+                                            <td>{!! $row->items['quantity'] !!}</td>
+                                            <td>{!! $row->items['item'] !!}</td>
+                                            <td>{!! $row->items['cost'] !!}</td>
+                                            <td>{{$row->supplier}}</td>
+                                            <td>{{$row->invoice}}</td>
+                                            <td>{{$row->contact}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if ($type == 4)
+                    <div class="tab-pane" id="tab_4">
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th width="5%">No.</th>
+                                        <th width="5%">Ref No.</th>
+                                        <th width="10%">Applicant Name</th>
+                                        <th width="8%">ID Card #</th>
+                                        <th width="14%">Address</th>
+                                        <th width="7%">Quantity</th>
+                                        <th width="15%">Items</th>
+                                        <th width="10%">Cost TTD</th>
+                                        <th width="10%">Supplier</th>
+                                        <th width="8%">Invoice</th>
+                                        <th width="8%">Contact#</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach ($schedule->schedule_applications() as $row)
+                                        <tr>
+                                            <td>{{$row->number}}</td>
+                                            <td>{{$row->reference_number}}</td>
+                                            <td>{{$row->applicant_name}}</td>
+                                            <td>{{$row->id_card}}</td>
+                                            <td>{!! $row->address !!}</td>
+                                            <td>{!! $row->items['quantity'] !!}</td>
+                                            <td>{!! $row->items['item'] !!}</td>
+                                            <td>{!! $row->items['cost'] !!}</td>
+                                            <td>{{$row->supplier}}</td>
+                                            <td>{{$row->invoice}}</td>
+                                            <td>{{$row->contact}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                
+                            </table>
+                        </div>
+                    </div>
+                    @endif
                     
                 </div>
 

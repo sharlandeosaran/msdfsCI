@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
 
+    public function schedule_applications()
+    {
+        return \App\ScheduleApplication::where('schedule_id', $this->id)->get();
+    }
+
     public function applications()
     {
         $nums = \App\ScheduleApplication::where('schedule_id', $this->id)->pluck('application_id')->toArray();

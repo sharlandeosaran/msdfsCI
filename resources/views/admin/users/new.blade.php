@@ -70,6 +70,28 @@
                                 <strong id="err-role">{{ $errors->first('role') }}</strong>
                             </span>
                         </div>
+
+                        <div class="form-group{{ $errors->has('regions') ? ' has-error' : '' }}" id="grp-regions">
+                            <label for="">Regions</label>
+                            
+                            @foreach ($regions as $region)
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="flat-red regions" id="regions{{$region->id}}" name="regions[{{$region->id}}]" {{old('regions') && array_key_exists($region->id, old('regions')) ? 'checked' : (count($errors) <= 0 && isset($data) && in_array($region->id, $data->region_id()->toArray())? 'checked' : '')}}> {{$region->region}}
+                                </label>
+                            </div>
+                            @endforeach
+
+                            {{-- <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" class="flat-red regions" id="regions-all"> select all
+                                </label>
+                            </div> --}}
+
+                            <span class="help-block">
+                                <strong id="err-regions">{{ $errors->first('regions') }}</strong>
+                            </span>
+                        </div>
                         
                         <div class="form-group{{ $errors->has('active') ? ' has-error' : '' }}" id="grp-active">
                             <label for="">Active</label>

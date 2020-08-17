@@ -56,7 +56,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="tab_2">
                         <div class="box-body table-responsive no-padding">
@@ -96,7 +95,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="tab_3">
                         <div class="box-body table-responsive no-padding">
@@ -136,7 +134,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
 
                     <div class="tab-pane" id="tab_4">
                         <div class="box-body table-responsive no-padding">
@@ -176,7 +173,6 @@
                             </table>
                         </div>
                     </div>
-                    <!-- /.tab-pane -->
 
                 </div>
                 <!-- /.tab-content -->

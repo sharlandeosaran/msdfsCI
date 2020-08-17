@@ -44,6 +44,7 @@ class UserController extends Controller
 			'active' => 'users',
             'activelink' => 'newuser',
             'roles' => \App\Role::all(),
+            'regions' => \App\Region::ordered(),
         ];
 
         return view('admin.users.new', $data);
@@ -60,6 +61,7 @@ class UserController extends Controller
             "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email",
             "role" => "required|exists:roles,id",
+            "regions" => "nullable|array",
             "active" => "required|boolean",
         ],
         [
@@ -83,6 +85,14 @@ class UserController extends Controller
         $user->created_by = \Auth::user()->id;
         $user->password = 'password';
         $user->save();
+
+        if($request->regions)
+            foreach ($request->regions as $key => $value) {
+                $cat = new \App\UserRegion();
+                $cat->user_id = $user->id;
+                $cat->region_id = $key;
+                $cat->save();
+            }
 
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
@@ -144,6 +154,7 @@ class UserController extends Controller
             'activelink' => 'users',
             'data' => $user,
             'roles' => \App\Role::all(),
+            'regions' => \App\Region::ordered(),
         ];
 
         return view('admin.users.new', $data);
@@ -161,6 +172,7 @@ class UserController extends Controller
             "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email,".$request->id,
             "role" => "required|exists:roles,id",
+            "regions" => "nullable|array",
             "active" => "required|boolean",
         ],
         [
@@ -179,7 +191,7 @@ class UserController extends Controller
 
         // log status audit
         if($request->first_name != $user->first_name){
-	        $log = new \App\UserAudit;
+	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
 	        $log->attribute = 'first_name';
 	        $log->old = $user->first_name;
@@ -188,7 +200,7 @@ class UserController extends Controller
 	        $log->save();
     	}
         if($request->surname != $user->surname){
-	        $log = new \App\UserAudit;
+	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
 	        $log->attribute = 'surname';
 	        $log->old = $user->surname;
@@ -197,7 +209,7 @@ class UserController extends Controller
 	        $log->save();
     	}
         if($request->email != $user->email){
-	        $log = new \App\UserAudit;
+	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
 	        $log->attribute = 'email';
 	        $log->old = $user->email;
@@ -206,7 +218,7 @@ class UserController extends Controller
 	        $log->save();
     	}
         if($request->role != $user->role_id){
-	        $log = new \App\UserAudit;
+	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
 	        $log->attribute = 'role_id';
 	        $log->old = $user->role_id;
@@ -215,13 +227,39 @@ class UserController extends Controller
 	        $log->save();
     	}
         if($request->active != $user->active){
-	        $log = new \App\UserAudit;
+	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
 	        $log->attribute = 'active';
 	        $log->old = $user->active;
 	        $log->new = $request->active;
 	        $log->changed_by = \Auth::user()->id;
 	        $log->save();
+        }
+
+        // check if regions have been changed
+        $list = [];
+        if ($request->regions) {
+            foreach ($request->regions as $key => $value) {
+                $list[] = $key;
+            }
+        }
+        if($list != $user->region_id()->toArray()){
+	        $log = new \App\UserAudit();
+	        $log->user_id = $request->id;
+	        $log->attribute = 'regions';
+	        $log->old = json_encode($user->region_id()->toArray());
+	        $log->new = json_encode($list);
+	        $log->changed_by = \Auth::user()->id;
+            $log->save();
+            
+            // update regions
+            DB::delete('delete from user_regions where user_id = ?', [$request->id]);
+            foreach ($request->regions as $key => $value) {
+                $region = new \App\UserRegion();
+                $region->user_id = $user->id;
+                $region->region_id = $key;
+                $region->save();
+            }
         }
 
         // update user
