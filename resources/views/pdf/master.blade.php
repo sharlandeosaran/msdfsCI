@@ -65,12 +65,12 @@
             font-weight:bold;
         }
         
-        .invoice-box table tr.details td{
-            padding-bottom:20px;
+        .invoice-box table tr.details td, .invoice-box table tr.heading th{
+            padding:7px;
         }
         
         .invoice-box table tr.item td{
-            border-bottom:1px solid #eee;
+            border-bottom:1px solid #b7b1b1;
         }
         
         .invoice-box table tr.item.last td{
@@ -78,7 +78,7 @@
         }
         
         .invoice-box table tr.total td:nth-child(2){
-            border-top:2px solid #eee;
+            border-top:2px solid #b7b1b1;
             font-weight:bold;
         }
         
@@ -161,7 +161,7 @@
         }
 
         .invoice-box table tr.item td{
-            border-bottom:1px solid #eee;
+            border-bottom:1px solid #b7b1b1;
         }
 
         .invoice-box table tr.item.last td{
@@ -169,7 +169,7 @@
         }
 
         .invoice-box table tr.total td:nth-child(2){
-            border-top:2px solid #eee;
+            border-top:2px solid #b7b1b1;
             font-weight:bold;
         }
 
@@ -182,18 +182,21 @@
         }
 
         tr.line td {
-            border-bottom:1px solid #eee;
+            border:1px solid #b7b1b1;
         }
 
         tr.line th {
             border-bottom:2px solid #000;
+            border-top:1px solid #b7b1b1;
+            border-left:1px solid #b7b1b1;
+            border-right:1px solid #b7b1b1;
         }
 
         .footer {
             position: absolute;
             bottom: 0;
             width: 100%;
-            border-top:1px solid #eee;
+            border-top:1px solid #b7b1b1;
         }
 
         @media only screen and (max-width: 600px) {

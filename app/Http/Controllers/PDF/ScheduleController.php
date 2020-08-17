@@ -34,8 +34,8 @@ class ScheduleController extends Controller
 
         return $pdf
                 ->setOptions($pageOptions)
-                ->setOrientation('portrait')
-                ->setPaper('Letter')
+                ->setOrientation('landscape')
+                ->setPaper('Legal')
                 ->inline('schedule_'. $id . '.pdf');
     }
 }

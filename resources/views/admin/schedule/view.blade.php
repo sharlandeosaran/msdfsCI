@@ -33,17 +33,17 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr class="danger">
-                                            <th>No.</th>
-                                            <th>Ref No.</th>
-                                            <th>Applicant Name</th>
-                                            <th>ID Card #</th>
-                                            <th>Address</th>
-                                            <th>Item</th>
-                                            <th>Amount</th>
-                                            <th>Total TTD</th>
-                                            <th>Invoice</th>
-                                            <th>Landlord</th>
-                                            <th>Contact#</th>
+                                            <th width="5%">No.</th>
+                                            <th width="5%">Ref No.</th>
+                                            <th width="10%">Applicant Name</th>
+                                            <th width="8%">ID Card #</th>
+                                            <th width="14%">Address</th>
+                                            <th width="15%">Item</th>
+                                            <th width="7%">Amount</th>
+                                            <th width="10%">Total TTD</th>
+                                            <th width="8%">Invoice</th>
+                                            <th width="10%">Landlord</th>
+                                            <th width="8%">Contact#</th>
                                         </tr>
                                     </thead>
 
@@ -59,9 +59,9 @@
                                                     {!! $row->schedule_rent->item !!}
                                                 </td>
                                                 <td>
-                                                    {{$row->schedule_rent->amount}}
+                                                    ${{number_format($row->schedule_rent->amount, 2)}} x {{$row->schedule_rent->quantity == 1? $row->schedule_rent->quantity.' month' : $row->schedule_rent->quantity.' months'}} from {{ date('F Y', strtotime($row->schedule_rent->start_date)) }}
                                                 </td>
-                                                <td>{{$row->total}}</td>
+                                                <td>${{number_format($row->total)}}</td>
                                                 <td>{{$row->invoice}}</td>
                                                 <td>
                                                     {{$row->schedule_rent->landlord}}
