@@ -81,3 +81,7 @@ td label {
     color: red !important;
     font-weight: bold !important;
 }
+
+.checkboxRow, .checkboxAllRow {
+    cursor: pointer;
+}

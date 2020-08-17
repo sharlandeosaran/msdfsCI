@@ -58,10 +58,10 @@
                 <ul class="treeview-menu">
                     <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="{{route('schedules')}}"><i class="fa fa-circle"></i> Schedules</a></li>
                     <li class=" {{isset($activelink) && $activelink == 'newschedule'? 'active' : ''}}"><a href="{{route('newschedule')}}"><i class="fa fa-circle"></i> New Schedule</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> Rental Assistance</a></li>
+                    {{-- <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> Rental Assistance</a></li>
                     <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> Household</a></li>
                     <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> Clothing</a></li>
-                    <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> School Supplies</a></li>
+                    <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> School Supplies</a></li> --}}
                 </ul>
             </li>
             {{-- @endcan --}}
