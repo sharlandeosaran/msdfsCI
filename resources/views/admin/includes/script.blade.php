@@ -36,3 +36,16 @@ $.ajaxSetup({
 $(document).on('change', '.form-control, .form-check-input', function() {
     filtertable();
 });
+
+// clear error messgaes
+$(document).on('change', '.form-control, .custom-control-input, .custom-file-input, .declaration_signature', function() {
+    var field = $(this).prop('name');
+    var id = $(this).prop('id');
+    var gender = $(this).attr('gender');
+    $('.grp-'+field).removeClass('has-error');
+    $('#err-'+field).html('');
+    $('.grp-'+id).removeClass('has-error');
+    $('#err-'+id).html('');
+    $('.grp-'+gender).removeClass('has-error');
+    $('#err-'+gender).html('');
+});

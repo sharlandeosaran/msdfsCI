@@ -9,3 +9,13 @@
         </div>
     </div>
 </div>
+
+<script>
+    // view application
+    $(document).on('click', '.application_view', function (e) {
+        var application = $(this).attr('application');
+        $('#update_row').val(application);
+        var page = "{{url('/admin/applications/view')}}/" + application;
+        $('#modalviewbody').html('<iframe style="border: 0px; height: -webkit-fill-available; height: 100%;" src="' + page + '" width="100%"></iframe>');
+    });
+</script>

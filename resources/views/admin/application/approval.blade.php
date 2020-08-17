@@ -417,7 +417,7 @@
     $(document).on('change', '.grants', function() {
         var id = $(this).prop('id');
         var chk = $(this).is(':checked');
-        console.log(chk)
+        // console.log(chk)
 
         if (chk) {
             $('#grants_'+ id).removeClass('hide');

@@ -18,7 +18,7 @@
                     in_array($stat->id, \Auth::user()->role_permissions) && 
                     $stat->id > $application->status_id && 
                     (
-                        $stat->id == $application->status_id + 1 || 
+                        ($stat->id == $application->status_id + 1 && $application->status_id != 10) || 
                         ($stat->id == $application->status_id + 3 && $application->status_id == 8) ||
                         ($stat->id == $application->status_id + 2 && $application->status_id == 1)
                     )
@@ -174,6 +174,9 @@
                             <p><strong><i class="fa fa-hashtag margin-r-5"></i> Ref Number | {{$application->reference_number}}</strong></p>
                             <hr>
 
+                            <p><strong><i class="fa fa-hashtag margin-r-5"></i> Applicant Name | {{$application->applicant->name}}</strong></p>
+                            <hr>
+
                             <p>
                                 <strong>
                                     <i class="fa fa-info-circle margin-r-5"></i> Status | 
@@ -181,6 +184,16 @@
                                 </strong>
                             </p>
                             <hr>
+
+                            @if (count($application->schedules))
+                                <strong><i class="fa fa-clipboard-check margin-r-5"></i> Schedules</strong>
+                                <p>
+                                    @foreach ($application->schedules as $schedule)
+                                        {{$schedule->type}} <br>
+                                    @endforeach
+                                </p>
+                                <hr>
+                            @endif
 
                             <p><strong><i class="fa fa-envelope margin-r-5"></i> Email | <a href="mailto:{{$application->applicant->email}}">{{$application->applicant->email}}</a></strong></p>
                             <hr>

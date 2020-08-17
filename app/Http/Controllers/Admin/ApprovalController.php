@@ -117,10 +117,19 @@ class ApprovalController extends Controller
                 ;
         }
 
-        // update feedback
+        // update application
         $application = \App\Application::find($request->id);
         $old = $application->status_id;
+        $schedules = 0;
 
+        // count schedules if approved
+        if ($request->status == 9) {
+            // get schedules
+            $count = app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]);
+            $schedules = count($count);
+        }
+
+        $application->schedules = $schedules > 0? $schedules : null;
         $application->status_id = $request->status;
         $application->save();
 

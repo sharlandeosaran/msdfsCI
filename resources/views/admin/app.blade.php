@@ -236,7 +236,7 @@
         } */
 
         @if(session('success'))
-            success("{{session('success')}}");
+            success("{!!session('success')!!}");
         @endif
     });
 

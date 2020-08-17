@@ -40,18 +40,18 @@
                                 </thead>
                                 <tbody class="">
                                     @foreach ($applications as $application)
-                                    <tr id="tableRow{{$application->id}}" class=" checkboxRow" catId="{{$application->id}}">
-                                        <td class="text-center" catId="{{$application->id}}">
-                                            <h3 style="margin-top: 10px;"><i class="far fa-square checkboxes" catId="{{$application->id}}" aria-hidden="true" id="checkbox{{$application->id}}"></i></h3>
-                                        </td>
-                                        <td>
-                                            <h4>
-                                                {{$application->reference_number}} - {{$application->applicant->name}}
-                                                
-                                                <a href="#" class="btn btn-danger btn-xs application_view pull-right" data-toggle="modal" data-target="#modalview" application="{{$application->id}}"><i class="fa fa-eye" aria-hidden="true"></i> view</a>
-                                            </h4>
-                                        </td>
-                                </tr>
+                                        <tr id="tableRow{{$application->id}}" class=" checkboxRow" catId="{{$application->id}}">
+                                            <td class="text-center" catId="{{$application->id}}">
+                                                <h3 style="margin-top: 10px;"><i class="far fa-square checkboxes" catId="{{$application->id}}" aria-hidden="true" id="checkbox{{$application->id}}"></i></h3>
+                                            </td>
+                                            <td>
+                                                <h4>
+                                                    {{$application->reference_number}} - {{$application->applicant->name}}
+                                                    
+                                                    <button type="button" class="btn btn-danger btn-xs application_view pull-right" data-toggle="modal" data-target="#modalview" application="{{$application->id}}"><i class="fa fa-eye" aria-hidden="true"></i> view</button>
+                                                </h4>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                 </tbody>
                                 {{-- <tfoot>
@@ -80,12 +80,13 @@
         </div>
     </div>
 </section>
-
-<!-- Modal -->
-@include('admin.includes.modalview')
 @endsection
 
 @section('scripts')
+
+<!-- Application View Modal -->
+@include('admin.includes.modalview')
+
 <script>
     var applications = [];
     var allApplications = {!! json_encode($applications->pluck('id')->toJson()) !!};
@@ -100,11 +101,10 @@
     });
 
     // check/uncheck single row
-    $(document).on('click', '.checkboxRow', function() {
-        var id = $(this).attr('catId');
-        var modal = ($(".modal").data('bs.modal') || {isShown: false}).isShown;
-
-        if (!modal) {
+    $(document).on('click', '.checkboxRow', function(e) {
+        if (!$(e.target).closest('.application_view').length) {
+            var id = $(this).attr('catId');
+            
             if ($('#checkbox'+id).hasClass('far')) {
                 $('#checkbox'+id).removeClass('far').addClass('fas');
                 applications.push(id);
@@ -128,14 +128,6 @@
         }
         $('#applications').val(applications);
         // console.log(applications);
-    });
-
-    // view application
-    $(document).on('click', '.application_view', function (e) {
-        var application = $(this).attr('application');
-        $('#update_row').val(application);
-        var page = "{{url('/admin/applications/view')}}/" + application;
-        $('#modalviewbody').html('<iframe style="border: 0px; height: -webkit-fill-available; height: 100%;" src="' + page + '" width="100%"></iframe>');
     });
 
     function removeValueFromArray(val) {

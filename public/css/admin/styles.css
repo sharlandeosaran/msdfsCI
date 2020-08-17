@@ -41,9 +41,22 @@ hr {
     margin: 0;
 }
 
+.py-0 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
 .my-0 {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
+}
+
+.mb-0 {
+    margin-bottom: 0px !important;
+}
+
+.mb-1 {
+    margin-bottom: 10px !important;
 }
 
 td label {
@@ -54,4 +67,17 @@ td label {
     margin-bottom: 5px;
     display: inline-block;
     padding: 5px;
+}
+
+.table-bordered>thead>tr>th, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>tbody>tr>td, .table-bordered>tfoot>tr>td {
+    border: 1px solid #d2d6de !important;
+}
+
+.nav-tabs-custom>.nav-tabs>li.active {
+    border-top-color: #dd4b39 !important;
+}
+
+.red {
+    color: red !important;
+    font-weight: bold !important;
 }

@@ -407,14 +407,14 @@
 
     </div>
 </section>
-
-<!-- Modal -->
-@include('admin.includes.modalview')
 @endsection
 
 @section('scripts')
 <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}" defer></script>
 <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}" defer></script>
+
+<!-- Application View Modal -->
+@include('admin.includes.modalview')
 
 <!-- Include Date Range Picker -->
 @include('admin.includes.datepicker')
@@ -516,13 +516,6 @@
                 });
             }, 1000);
         });
-    })
-
-    $(document).on('click', '.application_view', function (e) {
-        var application = $(this).attr('application');
-        $('#update_row').val(application);
-        var page = "{{url('/admin/applications/view')}}/" + application;
-        $('#modalviewbody').html('<iframe style="border: 0px; height: -webkit-fill-available; height: 100%;" src="' + page + '" width="100%"></iframe>');
     })
 </script>
 @endsection

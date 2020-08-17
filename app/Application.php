@@ -103,6 +103,28 @@ class Application extends Model
                 first();
     }
 
+    public function scheduled($type = null)
+    {
+        $schedule = \App\ScheduleApplication::
+            leftJoin('schedules', 'schedules.id', 'schedule_applications.schedule_id')->
+            where('schedule_applications.application_id', $this->id)->
+            where(function ($query) use ($type) {
+                if($type) $query->where('schedules.type_id', $type);
+            })->
+            get();
+
+        return $schedule->isEmpty()? 0 : 1;
+    }
+
+    public function getSchedulesAttribute($value)
+    {
+        return \App\ScheduleApplication::
+                    leftJoin('schedules', 'schedules.id', 'schedule_applications.schedule_id')->
+                    leftJoin('schedule_types', 'schedule_types.id', 'schedules.type_id')->
+                    where('schedule_applications.application_id', $this->id)->
+                    get();
+    }
+
     public function getHouseholdAttribute($value)
     {
         // dd(\App\Household::find($this->applicant->household_id));
@@ -121,7 +143,6 @@ class Application extends Model
     public function form_critical_incident()
     {
         return \App\FormCriticalIncident::where('application_id', $this->id)->first();
-        return $this->hasOne('App\FormCriticalIncident', 'application_id', $this->id);
     }
 
     public function getDocumentsAttribute($value)
@@ -373,8 +394,16 @@ class Application extends Model
 	
 	public function scopeSchedule($query){
         return $query->
-            where('status_id', 9)->
-            where('scheduled', 0)->
+			leftJoin(DB::raw( '(
+                    SELECT count(*) as schedules, sa.application_id
+                    FROM schedule_applications sa
+                    LEFT JOIN schedules s ON s.id = sa.schedule_id
+                    GROUP BY sa.application_id
+                ) schedules'), function ($join) {
+                $join->on( 'applications.id', '=', 'schedules.application_id');
+            })->
+            whereIn('applications.status_id', [9,10])->
+            where('applications.schedules', '>', 'schedules.schedules')->
             orderBy('id', 'desc')->
             get();
 	}

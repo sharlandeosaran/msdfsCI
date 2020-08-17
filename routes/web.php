@@ -60,6 +60,10 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/schedule/view/{id}', 'Admin\ScheduleController@view');
         Route::post('/schedule/newschedulepost', 'Admin\ScheduleController@newschedulepost')->name('newschedulepost');
         Route::get('/schedule/create', 'Admin\ScheduleController@createschedule')->name('createschedule');
+        Route::post('/schedule/rentalschedulepost', 'Admin\SchedulePostController@rentalschedulepost')->name('rentalschedulepost');
+        Route::post('/schedule/householdschedulepost', 'Admin\SchedulePostController@householdschedulepost')->name('householdschedulepost');
+        Route::post('/schedule/schoolschedulepost', 'Admin\SchedulePostController@schoolschedulepost')->name('schoolschedulepost');
+        Route::post('/schedule/clothingschedulepost', 'Admin\SchedulePostController@clothingschedulepost')->name('clothingschedulepost');
         
         // profile
         Route::get('/profile', 'Admin\UserController@profile')->name('profile');
