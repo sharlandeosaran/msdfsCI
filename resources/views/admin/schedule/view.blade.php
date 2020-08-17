@@ -16,18 +16,23 @@
         <div class="col-md-12">
             <div class="box">
                 <div class="box-header">
+                    <h3 class="my-0">
+                        By {{$schedule->createdBy->name}} on {{$schedule->since}}
+                    
                     <a href="{{route('schedules')}}" class="btn btn-danger pull-right"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> back to schedules</a>
                     <a class="btn btn-success pull-right" href="{{url('/admin/schedules/pdf/'.$schedule->id)}}" target="_blank"><i class="fas fa-file-pdf fa-lg"></i> export</a>
+                    
+                    </h3>
                 </div>
                 
                 <div class="box-body">
                     
-                    @if ($type == 1)
+                    @if ($schedule->type_id == 1)
                         <div class="tab-pane active" id="tab_1">
                             <div class="box-body table-responsive no-padding">
                                 <table class="table table-hover table-bordered">
                                     <thead>
-                                        <tr>
+                                        <tr class="danger">
                                             <th>No.</th>
                                             <th>Ref No.</th>
                                             <th>Applicant Name</th>
@@ -71,12 +76,12 @@
                         </div>
                     @endif
 
-                    @if ($type == 2)
+                    @if ($schedule->type_id == 2)
                     <div class="tab-pane" id="tab_2">
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr class="danger">
                                         <th width="5%">No.</th>
                                         <th width="5%">Ref No.</th>
                                         <th width="10%">Applicant Name</th>
@@ -116,12 +121,12 @@
                     </div>
                     @endif
 
-                    @if ($type == 3)
+                    @if ($schedule->type_id == 3)
                     <div class="tab-pane" id="tab_3">
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr class="danger">
                                         <th width="5%">No.</th>
                                         <th width="5%">Ref No.</th>
                                         <th width="10%">Applicant Name</th>
@@ -159,12 +164,12 @@
                     </div>
                     @endif
 
-                    @if ($type == 4)
+                    @if ($schedule->type_id == 4)
                     <div class="tab-pane" id="tab_4">
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover table-bordered">
                                 <thead>
-                                    <tr>
+                                    <tr class="danger">
                                         <th width="5%">No.</th>
                                         <th width="5%">Ref No.</th>
                                         <th width="10%">Applicant Name</th>
