@@ -404,23 +404,28 @@ class Application extends Model
 	
 	public function scopeSchedule($query){
         return $query->
-            select('applications.*', 'schedules.schedules', 'regions.id as region_id')->
-            leftJoin('applicants', 'applicants.application_id', 'applications.id')->
-            leftJoin('people', 'people.id', 'applicants.person_id')->
-            leftJoin('person_household', 'person_household.person_id', 'people.id')->
-            leftJoin('households', 'person_household.household_id', 'households.id')->
-            leftJoin('communities', 'households.community_id', 'communities.id')->
-            leftJoin('regions', 'communities.region_code', 'regions.code')->
+            // select('applications.*', 'schedules.schedule_count', 'regions.id as region_id')->
+            // leftJoin('applicants', 'applicants.application_id', 'applications.id')->
+            // leftJoin('people', 'people.id', 'applicants.person_id')->
+            // leftJoin('person_household', 'person_household.person_id', 'people.id')->
+            // leftJoin('households', 'person_household.household_id', 'households.id')->
+            // leftJoin('communities', 'households.community_id', 'communities.id')->
+            // leftJoin('regions', 'communities.region_code', 'regions.code')->
 			leftJoin(DB::raw( '(
-                    SELECT count(*) as schedules, sa.application_id
+                    SELECT count(*) as schedule_count, sa.application_id
                     FROM schedule_applications sa
                     LEFT JOIN schedules s ON s.id = sa.schedule_id
                     GROUP BY sa.application_id
                 ) schedules'), function ($join) {
                 $join->on( 'applications.id', '=', 'schedules.application_id');
             })->
+            where(function ($query) {
+                // $query->whereIn('applications.status_id', [10]);
+                $query->where('applications.schedules_approved', '>', 'schedules.schedule_count');
+            })->
+            // whereIn('applications.status_id', [9])->
             whereIn('applications.status_id', [9,10])->
-            where('applications.schedules', '>', 'schedules.schedules')->
+            // where('applications.schedules_approved', '>', 'schedules.schedule_count')->
             orderBy('applications.id', 'desc')->
             get();
 	}

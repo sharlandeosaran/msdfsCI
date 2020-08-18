@@ -37,11 +37,22 @@ class ScheduleController extends Controller
 
     public function new()
     {
+        $applications = \App\Application::schedule();
+        $list = $ids = [];
+
+        foreach ($applications as $application) {
+            if (count($this->schedulerows([$application]))) {
+                $list[] = $application;
+                $ids[] = $application->id;
+            }
+        }
+        
         $data = [
             'title' => 'New Schedule',
 			'active' => 'schedules',
             'activelink' => 'newschedule',
-            'applications' => \App\Application::schedule(),
+            'applications' => $list,
+            'ids' => $ids,
         ];
         // dd($data);
 

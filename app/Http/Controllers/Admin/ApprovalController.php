@@ -125,7 +125,7 @@ class ApprovalController extends Controller
         // count schedules if approved
         if ($request->status == 9) $schedules = count(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
 
-        $application->schedules = $schedules > 0? $schedules : null;
+        $application->schedules_approved = $schedules > 0? $schedules : null;
         $application->status_id = $request->status;
         $application->save();
 

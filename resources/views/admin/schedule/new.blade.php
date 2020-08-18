@@ -89,7 +89,8 @@
 
 <script>
     var applications = [];
-    var allApplications = {!! json_encode($applications->pluck('id')->toJson()) !!};
+    var allApplications = {!! json_encode($ids) !!};
+    // console.log(allApplications);
     
     // submit if checked applications
     $(document).on('click', '.submitBtn', function() {
