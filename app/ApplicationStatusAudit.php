@@ -8,6 +8,33 @@ class ApplicationStatusAudit extends Model
 {
     //
     protected $table = 'application_status_audit';
+
+    public function getDetailsAttribute($value)
+    {
+        return $value? decrypt($value) : null;
+    }
+    public function setDetailsAttribute($value)
+    {
+        $this->attributes['details'] = $value? encrypt($value) : null;
+    }
+
+    public function getUserNameAttribute($value)
+    {
+        return $value? decrypt($value) : $this->changedBy->name;
+    }
+    public function setUserNameAttribute($value)
+    {
+        $this->attributes['user_name'] = $value? encrypt($value) : null;
+    }
+
+    public function getUserRoleAttribute($value)
+    {
+        return $value? decrypt($value) : $this->changedBy->role->role;
+    }
+    public function setUserRoleAttribute($value)
+    {
+        $this->attributes['user_role'] = $value? encrypt($value) : null;
+    }
 	
 	public function application(){
 		return $this->hasOne('App\Application', 'id' , 'application_id');

@@ -180,7 +180,7 @@ class ScheduleController extends Controller
                         $total = $school_total = $clothing_total = 0;
                         foreach ($application->form_critical_incident()->items_lost as $items_lost)
                         {
-                            if ($items_lost->approved)
+                            if ($items_lost->approved == 1)
                             {
                                 if (!in_array($items_lost->id, [10,11,12])) {
                                     $items[] = [

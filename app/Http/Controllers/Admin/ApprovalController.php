@@ -120,38 +120,7 @@ class ApprovalController extends Controller
         // update application
         $application = \App\Application::find($request->id);
         $old = $application->status_id;
-        $schedules = 0;
-
-        // count schedules if approved
-        if ($request->status == 9) $schedules = count(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
-
-        $application->schedules_approved = $schedules > 0? $schedules : null;
-        $application->status_id = $request->status;
-        $application->save();
-
-        // log update
-        $log = new \App\ApplicationStatusAudit();
-        $log->application_id = $request->id;
-        $log->changed_by = \Auth::user()->id;
-        $log->status_old = $old;
-        $log->status_new = $request->status;
-        $log->details = $request->details;
-        $log->save();
-
-        // update household members
-        if ($request->household) {
-            foreach ($application->household_people as $person) {
-                if (in_array($person->person_id, $request->household)) {
-                    $household = \App\PersonHousehold::
-                        where('person_id', $person->person_id)->
-                        where('household_id', $person->household_id)->
-                        first();
-                    $household->confirm = 1;
-                    $household->save();
-                }
-            }
-            
-        }
+        $schedules = $request->status == 9? 0 : null;
         
         // update recommended items
         if ($request->items_lost_or_damaged && $application->form_critical_incident() && $application->form_critical_incident()->items_lost) {
@@ -198,6 +167,41 @@ class ApprovalController extends Controller
                 }
             }
         }
+
+        // update household members
+        if ($request->household) {
+            foreach ($application->household_people as $person) {
+                if (in_array($person->person_id, $request->household)) {
+                    $household = \App\PersonHousehold::
+                        where('person_id', $person->person_id)->
+                        where('household_id', $person->household_id)->
+                        first();
+                    $household->confirm = 1;
+                    $household->save();
+                }
+            }
+            
+        }
+
+        // count schedules if approved
+        if ($request->status == 9) $schedules = count(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
+        // dump(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
+        // dd($schedules);
+
+        $application->schedules_approved = $schedules;
+        $application->status_id = $request->status;
+        $application->save();
+
+        // log update
+        $log = new \App\ApplicationStatusAudit();
+        $log->application_id = $request->id;
+        $log->changed_by = \Auth::user()->id;
+        $log->status_old = $old;
+        $log->status_new = $request->status;
+        $log->details = $request->details;
+        $log->user_name = \Auth::user()->name;
+        $log->user_role = \Auth::user()->role->role;
+        $log->save();
         
 		// upload images
         // accepted file types

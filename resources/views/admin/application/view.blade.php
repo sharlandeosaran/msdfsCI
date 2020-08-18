@@ -1093,7 +1093,7 @@
                                         @endif
                                         
                                         <small><cite title="Source Title">
-                                            <i class="fa fa-user margin-r-5"></i> {{$item->changedBy->name}}
+                                            <i class="fa fa-user margin-r-5"></i> {{$item->user_name}} - {{$item->user_role}}
                                         </cite></small>
                                         <small><cite title="Source Title">
                                             <i class="fa fa-calendar margin-r-5"></i> {{$item->since}}

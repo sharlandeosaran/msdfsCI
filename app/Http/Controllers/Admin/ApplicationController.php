@@ -219,6 +219,8 @@ class ApplicationController extends Controller
         $log->status_old = $old;
         $log->status_new = $request->status;
         $log->details = $request->details;
+        $log->user_name = \Auth::user()->name;
+        $log->user_role = \Auth::user()->role->role;
         $log->save();
 
 		// log reference number
@@ -301,6 +303,8 @@ class ApplicationController extends Controller
         $log->status_old = $old;
         $log->status_new = $request->status;
         $log->details = $request->details;
+        $log->user_name = \Auth::user()->name;
+        $log->user_role = \Auth::user()->role->role;
 		$log->save();
 		
 		// upload images
