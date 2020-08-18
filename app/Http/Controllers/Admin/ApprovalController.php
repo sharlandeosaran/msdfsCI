@@ -121,6 +121,17 @@ class ApprovalController extends Controller
         $application = \App\Application::find($request->id);
         $old = $application->status_id;
         $schedules = $request->status == 9? 0 : null;
+
+        // log update
+        $log = new \App\ApplicationStatusAudit();
+        $log->application_id = $request->id;
+        $log->changed_by = \Auth::user()->id;
+        $log->status_old = $old;
+        $log->status_new = $request->status;
+        $log->details = $request->details;
+        $log->user_name = \Auth::user()->name;
+        $log->user_role = \Auth::user()->role->role;
+        $log->save();
         
         // update recommended items
         if ($request->items_lost_or_damaged && $application->form_critical_incident() && $application->form_critical_incident()->items_lost) {
@@ -137,6 +148,13 @@ class ApprovalController extends Controller
                                 $recommended->cost = $request->recovery_needs[$item->slug];
                                 $recommended->save();
                             }
+
+                            $approval = new \App\ApplicationApproval();
+                            $approval->application_status_audit_id = $log->id;
+                            $approval->type = 'item';
+                            $approval->key = $recommended->item->item;
+                            $approval->value = $request->recovery_needs[$item->slug];
+                            $approval->save();
                         // }
                     } else {
                         $recommended = \App\FormCIItemsLost::
@@ -163,6 +181,13 @@ class ApprovalController extends Controller
                         $grant->key = $key;
                         $grant->value = $value;
                         $grant->save();
+
+                        $approval = new \App\ApplicationApproval();
+                        $approval->application_status_audit_id = $log->id;
+                        $approval->type = 'grant';
+                        $approval->key = $key;
+                        $approval->value = $value;
+                        $approval->save();
                     }
                 }
             }
@@ -178,6 +203,13 @@ class ApprovalController extends Controller
                         first();
                     $household->confirm = 1;
                     $household->save();
+
+                    $approval = new \App\ApplicationApproval();
+                    $approval->application_status_audit_id = $log->id;
+                    $approval->type = 'household';
+                    $approval->key = $person->person->name;
+                    $approval->value = 'recommended';
+                    $approval->save();
                 }
             }
             
@@ -185,23 +217,13 @@ class ApprovalController extends Controller
 
         // count schedules if approved
         if ($request->status == 9) $schedules = count(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
+
         // dump(app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]));
         // dd($schedules);
 
         $application->schedules_approved = $schedules;
         $application->status_id = $request->status;
         $application->save();
-
-        // log update
-        $log = new \App\ApplicationStatusAudit();
-        $log->application_id = $request->id;
-        $log->changed_by = \Auth::user()->id;
-        $log->status_old = $old;
-        $log->status_new = $request->status;
-        $log->details = $request->details;
-        $log->user_name = \Auth::user()->name;
-        $log->user_role = \Auth::user()->role->role;
-        $log->save();
         
 		// upload images
         // accepted file types

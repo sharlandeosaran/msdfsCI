@@ -52,6 +52,11 @@ class ApplicationStatusAudit extends Model
 		return $this->hasOne('App\Status', 'id' , 'status_new');
 	}
 
+	public function approvals()
+	{
+		return $this->hasMany('App\ApplicationApproval', 'application_status_audit_id', 'id');
+	}
+
     public function getSinceAttribute($value)
     {
         return \Carbon\Carbon::parse($this->created_at)->format('F jS, Y');

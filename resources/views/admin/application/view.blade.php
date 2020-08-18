@@ -13,6 +13,11 @@
 
         <span class="pull-right">
             <a class="btn btn-success btn-sm" href="{{url('/admin/applications/pdf/'.$application->id)}}" target="_blank"><i class="fas fa-file-pdf fa-lg"></i> export</a>
+
+            @if (in_array($application->status_id, \Auth::user()->role_permissions))
+                <button class="btn btn-danger btn-sm status" status="{{$application->status()->restore}}" statusId="{{$application->status()->restore_id}}"><i class="fas fa-undo fa-lg"></i> {{$application->status()->restore}}</button>
+            @endif
+            
             @foreach ($status as $stat)
                 @if (
                     in_array($stat->id, \Auth::user()->role_permissions) && 
@@ -23,10 +28,11 @@
                         ($stat->id == $application->status_id + 2 && $application->status_id == 1)
                     )
                 )
-                    <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}">{{$stat->button}}</button>
+                    <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}"><i class="fas fa-arrow-right fa-lg"></i> {{$stat->button}}</button>
                 @endif
                 
             @endforeach
+            
 
             <form method="POST" action="#" id="approvalrequestForm">
                 @csrf
@@ -1162,11 +1168,6 @@
                     <div class="form-group">
                         <label for="details">Details</label>
                         <textarea class="form-control" rows="3" name="details" id="statusFormDetails" maxlength="1000"></textarea>
-                        
-                        @if ($application->status_id == 3)
-                        <label for="reference_number">Reference Number</label>
-                        <input type="text" class="form-control" name="reference_number" id="statusFormReferenceNumber">
-                        @endif
                                     
                         <span class="help-block text-danger" style="color: #a94442;">
                             <strong id="err-status"></strong>

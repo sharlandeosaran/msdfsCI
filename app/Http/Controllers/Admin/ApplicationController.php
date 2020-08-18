@@ -170,12 +170,6 @@ class ApplicationController extends Controller
             "id" => "required|exists:applications,id",
             "status" => "required|exists:status,id",
 			"details" => "required|max:1000",
-			"reference_number" => [
-				"nullable",
-				"unique:form_critical_incident,reference_number",
-                "max:150",
-                Rule::requiredIf($request->status == 4),
-            ],
         ],
         [
             
@@ -225,10 +219,60 @@ class ApplicationController extends Controller
 
 		// log reference number
 		if ($request->status == 4) {
-			$log = \App\FormCriticalIncident::where('application_id', $request->id)->first();
-			$log->reference_number = $request->reference_number;
-			$log->save();
+            $log = \App\FormCriticalIncident::where('application_id', $request->id)->first();
+            if ($log && !$log->reference_number) {
+                // get year
+                $year = date('Y');
+
+                // get last entry for the year
+                $form = \App\FormCriticalIncident::where('reference_number', 'LIKE', '%/'.$year)->orderBy('id', 'desc')->first();
+                if ($form) {
+                    $nums = explode('/', $form->reference_number);
+                    $num = $nums[0] + 1;
+                    $log->reference_number = str_pad($num, 3, '0', STR_PAD_LEFT).'/'.$year;
+                } else {
+                    $log->reference_number = '001/'.$year;
+                }
+
+                // save log
+                $log->save();
+            }
+            
 		}
+
+        // if application approval revoked
+        if ($request->status == 8 && $old > $request->status) {
+
+            // rollback approvals if done
+            if ($application->form_critical_incident() && $application->form_critical_incident()->items_lost) {
+                foreach ($application->form_critical_incident()->items_lost as $item) {
+                    $recommended = \App\FormCIItemsLost::
+                        where('item_id', $item->id)->
+                        where('form_critical_incident_id', $item->form_critical_incident_id)->
+                        first();
+                    if ($recommended) {
+                        $recommended->approved = 0;
+                        $recommended->cost = null;
+                        $recommended->save();
+                    }
+                }
+            }
+
+            // rollback household approvals
+            if ($application->household_people) {
+                foreach ($application->household_people as $person) {
+                    $household = \App\PersonHousehold::
+                        where('person_id', $person->person_id)->
+                        where('household_id', $person->household_id)->
+                        first();
+                    $household->confirm = 0;
+                    $household->save();
+                }
+            }
+
+            // rollback grants
+            DB::delete('delete from application_grants where application_id = ?', [$application->id]);
+        }
 
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
