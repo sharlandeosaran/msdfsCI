@@ -83,7 +83,7 @@ class SchedulePostController extends Controller
             
             // log update
             $log = new \App\ApplicationStatusAudit();
-            $log->application_id = $request->id;
+            $log->application_id = $application->id;
             $log->changed_by = \Auth::user()->id;
             $log->status_old = $old;
             $log->status_new = 10;
@@ -220,7 +220,7 @@ class SchedulePostController extends Controller
             
             // log update
             $log = new \App\ApplicationStatusAudit();
-            $log->application_id = $request->id;
+            $log->application_id = $application->id;
             $log->changed_by = \Auth::user()->id;
             $log->status_old = $old;
             $log->status_new = 10;
@@ -357,7 +357,7 @@ class SchedulePostController extends Controller
             
             // log update
             $log = new \App\ApplicationStatusAudit();
-            $log->application_id = $request->id;
+            $log->application_id = $application->id;
             $log->changed_by = \Auth::user()->id;
             $log->status_old = $old;
             $log->status_new = 10;
@@ -480,7 +480,7 @@ class SchedulePostController extends Controller
             
             // log update
             $log = new \App\ApplicationStatusAudit();
-            $log->application_id = $request->id;
+            $log->application_id = $application->id;
             $log->changed_by = \Auth::user()->id;
             $log->status_old = $old;
             $log->status_new = 10;
