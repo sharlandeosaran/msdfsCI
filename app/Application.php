@@ -402,7 +402,8 @@ class Application extends Model
         }
     }
 	
-	public function scopeSchedule($query){
+    public function scopeSchedule($query)
+    {
         return $query->
             // select('applications.*', 'schedules.schedule_count', 'regions.id as region_id')->
             // leftJoin('applicants', 'applicants.application_id', 'applications.id')->

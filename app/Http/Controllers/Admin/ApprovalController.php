@@ -147,14 +147,14 @@ class ApprovalController extends Controller
                                 $recommended->approved = 1;
                                 $recommended->cost = $request->recovery_needs[$item->slug];
                                 $recommended->save();
+                                
+                                $approval = new \App\ApplicationApproval();
+                                $approval->application_status_audit_id = $log->id;
+                                $approval->type = 'item';
+                                $approval->key = $recommended->item->item;
+                                $approval->value = '$'.number_format($request->recovery_needs[$item->slug], 2);
+                                $approval->save();
                             }
-
-                            $approval = new \App\ApplicationApproval();
-                            $approval->application_status_audit_id = $log->id;
-                            $approval->type = 'item';
-                            $approval->key = $recommended->item->item;
-                            $approval->value = $request->recovery_needs[$item->slug];
-                            $approval->save();
                         // }
                     } else {
                         $recommended = \App\FormCIItemsLost::
@@ -164,9 +164,23 @@ class ApprovalController extends Controller
                         if ($recommended) {
                             $recommended->recommended = 1;
                             $recommended->save();
+                                
+                            $approval = new \App\ApplicationApproval();
+                            $approval->application_status_audit_id = $log->id;
+                            $approval->type = 'item';
+                            $approval->key = $recommended->item->item;
+                            $approval->value = 'recommended';;
+                            $approval->save();
                         }
                         
                     }
+                } else {
+                    $approval = new \App\ApplicationApproval();
+                    $approval->application_status_audit_id = $log->id;
+                    $approval->type = 'item';
+                    $approval->key = $item->item;
+                    $approval->value = 'rejected';;
+                    $approval->save();
                 }
             }
         }
@@ -206,9 +220,16 @@ class ApprovalController extends Controller
 
                     $approval = new \App\ApplicationApproval();
                     $approval->application_status_audit_id = $log->id;
-                    $approval->type = 'household';
-                    $approval->key = $person->person->name;
+                    $approval->type = $person->relationship_id == 0? 'applicant' : 'household';
+                    $approval->key = $person->person->name .' ('. $person->relationship->relationship .')';
                     $approval->value = 'recommended';
+                    $approval->save();
+                } else {
+                    $approval = new \App\ApplicationApproval();
+                    $approval->application_status_audit_id = $log->id;
+                    $approval->type = $person->relationship_id == 0? 'applicant' : 'household';
+                    $approval->key = $person->person->name .' ('. $person->relationship->relationship .')';
+                    $approval->value = 'not recommended';
                     $approval->save();
                 }
             }

@@ -54,8 +54,76 @@ class ApplicationStatusAudit extends Model
 
 	public function approvals()
 	{
-		return $this->hasMany('App\ApplicationApproval', 'application_status_audit_id', 'id');
+		return \App\ApplicationApproval::where('application_status_audit_id', $this->id)->get();
 	}
+
+    public function getApprovalsAttribute($value)
+    {
+        $list = [];
+        $approvals = $this->approvals();
+
+        if ($approvals) {
+            foreach ($approvals as $approval) {
+                $list[$approval->type][] = [
+                    'key' => $approval->key,
+                    'value' => $approval->value,
+                ];
+            }
+        }
+        
+        return $list;
+    }
+
+    // approvals
+
+    public function getApprovalGrantsAttribute($value)
+    {
+        return \App\ApplicationApproval::
+                where('application_status_audit_id', $this->id)->
+                get();
+    }
+
+    public function getApprovalGrantFoodCardAttribute($value)
+    {
+        $list = [];
+        $get = \App\ApplicationApproval::
+                where('application_status_audit_id', $this->id)->
+                where('key', 'LIKE', 'emergency_food_card_%')->
+                get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
+    }
+
+    public function getApprovalGrantRentAttribute($value)
+    {
+        $list = [];
+        $get = \App\ApplicationApproval::
+                where('application_status_audit_id', $this->id)->
+                where('key', 'LIKE', 'general_assistance_rent_%')->
+                get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
+    }
+
+    public function getApprovalGrantCounsellingServicesAttribute($value)
+    {
+        $list = [];
+        $get = \App\ApplicationApproval::
+                where('application_status_audit_id', $this->id)->
+                where('key', 'LIKE', 'counselling_services%')->
+                get();
+
+        foreach ($get as $row) {
+            $list[$row->key] = $row->value;
+        }
+        return $list;
+    }
 
     public function getSinceAttribute($value)
     {

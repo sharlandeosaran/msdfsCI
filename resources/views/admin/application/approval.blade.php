@@ -171,7 +171,7 @@
                                 <label for="reference_number"><i class="fas fa-users margin-r-5"></i> Confirmed Household Members</label>
                                 <div class="col-md-12 checkbox-group required">
                                     <h4 style="margin-top: 0">
-                                        <span class="label label-danger label-list">{{$application->applicant->name}} (Applicant)</span>
+                                        <span class="label label-success label-list">{{$application->applicant->name}} (Applicant)</span>
                                         @foreach ($application->household_people as $applicant)
                                             @if ($applicant->person->id != $application->applicant->person_id)
                                                 @if ($applicant->confirm)
@@ -191,7 +191,7 @@
                                     <div class="col-md-12 checkbox-group required">
                                         <h4 style="margin-top: 0">
                                             @foreach ($rejected as $applicant)
-                                                <span class="label label-default label-list">{{$applicant}}</span>
+                                                <span class="label label-danger label-list">{{$applicant}}</span>
                                             @endforeach
                                         </h4>
                                     </div>
