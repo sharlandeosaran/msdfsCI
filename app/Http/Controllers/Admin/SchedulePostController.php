@@ -75,9 +75,22 @@ class SchedulePostController extends Controller
             
             // change status of application to scheduled
             $application = \App\Application::find($value);
+            $old = $application->status_id; // get old status for log
+
             $application->status_id = 10;
             $application->save();
             // return response()->json(['msg' => $application], 400);
+            
+            // log update
+            $log = new \App\ApplicationStatusAudit();
+            $log->application_id = $request->id;
+            $log->changed_by = \Auth::user()->id;
+            $log->status_old = $old;
+            $log->status_new = 10;
+            $log->details = 'Create Clothing Schedule.';
+            $log->user_name = \Auth::user()->name;
+            $log->user_role = \Auth::user()->role->role;
+            $log->save();
 
             // get schedule row
             $row = app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]);
@@ -199,9 +212,22 @@ class SchedulePostController extends Controller
             
             // change status of application to scheduled
             $application = \App\Application::find($value);
+            $old = $application->status_id; // get old status for log
+
             $application->status_id = 10;
             $application->save();
             // return response()->json(['msg' => $application], 400);
+            
+            // log update
+            $log = new \App\ApplicationStatusAudit();
+            $log->application_id = $request->id;
+            $log->changed_by = \Auth::user()->id;
+            $log->status_old = $old;
+            $log->status_new = 10;
+            $log->details = 'Create School Supplies Schedule.';
+            $log->user_name = \Auth::user()->name;
+            $log->user_role = \Auth::user()->role->role;
+            $log->save();
 
             // get schedule row
             $row = app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]);
@@ -323,9 +349,22 @@ class SchedulePostController extends Controller
             
             // change status of application to scheduled
             $application = \App\Application::find($value);
+            $old = $application->status_id; // get old status for log
+
             $application->status_id = 10;
             $application->save();
             // return response()->json(['msg' => $application], 400);
+            
+            // log update
+            $log = new \App\ApplicationStatusAudit();
+            $log->application_id = $request->id;
+            $log->changed_by = \Auth::user()->id;
+            $log->status_old = $old;
+            $log->status_new = 10;
+            $log->details = 'Create Household Items Schedule.';
+            $log->user_name = \Auth::user()->name;
+            $log->user_role = \Auth::user()->role->role;
+            $log->save();
 
             // get schedule row
             $row = app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]);
@@ -433,9 +472,22 @@ class SchedulePostController extends Controller
             
             // change status of application to scheduled
             $application = \App\Application::find($value);
+            $old = $application->status_id; // get old status for log
+
             $application->status_id = 10;
             $application->save();
             // return response()->json(['msg' => $application], 400);
+            
+            // log update
+            $log = new \App\ApplicationStatusAudit();
+            $log->application_id = $request->id;
+            $log->changed_by = \Auth::user()->id;
+            $log->status_old = $old;
+            $log->status_new = 10;
+            $log->details = 'Create Rental Schedule.';
+            $log->user_name = \Auth::user()->name;
+            $log->user_role = \Auth::user()->role->role;
+            $log->save();
 
             // get schedule row
             $row = app('App\Http\Controllers\Admin\ScheduleController')->schedulerows([$application]);
