@@ -893,7 +893,8 @@
                 success: function(response) {
                     // console.log(response)
                     success(response.msg)
-                    $('#clothing').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p>');
+                    var url = "{{url('/admin/schedule/view')}}/"+ response.id;
+                    $('#clothing').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p><a href="'+ url +'" target="_blank" class="btn btn-success btn-xs"><i class="fas fa-external-link-alt"></i> view schedule</a>');
                 },
                 error: function(response) {
                     // console.log(response)
@@ -976,7 +977,8 @@
                 success: function(response) {
                     // console.log(response)
                     success(response.msg)
-                    $('#school').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p>');
+                    var url = "{{url('/admin/schedule/view')}}/"+ response.id;
+                    $('#school').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p><a href="'+ url +'" target="_blank" class="btn btn-success btn-xs"><i class="fas fa-external-link-alt"></i> view schedule</a>');
                 },
                 error: function(response) {
                     // console.log(response)
@@ -1047,7 +1049,8 @@
                 success: function(response) {
                     // console.log(response)
                     success(response.msg)
-                    $('#household').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p>');
+                    var url = "{{url('/admin/schedule/view')}}/"+ response.id;
+                    $('#household').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p><a href="'+ url +'" target="_blank" class="btn btn-success btn-xs"><i class="fas fa-external-link-alt"></i> view schedule</a>');
                 },
                 error: function(response) {
                     // console.log(response)
@@ -1091,7 +1094,8 @@
                 success: function(response) {
                     // console.log(response)
                     success(response.msg)
-                    $('#rental').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p>');
+                    var url = "{{url('/admin/schedule/view')}}/"+ response.id;
+                    $('#rental').html('<p class="text-success"><strong><i class="fas fa-clipboard-check"></i> '+response.msg+'</strong></p><a href="'+ url +'" target="_blank" class="btn btn-success btn-xs"><i class="fas fa-external-link-alt"></i> view schedule</a>');
                 },
                 error: function(response) {
                     // console.log(response)

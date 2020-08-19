@@ -134,7 +134,7 @@ class SchedulePostController extends Controller
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
-        return response()->json(['msg' => 'Clothing Schedule successfully created.'], 200);
+        return response()->json(['msg' => 'Clothing Schedule successfully created.', 'id' => $schedule->id], 200);
     }
 
     public function schoolschedulepost(Request $request)
@@ -258,7 +258,7 @@ class SchedulePostController extends Controller
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
-        return response()->json(['msg' => 'School Supplies Schedule successfully created.'], 200);
+        return response()->json(['msg' => 'School Supplies Schedule successfully created.', 'id' => $schedule->id], 200);
     }
 
     public function householdschedulepost(Request $request)
@@ -381,7 +381,7 @@ class SchedulePostController extends Controller
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
-        return response()->json(['msg' => 'Household Items Schedule successfully created.'], 200);
+        return response()->json(['msg' => 'Household Items Schedule successfully created.', 'id' => $schedule->id], 200);
     }
 
     public function rentalschedulepost(Request $request)
@@ -475,6 +475,6 @@ class SchedulePostController extends Controller
         // send emails
         // dispatch(new \App\Jobs\SubmissionEmail($user->id));
         
-        return response()->json(['msg' => 'Rental Schedule successfully created.'], 200);
+        return response()->json(['msg' => 'Rental Schedule successfully created.', 'id' => $schedule->id], 200);
     }
 }
