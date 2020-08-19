@@ -14,7 +14,7 @@
         <span class="pull-right">
             <a class="btn btn-success btn-sm" href="{{url('/admin/applications/pdf/'.$application->id)}}" target="_blank"><i class="fas fa-file-pdf fa-lg"></i> export</a>
 
-            @if (in_array($application->status_id, \Auth::user()->role_permissions))
+            @if (in_array($application->status_id, \Auth::user()->role_permissions) && $application->status()->restore_id != 0)
                 <button class="btn btn-danger btn-sm status" status="{{$application->status()->restore}}" statusId="{{$application->status()->restore_id}}"><i class="fas fa-undo fa-lg"></i> {{$application->status()->restore}}</button>
             @endif
             
