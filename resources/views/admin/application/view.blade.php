@@ -195,7 +195,7 @@
                                 <strong><i class="fa fa-clipboard-check margin-r-5"></i> Schedules</strong>
                                 <p>
                                     @foreach ($application->schedules as $schedule)
-                                        <a class="btn btn-success btn-sm" href="{{url('/admin/schedule/view/'.$schedule->id)}}" target="_blank">{{$schedule->type}} &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a><br>
+                                        <a class="btn btn-success btn-sm" href="{{url('/admin/schedule/view/'.$schedule->id)}}" target="_blank" style="margin: 5px 2px">{{$schedule->type}} &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a>
                                     @endforeach
                                 </p>
                                 <hr>
@@ -444,7 +444,7 @@
                                                                 <td width="70%">
                                                                     <p class="text-muted">
                                                                         @foreach ($application->applicant_documents as $doc)
-                                                                        <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                                                        <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                                                         @endforeach
                                                                     </p>
                                                                 </td>
@@ -658,7 +658,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Documents</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->landlord_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
@@ -903,7 +903,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Fire Service Report</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->fire_service_report_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
@@ -913,7 +913,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Regional Corporation Flooding Report</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->regional_corporation_flooding_report_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
@@ -923,7 +923,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Clothing Relief Quotation</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->clothing_relief_quotation_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
@@ -933,7 +933,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Housing Relief Quotation</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->housing_relief_quotation_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
 
@@ -944,7 +944,7 @@
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> School Supplies Relief Quotation</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->school_supplies_relief_quotation_documents as $doc)
-                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" style="margin-bottom: 5px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type->icon}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
                                 <hr>
