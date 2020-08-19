@@ -195,7 +195,7 @@
                                 <strong><i class="fa fa-clipboard-check margin-r-5"></i> Schedules</strong>
                                 <p>
                                     @foreach ($application->schedules as $schedule)
-                                        {{$schedule->type}} <br>
+                                        <a class="btn btn-success btn-sm" href="{{url('/admin/schedule/view/'.$schedule->id)}}" target="_blank">{{$schedule->type}} &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></a><br>
                                     @endforeach
                                 </p>
                                 <hr>
