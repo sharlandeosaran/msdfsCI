@@ -123,7 +123,7 @@
         });
         function school_supplies() {
             var vals = $('.hi_emp_status').map((_,el) => el.value).get();
-            // console.log(vals)
+            console.log(vals)
 
             $('.items_lost_or_damaged_school_supplies').addClass('hide');
             if ($.inArray('7', vals) !== -1) {
@@ -137,36 +137,40 @@
                 $('#school_supplies_secondary').prop('checked', false);
             }
             
-            // console.log(($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1))
-            if ($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1) {
-                $('.school_supplies_div').addClass('hide');
-            } else {
-                $('.school_supplies_div').removeClass('hide');
-            }
+            // // console.log(($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1))
+            // if ($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1) {
+            //     $('.school_supplies_div').addClass('hide');
+            // } else {
+            //     $('.school_supplies_div').removeClass('hide');
+            // }
         }
         school_supplies();
         
         // items lost or damaged changed
         $(document).on('change', '.items_lost_or_damaged', function() {
-            var checked = $(this).prop("checked");
+            items_lost_or_damaged();
+        });
+        function items_lost_or_damaged() {
+            var checked = $('.items_lost_or_damaged').prop("checked");
+            var id = $('.items_lost_or_damaged').prop("id");
             var boxes = $('.items_lost_or_damaged:checkbox:checked');
-            var id = $(this).prop("id");
-            // console.log(boxes)
-            // console.log(id)
+            console.log(boxes)
+            console.log(id)
 
             if (boxes.length > 0) {
                 $('.items_lost_or_damaged_div').addClass('hide');
                 boxes.each(function( index ) {
                     $('.'+ $( this ).prop('id') + '_div').removeClass('hide');
-                    // console.log($( this ).prop('id'))
+                    console.log($( this ).prop('id'))
                 });
             } else {
                 $('.items_lost_or_damaged_div').addClass('hide');
             }
-        });
+        }
+        items_lost_or_damaged();
         
         // show/hide recovery_needs_input_group once damage household item is selected
-        $(document).on('change', '.household_damage_items', function() {
+        /* $(document).on('change', '.household_damage_items', function() {
             var boxes = $('.household_damage_items:checkbox:checked');
             var id = $( this ).prop('id');
 
@@ -179,13 +183,16 @@
             } else {
                 $('.recovery_needs_div').addClass('hide');
             }
-        });
+        }); */
         
         // disaster change function
         $(document).on('change', '#disaster', function() {
-            var val = $( this ).val();
+            fn_disaster();
+        });
+        function fn_disaster() {
+            var val = $( '#disaster' ).val();
             $('.water_marks_div, .fire_div').addClass('hide');
-            console.log(val)
+            // console.log(val)
 
             // if disaster is other show remarks textarea
             if (val == '5') {
@@ -204,11 +211,15 @@
             if (val == '2') {
                 $('.fire_div').removeClass('hide');
             }
-        });
+        }
+        fn_disaster();
         
         // show/hide housing repairs required
         $(document).on('change', '[name = "housing_damage"]', function() {
-            var val = $(this).val();
+            housing_damage();
+        });
+        function housing_damage() {
+            var val = $('[name = "housing_damage"]').val();
             // console.log(val);
 
             if (val == 'Y') {
@@ -219,7 +230,8 @@
                 $('.housing_insurer_div').addClass('hide');
                 $('[name = "housing_infrastructure_insured"]').prop('checked', false);
             }
-        });
+        }
+        housing_damage();
         
         // show/hide housing infrastructure insured
         $(document).on('change', '[name = "housing_infrastructure_insured"]', function() {
