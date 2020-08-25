@@ -123,7 +123,7 @@
         });
         function school_supplies() {
             var vals = $('.hi_emp_status').map((_,el) => el.value).get();
-            console.log(vals)
+            // console.log(vals)
 
             $('.items_lost_or_damaged_school_supplies').addClass('hide');
             if ($.inArray('7', vals) !== -1) {
@@ -154,14 +154,14 @@
             var checked = $('.items_lost_or_damaged').prop("checked");
             var id = $('.items_lost_or_damaged').prop("id");
             var boxes = $('.items_lost_or_damaged:checkbox:checked');
-            console.log(boxes)
-            console.log(id)
+            // console.log(boxes)
+            // console.log(id)
 
             if (boxes.length > 0) {
                 $('.items_lost_or_damaged_div').addClass('hide');
                 boxes.each(function( index ) {
                     $('.'+ $( this ).prop('id') + '_div').removeClass('hide');
-                    console.log($( this ).prop('id'))
+                    // console.log($( this ).prop('id'))
                 });
             } else {
                 $('.items_lost_or_damaged_div').addClass('hide');
@@ -236,7 +236,7 @@
         // show/hide housing infrastructure insured
         $(document).on('change', '[name = "housing_infrastructure_insured"]', function() {
             var val = $(this).val();
-            console.log(val);
+            // console.log(val);
 
             if (val == 'Y') {
                 $('.housing_insurer_div').removeClass('hide');
