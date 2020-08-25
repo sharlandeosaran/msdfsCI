@@ -286,7 +286,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                        <tr class="landlord-fields {{(old('assistance_sought') && array_key_exists(2, old('assistance_sought'))) || (old('housing_type') && old('housing_type') == '4')? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('landlord_id_card_front') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_front">
                                     <label class="control-label mb-0" for="landlord_id_card_front">
@@ -312,7 +312,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                        <tr class="landlord-fields {{(old('assistance_sought') && array_key_exists(2, old('assistance_sought'))) || (old('housing_type') && old('housing_type') == '4')? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('landlord_id_card_back') ? ' has-error' : '' }} mb-0 grp-landlord_id_card_back">
                                     <label class="control-label mb-0" for="landlord_id_card_back">
@@ -338,7 +338,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                        <tr class="landlord-fields {{(old('assistance_sought') && array_key_exists(2, old('assistance_sought'))) || (old('housing_type') && old('housing_type') == '4')? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('utility_bill') ? ' has-error' : '' }} mb-0 grp-utility_bill">
                                     <label class="control-label mb-0" for="utility_bill">
@@ -364,7 +364,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                        <tr class="landlord-fields {{(old('assistance_sought') && array_key_exists(2, old('assistance_sought'))) || (old('housing_type') && old('housing_type') == '4')? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('rental_agreement') ? ' has-error' : '' }} mb-0 grp-rental_agreement">
                                     <label class="control-label mb-0" for="rental_agreement">
@@ -390,7 +390,7 @@
                             </td>
                         </tr>
 
-                        <tr class="landlord-fields {{old('assistance_sought') && array_key_exists(2, old('assistance_sought'))? '' : 'hide' }}">
+                        <tr class="landlord-fields {{(old('assistance_sought') && array_key_exists(2, old('assistance_sought'))) || (old('housing_type') && old('housing_type') == '4')? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('rent_receipt') ? ' has-error' : '' }} mb-0 grp-rent_receipt">
                                     <label class="control-label mb-0" for="rent_receipt">

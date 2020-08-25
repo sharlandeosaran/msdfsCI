@@ -16,100 +16,6 @@
             <div class="table-responsive">
                 <table class="table table-bordered table-sm">
                     <tbody>
-                        {{-- <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-first_name">
-                                    <label class="control-label mb-0" for="first_name">
-                                        First Name <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
-                                        <br>(as appearing in ID)
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-first_name">
-                                    <input type="text" class="form-control name" id="first_name" name="hi_first_name[1]" aria-describedby="" value="{{old('hi_first_name.1')? old('hi_first_name.1') : '' }}" required maxlength="50">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-first_name">{{ $errors->first('hi_first_name.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_surname.1') ? ' has-error' : '' }} grp-surname">
-                                    <label class="control-label mb-0" for="surname">
-                                        Surname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your surname as indicated on your identification card.'></i>
-                                        <br>(as appearing in ID)
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_surname.1') ? ' has-error' : '' }} grp-surname">
-                                    <input type="text" class="form-control name" id="surname" name="hi_surname[1]" aria-describedby="" value="{{old('hi_surname.1')? old('hi_surname.1') : '' }}" required maxlength="50">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-surname">{{ $errors->first('hi_surname.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('othername') ? ' has-error' : '' }} grp-othername">
-                                    <label class="control-label mb-0" for="othername">
-                                        Other Name(s) 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your othername as indicated on your identification card.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('othername') ? ' has-error' : '' }} grp-othername">
-                                    <input type="text" class="form-control name" id="othername" name="othername" aria-describedby="" value="{{old('othername')? old('othername') : '' }}" maxlength="50">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-othername">{{ $errors->first('othername') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_gender.1') ? ' has-error' : '' }} grp-gender">
-                                    <label class="control-label mb-0" for="gender">
-                                        Gender <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select your gender.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_gender.1') ? ' has-error' : '' }} grp-gender">
-                                    <div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="male" name="hi_gender[1]" class="custom-control-input hi_gender" value="M" required {{old('hi_gender.1') == 'M'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="male">Male</label>
-                                            </div>
-                                        </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="female" name="hi_gender[1]" class="custom-control-input hi_gender" value="F" {{old('hi_gender.1') == 'F'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="female">Female</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-gender">{{ $errors->first('hi_gender.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr> --}}
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
@@ -130,31 +36,6 @@
                                 </div>
                             </td>
                         </tr>
-                        
-                        {{-- <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
-                                    <label class="control-label mb-0" for="marital_status">
-                                        Marital Status 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the demographic data of your residential address.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('marital_status') ? ' has-error' : '' }} grp-marital_status">
-                                    <select class="form-control chosen-select" id="marital_status" name="marital_status">
-                                        <option disabled="" selected="">select...</option>
-                                        @foreach ($marital_status as $status)
-                                        <option {{old('marital_status') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
-                                        @endforeach
-                                    </select>
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-marital_status">{{ $errors->first('marital_status') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr> --}}
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
@@ -330,66 +211,6 @@
                                 </div>
                             </td>
                         </tr>
-                        
-                        {{-- <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
-                                    <label class="control-label mb-0" for="primary_mobile_contact">
-                                        Primary Mobile Contact <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('primary_mobile_contact') ? ' has-error' : '' }} grp-primary_mobile_contact">
-                                    <input type="text" class="form-control phone" id="primary_mobile_contact" name="primary_mobile_contact" aria-describedby="" value="{{old('primary_mobile_contact')? old('primary_mobile_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-primary_mobile_contact">{{ $errors->first('primary_mobile_contact') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('secondary_mobile_contact') ? ' has-error' : '' }} grp-secondary_mobile_contact">
-                                    <label class="control-label mb-0" for="secondary_mobile_contact">
-                                        Secondary Mobile Contact 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('secondary_mobile_contact') ? ' has-error' : '' }} grp-secondary_mobile_contact">
-                                    <input type="text" class="form-control phone" id="secondary_mobile_contact" name="secondary_mobile_contact" aria-describedby="" value="{{old('secondary_mobile_contact')? old('secondary_mobile_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-secondary_mobile_contact">{{ $errors->first('secondary_mobile_contact') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('land_line_telephone_contact') ? ' has-error' : '' }} grp-land_line_telephone_contact">
-                                    <label class="control-label mb-0" for="land_line_telephone_contact">
-                                        Land Line Telephone Contact 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide a phone contact number that you can be reached, for example "(868) 555-1234".'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('land_line_telephone_contact') ? ' has-error' : '' }} grp-land_line_telephone_contact">
-                                    <input type="text" class="form-control phone" id="land_line_telephone_contact" name="land_line_telephone_contact" aria-describedby="" value="{{old('land_line_telephone_contact')? old('land_line_telephone_contact') : '' }}" required placeholder="(xxx) xxx-xxxx" maxlength="17">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-land_line_telephone_contact">{{ $errors->first('land_line_telephone_contact') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr> --}}
                         
                     </tbody>
                 </table>
