@@ -26,7 +26,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-hi_first_name_1">
-                                    <input type="text" class="form-control hi_name" id="hi_first_name_1" name="hi_first_name[1]" applicant="1" aria-describedby="" value="{{old('hi_first_name.1')? old('hi_first_name.1') : '' }}" required maxlength="50">
+                                    <input type="text" class="form-control hi_name name first_name" id="hi_first_name_1" name="hi_first_name[1]" applicant="1" aria-describedby="" value="{{old('hi_first_name.1')? old('hi_first_name.1') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_first_name_1">{{ $errors->first('hi_first_name.1') }}</strong>
@@ -46,7 +46,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('hi_surname.1') ? ' has-error' : '' }} grp-hi_surname_1">
-                                    <input type="text" class="form-control hi_name" id="hi_surname_1" name="hi_surname[1]" applicant="1" aria-describedby="" value="{{old('hi_surname.1')? old('hi_surname.1') : '' }}" required maxlength="50">
+                                    <input type="text" class="form-control hi_name name surname" id="hi_surname_1" name="hi_surname[1]" applicant="1" aria-describedby="" value="{{old('hi_surname.1')? old('hi_surname.1') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_surname_1">{{ $errors->first('hi_surname.1') }}</strong>

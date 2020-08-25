@@ -27,7 +27,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('first_name') ? ' has-error' : '' }} grp-first_name">
-                                    <input type="text" class="form-control name" id="first_name" name="first_name" aria-describedby="" value="{{old('first_name')? old('first_name') : '' }}" required maxlength="50">
+                                    <input type="text" class="form-control name first_name" id="first_name" name="first_name" aria-describedby="" value="{{old('first_name')? old('first_name') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-first_name">{{ $errors->first('first_name') }}</strong>
@@ -47,7 +47,7 @@
                             </td>
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('surname') ? ' has-error' : '' }} grp-surname">
-                                    <input type="text" class="form-control name" id="surname" name="surname" aria-describedby="" value="{{old('surname')? old('surname') : '' }}" required maxlength="50">
+                                    <input type="text" class="form-control name surname" id="surname" name="surname" aria-describedby="" value="{{old('surname')? old('surname') : '' }}" required maxlength="50">
                                     
                                     <span class="help-block">
                                         <strong id="err-surname">{{ $errors->first('surname') }}</strong>

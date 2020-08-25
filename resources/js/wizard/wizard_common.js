@@ -187,7 +187,7 @@ $(function () {
 
     // change name after name entered
     $(document).on('change', '.name', function(){
-        var name = $('#first_name').val() + ' ' + $('#surname').val();
+        var name = $('.first_name').val() + ' ' + $('.surname').val();
         $('.nameField').val(name);
         $('.nameText').html(name);
     });
