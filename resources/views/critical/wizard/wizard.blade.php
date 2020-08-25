@@ -48,7 +48,10 @@
             
         // change ID uploads based on ID state
         $(document).on('change', '#critical_national_id_state', function(){
-            var state = $(this).val();
+            critical_national_id_state();
+        });
+        function critical_national_id_state() {
+            var state = $('#critical_national_id_state').val();
             $('.id_card_state').addClass('hide');
     
             switch (state) {
@@ -67,7 +70,8 @@
                 default:
                     break;
             }
-        });
+        }
+        critical_national_id_state();
                 
         // show community based on region
         $(document).on('change', '#region', function(){
