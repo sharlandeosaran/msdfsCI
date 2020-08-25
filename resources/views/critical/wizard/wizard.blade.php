@@ -119,6 +119,7 @@
         });
         function school_supplies() {
             var vals = $('.hi_emp_status').map((_,el) => el.value).get();
+            // console.log(vals)
 
             $('.items_lost_or_damaged_school_supplies').addClass('hide');
             if ($.inArray('7', vals) !== -1) {
@@ -135,6 +136,8 @@
             // console.log(($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1))
             if ($.inArray('7', vals) === -1 && $.inArray('8', vals) === -1) {
                 $('.school_supplies_div').addClass('hide');
+            } else {
+                $('.school_supplies_div').removeClass('hide');
             }
         }
         school_supplies();
