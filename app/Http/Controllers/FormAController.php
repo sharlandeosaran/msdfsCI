@@ -13,15 +13,18 @@ class FormAController extends Controller
     {
         $data = [
             'title' => 'APPLICATION FORM A-EMPLOYER/EMPLOYEE',
-            'cities' => cities(),
-            'banks' => banks(),
-            'scotia' => scotia(),
-            'citizen_proof' => citizen_proof(),
-            'id_state' => id_state(),
-            'job_title' => job_title(),
-            'total_income' => total_income(),
-            'relationships' => relationships(),
-            'employment_status' => employment_status(),
+            'regions' => \App\Region::ordered(),
+            'cities' => \App\Community::ordered(),
+            'assistance' => \App\AssistanceSought::ordered(),
+
+            'banks' => \App\Bank::all(),
+            'scotia' => \App\ScotiaBranch::all(),
+            'citizen_proof' => \App\CitizenProof::all(),
+            'id_state' => \App\IDState::all(),
+            'job_title' => \App\JobTitle::all(),
+            'total_income' => \App\TotalIncome::all(),
+            'relationships' => \App\Relationship::all(),
+            'employment_status' => \App\EmploymentStatus::all(),
             'form' => 'A',
         ];
         
@@ -30,7 +33,7 @@ class FormAController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
 
         $validator = Validator::make($request->all(), 
         [
@@ -87,9 +90,9 @@ class FormAController extends Controller
             "bank_branch" => [
                 'nullable',
                 'max:25',
-                Rule::requiredIf($request->bank_name != 'Scotiabank' && $request->bank_name),
+                Rule::requiredIf($request->bank_name != '2' && $request->bank_name),
             ],
-            "scotia_area" => "nullable|numeric|required_if:bank_name,Scotiabank",
+            "scotia_area" => "nullable|numeric|required_if:bank_name,2",
             "bank_account" => "nullable|max:15|regex:/^[0-9-]+$/|required_with:bank_name",
 
             "emp_name" => "required|max:100",
@@ -104,8 +107,10 @@ class FormAController extends Controller
             "hi_surname" => "array",
             "hi_gender" => "array",
             "hi_relationship" => "array",
+            "hi_relationship_other" => "array",
             "hi_dob" => "required|array",
             "hi_emp_status" => "array",
+            "hi_emp_status_other" => "array",
             "hi_income" => "required|array",
             "hi_total_before" => "required|numeric|min:0",
             
@@ -115,9 +120,19 @@ class FormAController extends Controller
                 'required',
                 Rule::in(['M', 'F']),
             ],
-            "hi_relationship.*" => "required|max:25",
+            "hi_relationship.*" => "required|exists:relationships,id",
+            "hi_relationship_other.*" => [
+                'nullable',
+                'max:150',
+                // Rule::requiredIf(($request->national_id_state == 1 || $request->proof_of_citizenship == 1) && !$request->id_card_front_name),
+            ],
             "hi_dob.*" => "required|date_format:Y-m-d",
-            "hi_emp_status.*" => "required|max:25",
+            "hi_emp_status.*" => "required|exists:employment_status,id",
+            "hi_emp_status_other.*" => [
+                'nullable',
+                'max:150',
+                // Rule::requiredIf(($request->national_id_state == 1 || $request->proof_of_citizenship == 1) && !$request->id_card_front_name),
+            ],
             "hi_income.1" => "required",
             "hi_income.*" => "nullable|numeric|min:0",
 
@@ -132,52 +147,52 @@ class FormAController extends Controller
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_front_name),
+                Rule::requiredIf(($request->national_id_state == 1 || $request->proof_of_citizenship == 1) && !$request->id_card_front_name),
             ],
             "id_card_back" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf(($request->national_id_state == 'Have identification' || $request->proof_of_citizenship == 'National ID') && !$request->id_card_back_name),
+                Rule::requiredIf(($request->national_id_state == 1 || $request->proof_of_citizenship == 1) && !$request->id_card_back_name),
             ],
 
             "lost_id_police_report" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Lost but have police report' && !$request->lost_id_police_report_name),
+                Rule::requiredIf($request->national_id_state == 2 && !$request->lost_id_police_report_name),
             ],
             "ebc_id_letter" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->national_id_state == 'Have EBC letter' && !$request->ebc_id_letter_name),
+                Rule::requiredIf($request->national_id_state == 3 && !$request->ebc_id_letter_name),
             ],
 
             "cert_immigration_status" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Immigration Status' && !$request->cert_immigration_status_name),
+                Rule::requiredIf($request->proof_of_citizenship == 2 && !$request->cert_immigration_status_name),
             ],
             "cert_residence" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Certificate of Residence' && !$request->cert_residence_name),
+                Rule::requiredIf($request->proof_of_citizenship == 3 && !$request->cert_residence_name),
             ],
 
             "passport_bio" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_bio_name),
+                Rule::requiredIf($request->proof_of_citizenship == 4 && !$request->passport_bio_name),
             ],
             "passport_stamp" => [
                 'nullable',
                 'max:10000',
                 'mimes:pdf,doc,docx,jpg,jpeg,png',
-                Rule::requiredIf($request->proof_of_citizenship == 'Passport' && !$request->passport_stamp_name),
+                Rule::requiredIf($request->proof_of_citizenship == 4 && !$request->passport_stamp_name),
             ],
 
             "proof_landlord_ownership" => [
@@ -209,6 +224,8 @@ class FormAController extends Controller
             "proof_of_earnings.*" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
+            'assistance_sought.required' => 'The assistance being sought is required.',
+
             'landlord_first_name.required' => 'The landlord first name field is required when rental assistance is sought.',
             'landlord_surname.required' => 'The landlord surname field is required when rental assistance is sought.',
             'landlord_contact_no.required' => 'The landlord contact number field is required when rental assistance is sought.',
@@ -253,28 +270,32 @@ class FormAController extends Controller
                 }
             }
 
-			/* $url = 'https://www.google.com/recaptcha/api/siteverify';
-			$data = [
-				'secret' => config('captcha.secret', ''),
-				'response' => $_POST["g-recaptcha-response"]
-			];
-			$query = http_build_query($data);
-			$options = [
-				'http' => [
-					'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
-                    "Content-Length: ".strlen($query)."\r\n".
-                    "User-Agent:MyAgent/1.0\r\n",
-					'method' => 'POST',
-					'content' => http_build_query($data)
-				]
-			];
-			$context  = stream_context_create($options);
-			$verify = file_get_contents($url, false, $context);
-			$captcha_success=json_decode($verify);
+            // check recaptcha if in production
+            if (\App::environment('production')) 
+            {
+                $url = 'https://www.google.com/recaptcha/api/siteverify';
+                $data = [
+                    'secret' => config('captcha.secret', ''),
+                    'response' => $_POST["g-recaptcha-response"]
+                ];
+                $query = http_build_query($data);
+                $options = [
+                    'http' => [
+                        'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
+                        "Content-Length: ".strlen($query)."\r\n".
+                        "User-Agent:MyAgent/1.0\r\n",
+                        'method' => 'POST',
+                        'content' => http_build_query($data)
+                    ]
+                ];
+                $context  = stream_context_create($options);
+                $verify = file_get_contents($url, false, $context);
+                $captcha_success=json_decode($verify);
 
-			if ($captcha_success->success==false) {
-				$validator->errors()->add('captcha', 'Invalid captcha!');
-            } */
+                if ($captcha_success->success==false) {
+                    $validator->errors()->add('captcha', 'Invalid captcha!');
+                }
+            }
         });
         
         if ($validator->fails()) {
@@ -309,70 +330,120 @@ class FormAController extends Controller
                 ;
             }
         }
+        dd();
 
-        $data_files = ['form' => 'form_a',];
+        // store application
+        $application = new \App\Application();
+        $application->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
+        $application->form_id = 1;
+        $application->save();
 
-        if ($request->signature) $data_files['signature'] = new \CURLFILE($_FILES['signature']['tmp_name'], $_FILES['signature']['type'], $_FILES['signature']['name']);
-        if ($request->employer_recommender_letter) $data_files['employer_recommender_letter'] = new \CURLFILE($_FILES['employer_recommender_letter']['tmp_name'], $_FILES['employer_recommender_letter']['type'], $_FILES['employer_recommender_letter']['name']);
+        // create form A
+        $form_a = new \App\FormA();
+        $form_a->application_id = $application->id;
+        $form_a->disaster_id = $request->disaster;
+        $form_a->disaster_other = $request->other_disaster;
+        $form_a->housing_damage = $request->housing_damage;
+        $form_a->housing_repairs = $request->housing_repairs;
+        $form_a->insured = $request->housing_infrastructure_insured;
+        $form_a->save();
 
-        if ($request->id_card_front) $data_files['id_card_front'] = new \CURLFILE($_FILES['id_card_front']['tmp_name'], $_FILES['id_card_front']['type'], $_FILES['id_card_front']['name']);
-        if ($request->id_card_back) $data_files['id_card_back'] = new \CURLFILE($_FILES['id_card_back']['tmp_name'], $_FILES['id_card_back']['type'], $_FILES['id_card_back']['name'] );
+        // assistance sought
+        foreach ($request->assistance_sought as $key => $value) {
+            $assistance = new \App\ApplicationAssistanceSought();
+            $assistance->application_id = $application->id;
+            $assistance->assistance_sought_id = $key;
+            $assistance->save();
+        }
 
-        if ($request->lost_id_police_report) $data_files['lost_id_police_report'] = new \CURLFILE($_FILES['lost_id_police_report']['tmp_name'], $_FILES['lost_id_police_report']['type'], $_FILES['lost_id_police_report']['name'] );
-        if ($request->ebc_id_letter) $data_files['ebc_id_letter'] = new \CURLFILE($_FILES['ebc_id_letter']['tmp_name'], $_FILES['ebc_id_letter']['type'], $_FILES['ebc_id_letter']['name'] );
+        // create household
+        $household = new \App\Household();
+        $household->housing_type_id = $request->housing_type;
+        $household->address1 = $request->home_address;
+        $household->community_id = $request->city_town;
+        $household->total_income = $request->hi_total_income;
+        $household->save();
 
-        if ($request->cert_immigration_status) $data_files['cert_immigration_status'] = new \CURLFILE($_FILES['cert_immigration_status']['tmp_name'], $_FILES['cert_immigration_status']['type'], $_FILES['cert_immigration_status']['name'] );
-        if ($request->cert_residence) $data_files['cert_residence'] = new \CURLFILE($_FILES['cert_residence']['tmp_name'], $_FILES['cert_residence']['type'], $_FILES['cert_residence']['name'] );
+        // landlord info
+        if ($request->assistance_sought && array_key_exists(2, $request->assistance_sought)) {
+            $landlord = new \App\Landlord();
+            $landlord->household_id = $household->id;
+            $landlord->first_name = $request->landlord_first_name;
+            $landlord->surname = $request->landlord_surname;
+            $landlord->contact = $request->landlord_contact_no;
+            $landlord->rental_amount = $request->rental_amount;
+            $landlord->save();
+        }
+        
+        // store applicants
+        // sort list
+        $names = [];
+        foreach ($request->hi_first_name as $key => $value) 
+        {
+            $names[$key] = [
+                'first_name' => $request->hi_first_name[$key],
+                'surname' => $request->hi_surname[$key],
+                'key' => $key,
+            ];
+        }
+        array_multisort(
+            array_column($names, 'first_name'),  SORT_ASC,
+            array_column($names, 'surname'), SORT_ASC,
+            $names
+        );
+        // dd($names);
 
-        if ($request->passport_bio) $data_files['passport_bio'] = new \CURLFILE($_FILES['passport_bio']['tmp_name'], $_FILES['passport_bio']['type'], $_FILES['passport_bio']['name'] );
-        if ($request->passport_stamp) $data_files['passport_stamp'] = new \CURLFILE($_FILES['passport_stamp']['tmp_name'], $_FILES['passport_stamp']['type'], $_FILES['passport_stamp']['name'] );
+        // create persons and applicant
+        foreach ($names as $order => $value) 
+        {
+            // create person
+            $person = new \App\Person();
+            $person->first_name = $request->hi_first_name[$value['key']];
+            $person->surname = $request->hi_surname[$value['key']];
+            $person->gender = $request->hi_gender[$value['key']];
+            $person->primary_mobile_contact = $value['key'] == 1? $request->primary_mobile_contact : null;
+            $person->email = $value['key'] == 1? $request->email : null;
+            $person->national_id = $request->hi_national_id[$value['key']];
+            $person->national_id_state_id = $value['key'] == 1? $request->national_id_state : null;
+            $person->nis = $value['key'] == 1? $request->nis : null;
 
-        if ($request->proof_landlord_ownership) $data_files['proof_landlord_ownership'] = new \CURLFILE($_FILES['proof_landlord_ownership']['tmp_name'], $_FILES['proof_landlord_ownership']['type'], $_FILES['proof_landlord_ownership']['name'] );
-        if ($request->landlord_id_card) $data_files['landlord_id_card'] = new \CURLFILE($_FILES['landlord_id_card']['tmp_name'], $_FILES['landlord_id_card']['type'], $_FILES['landlord_id_card']['name'] );
-        if ($request->rental_agreement) $data_files['rental_agreement'] = new \CURLFILE($_FILES['rental_agreement']['tmp_name'], $_FILES['rental_agreement']['type'], $_FILES['rental_agreement']['name'] );
-        if ($request->rent_receipt) $data_files['rent_receipt'] = new \CURLFILE($_FILES['rent_receipt']['tmp_name'], $_FILES['rent_receipt']['type'], $_FILES['rent_receipt']['name'] );
+            $person->dob = $request->hi_dob[$value['key']];
+            $person->employment_status_id = $value['key'] == 1? 6 : $request->hi_emp_status[$value['key']];
+            $person->employment_status_other = $value['key'] == 1? $request->employment_classification : $request->hi_emp_status_other[$value['key']];
+            $person->income = $request->hi_income[$value['key']];
 
-        if ($request->proof_of_earnings) {
-            foreach ($request->proof_of_earnings as $key => $value) {
-                if( !empty( $_FILES['proof_of_earnings']['tmp_name'][$key] ) && is_uploaded_file( $_FILES['proof_of_earnings']['tmp_name'][$key] ) ) 
-                $data_files['proof_of_earnings_'.$key] = new \CURLFILE($_FILES['proof_of_earnings']['tmp_name'][$key], $_FILES['proof_of_earnings']['type'][$key], $_FILES['proof_of_earnings']['name'][$key] );
+            $person->save();
+
+            // add person to household
+            $person_household = new \App\PersonHousehold();
+            $person_household->person_id = $person->id;
+            $person_household->household_id = $household->id;
+            $person_household->relationship_id = $request->hi_relationship[$value['key']];
+            $person_household->relationship_other = isset($request->hi_relationship_other[$value['key']])? $request->hi_relationship_other[$value['key']] : null;
+            $person_household->save();
+
+            if ($value['key'] == 1) {
+                // create applicant
+                $applicant = new \App\Applicant();
+                $applicant->application_id = $application->id;
+                $applicant->person_id = $person->id;
+                $applicant->order = $order;
+                $applicant->save();
+                
+                // create bank
+                if ($request->bank_name) {
+                    $applicant = new \App\PersonBank();
+                    $applicant->person_id = $person->id;
+                    $applicant->bank_id = $request->bank_name;
+                    $applicant->scotia_branch_id = $request->scotia_area == 0? null : $request->scotia_area;
+                    $applicant->branch = $request->bank_branch;
+                    $applicant->account = $request->bank_account;
+                    $applicant->save();
+                }
             }
         }
 
-        // add temp files to list
-        if ($request->tempfiles) {
-            $old = (array) json_decode($request->tempfiles);
-            foreach ($old as $key => $file) {
-                $data_files[$key] = curl_file_create($file->name, $file->mime, $file->mime);
-            }
-        }
-        // dd($data_files);
-
-    	// temporarily set max execution time to 10 mins
-        ini_set('max_execution_time', 600);
-        
-        $curl_files = curl_init();
-        curl_setopt_array($curl_files, [
-            CURLOPT_URL => config('curl.url.files', ''),
-            CURLOPT_CUSTOMREQUEST => "POST",
-            CURLOPT_POSTFIELDS => $data_files,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                "content-type: multipart/form-data",
-                "token: ".config('curl.token', ''),
-            ],
-        ]);
-        
-        $response = curl_exec($curl_files);
-        $files = json_decode($response);
-        curl_close($curl_files);
-        // dd($response);
-        // dd($files);
-
-    	// reset max execution time to 5 mins
-    	ini_set('max_execution_time', 300);
-
-        if (isset($files->success)) {
+        /* if (isset($files->success)) {
             // delete temp saved files
             if ($request->tempfiles) {
                 $old = (array) json_decode($request->tempfiles);
@@ -513,7 +584,7 @@ class FormAController extends Controller
             return redirect('/form/a')
                     ->withInput()
                     ->withErrors($validator);
-        }
+        } */
         
         return redirect('/thanks')->with('success', 'Submission sent successfully.');
     }

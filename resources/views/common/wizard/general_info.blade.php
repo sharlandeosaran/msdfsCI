@@ -163,7 +163,7 @@
                                     <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="city_town" name="city_town">
                                         <option disabled="" selected="">select...</option>
                                         @foreach ($cities as $city)
-                                        <option {{old('city_town') == $city? 'selected' : '' }}>{{$city}}</option>
+                                        <option {{old('city_town') == $city->id? 'selected' : '' }} value="{{$city->id}}">{{$city->community}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -188,7 +188,7 @@
                                     <select class="form-control" id="proof_of_citizenship" name="proof_of_citizenship">
                                         <option selected="" value="">select...</option>
                                         @foreach ($citizen_proof as $proof)
-                                        <option {{old('proof_of_citizenship') == $proof? 'selected' : '' }}>{{$proof}}</option>
+                                        <option {{old('proof_of_citizenship') == $proof->id? 'selected' : '' }} value="{{$proof->id}}">{{$proof->proof}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -217,7 +217,7 @@
                                         <select class="form-control" id="national_id_state" name="national_id_state">
                                             {{-- <option selected="" value="">select...</option> --}}
                                             @foreach ($id_state as $state)
-                                            <option {{old('national_id_state') == $state? 'selected' : '' }}>{{$state}}</option>
+                                            <option {{old('national_id_state') == $state->id? 'selected' : '' }} value="{{$state->id}}">{{$state->id_state}}</option>
                                             @endforeach
                                         </select>
                                       </div>
@@ -355,18 +355,12 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('assistance_sought') ? ' has-error' : '' }} grp-assistance_sought">
                                     <div class="col-md-12 checkbox-group required">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="public_assistance" name="assistance_sought[1]" {{old('assistance_sought.1') == 'on'? 'checked' : '' }}>
-                                            <label class="custom-control-label my-1" for="public_assistance">Income Support Grant</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="rental_assistance" name="assistance_sought[2]" {{old('assistance_sought.2') == 'on'? 'checked' : '' }}>
-                                            <label class="custom-control-label my-1" for="rental_assistance">Rental Assistance Grant</label>
-                                        </div>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="temp_food_card" name="assistance_sought[3]" {{old('assistance_sought.3') == 'on'? 'checked' : '' }}>
-                                            <label class="custom-control-label my-1" for="temp_food_card">Temporary Food Card Support</label>
-                                        </div>
+                                        @foreach ($assistance as $item)
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="{{$item->slug}}" name="assistance_sought[{{$item->id}}]" {{old('assistance_sought.'.$item->id) == 'on'? 'checked' : '' }}>
+                                                <label class="custom-control-label my-1" for="{{$item->slug}}">{{$item->assistance}}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     
                                     <span class="help-block">
@@ -470,7 +464,7 @@
                                     <select class="form-control" id="bank_name" name="bank_name">
                                         <option selected="" value="">select...</option>
                                         @foreach ($banks as $bank)
-                                        <option {{old('bank_name') == $bank? 'selected' : '' }}>{{$bank}}</option>
+                                        <option {{old('bank_name') == $bank->id? 'selected' : '' }} value="{{$bank->id}}">{{$bank->bank}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -493,9 +487,9 @@
                             <td width="80%">
                                 <div class="form-group mb-0{{ $errors->has('scotia_area') ? ' has-error' : '' }} grp-scotia_area">
                                     <select class="form-control" id="scotia_area" name="scotia_area">
-                                        <option selected="" value="">select...</option>
+                                        <option selected="" value="0">select...</option>
                                         @foreach ($scotia as $no => $branch)
-                                        <option value="{{$no}}" {{old('scotia_area') == $no? 'selected' : '' }}>{{$branch}}</option>
+                                        <option value="{{$no}}" {{old('scotia_area') == $no? 'selected' : '' }}>{{$branch->branch}}</option>
                                         @endforeach
                                     </select>
                                     

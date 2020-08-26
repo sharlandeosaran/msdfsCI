@@ -93,13 +93,13 @@ $(function () {
     // Scotiabank help if selected
     $(document).on('change', '#bank_name', function() {
         var val = $(this).val();
-        if (val == 'Scotiabank') {
+        $('#scotia_area').val(0);
+        if (val == '2') {
             $('#scotia_area_div').removeClass('hide');
             $('#bank_branch_div').addClass('hide');
         } else {
             $('#scotia_area_div').addClass('hide');
             $('#bank_branch_div').removeClass('hide');
-            $('#scotia_area').val(0);
         }
     });
 
@@ -159,13 +159,6 @@ $(function () {
         hiTotal();
     });
 
-    // change name of household person in uploads
-    $(document).on('change', '.hi_name', function() {
-        var count = $(this).attr('count');
-        var name = $('#hi_first_name_'+count).val()+' '+$('#hi_surname_'+count).val();
-        $('#hi_name_'+count+'_span').html(name);
-    });
-
     // calculate total income
     function hiTotal() {
         var total = 0;
@@ -174,6 +167,13 @@ $(function () {
         });
         $('#hi_total_income').val(total.toFixed(2));
     }
+
+    // change name of household person in uploads
+    $(document).on('change', '.hi_name', function() {
+        var count = $(this).attr('count');
+        var name = $('#hi_first_name_'+count).val()+' '+$('#hi_surname_'+count).val();
+        $('#hi_name_'+count+'_span').html(name);
+    });
 
     /** Household Information End **/
 

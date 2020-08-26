@@ -15,20 +15,20 @@ class Person extends Model
 
     public function getFirstNameAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setFirstNameAttribute($value)
     {
-        $this->attributes['first_name'] = encrypt($value);
+        $this->attributes['first_name'] = $value? encrypt($value) : null;
     }
 
     public function getSurnameAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setSurnameAttribute($value)
     {
-        $this->attributes['surname'] = encrypt($value);
+        $this->attributes['surname'] = $value? encrypt($value) : null;
     }
 
     public function getOthernameAttribute($value)
@@ -67,6 +67,15 @@ class Person extends Model
         $this->attributes['passport'] = $value? encrypt($value) : null;
     }
 
+    public function getNisAttribute($value)
+    {
+        return $value? decrypt($value) : null;
+    }
+    public function setNisAttribute($value)
+    {
+        $this->attributes['nis'] = $value? encrypt($value) : null;
+    }
+
     public function getMaritalStatusOtherAttribute($value)
     {
         return $value? decrypt($value) : null;
@@ -78,38 +87,47 @@ class Person extends Model
 
     public function getEmploymentStatusOtherAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setEmploymentStatusOtherAttribute($value)
     {
-        $this->attributes['employment_status_other'] = encrypt($value);
+        $this->attributes['employment_status_other'] = $value? encrypt($value) : null;
+    }
+
+    public function getJobTitleAttribute($value)
+    {
+        return $value? decrypt($value) : null;
+    }
+    public function setJobTitleAttribute($value)
+    {
+        $this->attributes['job_title'] = $value? encrypt($value) : null;
     }
 
     public function getPrimaryMobileContactAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setPrimaryMobileContactAttribute($value)
     {
-        $this->attributes['primary_mobile_contact'] = encrypt($value);
+        $this->attributes['primary_mobile_contact'] = $value? encrypt($value) : null;
     }
 
     public function getSecondaryMobileContactAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setSecondaryMobileContactAttribute($value)
     {
-        $this->attributes['secondary_mobile_contact'] = encrypt($value);
+        $this->attributes['secondary_mobile_contact'] = $value? encrypt($value) : null;
     }
 
     public function getLandLineTelephoneContactAttribute($value)
     {
-        return decrypt($value);
+        return $value? decrypt($value) : null;
     }
     public function setLandLineTelephoneContactAttribute($value)
     {
-        $this->attributes['land_line_telephone_contact'] = encrypt($value);
+        $this->attributes['land_line_telephone_contact'] = $value? encrypt($value) : null;
     }
 
     public function getAgeAttribute($value)

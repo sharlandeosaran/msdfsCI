@@ -148,7 +148,22 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]" aria-describedby="" value="{{old('hi_relationship.'.$key)? old('hi_relationship.'.$key) : '' }}" required maxlength="25">
+                                            <select class="form-control form-control-sm chosen-select hi_relationship" num="{{$key}}" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
+                                                <option disabled="" selected="">select...</option>
+                                                @php $other = 'Other'; $otherid = ''; @endphp
+                                                @foreach ($relationships as $relationship)
+                                                    @if ($relationship->id !== 0)
+                                                        @if ($relationship->relationship !== 'Other')
+                                                            <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
+                                                        @else
+                                                            @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+            
+                                                <option {{old('hi_relationship.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
+                                            </select>
+                                            <input type="text" class="form-control form-control-sm {{old('hi_relationship.'.$key) == $otherid? '' : 'hide' }}" id="hi_relationship_other_{{$key}}" name="hi_relationship_other[{{$key}}]" aria-describedby="" value="{{old('hi_relationship_other.'.$key)? old('hi_relationship_other.'.$key) : '' }}" required maxlength="100" placeholder="Other relationship">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
@@ -166,7 +181,20 @@
                                     </td>
                                     <td>
                                         <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
-                                            <input type="text" class="form-control form-control-sm" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status.'.$key)? old('hi_emp_status.'.$key) : '' }}" required maxlength="25">
+                                            <select class="form-control chosen-select hi_emp_status" num="{{$key}}" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
+                                                <option disabled="" selected="">select...</option>
+                                                @php $other = 'Other'; $otherid = ''; @endphp
+                                                @foreach ($employment_status as $status)
+                                                    @if ($status->status !== 'Other')
+                                                        <option {{old('hi_emp_status.'.$key) == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                                    @else
+                                                        @php $other = $status->status; $otherid = $status->id; @endphp
+                                                    @endif
+                                                @endforeach
+            
+                                                <option {{old('hi_emp_status.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
+                                            </select>
+                                            <input type="text" class="form-control hi_emp_status_other {{old('hi_emp_status_other.'.$key)? (old('hi_emp_status.'.$key) == $otherid? '' : 'hide') : 'hide' }}" id="hi_emp_status_other_{{$key}}" name="hi_emp_status_other[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status_other.'.$key)? old('hi_emp_status_other.'.$key) : '' }}" required maxlength="100" placeholder="Other employment status">
                                             
                                             <span class="help-block">
                                                 <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
@@ -200,7 +228,7 @@
                             </th>
                             <th>
                                 <div class="form-group{{ $errors->has('hi_total_income') ? ' has-error' : '' }}">
-                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_total_income" name="hi_total_income" value="{{old('hi_total_income')? number_format(array_sum(old('hi_total_income')), 2) : '0.00'}}">
+                                    <input type="text" readonly="" class="form-control-plaintext" id="hi_total_income" name="hi_total_income" value="{{old('hi_total_income')? old('hi_total_income') : '0.00'}}">
                                     
                                     <span class="help-block">
                                         <strong id="err-hi_total_income">{{ $errors->first('hi_total_income') }}</strong>
