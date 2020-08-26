@@ -1,6 +1,6 @@
 {{-- if files uploaded but form has errors --}}
 @if (session('tempfiles'))
-    <input type="hidden" name="tempfiles" value="{{session('tempfiles')}}">
+    <input type="hidden" name="tempfiles" value="{{session('tempfiles')}}" style="width: 100%">
 @endif
 
 <h3><i class="fa fa-upload" aria-hidden="true" title="Upload Documents"></i></h3>

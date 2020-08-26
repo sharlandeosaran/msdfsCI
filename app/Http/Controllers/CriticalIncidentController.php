@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 use Validator;
 
 class CriticalIncidentController extends Controller
@@ -460,7 +462,6 @@ class CriticalIncidentController extends Controller
         $types = ['application/msword', 'text/plain', 'application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/png', 'image/jpg', 'image/jpeg'];
 
         // dd($request->all());
-
             
         // signature
         if ($request->file('signature') !== null) {
@@ -478,7 +479,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_signature_'.$request->file('signature')->getClientOriginalName();
                     // upload upload
-                    $path = $request->signature->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->signature->storeAs('uploads/applications/'.$application->id.'/signature', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -507,7 +508,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_id_card_front_'.$request->file('id_card_front')->getClientOriginalName();
                     // upload upload
-                    $path = $request->id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->id_card_front->storeAs('uploads/applications/'.$application->id.'/id_card_front', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -536,7 +537,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_id_card_back_'.$request->file('id_card_back')->getClientOriginalName();
                     // upload upload
-                    $path = $request->id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->id_card_back->storeAs('uploads/applications/'.$application->id.'/id_card_back', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -565,7 +566,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_lost_id_police_report_'.$request->file('lost_id_police_report')->getClientOriginalName();
                     // upload upload
-                    $path = $request->lost_id_police_report->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->lost_id_police_report->storeAs('uploads/applications/'.$application->id.'/lost_id_police_report', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -594,7 +595,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_ebc_id_letter_'.$request->file('ebc_id_letter')->getClientOriginalName();
                     // upload upload
-                    $path = $request->ebc_id_letter->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->ebc_id_letter->storeAs('uploads/applications/'.$application->id.'/ebc_id_letter', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -623,7 +624,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_landlord_id_card_front_'.$request->file('landlord_id_card_front')->getClientOriginalName();
                     // upload upload
-                    $path = $request->landlord_id_card_front->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->landlord_id_card_front->storeAs('uploads/applications/'.$application->id.'/landlord_id_card_front', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -652,7 +653,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_landlord_id_card_back_'.$request->file('landlord_id_card_back')->getClientOriginalName();
                     // upload upload
-                    $path = $request->landlord_id_card_back->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->landlord_id_card_back->storeAs('uploads/applications/'.$application->id.'/landlord_id_card_back', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -681,7 +682,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_utility_bill_'.$request->file('utility_bill')->getClientOriginalName();
                     // upload upload
-                    $path = $request->utility_bill->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->utility_bill->storeAs('uploads/applications/'.$application->id.'/utility_bill', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -710,7 +711,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_rental_agreement_'.$request->file('rental_agreement')->getClientOriginalName();
                     // upload upload
-                    $path = $request->rental_agreement->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->rental_agreement->storeAs('uploads/applications/'.$application->id.'/rental_agreement', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -739,7 +740,7 @@ class CriticalIncidentController extends Controller
                 if (in_array($type, $types)) {
                     $document = $application->id.'_rent_receipt_'.$request->file('rent_receipt')->getClientOriginalName();
                     // upload upload
-                    $path = $request->rent_receipt->storeAs('uploads/applications/'.$application->id, $document);
+                    $path = $request->rent_receipt->storeAs('uploads/applications/'.$application->id.'/rent_receipt', $document);
                     // save name to application
                     $file = new \App\ApplicationDocument();
                     $file->application_id = $application->id;
@@ -1048,6 +1049,41 @@ class CriticalIncidentController extends Controller
                     $file->path = $path;
                             $file->save();
                         }
+                    }
+                }
+            }
+        }
+
+        // get uploads from temp storage
+        if ($request->tempfiles) {
+            $old = (array) json_decode($request->tempfiles);
+            // dd($old);
+            foreach ($old as $key => $file) {
+                // move file if exists and in allowed file types
+                if (in_array($file->mime, $types)) {
+                    if(Storage::exists($file->name)) {
+                        $document = $application->id.'_'.$key.'_'.$file->postname;
+
+                        // move file
+                        $path = 'uploads/applications/'.$application->id.'/'.$key.'/'.$document;
+                        Storage::move($file->name, $path);
+                        
+                        // get file type
+                        $get = \App\DocumentType::where('mime', $file->mime)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        // save name to application
+                        $file = new \App\ApplicationDocument();
+                        $file->application_id = $application->id;
+                        $file->file = $key;
+                        $file->document = $document;
+                        $file->document_type_id = $mime;
+                        $file->path = $path;
+                        $file->save();
                     }
                 }
             }
