@@ -219,7 +219,7 @@
             housing_damage();
         });
         function housing_damage() {
-            var val = $('[name = "housing_damage"]').val();
+            var val = $('[name = "housing_damage"]:checked').val();
             // console.log(val);
 
             if (val == 'Y') {
