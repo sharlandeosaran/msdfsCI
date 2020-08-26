@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 
@@ -778,7 +777,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'housing_relief_quotation_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -810,7 +809,7 @@ class CriticalIncidentController extends Controller
                             $file->application_id = $application->id;
                             $file->file = 'school_supplies_relief_quotation_'.$i;
                             $file->document = $document;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->document_type_id = $mime;
                             $file->save();
                         }
@@ -844,7 +843,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'fire_service_report_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -877,7 +876,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'regional_corporation_flooding_report_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -910,7 +909,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'clothing_relief_quotation_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -947,7 +946,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'water_marks_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -980,7 +979,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'structural_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -1013,7 +1012,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'electrical_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }
@@ -1046,7 +1045,7 @@ class CriticalIncidentController extends Controller
                             $file->file = 'plumbing_damage_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
-                    $file->path = $path;
+                            $file->path = $path;
                             $file->save();
                         }
                     }

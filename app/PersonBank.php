@@ -42,7 +42,7 @@ class PersonBank extends Model
     }
     public function setAccountAttribute($value)
     {
-        $this->attributes['primary_mobile_contact'] = $value? encrypt($value) : null;
+        $this->attributes['account'] = $value? encrypt($value) : null;
     }
 
 }

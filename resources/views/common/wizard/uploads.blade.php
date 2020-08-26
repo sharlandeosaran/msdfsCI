@@ -50,7 +50,7 @@
                             </td>
                         </tr>
 
-                        <tr id="id_card_front_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != 'Have identification') && (old('proof_of_citizenship') && old('proof_of_citizenship') != 'National ID')? 'hide' : '' }}">
+                        <tr id="id_card_front_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != '1') && (old('proof_of_citizenship') && old('proof_of_citizenship') != '1')? 'hide' : '' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_front') ? ' has-error' : '' }} mb-0 grp-id_card_front">
                                     <label class="control-label mb-0" for="id_card_front">
@@ -77,7 +77,7 @@
                             </td>
                         </tr>
 
-                        <tr id="id_card_back_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != 'Have identification') && (old('proof_of_citizenship') && old('proof_of_citizenship') != 'National ID')? 'hide' : '' }}">
+                        <tr id="id_card_back_row" class="id_card_state proof_residence_row id_card_row {{(old('national_id_state') && old('national_id_state') != '1') && (old('proof_of_citizenship') && old('proof_of_citizenship') != '1')? 'hide' : '' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('id_card_back') ? ' has-error' : '' }} mb-0 grp-id_card_back">
                                     <label class="control-label mb-0" for="id_card_back">
@@ -130,7 +130,7 @@
                             </td>
                         </tr>
 
-                        <tr id="lost_id_police_report_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == 'Lost but have police report'? '' : 'hide' }}">
+                        <tr id="lost_id_police_report_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == '2'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('lost_id_police_report') ? ' has-error' : '' }} mb-0 grp-lost_id_police_report">
                                     <label class="control-label mb-0" for="lost_id_police_report">
@@ -156,7 +156,7 @@
                             </td>
                         </tr>
 
-                        <tr id="ebc_id_letter_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == 'Have EBC letter'? '' : 'hide' }}">
+                        <tr id="ebc_id_letter_row" class="id_card_state {{old('national_id_state') && old('national_id_state') == '3'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('ebc_id_letter') ? ' has-error' : '' }} mb-0 grp-ebc_id_letter">
                                     <label class="control-label mb-0" for="ebc_id_letter">
@@ -182,7 +182,7 @@
                             </td>
                         </tr>
 
-                        <tr class="proof_residence_row cert_immigration_status_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Certificate of Immigration Status'? '' : 'hide' }}">
+                        <tr class="proof_residence_row cert_immigration_status_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == '2'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('cert_immigration_status') ? ' has-error' : '' }} mb-0 grp-cert_immigration_status">
                                     <label class="control-label mb-0" for="cert_immigration_status">
@@ -208,7 +208,7 @@
                             </td>
                         </tr>
 
-                        <tr class="proof_residence_row cert_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Certificate of Residence'? '' : 'hide' }}">
+                        <tr class="proof_residence_row cert_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == '3'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('cert_residence') ? ' has-error' : '' }} mb-0 grp-cert_residence">
                                     <label class="control-label mb-0" for="cert_residence">
@@ -234,7 +234,7 @@
                             </td>
                         </tr>
 
-                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Passport'? '' : 'hide' }}">
+                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == '4'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('passport_bio') ? ' has-error' : '' }} mb-0 grp-passport_bio">
                                     <label class="control-label mb-0" for="passport_bio">
@@ -260,7 +260,7 @@
                             </td>
                         </tr>
 
-                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == 'Passport'? '' : 'hide' }}">
+                        <tr class="passport_row proof_residence_row {{old('proof_of_citizenship') && old('proof_of_citizenship') == '4'? '' : 'hide' }}">
                             <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('passport_stamp') ? ' has-error' : '' }} mb-0 grp-passport_stamp">
                                     <label class="control-label mb-0" for="passport_stamp">
@@ -605,7 +605,7 @@
 
                         
 
-                        {{-- @if (old('hi_dob'))
+                        @if (old('hi_dob'))
                             @foreach (old('hi_dob') as $key => $item)
                                 @if ($key != 1)
 
@@ -624,7 +624,7 @@
                                                     <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_of_earnings_{{$key}}" name="proof_of_earnings[{{$key}}]"> 
                                                     <label class="custom-file-label" for="proof_of_earnings_{{$key}}" id="proof_of_earnings_{{$key}}Label">{{old('proof_of_earnings_name.'.$key)? old('proof_of_earnings_name.'.$key) : 'Choose file'}}</label> 
                                                 </div> 
-                                                <input type="hidden" class="uploadhelp" value="{{old('proof_of_earnings_name.'.$key)}}" name="proof_of_earnings_name[{{$key}}]">
+                                                <input type="" class="uploadhelp" value="{{old('proof_of_earnings_name.'.$key)}}" name="proof_of_earnings_name[{{$key}}]">
                                             </div>
                                             </div>
                                             
@@ -636,7 +636,7 @@
 
                                 @endif
                             @endforeach
-                        @endif --}}
+                        @endif
 
                     </tbody>
                 </table>

@@ -61,11 +61,11 @@
                                 <div class="form-group">
                                     
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender1" name="hi_gender[1]" class="custom-control-input hi_gender_M" value="M" {{old('gender') == 'M'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender1" name="hi_gender_1" class="custom-control-input hi_gender_M" value="M" {{old('gender') == 'M'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender1">Male</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="gender2" name="hi_gender[1]" class="custom-control-input hi_gender_F" value="F" {{old('gender') == 'F'? 'checked' : '' }} disabled="">
+                                        <input type="radio" id="gender2" name="hi_gender_1" class="custom-control-input hi_gender_F" value="F" {{old('gender') == 'F'? 'checked' : '' }} disabled="">
                                         <label class="custom-control-label" for="gender2">Female</label>
                                     </div>
                                 </div>

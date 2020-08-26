@@ -207,7 +207,7 @@ $(function () {
 
     // change gender of applicant after entered
     $(document).on('change', '.gender', function(){
-        var gender = $('[name="gender"]:checked').val();
+        var gender = $('[name="hi_gender[1]"]:checked').val();
         $('.hi_gender_'+ gender).prop('checked', true);
     });
             
@@ -239,18 +239,18 @@ $(function () {
         var proof = $(this).val();
         $('.proof_residence_row').addClass('hide');
         switch (proof) {
-            case 'National ID':
+            case '1':
             break;
             
-            case 'Certificate of Immigration Status':
+            case '2':
             $('.cert_immigration_status_row').removeClass('hide');
             break;
             
-            case 'Certificate of Residence':
+            case '3':
             $('.cert_residence_row').removeClass('hide');
             break;
             
-            case 'Passport':
+            case '4':
             $('.passport_row').removeClass('hide');
             break;
             
@@ -265,7 +265,7 @@ $(function () {
 function idCardCheck() {
     var state = $('[name="national_id_state"]').val();
     var proof = $('#proof_of_citizenship').val();
-    if (state == 'Have identification' || proof == '1') {
+    if (state == '1' || proof == '1') {
         $('.id_card_row').removeClass('hide');
     } else {
         $('.id_card_row').addClass('hide');

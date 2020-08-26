@@ -26,11 +26,11 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('first_name') ? ' has-error' : '' }} grp-first_name">
-                                    <input type="text" class="form-control name first_name" id="first_name" name="first_name" aria-describedby="" value="{{old('first_name')? old('first_name') : '' }}" required maxlength="50">
+                                <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-hi_first_name_1" >
+                                    <input type="text" class="form-control name first_name" id="hi_first_name_1" name="hi_first_name[1]" aria-describedby="" value="{{old('hi_first_name.1')? old('hi_first_name.1') : '' }}" required maxlength="100" placeholder="First Name">
                                     
                                     <span class="help-block">
-                                        <strong id="err-first_name">{{ $errors->first('first_name') }}</strong>
+                                        <strong id="err-hi_first_name_1">{{ $errors->first('hi_first_name.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -46,11 +46,11 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('surname') ? ' has-error' : '' }} grp-surname">
-                                    <input type="text" class="form-control name surname" id="surname" name="surname" aria-describedby="" value="{{old('surname')? old('surname') : '' }}" required maxlength="50">
+                                <div class="form-group mb-0{{ $errors->has('hi_surname.1') ? ' has-error' : '' }} grp-hi_surname_1">
+                                    <input type="text" class="form-control name surname" id="hi_surname_1" name="hi_surname[1]" aria-describedby="" value="{{old('hi_surname.1')? old('hi_surname.1') : '' }}" required maxlength="100" placeholder="Surname">
                                     
                                     <span class="help-block">
-                                        <strong id="err-surname">{{ $errors->first('surname') }}</strong>
+                                        <strong id="err-hi_surname_1">{{ $errors->first('hi_surname.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -66,24 +66,22 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('gender') ? ' has-error' : '' }} grp-gender">
-                                    <div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="male" name="gender" class="custom-control-input gender" value="M" required {{old('gender') == 'M'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="male">Male</label>
-                                            </div>
+                                <div class="form-group mb-0{{ $errors->has('hi_gender.1') ? ' has-error' : '' }} grp-hi_gender_1">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" gender="hi_gender_1" id="hi_gender_1_1" name="hi_gender[1]" class="custom-control-input gender" value="M" {{old('hi_gender.1') == 'M'? 'checked' : '' }}>
+                                            <label class="custom-control-label my-1" for="hi_gender_1_1">Male</label>
                                         </div>
-                                        <div class="custom-control custom-radio custom-control-inline">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" id="female" name="gender" class="custom-control-input gender" value="F" {{old('gender') == 'F'? 'checked' : '' }}>
-                                                <label class="custom-control-label my-1" for="female">Female</label>
-                                            </div>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <div class="custom-control custom-radio">
+                                            <input type="radio" gender="hi_gender_1" id="hi_gender_1_2" name="hi_gender[1]" class="custom-control-input gender" value="F" {{old('hi_gender.1') == 'F'? 'checked' : '' }}>
+                                            <label class="custom-control-label my-1" for="hi_gender_1_2">Female</label>
                                         </div>
                                     </div>
                                     
                                     <span class="help-block">
-                                        <strong id="err-gender">{{ $errors->first('gender') }}</strong>
+                                        <strong id="err-hi_gender_1">{{ $errors->first('hi_gender.1') }}</strong>
                                     </span>
                                 </div>
                             </td>
@@ -209,10 +207,10 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('national_id') ? ' has-error' : '' }} grp-national_id">
+                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
 
                                     <div class="input-group">
-                                        <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="national_id" name="national_id" aria-describedby="" value="{{old('national_id')? old('national_id') : '' }}" required placeholder="xxxxxxxxxxx">
+                                        <input type="text" class="form-control" id="hi_national_id_1" name="hi_national_id[1]" aria-describedby="" value="{{old('hi_national_id.1')? old('hi_national_id.1') : '' }}" maxlength="11" pattern="[0-9]{11}" required placeholder="xxxxxxxxxxx">
 
                                         <select class="form-control" id="national_id_state" name="national_id_state">
                                             {{-- <option selected="" value="">select...</option> --}}
@@ -222,9 +220,9 @@
                                         </select>
                                       </div>
                                     
-                                    <span class="help-block">
-                                        <strong id="err-national_id">{{ $errors->first('national_id') }}</strong>
-                                    </span>
+                                      <span class="help-block">
+                                          <strong id="err-hi_national_id_1">{{ $errors->first('hi_national_id.1') }}</strong>
+                                      </span>
                                 </div>
                             </td>
                         </tr>
