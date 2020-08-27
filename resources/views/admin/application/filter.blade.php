@@ -455,7 +455,7 @@
 
                     $.each(response.data, function(index, item) {
                         table.row.add( [
-                            item.application_id,
+                            item.reference_number,
                             item.first_name + ' ' + item.surname + '<br>(' + item.applicants + ' in household)',
                             item.form,
                             item.region,
@@ -499,7 +499,7 @@
                         
                         // update changed row
                         newData = [
-                            response.data[0].application_id,
+                            response.data[0].reference_number,
                             response.data[0].first_name + ' ' + response.data[0].surname + '<br>(' + response.data[0].applicants + ' in household)',
                             response.data[0].form,
                             response.data[0].region,
