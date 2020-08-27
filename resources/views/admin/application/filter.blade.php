@@ -359,7 +359,7 @@
                         <table id="example1" class="table table-bordered table-striped table-hover">
                             <thead>
                                 <tr>
-                                    <th width='5%'>ID</th>
+                                    <th width='5%'>Ref #</th>
                                     <th width='25%'>Applicant</th>
                                     <th width='20%'>Form Type</th>
                                     <th width='20%'>Region</th>
@@ -371,7 +371,7 @@
                             <tbody id="table_rows">
                                 @foreach ($applications as $item)
                                 <tr>
-                                    <td>{{$item->id}}</td>
+                                    <td>{{$item->reference_number}}</td>
                                     <td>
                                         {!!$item->applicant->name!!} <br>
                                         ({{count($item->household_people)}} in household)
@@ -390,7 +390,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>ID</th>
+                                    <th>Ref #</th>
                                     <th>Applicant</th>
                                     <th>Form Type</th>
                                     <th>Region</th>
