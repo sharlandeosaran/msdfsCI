@@ -12,15 +12,19 @@ class FormBController extends Controller
     {
         $data = [
             'title' => 'FORM B – SELF EMPLOYED',
-            'cities' => cities(),
-            'banks' => banks(),
-            'scotia' => scotia(),
-            'citizen_proof' => citizen_proof(),
-            'id_state' => id_state(),
-            'job_title' => job_title(),
-            'total_income' => total_income(),
-            'relationships' => relationships(),
-            'employment_status' => employment_status(),
+            'regions' => \App\Region::ordered(),
+            'cities' => \App\Community::ordered(),
+            'assistance' => \App\AssistanceSought::ordered(),
+
+            'banks' => \App\Bank::all(),
+            'scotia' => \App\ScotiaBranch::all(),
+            'citizen_proof' => \App\CitizenProof::ordered(),
+            'id_state' => \App\IDState::ordered(),
+            'job_title' => \App\JobTitle::all(),
+            'total_income' => \App\TotalIncome::all(),
+            'relationships' => \App\Relationship::all(),
+            'employment_status' => \App\EmploymentStatus::all(),
+            'employment_list' => \App\EmploymentList::employmentlist(),
             'form' => 'B',
         ];
         
