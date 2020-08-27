@@ -9,7 +9,7 @@ var table = $('#example1').DataTable({
         search: "_INPUT_",
         searchPlaceholder: "Search table",
     },
-    sDom: 'lrtip',
+    // sDom: 'lrtip',
     "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
 });
 

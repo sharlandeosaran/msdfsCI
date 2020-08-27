@@ -36,6 +36,15 @@ class Household extends Model
         return \App\HousingType::find($this->housing_type_id);
     }
 
+    public function getTypeAttribute()
+    {
+        if ($this->housing_type) {
+            return $this->housing_type->type;
+        } else {
+            return;
+        }
+    }
+
     public function getCommunityAttribute()
     {
         return \App\Community::find($this->community_id);

@@ -217,29 +217,6 @@ class ApplicationController extends Controller
         $log->user_role = \Auth::user()->role->role;
         $log->save();
 
-		// log reference number
-		if ($request->status == 4) {
-            $log = \App\FormCriticalIncident::where('application_id', $request->id)->first();
-            if ($log && !$log->reference_number) {
-                // get year
-                $year = date('Y');
-
-                // get last entry for the year
-                $form = \App\FormCriticalIncident::where('reference_number', 'LIKE', '%/'.$year)->orderBy('id', 'desc')->first();
-                if ($form) {
-                    $nums = explode('/', $form->reference_number);
-                    $num = $nums[0] + 1;
-                    $log->reference_number = str_pad($num, 3, '0', STR_PAD_LEFT).'/'.$year;
-                } else {
-                    $log->reference_number = '001/'.$year;
-                }
-
-                // save log
-                $log->save();
-            }
-            
-		}
-
         // if application approval revoked
         if ($request->status == 8 && $old > $request->status) {
 

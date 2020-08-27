@@ -49,4 +49,23 @@ class FormA extends Model
     {
         $this->attributes['employer_contact'] = $value? encrypt($value) : null;
     }
+
+    public function employment_list()
+    {
+        return \App\EmploymentList::find($this->employment_list_id);
+    }
+
+    public function getEmploymentClassificationAttribute($value)
+    {
+        if ($this->employment_list()) {
+            return $this->employment_list()->employment_classification;
+        } else {
+            return;
+        }
+    }
+
+    public function getSinceAttribute($value)
+    {
+        return \Carbon\Carbon::parse($this->effective_date)->format('F jS, Y');
+    }
 }

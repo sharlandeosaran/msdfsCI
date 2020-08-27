@@ -18,6 +18,15 @@ class PersonBank extends Model
         return \App\Bank::find($this->bank_id);
     }
 
+    public function getBankNameAttribute()
+    {
+        if ($this->bank) {
+            return $this->bank->bank;
+        } else {
+            return;
+        }
+    }
+
     public function getBranchAttribute($value)
     {
         if ($this->bank_id == 2 && $this->scotia_branch()) {

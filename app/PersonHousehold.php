@@ -22,4 +22,13 @@ class PersonHousehold extends Model
     {
         return \App\Relationship::find($this->relationship_id);
     }
+
+    public function getProofOfEarningsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where(function ($query) {
+                    $query->orWhere('document', 'LIKE', '%proof_of_earnings_'.$this->person_id.'%');
+                })->
+                get();
+    }
 }

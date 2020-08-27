@@ -31,6 +31,11 @@ class Application extends Model
                 get();
     }
 
+    public function applicant()
+    {
+        return \App\Applicant::where('application_id', $this->id)->first();
+    }
+
     public function status()
     {
         return \App\Status::find($this->status_id);
@@ -85,10 +90,10 @@ class Application extends Model
         }
     }
 
-    public function getReferenceNumberAttribute($value)
-    {
-        return $this->form_critical_incident()? $this->form_critical_incident()->reference_number : '';
-    }
+    // public function getReferenceNumberAttribute($value)
+    // {
+    //     return $this->form_critical_incident()? $this->form_critical_incident()->reference_number : '';
+    // }
 
     public function getRegionAttribute($value)
     {
@@ -153,6 +158,11 @@ class Application extends Model
     public function form_critical_incident()
     {
         return \App\FormCriticalIncident::where('application_id', $this->id)->first();
+    }
+
+    public function form_a()
+    {
+        return \App\FormA::where('application_id', $this->id)->first();
     }
 
     public function getDocumentsAttribute($value)
@@ -222,6 +232,9 @@ class Application extends Model
                     $query->orWhere('file', 'LIKE', 'id_card_back%');
                     $query->orWhere('file', 'LIKE', 'lost_id_police_report%');
                     $query->orWhere('file', 'LIKE', 'ebc_id_letter%');
+                    $query->orWhere('file', 'LIKE', 'cert_immigration_status%');
+                    $query->orWhere('file', 'LIKE', 'cert_residence%');
+                    $query->orWhere('file', 'LIKE', 'passport%');
                 })->
                 get();
     }
@@ -274,6 +287,27 @@ class Application extends Model
                     $query->orWhere('file', 'LIKE', 'clothing_relief_quotation%');
                 })->
                 get();
+    }
+
+    public function getEmployerRecommenderLetterAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->orWhere('file', 'LIKE', 'employer_recommender_letter%');
+                })->
+                get();
+    }
+
+    public function getDocumentCountAttribute($value)
+    {
+        return 
+            count($this->fire_service_report_documents) + 
+            count($this->regional_corporation_flooding_report_documents) + 
+            count($this->clothing_relief_quotation_documents) + 
+            count($this->housing_relief_quotation_documents) + 
+            count($this->school_supplies_relief_quotation_documents)
+            ;
     }
 
     public function getHistoryAttribute($value)
@@ -343,6 +377,33 @@ class Application extends Model
             $list[$row->key] = $row->value;
         }
         return $list;
+    }
+
+    public function getAssistanceSoughtAttribute($value)
+    {
+        $list = \App\ApplicationAssistanceSought::
+                leftJoin('assistance_sought', 'assistance_sought.id', 'application_assistance_sought.assistance_sought_id')->
+                where('application_assistance_sought.application_id', $this->id)->
+                pluck('assistance_sought.assistance');
+
+        if ($list) {
+            return $list->toArray();
+        } else {
+            return;
+        }
+    }
+
+    public function getAssistanceSoughtArrayAttribute($value)
+    {
+        $list = \App\ApplicationAssistanceSought::
+                where('application_id', $this->id)->
+                pluck('assistance_sought_id');
+
+        if ($list) {
+            return $list->toArray();
+        } else {
+            return;
+        }
     }
 
     public function step($step)

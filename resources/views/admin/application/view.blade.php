@@ -9,7 +9,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-        Application Region | <strong>{{$application->applicant->region}}</strong>
+        <strong>{{$application->form_type}}</strong>
 
         <span class="pull-right">
             <a class="btn btn-success btn-sm" href="{{url('/admin/applications/pdf/'.$application->id)}}" target="_blank"><i class="fas fa-file-pdf fa-lg"></i> export</a>
@@ -59,19 +59,27 @@
                         <h4 class="glyphicon"><i class="fas fa-file-alt fa-lg"></i></h4><br/>Application Details
                     </a>
 
+                    @if ($application->form_id == 1)
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon"><i class="fas fa-building fa-lg"></i></h4><br/>Employment Details
+                    </a>  
+                    @endif
+
+                    @if ($application->form_id == 3)
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon"><i class="fas fa-exclamation-triangle fa-lg"></i></h4><br/>Disaster Details
+                    </a>  
+                    @endif
+
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-home fa-lg"></i></h4><br/>Household
                     </a>
 
-                    @if ($application->household->housing_type_id == 4 && $application->household->landlord)
+                    @if (($application->household->housing_type_id == 4 && $application->household->landlord) || ($application->assistance_sought_array && in_array(2, $application->assistance_sought_array)))
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-user fa-lg"></i></h4><br/>Landlord Details
                     </a>
                     @endif
-
-                    <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon"><i class="fas fa-exclamation-triangle fa-lg"></i></h4><br/>Disaster Details
-                    </a>
 
                     @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
                     <a href="#" class="list-group-item text-center">
@@ -79,9 +87,15 @@
                     </a>
                     @endif
 
-                    @if (count($application->fire_service_report_documents) + count($application->regional_corporation_flooding_report_documents) + count($application->clothing_relief_quotation_documents) + count($application->housing_relief_quotation_documents) + count($application->school_supplies_relief_quotation_documents))
+                    @if ($application->document_count)
                     <a href="#" class="list-group-item text-center">
                         <h4 class="glyphicon"><i class="fas fa-file-pdf fa-lg"></i></h4><br/>Documents
+                    </a>
+                    @endif
+
+                    @if ($application->applicant() && $application->applicant()->person_bank())
+                    <a href="#" class="list-group-item text-center">
+                        <h4 class="glyphicon"><i class="fas fa-bank fa-lg"></i></h4><br/>Bank Details
                     </a>
                     @endif
                     
@@ -103,7 +117,7 @@
                     <div class="my-0">
                         <div class="box-body box-profile text-center">
                             
-                            <h3 class="profile-username"><strong>{{$application->form_type}}</strong></h3>
+                            <h3 class="profile-username"><strong>Application Region | {{$application->applicant->region}}</strong></h3>
                             
                             
                             {{-- <ul class="list-group list-group-unbordered">
@@ -191,6 +205,16 @@
                             </p>
                             <hr>
 
+                            @if (count($application->assistance_sought))
+                                <strong><i class="fa fa-hands-helping margin-r-5"></i> Assistance Sought</strong>
+                                <h4>
+                                    @foreach ($application->assistance_sought as $assistance)
+                                        <span class="label label-default label-list">{{$assistance}}</span>
+                                    @endforeach
+                                </h4>
+                                <hr>
+                            @endif
+
                             @if (count($application->schedules))
                                 <strong><i class="fa fa-clipboard-check margin-r-5"></i> Schedules</strong>
                                 <p>
@@ -215,7 +239,7 @@
                                 @if ($application->household->housing_type)
                                 <strong><i class="fa fa-home margin-r-5"></i> Household Type</strong>                                
                                 <p class="text-muted">
-                                    {{$application->household->housing_type->type}} Household of {{count($application->household_people) == 1? '1 Person' : count($application->household_people).' People'}}
+                                    {{$application->household->type}} Household of {{count($application->household_people) == 1? '1 Person' : count($application->household_people).' People'}}
 
                                     @if ($application->household->housing_type_id == 4)
                                         <br>{{$application->household->landlord->rental_amount}} Rent
@@ -256,6 +280,223 @@
                     </div>
                     <!-- /.box -->
                 </div>
+
+                {{-- employment details --}}
+                @if ($application->form_id == 1)
+                <div class="bhoechie-tab-content">
+                    <!-- Profile Image -->
+                    <div class="my-0">
+                        <div class="box-body box-profile text-center">
+                            
+                            <h3 class="profile-username"><strong>Employment Details</strong></h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    
+                    <!-- About Me Box -->
+                    <div class="box box-danger">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            @if ($application->form_a())
+                                    
+                                <h3>
+                                    <strong><i class="fa fa-briefcase margin-r-5"></i> Employment Classification | <span class="label label-danger label-list">{{$application->form_a()->employment_classification}}</span></strong>
+                                </h3>
+                                <hr>
+                            
+                                <p>
+                                    <strong><i class="fa fa-calendar margin-r-5"></i> Effective Date | {{$application->form_a()->since}}</strong>
+                                </p>
+                                <hr>
+                            
+                                <p>
+                                    <strong><i class="fa fa-building margin-r-5"></i> Employer | {{$application->form_a()->employer_name}}</strong>
+                                </p>
+                                <hr>
+                                
+                                @if (count($application->employer_recommender_letter))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Recomendation Letter</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->employer_recommender_letter as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type? $doc->type->icon : 'fa-file'}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+                                <hr>
+                                @endif
+                                    
+                                <strong><i class="fa fa-building margin-r-5"></i> Employer Address</strong>                                
+                                <p class="text-muted">
+                                    {!! $application->form_a()->employer_address !!}
+                                </p>
+                                <hr>
+                                    
+                                <strong><i class="fa fa-user margin-r-5"></i> Authorized Person</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_a()->employer_authorized_person}}
+                                </p>
+                                <hr>
+                                    
+                                <strong><i class="fa fa-phone margin-r-5"></i> Contact</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_a()->employer_contact}}
+                                </p>
+                                <hr>
+
+                            @endif
+
+                            @if ($application->form_critical_incident())
+                                    
+                                <strong><i class="fa fa-medkit margin-r-5"></i> Disaster</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_critical_incident()->disaster}}
+                                </p>
+                                <hr>
+                                    
+                                @if ($application->form_critical_incident()->items_lost)
+                                    <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
+                                    <h4>
+                                        @foreach ($application->form_critical_incident()->items_lost as $item)
+                                            <span class="label label-default label-list">{{$item->item}}</span>
+                                        @endforeach
+                                    </h4>
+                                    <hr>
+                                @endif
+                                    
+                                @if ($application->form_critical_incident()->housing_damage)
+                                    <p>
+                                        <strong>
+                                            <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
+                                            @if ($application->form_critical_incident()->housing_damage == 'Y')
+                                                <i class="fa fa-check-square text-green fa-lg" style="margin-left: 5px"></i>
+                                            @else
+                                                <i class="fa fa-window-close text-red fa-lg" style="margin-left: 5px"></i>
+                                            @endif
+                                        </strong>
+                                    </p>
+                                    <hr>
+                                        
+                                    @if ($application->form_critical_incident()->housing_damage == 'Y')
+
+                                        @if ($application->form_critical_incident()->housing_repairs)
+                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs Required </strong>                                
+                                        <p class="text-muted">
+                                            {{$application->form_critical_incident()->housing_repairs}}
+                                        </p>
+                                        <hr>
+                                        @endif
+
+                                        @if ($application->form_critical_incident()->insurer() || $application->form_critical_incident()->insured)
+                                            @if ($application->form_critical_incident()->insurer())
+                                                <strong><i class="fa fa-building margin-r-5"></i> Insurance</strong>                                
+                                                <p class="text-muted">
+                                                    <blockquote>
+                                                        <strong>{{$application->form_critical_incident()->insurer()->insurer_name}}</strong> <br>
+                                                        <i>{{$application->form_critical_incident()->insurer()->insurer_address}}</i> <br>
+                                                        <footer>{{$application->form_critical_incident()->insurer()->insurer_contact}}</footer>
+                                                    </blockquote>
+                                                </p>
+                                                <hr>
+                                            @endif
+                                        @endif
+                                    @endif
+
+                                @endif
+
+                            @endif
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                @endif
+
+                {{-- disaster details --}}
+                @if ($application->form_id == 3)
+                <div class="bhoechie-tab-content">
+                    <!-- Profile Image -->
+                    <div class="my-0">
+                        <div class="box-body box-profile text-center">
+                            
+                            <h3 class="profile-username"><strong>Disaster Details</strong></h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    
+                    <!-- About Me Box -->
+                    <div class="box box-danger">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            @if ($application->form_critical_incident())
+                                    
+                                <strong><i class="fa fa-medkit margin-r-5"></i> Disaster</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_critical_incident()->disaster}}
+                                </p>
+                                <hr>
+                                    
+                                @if ($application->form_critical_incident()->items_lost)
+                                    <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
+                                    <h4>
+                                        @foreach ($application->form_critical_incident()->items_lost as $item)
+                                            <span class="label label-default label-list">{{$item->item}}</span>
+                                        @endforeach
+                                    </h4>
+                                    <hr>
+                                @endif
+                                    
+                                @if ($application->form_critical_incident()->housing_damage)
+                                    <p>
+                                        <strong>
+                                            <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
+                                            @if ($application->form_critical_incident()->housing_damage == 'Y')
+                                                <i class="fa fa-check-square text-green fa-lg" style="margin-left: 5px"></i>
+                                            @else
+                                                <i class="fa fa-window-close text-red fa-lg" style="margin-left: 5px"></i>
+                                            @endif
+                                        </strong>
+                                    </p>
+                                    <hr>
+                                        
+                                    @if ($application->form_critical_incident()->housing_damage == 'Y')
+
+                                        @if ($application->form_critical_incident()->housing_repairs)
+                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs Required </strong>                                
+                                        <p class="text-muted">
+                                            {{$application->form_critical_incident()->housing_repairs}}
+                                        </p>
+                                        <hr>
+                                        @endif
+
+                                        @if ($application->form_critical_incident()->insurer() || $application->form_critical_incident()->insured)
+                                            @if ($application->form_critical_incident()->insurer())
+                                                <strong><i class="fa fa-building margin-r-5"></i> Insurance</strong>                                
+                                                <p class="text-muted">
+                                                    <blockquote>
+                                                        <strong>{{$application->form_critical_incident()->insurer()->insurer_name}}</strong> <br>
+                                                        <i>{{$application->form_critical_incident()->insurer()->insurer_address}}</i> <br>
+                                                        <footer>{{$application->form_critical_incident()->insurer()->insurer_contact}}</footer>
+                                                    </blockquote>
+                                                </p>
+                                                <hr>
+                                            @endif
+                                        @endif
+                                    @endif
+
+                                @endif
+
+                            @endif
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                @endif
                 
                 {{-- household --}}
                 <div class="bhoechie-tab-content">
@@ -263,7 +504,7 @@
                         <div class="box-body box-profile text-center" style="padding-bottom: 5px;">
                             
                             <h3 class="profile-username">
-                                <strong>{{$application->household->housing_type->type}} Household{{count($application->household_people) == 1? '' : ' ('.count($application->household_people).')'}}</strong>
+                                <strong>{{$application->household->type}} Household{{count($application->household_people) == 1? '' : ' ('.count($application->household_people).')'}}</strong>
                                 @if (count($application->household_people) > 1)
                                     <small><button class="btn btn-danger btn-sm pull-right" id="btn_applicant_tabs" style="font-size: 10px;"><i class="fa fa-eye-slash"></i> hide names</button></small>
                                 @endif
@@ -512,6 +753,21 @@
                                                             </tr>
                                                             @endif
                                                             
+                                                            @if ($applicant->person->nis)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            National Insurance Number
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->nis}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
                                                             @if ($applicant->person->passport)
                                                             <tr>
                                                                 <td class="active text-right align-middle" width="30%">
@@ -553,6 +809,55 @@
                                                                 </td>
                                                                 <td width="70%">
                                                                     <label class="control-label"> {{$applicant->person->employment_status}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->job_title)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Job Title
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> {{$applicant->person->job_title}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if ($applicant->person->income)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Income
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> ${{number_format($applicant->person->income, 2)}} </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
+                                                            @if (count($applicant->proof_of_earnings))
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Proof of Earnings
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <p class="text-muted">
+                                                                        @foreach ($applicant->proof_of_earnings as $doc)
+                                                                        <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type? $doc->type->icon : 'fa-file'}} margin-r-5"></i> {{$doc->file}} </button>
+                                                                        @endforeach
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                             @endif
@@ -620,7 +925,7 @@
                 </div>
                 
                 {{-- landlord --}}
-                @if ($application->household->housing_type_id == 4 && $application->household->landlord)
+                @if (($application->household->housing_type_id == 4 && $application->household->landlord) || ($application->assistance_sought_array && in_array(2, $application->assistance_sought_array)))
                     <div class="bhoechie-tab-content">
                         <!-- Profile Image -->
                         <div class="my-0">
@@ -655,13 +960,15 @@
                                 </p>
                                 <hr>
                                 
+                                @if (count($application->landlord_documents))
                                 <strong><i class="fa fa-file-alt margin-r-5"></i> Documents</strong>                                
                                 <p class="text-muted">
                                     @foreach ($application->landlord_documents as $doc)
                                     <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type? $doc->type->icon : 'fa-file'}} margin-r-5"></i> {{$doc->file}} </button>
                                     @endforeach
                                 </p>
-                                <hr>
+                                <hr>  
+                                @endif
 
                             </div>
                             <!-- /.box-body -->
@@ -669,89 +976,6 @@
                         <!-- /.box -->
                     </div>
                 @endif
-
-                {{-- disaster details --}}
-                <div class="bhoechie-tab-content">
-                    <!-- Profile Image -->
-                    <div class="my-0">
-                        <div class="box-body box-profile text-center">
-                            
-                            <h3 class="profile-username"><strong>Disaster Details</strong></h3>
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                    
-                    <!-- About Me Box -->
-                    <div class="box box-danger">
-                        <!-- /.box-header -->
-                        <div class="box-body">
-
-                            @if ($application->form_critical_incident())
-                                    
-                                <strong><i class="fa fa-medkit margin-r-5"></i> Disaster</strong>                                
-                                <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
-                                </p>
-                                <hr>
-                                    
-                                @if ($application->form_critical_incident()->items_lost)
-                                    <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
-                                    <h4>
-                                        @foreach ($application->form_critical_incident()->items_lost as $item)
-                                            <span class="label label-default label-list">{{$item->item}}</span>
-                                        @endforeach
-                                    </h4>
-                                    <hr>
-                                @endif
-                                    
-                                @if ($application->form_critical_incident()->housing_damage)
-                                    <p>
-                                        <strong>
-                                            <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
-                                            @if ($application->form_critical_incident()->housing_damage == 'Y')
-                                                <i class="fa fa-check-square text-green fa-lg" style="margin-left: 5px"></i>
-                                            @else
-                                                <i class="fa fa-window-close text-red fa-lg" style="margin-left: 5px"></i>
-                                            @endif
-                                        </strong>
-                                    </p>
-                                    <hr>
-                                        
-                                    @if ($application->form_critical_incident()->housing_damage == 'Y')
-
-                                        @if ($application->form_critical_incident()->housing_repairs)
-                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs Required </strong>                                
-                                        <p class="text-muted">
-                                            {{$application->form_critical_incident()->housing_repairs}}
-                                        </p>
-                                        <hr>
-                                        @endif
-
-                                        @if ($application->form_critical_incident()->insurer() || $application->form_critical_incident()->insured)
-                                            @if ($application->form_critical_incident()->insurer())
-                                                <strong><i class="fa fa-building margin-r-5"></i> Insurance</strong>                                
-                                                <p class="text-muted">
-                                                    <blockquote>
-                                                        <strong>{{$application->form_critical_incident()->insurer()->insurer_name}}</strong> <br>
-                                                        <i>{{$application->form_critical_incident()->insurer()->insurer_address}}</i> <br>
-                                                        <footer>{{$application->form_critical_incident()->insurer()->insurer_contact}}</footer>
-                                                    </blockquote>
-                                                </p>
-                                                <hr>
-                                            @endif
-                                        @endif
-                                    @endif
-
-                                @endif
-
-                            @endif
-
-                        </div>
-                        <!-- /.box-body -->
-                    </div>
-                    <!-- /.box -->
-                </div>
 
                 {{-- Photos --}}
                 @if (count($application->water_marks) + count($application->structural_damage) + count($application->electrical_damage) + count($application->plumbing_damage))
@@ -884,7 +1108,7 @@
                 @endif
 
                 {{-- Documents --}}
-                @if (count($application->fire_service_report_documents) + count($application->regional_corporation_flooding_report_documents) + count($application->clothing_relief_quotation_documents) + count($application->housing_relief_quotation_documents) + count($application->school_supplies_relief_quotation_documents))
+                @if ($application->document_count)
                 <div class="bhoechie-tab-content">
                     <!-- Profile Image -->
                     <div class="my-0">
@@ -953,6 +1177,49 @@
                         </div>
                     </div>
                 </div>
+                @endif
+                
+                {{-- person bank --}}
+                @if ($application->applicant() && $application->applicant()->person_bank())
+                    <div class="bhoechie-tab-content">
+                        <!-- Profile Image -->
+                        <div class="my-0">
+                            <div class="box-body box-profile text-center">
+                                
+                                <h3 class="profile-username"><strong>Bank Details</strong></h3>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                        
+                        <!-- About Me Box -->
+                        <div class="box box-danger">
+                            <!-- /.box-header -->
+                            <div class="box-body">
+                                
+                                <strong><i class="fa fa-bank margin-r-5"></i> Bank Name</strong>                                
+                                <p class="text-muted">
+                                    {{$application->applicant()->person_bank()->bank_name}}
+                                </p>
+                                <hr>
+                                
+                                <strong><i class="fa fa-map margin-r-5"></i> Branch</strong>                                
+                                <p class="text-muted">
+                                    {{$application->applicant()->person_bank()->branch}}
+                                </p>
+                                <hr>
+                                
+                                <strong><i class="fa fa-hashtag margin-r-5"></i> Account</strong>                                
+                                <p class="text-muted">
+                                    {{$application->applicant()->person_bank()->account}}
+                                </p>
+                                <hr>
+
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
                 @endif
 
                 {{-- History --}}

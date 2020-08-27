@@ -26,6 +26,7 @@ class FormAController extends Controller
             'total_income' => \App\TotalIncome::all(),
             'relationships' => \App\Relationship::all(),
             'employment_status' => \App\EmploymentStatus::all(),
+            'employment_list' => \App\EmploymentList::employmentlist(),
             'form' => 'A',
         ];
         
@@ -339,6 +340,7 @@ class FormAController extends Controller
         $application = new \App\Application();
         $application->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
         $application->form_id = 1;
+        $application->reference_number = reference_number();
         $application->save();
 
         // get employment classification
@@ -409,7 +411,7 @@ class FormAController extends Controller
             $person->first_name = $request->hi_first_name[$value['key']];
             $person->surname = $request->hi_surname[$value['key']];
             $person->gender = $request->hi_gender[$value['key']];
-            $person->primary_mobile_contact = $value['key'] == 1? $request->primary_mobile_contact : null;
+            $person->primary_mobile_contact = $value['key'] == 1? $request->contact_no : null;
             $person->email = $value['key'] == 1? $request->email : null;
             $person->national_id = $request->hi_national_id[$value['key']];
             $person->national_id_state_id = $value['key'] == 1? $request->national_id_state : null;
@@ -419,6 +421,7 @@ class FormAController extends Controller
             $person->employment_status_id = $value['key'] == 1? 6 : $request->hi_emp_status[$value['key']];
             $person->employment_status_other = $value['key'] == 1? $employment_classification->employment_classification : $request->hi_emp_status_other[$value['key']];
             $person->income = $request->hi_income[$value['key']];
+            $person->job_title = $value['key'] == 1? $request->job_title : null;
 
             $person->save();
 
@@ -777,7 +780,7 @@ class FormAController extends Controller
                         // save name to application
                         $file = new \App\ApplicationDocument();
                         $file->application_id = $application->id;
-                        $file->file = 'proof_of_earnings_'.$people[$i];
+                        $file->file = 'proof_of_earnings';
                         $file->document = $document;
                         $file->document_type_id = $mime;
                         $file->path = $path;

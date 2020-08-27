@@ -21,7 +21,7 @@
                             <td class="text-right" width="20%">
                                 <h2>
                                     Reference #<br>
-                                    <small style="font-size: 80%">{{$application->form_critical_incident()->reference_number}}</small>
+                                    <small style="font-size: 80%">{{$application->reference_number}}</small>
                                 </h2>
                                 <h2>
                                     <span class="label">{{$application->status}}</span>

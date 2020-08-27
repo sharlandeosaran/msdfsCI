@@ -17,4 +17,9 @@ class Applicant extends Model
     {
         return $this->belongsTo('App\Person');
     }
+
+    public function person_bank()
+    {
+        return \App\PersonBank::where('person_id', $this->person_id)->orderBy('created_at', 'desc')->first();
+    }
 }

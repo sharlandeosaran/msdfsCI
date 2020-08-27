@@ -56,14 +56,6 @@
     });
 @endif
 
-
-// change classification of applicant after entered
-var emp_list = {!! json_encode(employment_list()) !!};
-$(document).on('change', '[name="employment_classification"]', function(){
-    var classification = $(this).val();
-    $('#hi_emp_classification').val(emp_list[classification]);
-});
-
 // change national ID after entered
 $(document).on('change', '#national_id, #hi_national_id_1', function(){
     $('.nationalIDField').val($(this).val());
@@ -101,9 +93,13 @@ function errorClass(e)
 }
 
 // change employment classification after entered
-var employment_list = {!! json_encode(employment_list()) !!}
+var emp_list = {!! json_encode($employment_list) !!};
+// console.log(emp_list)
 $(document).on('change', '[name="employment_classification"]', function(){
-    $('.employmentClassificationText').html(employment_list[$(this).val()]);
+    var classification = $(this).val();
+    // console.log(classification)
+    $('#hi_emp_classification').val(emp_list[classification]);
+    $('.employmentClassificationText').html(emp_list[classification]);
 });
         
 // other relationship show/hide
