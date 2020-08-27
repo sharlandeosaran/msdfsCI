@@ -79,3 +79,13 @@ function reference_number()
 		return '001/'.$year;
 	}
 }
+
+function search_for_title($id, $array) 
+{
+	foreach ($array as $key => $val) {
+		if ($val['title'] == $id) {
+			return $key;
+		}
+	}
+	return null;
+}

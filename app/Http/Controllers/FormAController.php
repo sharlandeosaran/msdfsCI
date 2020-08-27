@@ -610,6 +610,64 @@ class FormAController extends Controller
             }
         }
             
+        // cert_residence
+        if ($request->file('cert_residence') !== null) {
+            if ($request->file('cert_residence')->isValid()) {
+                
+                // get file type
+                $type = $request->file('cert_residence')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_cert_residence_'.$request->file('cert_residence')->getClientOriginalName();
+                    // upload upload
+                    $path = $request->cert_residence->storeAs('uploads/applications/'.$application->id.'/cert_residence', $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'cert_residence';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->path = $path;
+                    $file->save();
+                }
+            }
+        }
+            
+        // cert_incorporation_registration
+        if ($request->file('cert_incorporation_registration') !== null) {
+            if ($request->file('cert_incorporation_registration')->isValid()) {
+                
+                // get file type
+                $type = $request->file('cert_incorporation_registration')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_cert_incorporation_registration_'.$request->file('cert_incorporation_registration')->getClientOriginalName();
+                    // upload upload
+                    $path = $request->cert_incorporation_registration->storeAs('uploads/applications/'.$application->id.'/cert_incorporation_registration', $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'cert_incorporation_registration';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->path = $path;
+                    $file->save();
+                }
+            }
+        }
+            
         // landlord_id_card_front
         if ($request->file('landlord_id_card_front') !== null) {
             if ($request->file('landlord_id_card_front')->isValid()) {

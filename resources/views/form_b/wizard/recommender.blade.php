@@ -96,7 +96,7 @@
                                     <select class="form-control" id="recommender_job_title" name="recommender_job_title" required>
                                         <option disabled="" selected="">select...</option>
                                         @foreach ($job_title as $key => $title)
-                                        <option {{old('recommender_job_title') == $title['title']? 'selected' : '' }} num="{{$key}}">{{$title['title']}}</option>
+                                        <option {{old('recommender_job_title') == $title->id? 'selected' : '' }} num="{{$key}}" value="{{$title->id}}">{{$title->title}}</option>
                                         @endforeach
                                     </select>
                                     
@@ -107,7 +107,7 @@
                             </td>
                         </tr>
                         
-                        <tr id="recommender_job_title_info_row" class="{{in_array(old('recommender_job_title'), job_title_with_extra())? '' : 'hide'}}">
+                        <tr id="recommender_job_title_info_row" class="{{in_array(old('recommender_job_title'), $job_title_with_extra)? '' : 'hide'}}">
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('recommender_job_title_info') ? ' has-error' : '' }} grp-recommender_job_title_info">
                                     <label class="control-label mb-0" for="recommender_job_title_info">
@@ -201,7 +201,7 @@
                                     <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="recommender_city_town" name="recommender_city_town">
                                         <option disabled="" selected="">select...</option>
                                         @foreach ($cities as $city)
-                                        <option {{old('recommender_city_town') == $city? 'selected' : '' }}>{{$city}}</option>
+                                        <option {{old('recommender_city_town') == $city->id? 'selected' : '' }} value="{{$city->id}}">{{$city->community}}</option>
                                         @endforeach
                                     </select>
                                     
