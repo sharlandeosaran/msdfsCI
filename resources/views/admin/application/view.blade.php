@@ -18,20 +18,22 @@
                 <button class="btn btn-danger btn-sm status" status="{{$application->status()->restore}}" statusId="{{$application->status()->restore_id}}"><i class="fas fa-undo fa-lg"></i> {{$application->status()->restore}}</button>
             @endif
             
-            @foreach ($status as $stat)
-                @if (
-                    in_array($stat->id, \Auth::user()->role_permissions) && 
-                    $stat->id > $application->status_id && 
-                    (
-                        ($stat->id == $application->status_id + 1 && $application->status_id != 10) || 
-                        ($stat->id == $application->status_id + 3 && $application->status_id == 8) ||
-                        ($stat->id == $application->status_id + 2 && $application->status_id == 1)
+            @if ($application->form_id == 3)
+                @foreach ($status as $stat)
+                    @if (
+                        in_array($stat->id, \Auth::user()->role_permissions) && 
+                        $stat->id > $application->status_id && 
+                        (
+                            ($stat->id == $application->status_id + 1 && $application->status_id != 10) || 
+                            ($stat->id == $application->status_id + 3 && $application->status_id == 8) ||
+                            ($stat->id == $application->status_id + 2 && $application->status_id == 1)
+                        )
                     )
-                )
-                    <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}">{{-- <i class="fas fa-arrow-right fa-lg"></i>  --}}{{$stat->button}}</button>
-                @endif
-                
-            @endforeach
+                        <button class="btn btn-danger btn-sm status" status="{{$stat->status}}" statusId="{{$stat->id}}">{{-- <i class="fas fa-arrow-right fa-lg"></i>  --}}{{$stat->button}}</button>
+                    @endif
+                    
+                @endforeach
+            @endif
             
 
             <form method="POST" action="#" id="approvalrequestForm">
