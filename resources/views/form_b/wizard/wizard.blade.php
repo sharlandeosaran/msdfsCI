@@ -46,7 +46,7 @@
 
         // recommender help based on selection
         var titles = {!! json_encode($job_title) !!};
-        console.log(titles)
+        // console.log(titles)
         $(document).on('change', '#recommender_job_title', function() {
             var key = $(this).children("option:selected").attr('num');
 
