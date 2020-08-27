@@ -10,7 +10,8 @@ var table = $('#example1').DataTable({
         searchPlaceholder: "Search table",
     },
     // sDom: 'lrtip',
-    "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>'
+    "dom": '<"top"iflp<"clear">>rt<"bottom"iflp<"clear">>',
+    "order": [[ 0, "desc" ]]
 });
 
 $('.datepicker').datepicker({
