@@ -155,14 +155,19 @@ class Application extends Model
         return \App\PersonHousehold::where('household_id', $this->applicant->household_id)->get();
     }
 
-    public function form_critical_incident()
-    {
-        return \App\FormCriticalIncident::where('application_id', $this->id)->first();
-    }
-
     public function form_a()
     {
         return \App\FormA::where('application_id', $this->id)->first();
+    }
+
+    public function form_b()
+    {
+        return \App\FormB::where('application_id', $this->id)->first();
+    }
+
+    public function form_critical_incident()
+    {
+        return \App\FormCriticalIncident::where('application_id', $this->id)->first();
     }
 
     public function getDocumentsAttribute($value)
@@ -235,6 +240,17 @@ class Application extends Model
                     $query->orWhere('file', 'LIKE', 'cert_immigration_status%');
                     $query->orWhere('file', 'LIKE', 'cert_residence%');
                     $query->orWhere('file', 'LIKE', 'passport%');
+                    $query->orWhere('file', 'LIKE', 'cert_incorporation_registration%');
+                })->
+                get();
+    }
+
+    public function getRecommendationAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where(function ($query) {
+                    $query->where('file', 'LIKE', 'recommendation_letter%');
                 })->
                 get();
     }

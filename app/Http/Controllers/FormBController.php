@@ -659,6 +659,35 @@ class FormBController extends Controller
             }
         }
             
+        // cert_immigration_status
+        if ($request->file('cert_immigration_status') !== null) {
+            if ($request->file('cert_immigration_status')->isValid()) {
+                
+                // get file type
+                $type = $request->file('cert_immigration_status')->getMimeType();
+                $get = \App\DocumentType::where('mime', $type)->first();
+                if ($get) {
+                    $mime = $get->id;
+                } else {
+                    $mime = null;
+                }
+                
+                if (in_array($type, $types)) {
+                    $document = $application->id.'_cert_immigration_status_'.$request->file('cert_immigration_status')->getClientOriginalName();
+                    // upload upload
+                    $path = $request->cert_immigration_status->storeAs('uploads/applications/'.$application->id.'/cert_immigration_status', $document);
+                    // save name to application
+                    $file = new \App\ApplicationDocument();
+                    $file->application_id = $application->id;
+                    $file->file = 'cert_immigration_status';
+                    $file->document = $document;
+                    $file->document_type_id = $mime;
+                    $file->path = $path;
+                    $file->save();
+                }
+            }
+        }
+            
         // cert_incorporation_registration
         if ($request->file('cert_incorporation_registration') !== null) {
             if ($request->file('cert_incorporation_registration')->isValid()) {

@@ -59,9 +59,9 @@
                         <h4 class="glyphicon"><i class="fas fa-file-alt fa-lg"></i></h4><br/>Application Details
                     </a>
 
-                    @if ($application->form_id == 1)
+                    @if ($application->form_id == 1 || $application->form_id == 2)
                     <a href="#" class="list-group-item text-center">
-                        <h4 class="glyphicon"><i class="fas fa-building fa-lg"></i></h4><br/>Employment Details
+                        <h4 class="glyphicon"><i class="far fa-building fa-lg"></i></h4><br/>Employment Details
                     </a>  
                     @endif
 
@@ -346,63 +346,93 @@
 
                             @endif
 
-                            @if ($application->form_critical_incident())
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                @endif
+
+                {{-- recommender details --}}
+                @if ($application->form_id == 2)
+                <div class="bhoechie-tab-content">
+                    <!-- Profile Image -->
+                    <div class="my-0">
+                        <div class="box-body box-profile text-center">
+                            
+                            <h3 class="profile-username"><strong>Employment Details</strong></h3>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    
+                    <!-- About Me Box -->
+                    <div class="box box-danger">
+                        <!-- /.box-header -->
+                        <div class="box-body">
+
+                            @if ($application->form_b())
                                     
-                                <strong><i class="fa fa-medkit margin-r-5"></i> Disaster</strong>                                
-                                <p class="text-muted">
-                                    {{$application->form_critical_incident()->disaster}}
+                                <h3>
+                                    <strong><i class="fa fa-briefcase margin-r-5"></i> Employment Classification | <span class="label label-danger label-list">{{$application->form_b()->employment_classification}}</span></strong>
+                                </h3>
+                                <hr>
+                            
+                                <p>
+                                    <strong><i class="fa fa-calendar margin-r-5"></i> Effective Date | {{$application->form_b()->since}}</strong>
                                 </p>
                                 <hr>
                                     
-                                @if ($application->form_critical_incident()->items_lost)
-                                    <strong><i class="fa fa-couch margin-r-5"></i> Items Lost or Damaged</strong>                                
-                                    <h4>
-                                        @foreach ($application->form_critical_incident()->items_lost as $item)
-                                            <span class="label label-default label-list">{{$item->item}}</span>
-                                        @endforeach
-                                    </h4>
-                                    <hr>
+                                <p>
+                                    <strong><i class="fa fa-comment-alt margin-r-5"></i> Recommender | {{$application->form_b()->recommender_name}} (known applicant for {{$application->form_b()->recommender_years_known}} years)</strong>
+                                </p>
+                                <hr>
+                                
+                                @if (count($application->recommendation))
+                                <strong><i class="fa fa-file-alt margin-r-5"></i> Recomendation Letter</strong>                                
+                                <p class="text-muted">
+                                    @foreach ($application->recommendation as $doc)
+                                    <button class="btn btn-danger btn-sm documentModalView" style="margin: 5px 2px" document="{{$doc->document_url}}"><i class="far {{$doc->type? $doc->type->icon : 'fa-file'}} margin-r-5"></i> {{$doc->file}} </button>
+                                    @endforeach
+                                </p>
+                                <hr>
+                                @endif
+                            
+                                <p>
+                                    <strong><i class="fa fa-{{$application->form_b()->recommender_gender == 'M'? 'male' : 'female'}} margin-r-5"></i> Recommender Gender | {{$application->form_b()->recommender_gender == 'M'? 'Male' : 'Female'}}</strong>
+                                </p>
+                                <hr>
+                                    
+                                <strong><i class="fa fa-briefcase margin-r-5"></i> Recommender Job Title</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_b()->recommender_job_title}}
+                                    @if ($application->form_b()->recommender_job_title_info)
+                                         | {{$application->form_b()->recommender_job_title_info}}
+                                    @endif
+                                </p>
+                                <hr>
+                                    
+                                <strong><i class="fa fa-home margin-r-5"></i> Recommender Address</strong>                                
+                                <p class="text-muted">
+                                    {!! $application->form_b()->recommender_home_address !!} <br>
+                                    {!! $application->form_b()->recommender_city_town !!}
+                                </p>
+                                <hr>
+                                    
+                                @if ($application->form_b()->recommender_email)
+                                <strong><i class="fa fa-envelope margin-r-5"></i> Recommender Email</strong>                                
+                                <p class="text-muted">
+                                    <a href="mailto:{{$application->form_b()->recommender_email}}">{{$application->form_b()->recommender_email}}</a>
+                                </p>
+                                <hr>
                                 @endif
                                     
-                                @if ($application->form_critical_incident()->housing_damage)
-                                    <p>
-                                        <strong>
-                                            <i class="fa fa-dollar margin-r-5"></i> Housing Infrastructure Damage | 
-                                            @if ($application->form_critical_incident()->housing_damage == 'Y')
-                                                <i class="fa fa-check-square text-green fa-lg" style="margin-left: 5px"></i>
-                                            @else
-                                                <i class="fa fa-window-close text-red fa-lg" style="margin-left: 5px"></i>
-                                            @endif
-                                        </strong>
-                                    </p>
-                                    <hr>
-                                        
-                                    @if ($application->form_critical_incident()->housing_damage == 'Y')
-
-                                        @if ($application->form_critical_incident()->housing_repairs)
-                                        <strong><i class="fa fa-wrench margin-r-5"></i> Housing Repairs Required </strong>                                
-                                        <p class="text-muted">
-                                            {{$application->form_critical_incident()->housing_repairs}}
-                                        </p>
-                                        <hr>
-                                        @endif
-
-                                        @if ($application->form_critical_incident()->insurer() || $application->form_critical_incident()->insured)
-                                            @if ($application->form_critical_incident()->insurer())
-                                                <strong><i class="fa fa-building margin-r-5"></i> Insurance</strong>                                
-                                                <p class="text-muted">
-                                                    <blockquote>
-                                                        <strong>{{$application->form_critical_incident()->insurer()->insurer_name}}</strong> <br>
-                                                        <i>{{$application->form_critical_incident()->insurer()->insurer_address}}</i> <br>
-                                                        <footer>{{$application->form_critical_incident()->insurer()->insurer_contact}}</footer>
-                                                    </blockquote>
-                                                </p>
-                                                <hr>
-                                            @endif
-                                        @endif
-                                    @endif
-
-                                @endif
+                                <strong><i class="fa fa-phone margin-r-5"></i> Recommender Contact</strong>                                
+                                <p class="text-muted">
+                                    {{$application->form_b()->recommender_contact_no}}
+                                </p>
+                                <hr>
+                                
 
                             @endif
 

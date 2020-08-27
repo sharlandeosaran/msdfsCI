@@ -14,6 +14,11 @@ class FormB extends Model
         return $this->belongsTo('App\Application');
     }
 
+    public function getRecommenderNameAttribute($value)
+    {
+        return decrypt($this->attributes['recommender_first_name']) .' '. decrypt($this->attributes['recommender_surname']);
+    }
+
     public function getRecommenderFirstNameAttribute($value)
     {
         return $value? decrypt($value) : null;
@@ -77,6 +82,34 @@ class FormB extends Model
     {
         if ($this->employment_list()) {
             return $this->employment_list()->employment_classification;
+        } else {
+            return;
+        }
+    }
+
+    public function recommender_job_title()
+    {
+        return \App\JobTitle::find($this->recommender_job_title_id);
+    }
+
+    public function getRecommenderJobTitleAttribute($value)
+    {
+        if ($this->recommender_job_title()) {
+            return $this->recommender_job_title()->title;
+        } else {
+            return;
+        }
+    }
+
+    public function recommender_city_town()
+    {
+        return \App\Community::find($this->recommender_city_town_id);
+    }
+
+    public function getRecommenderCityTownAttribute($value)
+    {
+        if ($this->recommender_city_town()) {
+            return $this->recommender_city_town()->community;
         } else {
             return;
         }
