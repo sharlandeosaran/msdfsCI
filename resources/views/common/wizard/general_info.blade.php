@@ -161,7 +161,7 @@
                                     <select data-placeholder="Choose a City/Town..." class="form-control chosen-select" id="city_town" name="city_town">
                                         <option disabled="" selected="">select...</option>
                                         @foreach ($cities as $city)
-                                        <option {{old('city_town') == $city->id? 'selected' : '' }} value="{{$city->id}}">{{$city->community}}</option>
+                                        <option {{old('city_town') == $city->id? 'selected' : '' }} value="{{$city->id}}">{!! $city->community !!}</option>
                                         @endforeach
                                     </select>
                                     
