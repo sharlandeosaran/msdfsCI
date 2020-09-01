@@ -24,13 +24,8 @@ class CriticalIncidentController extends Controller
             'relationships' => \App\Relationship::all(),
             'employment_status' => \App\EmploymentStatus::ordered(),
             'marital_status' => \App\MaritalStatus::ordered(),
+            'employment_list' => \App\EmploymentList::employmentlist(),
             'form' => 'critical',
-
-            'occupations' => [],
-            'countries' => [],
-            'immigration_status' => [],
-            'covid_status' => [],
-            'illnesses' => [],
         ];
         // dd($data);
         
