@@ -137,3 +137,6 @@ Route::group(['prefix' => 'admin'], function () {
         
     });
 });
+
+// email test
+Route::get('/testemail', 'Mail\MailController@mailtest');
