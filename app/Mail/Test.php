@@ -30,7 +30,6 @@ class Test extends Mailable
     {
         return $this->
             to('ian@email.com')->
-            from('example@example.com')->
             subject('some stuff')->
             view('emails.test');
     }
