@@ -338,6 +338,7 @@
 @section('content')
 <link href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet" /> 
 <link href="{{ asset('css/tables.css') }}" rel="stylesheet" />
+@include('admin.includes.filterstyles')
 <input type="hidden" id="update_row">
 <input type="hidden" id="rowId">
 
@@ -352,7 +353,7 @@
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    {{-- <h3 class="box-title">Application Priorities</h3> --}}
+                    <h4 style="margin: 0" id="chipsrow"></h4>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
