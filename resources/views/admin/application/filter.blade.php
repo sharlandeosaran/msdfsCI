@@ -31,7 +31,7 @@
                             {{-- <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label" for="string">Search String</label>
-                                    <input type="text" class="form-control input" name="string" id="string" value="{{ old('string') }}">
+                                    <input type="text" class="form-control input" name="string" id="string" value="{{ old('string') }}" label="status">
                                     <div class="form-check">
                                         <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="whole_string" checked="">
@@ -49,7 +49,7 @@
                                         <div class="panel-body">
                                             @foreach($forms as $form)
                                                 <div class="form-check" title="{{$form->form}}" data-toggle="tooltip">
-                                                    <input class="form-check-input forms" type="checkbox" value="{{ $form->id }}" id="form_{{$form->id}}">
+                                                    <input class="form-check-input forms" type="checkbox" value="{{ $form->id }}" id="form_{{$form->id}}" label="form type">
                                                     <label class="form-check-label" for="form_{{$form->id}}">
                                                         {{$form->form}}
                                                     </label>
@@ -67,7 +67,7 @@
                                         <div class="panel-body">
                                             @foreach($status as $stat)
                                             <div class="form-check">
-                                                <input class="form-check-input status" type="checkbox" value="{{ $stat->id }}" id="status_{{$stat->id}}">
+                                                <input class="form-check-input status" type="checkbox" value="{{ $stat->id }}" id="status_{{$stat->id}}" label="status">
                                                 <label class="form-check-label" for="status_{{$stat->id}}">
                                                     {{$stat->status}}
                                                 </label>
@@ -86,7 +86,7 @@
                                             @foreach($regions as $region)
                                                 @if (in_array($region->id, $region_filter))
                                                     <div class="form-check" title="{{$region->region}}" data-toggle="tooltip">
-                                                        <input class="form-check-input regions" type="checkbox" value="{{ $region->id }}" id="region_{{$region->id}}">
+                                                        <input class="form-check-input regions" type="checkbox" value="{{ $region->id }}" id="region_{{$region->id}}" label="region">
                                                         <label class="form-check-label" for="region_{{$region->id}}">
                                                             {{$region->region}}
                                                         </label>
@@ -106,7 +106,7 @@
                                             @foreach($communities as $community)
                                                 @if (in_array($community->id, $community_filter))
                                                     <div class="form-check" title="{{$community->community}}" data-toggle="tooltip">
-                                                        <input class="form-check-input communities" type="checkbox" value="{{ $community->id }}" id="community_{{$community->id}}">
+                                                        <input class="form-check-input communities" type="checkbox" value="{{ $community->id }}" id="community_{{$community->id}}" label="community">
                                                         <label class="form-check-label" for="community_{{$community->id}}">
                                                             {{$community->community}}
                                                         </label>
@@ -126,7 +126,7 @@
                                             @foreach($items as $item)
                                                 @if (in_array($item->id, $item_filter))
                                                     <div class="form-check" title="{{$item->item}}" data-toggle="tooltip">
-                                                        <input class="form-check-input items" type="checkbox" value="{{ $item->id }}" id="item_{{$item->id}}">
+                                                        <input class="form-check-input items" type="checkbox" value="{{ $item->id }}" id="item_{{$item->id}}" label="itrm">
                                                         <label class="form-check-label" for="item_{{$item->id}}">
                                                             {{$item->item}}
                                                         </label>
@@ -145,7 +145,7 @@
                                         <div class="panel-body">
                                             @foreach($id_states as $id_state)
                                                 <div class="form-check" title="{{$id_state->id_state}}" data-toggle="tooltip">
-                                                    <input class="form-check-input id_states" type="checkbox" value="{{ $id_state->id }}" id="id_state_{{$id_state->id}}">
+                                                    <input class="form-check-input id_states" type="checkbox" value="{{ $id_state->id }}" id="id_state_{{$id_state->id}}" label="status">
                                                     <label class="form-check-label" for="id_state_{{$id_state->id}}">
                                                         {{$id_state->id_state}}
                                                     </label>
@@ -163,7 +163,7 @@
                                         <div class="panel-body">
                                             @foreach($insurers as $insurer_name)
                                                 <div class="form-check" title="{{$insurer_name->insurer_name}}" data-toggle="tooltip">
-                                                    <input class="form-check-input insurers" type="checkbox" value="{{ $insurer_name->id }}" id="insurer_name_{{$insurer_name->id}}">
+                                                    <input class="form-check-input insurers" type="checkbox" value="{{ $insurer_name->id }}" id="insurer_name_{{$insurer_name->id}}" label="status">
                                                     <label class="form-check-label" for="insurer_name_{{$insurer_name->id}}">
                                                         {{$insurer_name->insurer_name}}
                                                     </label>
@@ -178,9 +178,9 @@
                                 <div class="form-group">
                                     <label class="control-label" for="complete_end_date">Date/ Period Received</label>
                                     <div class="input-daterange input-group datepicker" id="datepicker" style="padding: 0">
-                                        <input type="text" class="form-control" style="font-size: 12px" id="period_start_date">
+                                        <input type="text" class="form-control" style="font-size: 12px" id="period_start_date" label="start date">
                                         <span class="input-group-addon">to</span>
-                                        <input type="text" class="form-control" style="font-size: 12px" id="period_end_date">
+                                        <input type="text" class="form-control" style="font-size: 12px" id="period_end_date" label="end date">
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                                         <div class="panel-body">
                                             @foreach($relationships as $relationship)
                                                 <div class="relationship-check" title="{{$relationship->relationship}}" data-toggle="tooltip">
-                                                    <input class="form-check-input relationships" type="checkbox" value="{{ $relationship->id }}" id="relationship_{{$relationship->id}}">
+                                                    <input class="form-check-input relationships" type="checkbox" value="{{ $relationship->id }}" id="relationship_{{$relationship->id}}" label="status">
                                                     <label class="form-check-label" for="relationship_{{$relationship->id}}">
                                                         {{$relationship->relationship}}
                                                     </label>
@@ -210,7 +210,7 @@
                                         <div class="panel-body">
                                             @foreach($incomes as $income)
                                                 <div class="income-check" title="{{$income->income}}" data-toggle="tooltip">
-                                                    <input class="form-check-input incomes" type="checkbox" value="{{ $income->id }}" id="income_{{$income->id}}">
+                                                    <input class="form-check-input incomes" type="checkbox" value="{{ $income->id }}" id="income_{{$income->id}}" label="income">
                                                     <label class="form-check-label" for="income_{{$income->id}}">
                                                         {{$income->income}}
                                                     </label>
@@ -228,7 +228,7 @@
                                         <div class="panel-body">
                                             @foreach($disasters as $disaster)
                                                 <div class="disaster-check" title="{{$disaster->disaster}}" data-toggle="tooltip">
-                                                    <input class="form-check-input disasters" type="checkbox" value="{{ $disaster->id }}" id="disaster_{{$disaster->id}}">
+                                                    <input class="form-check-input disasters" type="checkbox" value="{{ $disaster->id }}" id="disaster_{{$disaster->id}}" label="disaster">
                                                     <label class="form-check-label" for="disaster_{{$disaster->id}}">
                                                         {{$disaster->disaster}}
                                                     </label>
@@ -246,7 +246,7 @@
                                         <div class="panel-body">
                                             @foreach($employments as $employment)
                                                 <div class="employment-check" title="{{$employment->status}}" data-toggle="tooltip">
-                                                    <input class="form-check-input employments" type="checkbox" value="{{ $employment->id }}" id="employment_{{$employment->id}}">
+                                                    <input class="form-check-input employments" type="checkbox" value="{{ $employment->id }}" id="employment_{{$employment->id}}" label="employment status">
                                                     <label class="form-check-label" for="employment_{{$employment->id}}">
                                                         {{$employment->status}}
                                                     </label>
@@ -264,7 +264,7 @@
                                         <div class="panel-body">
                                             @foreach($marital_status as $status)
                                                 <div class="status-check" title="{{$status->status}}" data-toggle="tooltip">
-                                                    <input class="form-check-input marital_status" type="checkbox" value="{{ $status->id }}" id="marital_status_{{$status->id}}">
+                                                    <input class="form-check-input marital_status" type="checkbox" value="{{ $status->id }}" id="marital_status_{{$status->id}}" label="marital status">
                                                     <label class="form-check-label" for="marital_status_{{$status->id}}">
                                                         {{$status->status}}
                                                     </label>
@@ -282,7 +282,7 @@
                                         <div class="panel-body">
                                             @foreach($housing_types as $housing_type)
                                                 <div class="housing_type-check" title="{{$housing_type->type}}" data-toggle="tooltip">
-                                                    <input class="form-check-input housing_types" type="checkbox" value="{{ $housing_type->id }}" id="housing_type_{{$housing_type->id}}">
+                                                    <input class="form-check-input housing_types" type="checkbox" value="{{ $housing_type->id }}" id="housing_type_{{$housing_type->id}}" label="housing type">
                                                     <label class="form-check-label" for="housing_type_{{$housing_type->id}}">
                                                         {{$housing_type->type}}
                                                     </label>
@@ -299,13 +299,13 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <div class="form-check">
-                                                <input class="form-check-input housing_damages" type="checkbox" value="Y" id="housing_damages_Y">
+                                                <input class="form-check-input housing_damages" type="checkbox" value="Y" id="housing_damages_Y" label="housing damage">
                                                 <label class="form-check-label" for="housing_damages_Y">
                                                     Yes
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input housing_damages" type="checkbox" value="N" id="housing_damages_N">
+                                                <input class="form-check-input housing_damages" type="checkbox" value="N" id="housing_damages_N" label="housing damage">
                                                 <label class="form-check-label" for="housing_damages_N">
                                                     No
                                                 </label>
