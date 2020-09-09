@@ -20,18 +20,18 @@
                             </div>
                             <p class="mb-1">Short description of form.</p>
                         </a>
-                        <a href="{{route('forma')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        {{-- <a href="{{route('forma')}}" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h3 class="mb-1">Form A - Employer/ Employee</h3>
                             </div>
                             <p class="mb-1">Short description of form.</p>
-                        </a>
-                        <a href="{{route('formb')}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                        </a> --}}
+                        {{-- <a href="{{route('formb')}}" class="list-group-item list-group-item-action flex-column align-items-start">
                             <div class="d-flex w-100 justify-content-between">
                                 <h3 class="mb-1">Form B - Self Employed</h3>
                             </div>
                             <p class="mb-1">Short description of form.</p>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
