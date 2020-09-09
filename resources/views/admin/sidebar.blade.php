@@ -38,7 +38,7 @@
                 </a>
             </li>
             
-            {{-- @can('access','admin') --}}
+            @cannot('access','admin')
             <li class=" {{isset($active) && $active == 'applicationfilter'? 'active' : ''}}">
                 <a href="{{route('applicationfilter')}}">
                     <i class="fa fa-table"></i> <span>Applications</span>
@@ -64,9 +64,9 @@
                     <li class=" {{isset($activelink) && $activelink == 'schedules'? 'active' : ''}}"><a href="#"><i class="fa fa-circle"></i> School Supplies</a></li> --}}
                 </ul>
             </li>
-            {{-- @endcan --}}
+            @endcan
             
-            {{-- @can('access','admin') --}}
+            @can('access','admin')
             <li class=" treeview  {{isset($active) && $active == 'logs'? 'active' : ''}}">
                 <a href="#">
                     <i class="fa fa-th"></i> <span>Logs</span>
@@ -94,7 +94,7 @@
                     <li class=" {{isset($activelink) && $activelink == 'newuser'? 'active' : ''}}"><a href="{{route('newuser')}}"><i class="fa fa-circle"></i> New User</a></li>
                 </ul>
             </li>
-            {{-- @endcan --}}
+            @endcan
         </ul>
 
         

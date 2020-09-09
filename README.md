@@ -9,7 +9,7 @@
 
 ## Laravel
 
-- version 7.10.3
+- version 7.24.0
 
 ## PHP requirements
 
