@@ -12,8 +12,10 @@ class MailController extends Controller
 {
     public function mailtest()
     {
-        \Mail::send(new Test);
-        // \Mail::send(new \App\Mail\Approval\Inbound\TravelArrangements(\App\Application::first()));
+        \Mail::send(new \App\Mail\Application\FormAApplication(\App\Application::first()));
+        // \Mail::send(new \App\Mail\Application\FormBApplication(\App\Application::first()));
+        // \Mail::send(new \App\Mail\Application\FormCIApplication(\App\Application::first()));
+        // \Mail::send(new Test);
 
         dd("sent! ".msTimeStamp());
     }

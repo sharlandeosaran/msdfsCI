@@ -1044,6 +1044,9 @@ class FormAController extends Controller
                     ->withInput()
                     ->withErrors($validator);
         } */
+
+        // send email
+        \Mail::send(new \App\Mail\Application\FormAApplication($application));
         
         return redirect('/thanks')->
         with([

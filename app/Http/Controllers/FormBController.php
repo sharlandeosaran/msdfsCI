@@ -979,6 +979,9 @@ class FormBController extends Controller
             }
         }
         // dd($people);
+
+        // send email
+        \Mail::send(new \App\Mail\Application\FormBApplication($application));
         
         return redirect('/thanks')->
         with([

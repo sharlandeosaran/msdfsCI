@@ -1084,6 +1084,9 @@ class CriticalIncidentController extends Controller
             }
         }
         // dd();
+
+        // send email
+        \Mail::send(new \App\Mail\Application\FormCIApplication($application));
         
         return redirect('/thanks')->
             with([
