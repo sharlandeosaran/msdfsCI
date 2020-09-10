@@ -1095,31 +1095,64 @@ class CriticalIncidentController extends Controller
             $old = (array) json_decode($request->tempfiles);
             // dd($old);
             foreach ($old as $key => $file) {
-                // move file if exists and in allowed file types
-                if (in_array($file->mime, $types)) {
-                    if(Storage::exists($file->name)) {
-                        $document = $application->id.'_'.$key.'_'.$file->postname;
-
-                        // move file
-                        $path = 'uploads/applications/'.$application->id.'/'.$key.'/'.$document;
-                        Storage::move($file->name, $path);
-                        
-                        // get file type
-                        $get = \App\DocumentType::where('mime', $file->mime)->first();
-                        if ($get) {
-                            $mime = $get->id;
-                        } else {
-                            $mime = null;
+                if (is_array($file)) {
+                    foreach ($file as $key2 => $file2) {
+                        // move file if exists and in allowed file types
+                        if (in_array($file2->mime, $types)) {
+                            if(Storage::exists($file2->name)) {
+                                $document = $application->id.'_'.$key.'_'.$file2->postname;
+    
+                                // move file
+                                $path = 'uploads/applications/'.$application->id.'/'.$key.'/'.$document;
+                                Storage::move($file2->name, $path);
+                                
+                                // get file type
+                                $get = \App\DocumentType::where('mime', $file2->mime)->first();
+                                if ($get) {
+                                    $mime = $get->id;
+                                } else {
+                                    $mime = null;
+                                }
+                                
+                                // save name to application
+                                $doc = new \App\ApplicationDocument();
+                                $doc->application_id = $application->id;
+                                $doc->file = $key.'_'.$key2;
+                                $doc->document = $document;
+                                $doc->document_type_id = $mime;
+                                $doc->path = $path;
+                                $doc->save();
+                            }
                         }
                         
-                        // save name to application
-                        $file = new \App\ApplicationDocument();
-                        $file->application_id = $application->id;
-                        $file->file = $key;
-                        $file->document = $document;
-                        $file->document_type_id = $mime;
-                        $file->path = $path;
-                        $file->save();
+                    }
+                } else {
+                    // move file if exists and in allowed file types
+                    if (in_array($file->mime, $types)) {
+                        if(Storage::exists($file->name)) {
+                            $document = $application->id.'_'.$key.'_'.$file->postname;
+
+                            // move file
+                            $path = 'uploads/applications/'.$application->id.'/'.$key.'/'.$document;
+                            Storage::move($file->name, $path);
+                            
+                            // get file type
+                            $get = \App\DocumentType::where('mime', $file->mime)->first();
+                            if ($get) {
+                                $mime = $get->id;
+                            } else {
+                                $mime = null;
+                            }
+                            
+                            // save name to application
+                            $doc = new \App\ApplicationDocument();
+                            $doc->application_id = $application->id;
+                            $doc->file = $key;
+                            $doc->document = $document;
+                            $doc->document_type_id = $mime;
+                            $doc->path = $path;
+                            $doc->save();
+                        }
                     }
                 }
             }

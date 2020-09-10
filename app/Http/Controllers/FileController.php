@@ -24,7 +24,7 @@ class FileController extends Controller
                             // upload file
                             $path = $request->file($name)[$key]->storeAs('uploads/temps', msTimeStamp().'_'.$_FILES[$name]['name'][$key]);
                             
-                            $list[$name.'_'.$key] = (object) [
+                            $list[$name][$key] = (object) [
                                 'name' => $path, 
                                 'mime' => $_FILES[$name]['type'][$key], 
                                 'postname' => $_FILES[$name]['name'][$key] 
