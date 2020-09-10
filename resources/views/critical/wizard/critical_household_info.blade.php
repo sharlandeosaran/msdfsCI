@@ -153,6 +153,40 @@
                                 </div>
                             </td>
                         </tr>
+                                
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('hi_citizen.1') ? ' has-error' : '' }} grp-hi_citizen_1">
+                                    <label class="control-label mb-0" for="hi_citizen_1">
+                                        Citizen of Trinidad and Tobago <span class="red">*</span> 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                    </label>
+                                </div>
+                            </td>
+
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('hi_citizen.1') ? ' has-error' : '' }} grp-hi_citizen_1">
+                                    <div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" gender="hi_citizen_1" id="hi_citizen_1_1" name="hi_citizen[1]" class="custom-control-input" value="Y" {{old('hi_citizen.1') == 'Y'? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="hi_citizen_1_1">Yes</label>
+                                            </div>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <div class="custom-control custom-radio">
+                                                <input type="radio" gender="hi_citizen_1" id="hi_citizen_1_2" name="hi_citizen[1]" class="custom-control-input" value="N" {{old('hi_citizen.1') == 'N'? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="hi_citizen_1_2">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_citizen_1">{{ $errors->first('hi_citizen.1') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">

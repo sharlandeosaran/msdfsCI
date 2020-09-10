@@ -147,6 +147,18 @@ class Person extends Model
         
     }
 
+    public function getCitizenAttribute($value)
+    {
+        if ($this->attributes['citizen'] == 'Y') {
+            return 'Yes';
+        } else if ($this->attributes['citizen'] == 'N') {
+            return 'No';
+        } else {
+            return;
+        }
+        
+    }
+
     public function applicant()
     {
         return $this->belongsTo('App\Applicant');

@@ -87,6 +87,7 @@ class CriticalIncidentController extends Controller
             "hi_first_name" => "array",
             "hi_surname" => "array",
             "hi_gender" => "array",
+            "hi_citizen" => "array",
             "hi_relationship" => "array",
             "hi_relationship_other" => "array",
             "hi_dob" => "required|array",
@@ -100,6 +101,10 @@ class CriticalIncidentController extends Controller
             "hi_gender.*" => [
                 'required',
                 Rule::in(['M', 'F']),
+            ],
+            "hi_citizen.*" => [
+                'required',
+                Rule::in(['Y', 'N']),
             ],
             "hi_relationship.*" => "required|max:25",
             "hi_relationship_other.*" => "nullable|max:25",
@@ -422,6 +427,7 @@ class CriticalIncidentController extends Controller
             $person->othername = $value['key'] == 1? $request->othername : null;
             $person->email = $value['key'] == 1? $request->email : null;
             $person->gender = $request->hi_gender[$value['key']];
+            $person->citizen = $value['key'] == 1? $request->hi_citizen[$value['key']] : null;
             $person->dob = $request->hi_dob[$value['key']];
             $person->marital_status_id = $value['key'] == 1? $request->marital_status : null;
             $person->marital_status_other = $value['key'] == 1? $request->hi_emp_status_other[$value['key']] : null;

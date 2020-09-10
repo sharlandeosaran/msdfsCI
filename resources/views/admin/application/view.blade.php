@@ -765,6 +765,23 @@
                                                                 </td>
                                                             </tr>
                                                             
+                                                            @if ($applicant->person->citizen)
+                                                            <tr>
+                                                                <td class="active text-right align-middle" width="30%">
+                                                                    <div class="">
+                                                                        <label class="control-label">
+                                                                            Citizen of Trinidad and Tobago
+                                                                        </label>
+                                                                    </div>
+                                                                </td>
+                                                                <td width="70%">
+                                                                    <label class="control-label"> 
+                                                                        {{$applicant->person->citizen}}
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            @endif
+                                                            
                                                             @if ($applicant->person->national_id)
                                                             <tr>
                                                                 <td class="active text-right align-middle" width="30%">
