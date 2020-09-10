@@ -1045,6 +1045,10 @@ class FormAController extends Controller
                     ->withErrors($validator);
         } */
         
-        return redirect('/thanks')->with('success', 'Submission sent successfully.');
+        return redirect('/thanks')->
+        with([
+            'success' => 'Submission sent successfully.', 
+            'reference_number' => $application->reference_number,
+        ]);
     }
 }

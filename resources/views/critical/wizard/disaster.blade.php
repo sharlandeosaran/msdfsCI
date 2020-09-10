@@ -82,7 +82,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('housing_repairs') ? ' has-error' : '' }} grp-housing_repairs">
                                     <label class="control-label mb-0" for="housing_repairs">
-                                        Brief  Description of Housing Repairs Required <span class="red">*</span> 
+                                        Brief  Description of Housing Damages <span class="red">*</span> 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the assistance desired.'></i>
                                     </label>
                                 </div>

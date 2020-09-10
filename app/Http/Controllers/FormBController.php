@@ -980,6 +980,10 @@ class FormBController extends Controller
         }
         // dd($people);
         
-        return redirect('/thanks')->with('success', 'Submission sent successfully.');
+        return redirect('/thanks')->
+        with([
+            'success' => 'Submission sent successfully.', 
+            'reference_number' => $application->reference_number,
+        ]);
     }
 }
