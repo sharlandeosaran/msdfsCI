@@ -307,13 +307,15 @@
                                 </div>
                             </td>
                             <td width="80%">
-                                <div class="form-group{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
+                                <div class="form-group mb-0{{ $errors->has('hi_emp_status.1') ? ' has-error' : '' }} grp-hi_emp_status_1" id="">
                                     <select class="form-control chosen-select hi_emp_status" num="1" id="hi_emp_status_1" name="hi_emp_status[1]">
                                         <option disabled="" selected="">select...</option>
                                         @php $other = 'Other'; $otherid = ''; @endphp
                                         @foreach ($employment_status as $status)
                                             @if ($status->status !== 'Other')
-                                                <option {{old('hi_emp_status.1') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                                @if ($status->status !== 'Primary Student' && $status->status !== 'Secondary Student')
+                                                    <option {{old('hi_emp_status.1') == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                                @endif
                                             @else
                                                 @php $other = $status->status; $otherid = $status->id; @endphp
                                             @endif
