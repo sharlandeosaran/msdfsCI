@@ -191,6 +191,14 @@ class Application extends Model
                 get();
     }
 
+    public function getDamagedHouseholdItemsAttribute($value)
+    {
+        return \App\ApplicationDocument::
+                where('application_id', $this->id)->
+                where('file', 'LIKE', 'damaged_household_items_%')->
+                get();
+    }
+
     public function getElectricalDamageAttribute($value)
     {
         return \App\ApplicationDocument::

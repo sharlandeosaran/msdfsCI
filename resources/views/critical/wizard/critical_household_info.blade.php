@@ -156,27 +156,6 @@
                         
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
-                                    <label class="control-label mb-0" for="hi_national_id_1">
-                                        National Identification Card Number <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
-                                    
-                                    <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="hi_national_id_1" name="hi_national_id[1]" aria-describedby="" value="{{old('hi_national_id.1')? old('hi_national_id.1') : '' }}" required placeholder="xxxxxxxxxxx">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-hi_national_id_1">{{ $errors->first('hi_national_id.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('critical_national_id_state') ? ' has-error' : '' }} grp-critical_national_id_state">
                                     <label class="control-label mb-0" for="critical_national_id_state">
                                         National Identification Card Condition <span class="red">*</span> 
@@ -196,6 +175,27 @@
                                     
                                     <span class="help-block">
                                         <strong id="err-critical_national_id_state">{{ $errors->first('critical_national_id_state') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
+                                    <label class="control-label mb-0" for="hi_national_id_1">
+                                        National Identification Card Number <span class="red">*</span> 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('hi_national_id.1') ? ' has-error' : '' }} grp-hi_national_id_1">
+                                    
+                                    <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="hi_national_id_1" name="hi_national_id[1]" aria-describedby="" value="{{old('hi_national_id.1')? old('hi_national_id.1') : '' }}" required placeholder="xxxxxxxxxxx">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_national_id_1">{{ $errors->first('hi_national_id.1') }}</strong>
                                     </span>
                                 </div>
                             </td>

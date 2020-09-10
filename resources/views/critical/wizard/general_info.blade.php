@@ -166,7 +166,7 @@
                             <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('region') ? ' has-error' : '' }} grp-region">
                                     <label class="control-label mb-0" for="region">
-                                        Region <span class="red">*</span> 
+                                        Regional Corporation <span class="red">*</span> 
                                         <i class="fa fa-info-circle hide" aria-hidden="true" title='Select the city/town for your residential address.'></i>
                                     </label>
                                 </div>

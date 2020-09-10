@@ -713,6 +713,33 @@
                             
                         <tr class="critical_uploads hide">
                             <td class=" table-active text-right align-middle" width="20%">
+                                <div class="form-group{{ $errors->has('damaged_household_items') ? ' has-error' : '' }} mb-0 grp-damaged_household_items">
+                                    <label class="control-label mb-0" for="damaged_household_items">
+                                        Damaged Household Items 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide copy of your damaged_household_items that matches your national identification card and uploaded.'></i>
+                                        <br>(multiple images allowed)
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group{{ $errors->has('damaged_household_items') ? ' has-error' : '' }} mb-0 grp-damaged_household_items">
+                                    <div class="input-group mb-0">
+                                        <div class="custom-file">
+                                            <input type="file" accept=".png, .jpg, .jpeg" class="custom-file-input" id="damaged_household_items" name="damaged_household_items[]" value="{{old('damaged_household_items')}}" multiple>
+                                            <label class="custom-file-label uploadfail" for="damaged_household_items" id="damaged_household_itemsLabel">{{old('damaged_household_items_name')? old('damaged_household_items_name') : 'Choose files'}}</label>
+                                        </div>
+                                        <input type="hidden" class="uploadhelp" value="{{old('damaged_household_items_name')}}" name="damaged_household_items_name">
+                                    </div>
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-damaged_household_items">{{ $errors->first('damaged_household_items') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+                            
+                        <tr class="critical_uploads hide">
+                            <td class=" table-active text-right align-middle" width="20%">
                                 <div class="form-group{{ $errors->has('electrical_damage') ? ' has-error' : '' }} mb-0 grp-electrical_damage">
                                     <label class="control-label mb-0" for="electrical_damage">
                                         Electrical Damage 

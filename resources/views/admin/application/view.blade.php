@@ -1091,6 +1091,28 @@
                                 <hr>
                             @endif
                             
+                            @if (count($application->damaged_household_items))
+                                <p>
+                                    <strong><i class="far fa-images margin-r-5"></i> Damaged Household Items</strong>
+                                </p>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="">
+                                            @foreach ($application->damaged_household_items as $doc)
+                                            <div class="col-sm-1" style="padding: 5px;">
+                                                <a href="{{$doc->document_url}}" data-toggle="lightbox" data-gallery="damaged_household_items">
+                                                    <img src="{{$doc->document_url}}" class="img-fluid img-thumbnail">
+                                                </a>
+                                            </div>
+                                            
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                            @endif
+                            
                             @if (count($application->electrical_damage))
                                 <p>
                                     <strong><i class="far fa-images margin-r-5"></i> Electrical Damage</strong>

@@ -208,6 +208,8 @@ class CriticalIncidentController extends Controller
             'water_marks.*' => "max:10000|mimes:jpg,jpeg,png",
             'structural_damage' => "nullable|array",
             'structural_damage.*' => "max:10000|mimes:jpg,jpeg,png",
+            'damaged_household_items' => "nullable|array",
+            'damaged_household_items.*' => "max:10000|mimes:jpg,jpeg,png",
             'electrical_damage' => "nullable|array",
             'electrical_damage.*' => "max:10000|mimes:jpg,jpeg,png",
             'plumbing_damage' => "nullable|array",
@@ -973,6 +975,39 @@ class CriticalIncidentController extends Controller
                             $file = new \App\ApplicationDocument();
                             $file->application_id = $application->id;
                             $file->file = 'structural_damage_'.$i;
+                            $file->document = $document;
+                            $file->document_type_id = $mime;
+                            $file->path = $path;
+                            $file->save();
+                        }
+                    }
+                }
+            }
+        }
+        
+        // damaged_household_items
+        if ($request->file('damaged_household_items') !== null) {
+            foreach ($request->file('damaged_household_items') as $i => $other) {
+                if ($request->file('damaged_household_items'.'.'.$i) !== null) {
+                    if ($request->file('damaged_household_items'.'.'.$i)->isValid()) {
+                        
+                        // get file type
+                        $type = $request->file('damaged_household_items.'.$i)->getMimeType();
+                        $get = \App\DocumentType::where('mime', $type)->first();
+                        if ($get) {
+                            $mime = $get->id;
+                        } else {
+                            $mime = null;
+                        }
+                        
+                        if (in_array($type, $images)) {
+                            $document = $application->id.'_damaged_household_items_'.$i.'_'.$request->file('damaged_household_items'.'.'.$i)->getClientOriginalName();
+                            // upload upload
+                            $path = $request->file('damaged_household_items'.'.'.$i)->storeAs('uploads/applications/'.$application->id.'/damaged_household_items', $document);
+                            // save name to application
+                            $file = new \App\ApplicationDocument();
+                            $file->application_id = $application->id;
+                            $file->file = 'damaged_household_items_'.$i;
                             $file->document = $document;
                             $file->document_type_id = $mime;
                             $file->path = $path;
