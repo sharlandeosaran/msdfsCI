@@ -12,6 +12,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- Dumping structure for table msdfs_forms_db.applicants
+DROP TABLE IF EXISTS `applicants`;
 CREATE TABLE IF NOT EXISTS `applicants` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -25,9 +26,9 @@ CREATE TABLE IF NOT EXISTS `applicants` (
   KEY `FK_applicants_persons` (`person_id`),
   CONSTRAINT `FK_applicants_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
   CONSTRAINT `FK_applicants_persons` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.applicants: ~63 rows (approximately)
+-- Dumping data for table msdfs_forms_db.applicants: ~64 rows (approximately)
 /*!40000 ALTER TABLE `applicants` DISABLE KEYS */;
 INSERT INTO `applicants` (`id`, `application_id`, `person_id`, `active`, `order`, `created_at`, `updated_at`) VALUES
 	(1, 1, 2, 1, 1, '2020-08-14 23:22:24', '2020-08-14 23:22:24'),
@@ -92,10 +93,12 @@ INSERT INTO `applicants` (`id`, `application_id`, `person_id`, `active`, `order`
 	(60, 64, 121, 1, 0, '2020-09-10 06:28:36', '2020-09-10 06:28:36'),
 	(61, 65, 122, 1, 0, '2020-09-10 06:39:53', '2020-09-10 06:39:53'),
 	(62, 66, 123, 1, 0, '2020-09-10 06:43:15', '2020-09-10 06:43:15'),
-	(63, 67, 124, 1, 0, '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(63, 67, 124, 1, 0, '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(64, 68, 125, 1, 0, '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `applicants` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.applications
+DROP TABLE IF EXISTS `applications`;
 CREATE TABLE IF NOT EXISTS `applications` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `ip` text NOT NULL,
@@ -110,9 +113,9 @@ CREATE TABLE IF NOT EXISTS `applications` (
   KEY `FK_applications_status` (`status_id`),
   CONSTRAINT `FK_applications_forms` FOREIGN KEY (`form_id`) REFERENCES `forms` (`id`),
   CONSTRAINT `FK_applications_status` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.applications: ~63 rows (approximately)
+-- Dumping data for table msdfs_forms_db.applications: ~64 rows (approximately)
 /*!40000 ALTER TABLE `applications` DISABLE KEYS */;
 INSERT INTO `applications` (`id`, `ip`, `form_id`, `status_id`, `schedules_approved`, `reference_number`, `created_at`, `updated_at`) VALUES
 	(1, 'eyJpdiI6IktURng1ZFB6akdnVStmRFBoNVZ3d2c9PSIsInZhbHVlIjoiNllTcncxWS9veDV5VVVja2NTYVp5bFNTMDVjL2FiUURpQmhiOE9mWHBnND0iLCJtYWMiOiJiZTc2M2JhYmYyNTkwODBhNWY0Zjc5NjQzMTdjMDgyOWY5OGVjNzg4OWJhYzE2Y2ZmN2MzODMzMDE2MDQ5M2UyIn0=', 3, 8, 3, '1/2020', '2020-08-14 23:22:24', '2020-08-18 11:14:41'),
@@ -177,10 +180,12 @@ INSERT INTO `applications` (`id`, `ip`, `form_id`, `status_id`, `schedules_appro
 	(64, 'eyJpdiI6ImhKK3VoK3U2Rks2Yjh3VTVSdXFVNmc9PSIsInZhbHVlIjoiWHlGaVhaY2xjZW5OODl6eTZBQXRERkFoMzFxMzA2LzQza21GZEdRN21wZz0iLCJtYWMiOiI0NzY1MGY4MzE3ZWVhNjk3MTUyZDEyZDU2YzIzNWU2Mjk1ZGFiYWRhMzc3MWQ2NzgzMjcyY2JmY2QwZjVlZGU2In0=', 3, 0, NULL, '064/2020', '2020-09-10 06:28:36', '2020-09-10 06:28:36'),
 	(65, 'eyJpdiI6IlV1TGZRbXJteXA3M0dyeE5hTk8rVkE9PSIsInZhbHVlIjoidGdjVVZFQjFUTFVjaVJZUHZCeWppWDB4a3IzZEEvYzRESHNNaWtDQUdabz0iLCJtYWMiOiI0NmEyYTcxNDBiMDFiYmY4ZjQzNTI1ZmYwZWNlOGRlNjNiN2U4NWRmOWUxMTQ0MzQxZWMzOTQ3NDc0MWE4ODNmIn0=', 3, 0, NULL, '065/2020', '2020-09-10 06:39:53', '2020-09-10 06:39:53'),
 	(66, 'eyJpdiI6Ik50WEJTNEpLZGE2N3ZFV3o0RklmSkE9PSIsInZhbHVlIjoiSkVqV25tM2owVlFwb2thR005RzF6MkZENXVMdDdVV1ljbG5MaUZoa0RQMD0iLCJtYWMiOiJjZDVmODAwMDFiY2VjYzFiZTQ5ZGJiYTliOWM0MmI1YmNiMDJjMDI1OGM0MjNiNGRlZjg2YmJkM2M2NWE2ZDM4In0=', 3, 0, NULL, '066/2020', '2020-09-10 06:43:15', '2020-09-10 06:43:15'),
-	(67, 'eyJpdiI6IkQ1U2JWaS84L2VXaExySlI1dlE1T3c9PSIsInZhbHVlIjoieWc1NzNnQ3JKL3Q3eFBURmdPb2ptZjlMQnBtU2crNGFOWG5ldDJLYWdrbz0iLCJtYWMiOiIxNjYxZDA4MzFkMzNhMmI4OTM1ODViOWQxN2U0N2I1NGZhMDRhOGVkZTM3MjE2NjBjM2MxZjYxYmNlN2M5M2YxIn0=', 3, 0, NULL, '067/2020', '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(67, 'eyJpdiI6IkQ1U2JWaS84L2VXaExySlI1dlE1T3c9PSIsInZhbHVlIjoieWc1NzNnQ3JKL3Q3eFBURmdPb2ptZjlMQnBtU2crNGFOWG5ldDJLYWdrbz0iLCJtYWMiOiIxNjYxZDA4MzFkMzNhMmI4OTM1ODViOWQxN2U0N2I1NGZhMDRhOGVkZTM3MjE2NjBjM2MxZjYxYmNlN2M5M2YxIn0=', 3, 0, NULL, '067/2020', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(68, 'eyJpdiI6Incxa3lsYVdoWFVRSE5uT0hNMnd2cnc9PSIsInZhbHVlIjoiQmR0QzRmVTJSNTlPREl6clkzTThhNTBVY2xWYVpWalJmbHVzby9ETHFvdz0iLCJtYWMiOiI4NjRjYzBlYmMzM2Q4ZDI0NjU3N2ZkNjg2ZmQxM2VhNTNhNjdiMWZiNzFmOWJjMmQyZWE3ODdiMDEzNjdlNGRiIn0=', 3, 0, NULL, '068/2020', '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `applications` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.application_approvals
+DROP TABLE IF EXISTS `application_approvals`;
 CREATE TABLE IF NOT EXISTS `application_approvals` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_status_audit_id` bigint(20) unsigned NOT NULL,
@@ -192,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `application_approvals` (
   CONSTRAINT `FK_application_approval_application_status_audit` FOREIGN KEY (`application_status_audit_id`) REFERENCES `application_status_audit` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.application_approvals: ~59 rows (approximately)
+-- Dumping data for table msdfs_forms_db.application_approvals: ~58 rows (approximately)
 /*!40000 ALTER TABLE `application_approvals` DISABLE KEYS */;
 INSERT INTO `application_approvals` (`id`, `application_status_audit_id`, `type`, `key`, `value`) VALUES
 	(1, 68, 'household', 'Micah Foley', 'recommended'),
@@ -257,6 +262,7 @@ INSERT INTO `application_approvals` (`id`, `application_status_audit_id`, `type`
 /*!40000 ALTER TABLE `application_approvals` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.application_assistance_sought
+DROP TABLE IF EXISTS `application_assistance_sought`;
 CREATE TABLE IF NOT EXISTS `application_assistance_sought` (
   `application_id` bigint(20) unsigned NOT NULL,
   `assistance_sought_id` int(10) unsigned NOT NULL,
@@ -267,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `application_assistance_sought` (
   CONSTRAINT `FK_application_assistance_sought_assistance_sought` FOREIGN KEY (`assistance_sought_id`) REFERENCES `assistance_sought` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.application_assistance_sought: ~44 rows (approximately)
+-- Dumping data for table msdfs_forms_db.application_assistance_sought: ~43 rows (approximately)
 /*!40000 ALTER TABLE `application_assistance_sought` DISABLE KEYS */;
 INSERT INTO `application_assistance_sought` (`application_id`, `assistance_sought_id`) VALUES
 	(33, 2),
@@ -317,6 +323,7 @@ INSERT INTO `application_assistance_sought` (`application_id`, `assistance_sough
 /*!40000 ALTER TABLE `application_assistance_sought` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.application_documents
+DROP TABLE IF EXISTS `application_documents`;
 CREATE TABLE IF NOT EXISTS `application_documents` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -331,9 +338,9 @@ CREATE TABLE IF NOT EXISTS `application_documents` (
   KEY `FK_application_documents_document_types` (`document_type_id`),
   CONSTRAINT `FK_application_documents_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
   CONSTRAINT `FK_application_documents_document_types` FOREIGN KEY (`document_type_id`) REFERENCES `document_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=330 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=332 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.application_documents: ~329 rows (approximately)
+-- Dumping data for table msdfs_forms_db.application_documents: ~331 rows (approximately)
 /*!40000 ALTER TABLE `application_documents` DISABLE KEYS */;
 INSERT INTO `application_documents` (`id`, `application_id`, `file`, `document`, `document_type_id`, `path`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'signature', '1_signature_MicrosoftTeams-image (2).png', 5, 'eyJpdiI6InRJMDZ1WU1IS2gva0pzdjdTMjdQTmc9PSIsInZhbHVlIjoicDhvQUlFOHRmTXQxd0Jic0pocmptRy96UlVLUU9tUjZYREphTjk4TFJIbjd6S3M5STJUVmEwSnA4M29KL1NQcnJyQ3ZGZ085NmtZRVgrb1pFTWI3LzBPVnVtcnoxM21RVGNPVzU0VnBjYms9IiwibWFjIjoiZTQyODRiNGMyNzFhMGNhMWYxZGEyNGQ4NWNlM2MwM2Q0NDA2MzU1MzNmZmRmZjdiZWYzZGQ2MjYyZmNhODZkOCJ9', '2020-08-14 23:22:24', '2020-08-14 23:22:24'),
@@ -664,10 +671,13 @@ INSERT INTO `application_documents` (`id`, `application_id`, `file`, `document`,
 	(326, 67, 'structural_damage_0', '67_structural_damage_3dsecurelogos.png', 5, 'eyJpdiI6InlYbnd4RnJCQ0VYdnhNaE0xYnMwb1E9PSIsInZhbHVlIjoiRCtqMk9PVGdBYTltbTM3ZjhxOUo3Z0k1M1dyRjlPdGxmc0locVZXRUJGVHVwKytPOEEzL0QxZEEvSVY2UHZ4NGV6M2xTOFdTVGphYlpVMnVnRHZTSjl6K1QrZFNPWFRuWHBwaFhoUlpKbndTRThlUzZIWFhua0hkRWFRRlNCNkkiLCJtYWMiOiJjOThkNmQ1NjIxMDFiYmRhM2Q4YTQxYjgxMjAzNmMwMGM2Yjk2MTQ5ZDYzYzk2MzI4N2ZiOWRmMzhmNjY2ZDI1In0=', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
 	(327, 67, 'structural_damage_1', '67_structural_damage_288ac00138010ace4d93aa462c1556b0.jpg', 7, 'eyJpdiI6Ikg0Y3BlWkY5SUxacFBWVnRaN0toK3c9PSIsInZhbHVlIjoid1BXcDFnTy9vNDJicmc0Z0JIc2E0REdYZ2haOTZZRVR6OEJKdVNaMlBWRjVTbU5MaVhOZWVVaXdqcTVWOElFWGFaV1YrdFVMZXIwcEZZTjVaVUgybWsrUzhhdUwyNjlSYjd2a0pRSEQ3Y3Q5bkVaM3g1c2F0Y3BHcnRMWmxwbU1aQ29rOXJuU0RaeS9XZVpwOEc4K3dnPT0iLCJtYWMiOiIxNzM0NDY3MWFlOTExNTRhNDkwMTY0NTI5NWUxYWZmZTIwZGE1ZjNiOTA3YmQ2NGM4ZDg5MDhjZjEyNjZkZDY3In0=', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
 	(328, 67, 'structural_damage_2', '67_structural_damage_Annotation 2019-04-18 090804.png', 5, 'eyJpdiI6Ii9nejNwMHZWQklPUXEvcHpnckV5OGc9PSIsInZhbHVlIjoibUlEWW9Od1RFYXY4NHpVbEZRd0poRFA2MEp6Tng3cE1LeGtiY0Y0ZldPU3dKSm13T3h3bVdoTmFWTzVPUDB2L2oyc1J0MGRSSUoxeGsrTmN0VVNNcDBuZVZlcnREVGlaVEw4UksrRHVJSzZ5OStvRlJoL0drSjR5UFN6ZTlydEJQVVp1N09NMzdrQ2k4b2N2SXc5QXRBPT0iLCJtYWMiOiJlNjQzMWEwY2IwOTUyNWNlMTg1NDM0NTI5YWUzM2M1ZGI1ZGIwY2ZlMThhMjA3YTVhZTQ2OTIwM2MyN2VlOGI5In0=', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
-	(329, 67, 'structural_damage_3', '67_structural_damage_approach.png', 5, 'eyJpdiI6Im5uUStmbHNESjBUSkFIRzNheGFndmc9PSIsInZhbHVlIjoiNjB1eE5TbmVnbmJSdkd1VXhOWDlZb0tpY2R1Q0cyeTQ2Z2l0aStrdE5Da1ZhSUdrSFpaWGltck0zd3JWMFluZWtuMzV4dEtuUWdmZlFTZnpGNUE1cUJNRDViRmVwQ2sra3lhOTBESnAxRWtwaWZnS2NybktMZFRUYWE0UWdYdVoiLCJtYWMiOiJiNzZlNzhmOGE1ZjNkNTM4MGU1Mzg4MzBiY2Y0ZmYxNDg5MmY4YzIzMmMwNjk3MmZlZTU3Y2MzODdjZTc2YzkxIn0=', '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(329, 67, 'structural_damage_3', '67_structural_damage_approach.png', 5, 'eyJpdiI6Im5uUStmbHNESjBUSkFIRzNheGFndmc9PSIsInZhbHVlIjoiNjB1eE5TbmVnbmJSdkd1VXhOWDlZb0tpY2R1Q0cyeTQ2Z2l0aStrdE5Da1ZhSUdrSFpaWGltck0zd3JWMFluZWtuMzV4dEtuUWdmZlFTZnpGNUE1cUJNRDViRmVwQ2sra3lhOTBESnAxRWtwaWZnS2NybktMZFRUYWE0UWdYdVoiLCJtYWMiOiJiNzZlNzhmOGE1ZjNkNTM4MGU1Mzg4MzBiY2Y0ZmYxNDg5MmY4YzIzMmMwNjk3MmZlZTU3Y2MzODdjZTc2YzkxIn0=', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(330, 68, 'signature', '68_signature_3dsecurelogos.png', 5, 'eyJpdiI6IldGN0FrVlIzL0ZZd3dhMk0vOEZvOWc9PSIsInZhbHVlIjoiQnhxYmhBVElPYnQrK0FTM2kxTC9GS3I2d0ZXUmg2SUhUbkdGYjg4cnd4cW9VanVDMVdmamNIMlNnbVkzMW1IeCtWb29yMnRNZndodjV1WkppRzU4ZlNkdzA1eXlpTmpYcnNQTE41Y0xwTTA9IiwibWFjIjoiMWRhNzBjMjE5ZGU4NTRlYTYwNTkyYmY4ODI5MmU5NDY3ODkxZWUxMjhhMzk1ZmE0NjhmN2FiNDBkY2MwZDYyYiJ9', '2020-09-11 10:52:24', '2020-09-11 10:52:24'),
+	(331, 68, 'ebc_id_letter', '68_ebc_id_letter_288ac00138010ace4d93aa462c1556b0.jpg', 7, 'eyJpdiI6IjM5QTMvVGszaHgxZEwyS0hPcExjcVE9PSIsInZhbHVlIjoiM09XbGVMb21SNm9SUWlRNDhDN3FyS2grbDBZUnpieEdtTkNqUUpSTHcxOWdkUVA0S2FtdDMwZUhJRWd6Nmd1a1JYTkV4MjVFbzZWQi9NcnFOK3p5T2hVaFZtaUowL1V2SnB4aVpORXlVUDQ2SCt1b0Fjc1JISEV5aXZDeHBkcmtvN3luUDBxck1JOVhQYXBkdmhZd05nPT0iLCJtYWMiOiIwMGQ4OTkyYmMxNTU4Y2U2MTBhZTJjMjg3NjZlMWMzN2RiMWJhZDdkOGRhMGMxNGRjYTQ0ZDM1YTc2ODFjYTVjIn0=', '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `application_documents` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.application_grants
+DROP TABLE IF EXISTS `application_grants`;
 CREATE TABLE IF NOT EXISTS `application_grants` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -701,6 +711,7 @@ INSERT INTO `application_grants` (`id`, `application_id`, `key`, `value`, `creat
 /*!40000 ALTER TABLE `application_grants` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.application_status_audit
+DROP TABLE IF EXISTS `application_status_audit`;
 CREATE TABLE IF NOT EXISTS `application_status_audit` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -814,6 +825,7 @@ INSERT INTO `application_status_audit` (`id`, `application_id`, `changed_by`, `s
 /*!40000 ALTER TABLE `application_status_audit` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.assistance_sought
+DROP TABLE IF EXISTS `assistance_sought`;
 CREATE TABLE IF NOT EXISTS `assistance_sought` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `assistance` varchar(150) NOT NULL,
@@ -822,7 +834,7 @@ CREATE TABLE IF NOT EXISTS `assistance_sought` (
   UNIQUE KEY `country` (`assistance`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.assistance_sought: ~3 rows (approximately)
+-- Dumping data for table msdfs_forms_db.assistance_sought: ~2 rows (approximately)
 /*!40000 ALTER TABLE `assistance_sought` DISABLE KEYS */;
 INSERT INTO `assistance_sought` (`id`, `assistance`, `slug`) VALUES
 	(1, 'Income Support Grant', 'public_assistance'),
@@ -831,6 +843,7 @@ INSERT INTO `assistance_sought` (`id`, `assistance`, `slug`) VALUES
 /*!40000 ALTER TABLE `assistance_sought` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.banks
+DROP TABLE IF EXISTS `banks`;
 CREATE TABLE IF NOT EXISTS `banks` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `bank` varchar(150) NOT NULL,
@@ -850,6 +863,7 @@ INSERT INTO `banks` (`id`, `bank`) VALUES
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.citizen_proof
+DROP TABLE IF EXISTS `citizen_proof`;
 CREATE TABLE IF NOT EXISTS `citizen_proof` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `proof` varchar(150) NOT NULL,
@@ -867,6 +881,7 @@ INSERT INTO `citizen_proof` (`id`, `proof`) VALUES
 /*!40000 ALTER TABLE `citizen_proof` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.communities
+DROP TABLE IF EXISTS `communities`;
 CREATE TABLE IF NOT EXISTS `communities` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `community` varchar(255) NOT NULL,
@@ -1403,6 +1418,7 @@ INSERT INTO `communities` (`id`, `community`, `code`, `region_code`) VALUES
 /*!40000 ALTER TABLE `communities` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.cron_log
+DROP TABLE IF EXISTS `cron_log`;
 CREATE TABLE IF NOT EXISTS `cron_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `job` varchar(50) CHARACTER SET latin1 NOT NULL,
@@ -1417,6 +1433,7 @@ CREATE TABLE IF NOT EXISTS `cron_log` (
 /*!40000 ALTER TABLE `cron_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.dashboard_data
+DROP TABLE IF EXISTS `dashboard_data`;
 CREATE TABLE IF NOT EXISTS `dashboard_data` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
@@ -1432,6 +1449,7 @@ CREATE TABLE IF NOT EXISTS `dashboard_data` (
 /*!40000 ALTER TABLE `dashboard_data` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.disasters
+DROP TABLE IF EXISTS `disasters`;
 CREATE TABLE IF NOT EXISTS `disasters` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
@@ -1441,7 +1459,7 @@ CREATE TABLE IF NOT EXISTS `disasters` (
   UNIQUE KEY `slug` (`slug`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.disasters: ~5 rows (approximately)
+-- Dumping data for table msdfs_forms_db.disasters: ~4 rows (approximately)
 /*!40000 ALTER TABLE `disasters` DISABLE KEYS */;
 INSERT INTO `disasters` (`id`, `slug`, `disaster`) VALUES
 	(1, 'flooding', 'Flooding'),
@@ -1452,6 +1470,7 @@ INSERT INTO `disasters` (`id`, `slug`, `disaster`) VALUES
 /*!40000 ALTER TABLE `disasters` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.document_types
+DROP TABLE IF EXISTS `document_types`;
 CREATE TABLE IF NOT EXISTS `document_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(150) NOT NULL,
@@ -1460,7 +1479,7 @@ CREATE TABLE IF NOT EXISTS `document_types` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.document_types: ~7 rows (approximately)
+-- Dumping data for table msdfs_forms_db.document_types: ~6 rows (approximately)
 /*!40000 ALTER TABLE `document_types` DISABLE KEYS */;
 INSERT INTO `document_types` (`id`, `type`, `mime`, `icon`) VALUES
 	(1, 'PDF', 'application/pdf', 'fa-file-pdf-o'),
@@ -1473,6 +1492,7 @@ INSERT INTO `document_types` (`id`, `type`, `mime`, `icon`) VALUES
 /*!40000 ALTER TABLE `document_types` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.email_log
+DROP TABLE IF EXISTS `email_log`;
 CREATE TABLE IF NOT EXISTS `email_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `subject` text CHARACTER SET latin1 NOT NULL,
@@ -1480,9 +1500,9 @@ CREATE TABLE IF NOT EXISTS `email_log` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.email_log: ~40 rows (approximately)
+-- Dumping data for table msdfs_forms_db.email_log: ~41 rows (approximately)
 /*!40000 ALTER TABLE `email_log` DISABLE KEYS */;
 INSERT INTO `email_log` (`id`, `subject`, `details`, `created_at`, `updated_at`) VALUES
 	(1, 'eyJpdiI6ImZ3Ri9RWnR6SmZhSnlGd1R0OWF1Y1E9PSIsInZhbHVlIjoiV0VBRGVKdFdlRTRrQWt1VzZLMC9HQlhDY0VmV3RESUh5bGg0NEdSYU1CYWVXdVRpSjFRWjRUSmUxbEZITjU5dSIsIm1hYyI6ImQzOTZiZGE3N2IyYmQ4MDFlMjU2ZWQyZTVlMDc2MjM3MjY5OWFmZmQ5MzQwMGIyYzVmNzQ2NGJmY2M2M2I2MmYifQ==', 'eyJpdiI6IlVtOG1GQW1WUVUyMXd4bWhrQy9jdnc9PSIsInZhbHVlIjoiTmw0UGlqQkh2SW9Ed0h1VE1vSnBxM1RPV3R4aThBaW9ySWphbVBlaHZTTzB5NnFPUjF2WjBadmtDbWJmUzJaTDI4UWt5TG5reDRtd0J2UDYvcUZIVkE9PSIsIm1hYyI6ImUyOTY4NjdhNGNjMjg2YWJkYzc1NWM1MzY0YjkyNDY3MjExMzczOTJhNmUxZjlmNDViOTY5ZmQ1ZGYxYzQ4ZjQifQ==', '2020-09-10 04:07:53', '2020-09-10 04:07:53'),
@@ -1524,10 +1544,12 @@ INSERT INTO `email_log` (`id`, `subject`, `details`, `created_at`, `updated_at`)
 	(37, 'eyJpdiI6IkJySUpLU3FGeE81THdJZTlZb2dyZEE9PSIsInZhbHVlIjoiUU8yMGtqMVdwKzlwb0tDUGVLUlhCVVlqSklyS2V0TmVESHNpMFdZTTAya01idzBoaEVRbno4L21VTmN2M1NtSSIsIm1hYyI6IjA5MTI0N2E3NzZmNWMyOWYzNzU3MTlhMGRkYjk2MjUwZjM5YjVmOGUwNmNiMGNjMWQ5ZjBjNWY1N2ZiZDc1ZGMifQ==', 'eyJpdiI6IjhPeFZTWEpIZ0ZwUWoyN3pCWFlDeWc9PSIsInZhbHVlIjoiWXFGOEk4UlFoRjJ5WUpTSjFsOUNlMlJ6d2RVc2xsVFYxLzlieVlQSHl2NW1hcFYwLzVtTzhFTEVBUm9jZEVFSiIsIm1hYyI6IjdjZWJhZWNjNDM5Zjk5YzkzMDU2MTZiMjlhYzMyYTBiOGJjMjU0NmFhMDRhZTZkMmRhZDEwMDk5NDZkYzU5ZGMifQ==', '2020-09-10 05:29:33', '2020-09-10 05:29:33'),
 	(38, 'eyJpdiI6IlN0Nkd2V2E2Yk83NElwajgybTh2M1E9PSIsInZhbHVlIjoiM0ZhSTNhTE9JNDRtUVFCSjJmdkp1UWsrejFJbkkxS2VIN0RLQjE1UnQzU1BQNEFpb1dpcnNtR0VFbkJKdkMzWSIsIm1hYyI6ImJmYzkwNmVhYzlhNmQ2ZjMyNDczYjdkNTk2Yzc0YzVjYTQ1OGE4OGUyMTQ2OTIwYjhlOWE4OGFjYTQ4NjI5NjMifQ==', 'eyJpdiI6Imk3dnBIaGhkaW5MNmZYYXlKRGw5cFE9PSIsInZhbHVlIjoiTmZnSERtWE5EUWYvNEVjbXc2SUtFbEZaV0NhL2IxeHZ5dHJpN3JEQi9rQkwyTTR5cm84cEFmT2EwbU5BNnZ6ciIsIm1hYyI6IjU3NTgwNWJkOGM1M2JhNGYyZWQ3NzcwYzU2NGZkOWM2NWM4YThmOGFjMWJhYjBjZThhMWZmMTI1NmU2NmMxYmIifQ==', '2020-09-10 06:39:53', '2020-09-10 06:39:53'),
 	(39, 'eyJpdiI6InhvSXRLL0w5UVJ3TWFTb1FwKzdNUFE9PSIsInZhbHVlIjoieXBKdVh5MURPMkFEMHVXcFFPR1o4ZGVjV2ZOZ0dUa2tyMHFTZDRjUHFuUitEY1BhSlBEdHo1NVBqN1BDWUdYOSIsIm1hYyI6IjY2MjI0Yzg1MTdkODQ4Nzg4ZTg2ZjQ2M2I3MDFhMmI4YzI1ZTllMDYwODdmODZjZGQ4MGM3M2M1ZDg5YjZhMjMifQ==', 'eyJpdiI6InRXUnkzUUJwZHN3c0xpU3BHZFJFUkE9PSIsInZhbHVlIjoiVGZyQVJsSDRMVzlWVjBMZlI2TCtHSDB4ckN3dVViZGErWVlHRUpjM1ZURkluRGhNbHQzNHE4SWtadXJKK3pMWCIsIm1hYyI6IjkyNzJlM2JlNzk2ODVmNTA4ZTIxYzcxY2I2MWU4NDQ2YWU5NGE1MDdiNWMxYWEyOThmYWMyYWRkMTJlYThjNjcifQ==', '2020-09-10 06:43:15', '2020-09-10 06:43:15'),
-	(40, 'eyJpdiI6IjZlVWM4WGtmajRDYlo0Z2lSd25oR3c9PSIsInZhbHVlIjoiMkJqcnlyTHdwNHVQc3JBa2hLMUdPUDNzcmFEMGxMVnhKYnpjVk55eW1xeHNOM1Y2RjVEOU51TVphcnNVdTNQQSIsIm1hYyI6IjhlYjM2YTk3YjE0YjE1ZWI3Y2Y0ZWVlZTJiN2IxMmRhMjkzMjYzNDEwNjFhZDQ4ZjNlN2NjNTI5Mzg5MTVjNmQifQ==', 'eyJpdiI6IjJxb3gwb0FHdHJwdUVyRDVxczN5TVE9PSIsInZhbHVlIjoiWGF1WUZVSDRUNm9CWDcyRFNDYUxzakdRL3hEVG9PZU1nY2FSTCsyR0p1N2xheDhKTitkcVlCWUQ0ZjlzYmFrVCIsIm1hYyI6IjU4ODkyOTk0YzU5NjhjZmJmNTg4OWZmYThmMWM0NWFjNjI1NjYwNzBiN2U0ZjNmNzA4MDZkYzE3MjA0ZDVhYzcifQ==', '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(40, 'eyJpdiI6IjZlVWM4WGtmajRDYlo0Z2lSd25oR3c9PSIsInZhbHVlIjoiMkJqcnlyTHdwNHVQc3JBa2hLMUdPUDNzcmFEMGxMVnhKYnpjVk55eW1xeHNOM1Y2RjVEOU51TVphcnNVdTNQQSIsIm1hYyI6IjhlYjM2YTk3YjE0YjE1ZWI3Y2Y0ZWVlZTJiN2IxMmRhMjkzMjYzNDEwNjFhZDQ4ZjNlN2NjNTI5Mzg5MTVjNmQifQ==', 'eyJpdiI6IjJxb3gwb0FHdHJwdUVyRDVxczN5TVE9PSIsInZhbHVlIjoiWGF1WUZVSDRUNm9CWDcyRFNDYUxzakdRL3hEVG9PZU1nY2FSTCsyR0p1N2xheDhKTitkcVlCWUQ0ZjlzYmFrVCIsIm1hYyI6IjU4ODkyOTk0YzU5NjhjZmJmNTg4OWZmYThmMWM0NWFjNjI1NjYwNzBiN2U0ZjNmNzA4MDZkYzE3MjA0ZDVhYzcifQ==', '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(41, 'eyJpdiI6Ik1yNDBJd3dadmhJMUNJcnJQNmRrbkE9PSIsInZhbHVlIjoidGFFd3l2UjVidzZjNm9pSTh5KzZNTlFFcmJPMmZLMkFxLytpV08vcENxR21TVnhIZElTVk12THhzQW96Sm5tOSIsIm1hYyI6IjI3M2FlOWU4OTQ2ZjY0MjdkMjUzNTZjM2JjM2NmNDAzNjc3NDRhZjQxMjlhMTNmZDQzMGIzMDk3MzE2NzdhNDMifQ==', 'eyJpdiI6InB0RldEZ1hpaWo4d21IMWV4SW5vWmc9PSIsInZhbHVlIjoiUU5yMG5iK2hRczU4Ym9FNks1bTVTTGNINFpIMU9rR3RzT0UvTUR3SjNvRDZWNWkvWE02M1RZa2Y4NDdwU3V0ZiIsIm1hYyI6Ijc1ZTA1OGMzNjY4ODQwMmE5MWM0MDU1ZDcxMDM0YzFjMjEyNzFhMmM4MDU0MmU0M2NjZjYwNTA2YWE4M2E1NTIifQ==', '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `email_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.employment_list
+DROP TABLE IF EXISTS `employment_list`;
 CREATE TABLE IF NOT EXISTS `employment_list` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
@@ -1535,7 +1557,7 @@ CREATE TABLE IF NOT EXISTS `employment_list` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.employment_list: ~5 rows (approximately)
+-- Dumping data for table msdfs_forms_db.employment_list: ~4 rows (approximately)
 /*!40000 ALTER TABLE `employment_list` DISABLE KEYS */;
 INSERT INTO `employment_list` (`id`, `slug`, `employment_classification`) VALUES
 	(1, 'retrenched', 'Retrenched'),
@@ -1546,6 +1568,7 @@ INSERT INTO `employment_list` (`id`, `slug`, `employment_classification`) VALUES
 /*!40000 ALTER TABLE `employment_list` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.employment_status
+DROP TABLE IF EXISTS `employment_status`;
 CREATE TABLE IF NOT EXISTS `employment_status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(150) NOT NULL,
@@ -1553,7 +1576,7 @@ CREATE TABLE IF NOT EXISTS `employment_status` (
   UNIQUE KEY `country` (`status`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.employment_status: ~10 rows (approximately)
+-- Dumping data for table msdfs_forms_db.employment_status: ~11 rows (approximately)
 /*!40000 ALTER TABLE `employment_status` DISABLE KEYS */;
 INSERT INTO `employment_status` (`id`, `status`) VALUES
 	(1, 'Employed'),
@@ -1569,6 +1592,7 @@ INSERT INTO `employment_status` (`id`, `status`) VALUES
 /*!40000 ALTER TABLE `employment_status` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.error_log
+DROP TABLE IF EXISTS `error_log`;
 CREATE TABLE IF NOT EXISTS `error_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user` text COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1578,9 +1602,9 @@ CREATE TABLE IF NOT EXISTS `error_log` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.error_log: ~237 rows (approximately)
+-- Dumping data for table msdfs_forms_db.error_log: ~220 rows (approximately)
 /*!40000 ALTER TABLE `error_log` DISABLE KEYS */;
 INSERT INTO `error_log` (`id`, `user`, `ip`, `action`, `exception`, `created_at`, `updated_at`) VALUES
 	(1, 'eyJpdiI6IlBlQm9YVjVOdjV2V21hT2ZoSlJldHc9PSIsInZhbHVlIjoibXQwMnJsTGxSRTFvR3ZMZUZYYmRXUT09IiwibWFjIjoiMGQyMDAxYTg1NjUyNTBmNmRmMGQ5ODNiOGMzZjUzODAyM2FiZDdlYjVhYTQwNGNjMzAwMWQ4NThkMjg3NzgzNiJ9', 'eyJpdiI6IjRrNjBjRy9OMzRRS08rUWNrdisyZVE9PSIsInZhbHVlIjoiMld0R3dmeXQvZ1Z0R3pxeUpKY0ZFeVVqNVNmWWpxNkFzU29mQVZSRkNhQT0iLCJtYWMiOiJlMWNmZWZkMjc0NDVjNzI5YzlkZjQxMzI5MjAyNGU0MmViZmZjZmI5NTEzNWRhZjg2OTNlNWEzZWQzOGY4NjNmIn0=', 'eyJpdiI6IldEU3RVMW9XbWY4UnRRL1RjQVhIdXc9PSIsInZhbHVlIjoiNGNmaGowQVREb1MvQXMwajVTMnM5eVRZZGc1SjgvdTM2NEFWU0FiQmVDbUJCanlDUFdYakNCMWlLT09JaVRRUWRPYjJOR0FvZjJ1R2RvVEVRN3RmcXc9PSIsIm1hYyI6ImQxMWI3ZTE1YzM3ODViOGFmNDg5Yzk2ZjNlNmY1ZWY3ZGQ5OGU4OGI4MDFjZjYzYjQyNGI2MjlkZWNiODk2ZDMifQ==', 'eyJpdiI6IjNrMFp4T3lFbnZUNXdRd2ZjYTlncGc9PSIsInZhbHVlIjoicEVhYllsN3g0eVFSRklNM3RzTEp0U0tGbjFKdVR6aXlGdktWb0xPWTk0az0iLCJtYWMiOiIxZmI0NzM5NDZiYjQ4YjZlNjZhNmY2OTY4Mzc1YjhiNTI5MTVlNjQ3MGYxNDgzNDhiMTEyMjIzNDA4ZmM2ODFlIn0=', '2020-08-14 23:19:21', '2020-08-14 23:19:21'),
@@ -1819,10 +1843,16 @@ INSERT INTO `error_log` (`id`, `user`, `ip`, `action`, `exception`, `created_at`
 	(234, 'eyJpdiI6Ik9ObkpYOFozeGtKbURCMGJVT2N3NVE9PSIsInZhbHVlIjoiM0Z4ZHZQZDJTL0lDcVYxbFZaYjI4djhkalB0cmdLSC9kdWhRd09aNkhmZz0iLCJtYWMiOiJjNWEwY2MwZjhhMGRhMWQzNWQ4MTY3ZjdiZmMzNTVhMjg5YThmNmM0OWE3ODllMGUzYTFmNGVkZWZjYWE4NDAzIn0=', 'eyJpdiI6ImtUOWVqNXg0ODBVTjBhSUNQeU5tS1E9PSIsInZhbHVlIjoiYnViQ2VSanlibnNvSGtCamFkYzQ4Z0RrSzBPdDBuUjY5ais4ZzZwN0FGRT0iLCJtYWMiOiIwZWQ5ZjI0YTQ2ZTJmNjk5OTQyNjg5MTcxYjU4MDNlNTUwYmY5NWI3YTRkNWMyNGIxMWEzZWJiOTcxOTFkMjNhIn0=', 'eyJpdiI6InhqNUhqemNxS25vUXFOUzhjOXRpRVE9PSIsInZhbHVlIjoid3pYbkZQaE1hbFg1Q25ZRlJJYXRpVnlwS05mdlpGMHdRLzN4bko1d1ZUTFZWZFl5NzdPSC83TU1aTVBGM1NBKyIsIm1hYyI6IjhhN2NjYzhkN2M0ZjE1OTg2ZTQxZDNlMjMwYWUwZGI2OGM5ZTQ3YjU0OGRmZjljYmU4NTAzNzU5YjE2YTJjMGYifQ==', 'eyJpdiI6IlVkTURYM3VzWGsyU0FXTlJCRXIwM0E9PSIsInZhbHVlIjoiNlZwbDJ5L01jZDYvbHFSOHB2UmdiOGRTWTcvcGs5VGE4UHBPZ2d3elNzeEdaaDkzUHdoUWJaLzlTTlo4dXlCeDNYUHViZHBydW9hd0RzS0FNZmhYRVE9PSIsIm1hYyI6ImUzNDE4MjRkYThhNzY5MTA1ZmZlYTM3MGNlNDQxMThjYTdlNjFmNmYwYjczODA0ZjFhZGVlMzdhYTgzNDMyMTcifQ==', '2020-09-10 04:19:58', '2020-09-10 04:19:58'),
 	(235, 'eyJpdiI6IlJZWjYvUWNMM2FCYXYrdW9KVWR3a0E9PSIsInZhbHVlIjoiZlpIY05RSzFmZktEZUZaVWRDM2pJUT09IiwibWFjIjoiZDEzMzA4N2FjMjgyY2YxZTIxNDFiYTg1OTA5YzhmYWZlNzgyNzhiNjM2ZTFiMzI2ZjMzNmIyZjEyNmE2YzE2ZSJ9', 'eyJpdiI6Inpnc3JTTGJxcmVhL2NSOENSUWVXYnc9PSIsInZhbHVlIjoiRlRqMDc4VlR6VlEvckF0eGYxY0JlNStNaXF6bDdCMEh3T3VZV0VINGxDWT0iLCJtYWMiOiIyMTA3ZmM0ZmJhOGEyNDEzNTRhNmRjYzM5ZmU3M2ExNWVkNDgzZTAyMDk2N2Q5ODk5Y2E0NTVjYTZhYTA2YmUyIn0=', 'eyJpdiI6ImlGTC9NS0trcWpKQzY4MFNTbHpxaVE9PSIsInZhbHVlIjoiNlBSMjZucTNlYVNlZ0dMSkFCZzdGVng2dEpXV1pTdDIxUVUvR0NwelQ5d0pvU2FjY0NLcmNBeWVPMHhNZFoyVS9NVG0zVDNZK2Z2Z3JsejdwZkM1MGc9PSIsIm1hYyI6IjJjMDcxZGY4MjBlZTVhNjRiMTMxMTY0NmY5NjQ5NmYyOTEyYzljMzRlNzlmNGNlMzJjMTJkMjQ2NGEzY2Y4NDcifQ==', 'eyJpdiI6ImNHUTlIdGs3SmQvdDV5MXVvTWRWRHc9PSIsInZhbHVlIjoiR2Y4eWxUY1V2WFpoL1BzNUhVeFQyQT09IiwibWFjIjoiZDdlODUyZmEzYTAwOWE1ZTgxMDQ2YTBlMWU3ZTEwNzcxMTVkZDExMWEzYWIxODFjY2JiOGVhNDFmMTY2ZjlkMiJ9', '2020-09-10 04:27:33', '2020-09-10 04:27:33'),
 	(236, 'eyJpdiI6IitRUDZad2RQbnViWVgrWWpORkw0aHc9PSIsInZhbHVlIjoiWXhQWVhPc2VoRTYvUVRvbU5rTWhoZz09IiwibWFjIjoiNzVlMDgwNmFjMTg1MDA3MmQyNjQ0Mjc1MjMxMmI1NWNhZDY4OTBkNTgzNzMwMDljZDUwODRiMWJlNmViYmU2OSJ9', 'eyJpdiI6IkdIeEExcFpiZStoRjlUdlJsSllwQWc9PSIsInZhbHVlIjoiTTI3Z2xQREJzOXlQUnh1bWlhd3NyYjNYZy9QVjN2T1hlaHpQZ3hDaVE2MD0iLCJtYWMiOiJhZWQ4NzQyYWYzOWM3ZWNlYTQxMDcxZjJjOTQwMjEwMDRiYzk3MWY2ZjRmZTZiNGVjNWNkNDg5NGYwOGE2ZGI1In0=', 'eyJpdiI6InRuYVdPWkd1NHg2V0RUSm1BRXN2R3c9PSIsInZhbHVlIjoiSTB4Y1JveGxacFNqUG1TczZKTU1EYXBLZXNrS05ucWUzN3ZiUHNCR0ZLVXk4UlJkWFNLbkMzSXVQTGJUWC9KNlg2bnNpNHdYTkZMOHhYZjkxdTBBdEE9PSIsIm1hYyI6IjY4ZWE3OGJhZDVlYTg2MDhjOGQ2ZTlkMmEyMDYyMWQ3Yjc2YjE0ZWE2ZjZmNzRlYzc5Y2U4OWZjZGY4ODE1YzEifQ==', 'eyJpdiI6ImU3dXlySGE5Ym5tMUdmQ0lSUlFreHc9PSIsInZhbHVlIjoiNU9KOHZMVm1hZWFXcTBIbHFKT1hodz09IiwibWFjIjoiN2NlYmQ2MzI2MTJlYjk5NjBmYjE2M2VlNmIzZWU2OGUxZTA2MDBlYTgwYmY3YjA4MmVhMDlmMDNlODNiZmViYyJ9', '2020-09-10 04:28:19', '2020-09-10 04:28:19'),
-	(237, 'eyJpdiI6InQyUGZRMnJ2aWNjQ3p5d2dYSnorMXc9PSIsInZhbHVlIjoiNFZ4Rkd6NURrdTNCUEx6alh1aDc3UEl1NU03cG14dk0waEJFbTNHeVM5QT0iLCJtYWMiOiJmNGEyNjI1N2U5OTE1NmQxYzFkYjdjNjIxYjU2YWU2ZGI5YWY1MWU3MDE5NDJmMTU2NDNhYzZjZWJiZjNlMmE5In0=', 'eyJpdiI6IlRBU3FPQzNkNXk2d05zWXlnN3RpQ0E9PSIsInZhbHVlIjoiY1FCRGZWTjZUZmJ6VTNVb2I0NkJSYkhXdGp4bWNEZVhIYTJlZE9NLzhyMD0iLCJtYWMiOiI0NThjYmNiODQxMGVhN2QwMGI1YmM4NDNiMjc5YTE0YzY3MWQ4NGI0OThhN2MxZWViZjM5NGU2ZGVjYzJiNzNkIn0=', 'eyJpdiI6IlRoMDdHT1NkUlZ1anpKRVk2dGwwZ3c9PSIsInZhbHVlIjoiTnl0aU8ybWVhNm1yTitud09UbnVKWE03VE81UXh2M08yN3pmdzVmdTU5UTBWVUxIQkI5eE1xWVpuQXVFNm1DSCIsIm1hYyI6ImM5MzMwZjUyOGVlZGQ4YTI1Y2M4OTA3ZTQwYzJhY2U3MGUwMjFlNmRhMzg4MzRkYWNmOTkwZTUzMWViYTUxMDUifQ==', 'eyJpdiI6InVjbmpoYVovY28wRTFKSlQxdlNZZGc9PSIsInZhbHVlIjoidFBrRk5RTVhLdkROYURnU2ZuTmRNMjBzR3IxTWxnTGhrYnZSdk5vcktWaFZaWXBZcVN6djF5RmovaXYvakM0aTY5ZDd1dkl3YXkxTngyUzQ1RjFWWUE9PSIsIm1hYyI6IjViM2JmMTA0YmVmZDI3NDliYWRiODgwNWE3NDRkY2YwYmMxZDI1OTMxY2E0YTNkY2I3MjJjMTcxNjI5Nzg2MjgifQ==', '2020-09-10 06:26:25', '2020-09-10 06:26:25');
+	(237, 'eyJpdiI6InQyUGZRMnJ2aWNjQ3p5d2dYSnorMXc9PSIsInZhbHVlIjoiNFZ4Rkd6NURrdTNCUEx6alh1aDc3UEl1NU03cG14dk0waEJFbTNHeVM5QT0iLCJtYWMiOiJmNGEyNjI1N2U5OTE1NmQxYzFkYjdjNjIxYjU2YWU2ZGI5YWY1MWU3MDE5NDJmMTU2NDNhYzZjZWJiZjNlMmE5In0=', 'eyJpdiI6IlRBU3FPQzNkNXk2d05zWXlnN3RpQ0E9PSIsInZhbHVlIjoiY1FCRGZWTjZUZmJ6VTNVb2I0NkJSYkhXdGp4bWNEZVhIYTJlZE9NLzhyMD0iLCJtYWMiOiI0NThjYmNiODQxMGVhN2QwMGI1YmM4NDNiMjc5YTE0YzY3MWQ4NGI0OThhN2MxZWViZjM5NGU2ZGVjYzJiNzNkIn0=', 'eyJpdiI6IlRoMDdHT1NkUlZ1anpKRVk2dGwwZ3c9PSIsInZhbHVlIjoiTnl0aU8ybWVhNm1yTitud09UbnVKWE03VE81UXh2M08yN3pmdzVmdTU5UTBWVUxIQkI5eE1xWVpuQXVFNm1DSCIsIm1hYyI6ImM5MzMwZjUyOGVlZGQ4YTI1Y2M4OTA3ZTQwYzJhY2U3MGUwMjFlNmRhMzg4MzRkYWNmOTkwZTUzMWViYTUxMDUifQ==', 'eyJpdiI6InVjbmpoYVovY28wRTFKSlQxdlNZZGc9PSIsInZhbHVlIjoidFBrRk5RTVhLdkROYURnU2ZuTmRNMjBzR3IxTWxnTGhrYnZSdk5vcktWaFZaWXBZcVN6djF5RmovaXYvakM0aTY5ZDd1dkl3YXkxTngyUzQ1RjFWWUE9PSIsIm1hYyI6IjViM2JmMTA0YmVmZDI3NDliYWRiODgwNWE3NDRkY2YwYmMxZDI1OTMxY2E0YTNkY2I3MjJjMTcxNjI5Nzg2MjgifQ==', '2020-09-10 06:26:25', '2020-09-10 06:26:25'),
+	(238, 'eyJpdiI6ImNTdklrZ1NHVFUyRjk0by90THEyM1E9PSIsInZhbHVlIjoiRXhkd2hyU3dkN0dxQnhNM1hmaWIyZz09IiwibWFjIjoiZWFhY2FhYTU4MWQ1MjBiNDE2ZWViNTk4ZjQ3MTQyN2E5MDllZmU0OWFmZDkxOGE2MThjNzBhMzM3ZjhlMzMxMyJ9', 'eyJpdiI6Im9sdjFwVnkxQ3FmeTRYMjcrTlZ4TEE9PSIsInZhbHVlIjoiem4yckZGRFY2dDFocTE2MjR4ZGNLU1dsL0g0K2RZQVdqOHNFeWxBWXRUTT0iLCJtYWMiOiJhOWZmYjZlYWMxNGUxODU2ZDA5YjFmOTc3NzMyMDM3NGY1ZWU2Y2QzMWYyNTFiMWJlM2IzNWRiZmY1MzA1ZGY1In0=', 'eyJpdiI6InY2cUV5aUdZd2hKSnZFOXFWelVqSnc9PSIsInZhbHVlIjoiN3VITXliaTd2UkxrQ2QrNE5UNmswWkxIYTFUc1hhZE9qNXBRa0hCYlJNdE1ybnowMnEwMU01K3Jza3pWemlUNzkvMWV4WlYxOE5HNzc2OVNENFhvWGc9PSIsIm1hYyI6IjY4ZmQwMjYwY2EzMDY5NDFhMDI5N2I3YWE1YzYyZWYzOTZmYjAyZDQ3MzQ4OTcxNzM3MTY5MWJlNDdmNzhhMGMifQ==', 'eyJpdiI6IlBheW9yR0FMaXhaby9INFFYbzdzdUE9PSIsInZhbHVlIjoiWXVvOVY2L1liZ0crZUVzeUt4RnIyUT09IiwibWFjIjoiZTk4YTMwNDJmNjBlMDY0NDBjYmJmNDk1ZmYxNDhlN2MxODhhZWYyODNlNmViZmE5MGMxNTM2ZDBlZTZiMGRmNCJ9', '2020-09-10 16:18:43', '2020-09-10 16:18:43'),
+	(239, 'eyJpdiI6Ikw4Y0VON2JqVlc0UW5YVy9NOUhpc2c9PSIsInZhbHVlIjoiRlVVc2dWSThUUXZHYjNTdkVSUXNrdz09IiwibWFjIjoiOTk0ZWNhNjUyZjQ4NzdkZWI5YjE2N2Q1NjczMDM2ODU3OTc5ZjM1NWYzOGI0NzE3NWYzNWFmYmFhYzRhN2EwNSJ9', 'eyJpdiI6IjRHSkxxaC9rTndPd0pUV09MQjNsTFE9PSIsInZhbHVlIjoid0VFSzR6bURmTGgrNEM1d09UVDdkTU43V3FuckdqM2djRmNGdEdlc1hqOD0iLCJtYWMiOiI0NjYzY2Q2MjViOWUxMTcwN2MwYzRhZWQwZTcwODEwOGRkNjEwZjFhYjY5YzEwNTE3ZjQxZDc2OTEwZjE5M2JlIn0=', 'eyJpdiI6InJUaXp0RnNreG5ia3VIU0hac0pJVlE9PSIsInZhbHVlIjoid0tlYUpvZWxxWkhmNm90TXFFb1QvV2J1a2NCYTlDc3B5Tlc0ZC9YUFUxQyt6S1FyOTh1Tnk4dGRPWXA3eTdxQ1BOeU9GckxyR2tDTmlHSlhpK3lGNHc9PSIsIm1hYyI6IjhmNmVjYzg1MjdhN2U0MWU5MmVkNTRmNzg3NGVjN2E1MmVhODg0MWQ4YTIwZGVlZDY5MTUxNmI5M2VjMjg1NzQifQ==', 'eyJpdiI6Im9HWVJiSlRtbWpXN3JhbHY2Qkh1dmc9PSIsInZhbHVlIjoiUll4RjY2ZGdjMnltTmRJWjFpUVVqdz09IiwibWFjIjoiNmVkNjJjMDczZTJhNWE4OGM3Y2ZmNGE1MDhmZDk0N2RkNGMwOTY3MmIyMmI1NDhiOWRkZjE5NmQyOTFhMGI3YiJ9', '2020-09-10 16:28:00', '2020-09-10 16:28:00'),
+	(240, 'eyJpdiI6IkI0V2JodHE0VXdMM0Fyc3g1cXVLVGc9PSIsInZhbHVlIjoiM0Y2NXRCL2l1SEVMME04QlBmcmFMZz09IiwibWFjIjoiZTI1ODZjZjI3ZmFmYzQ5NGU1ODExNWEwMjc1MWE4MWE1NWVkOWJkMGYwNGQ3NjE5YjAwMjlhM2ZkNWIzMDhjOCJ9', 'eyJpdiI6IlhpdHllMUFkNU1xM0dkdmNZWXl6bkE9PSIsInZhbHVlIjoicTZER3hvSzl0aVdyREtZMllWclJ6SnRIbnV3bC9QMExSQmFmbGZ5akdOYz0iLCJtYWMiOiJhZWRhZWE0ODZhNzYxNWE3ZTU4ZjdjOTBlYzIxMTA2N2RlOWRmNjA3ODQ5OTk0NGI2NDE3MTQ1MmU5MzcwYTVkIn0=', 'eyJpdiI6IlFKOENuMlE3T0NNdUxjbjNXQmMzU1E9PSIsInZhbHVlIjoiL054VFRLYk9vT0xzRnQ4NVBpdE16NUZPYzBVU3FqTWc1K1FXY01mRmNRcVhFUHlMSGk3WkZJeVd0cXpuTHBpcjFVLzZZenhNUEJReEYvL1d2YTVBU3c9PSIsIm1hYyI6ImIyMjJiNzA1MjBlZWZkZDcyNzA5ZjQ1OWM4YWE5MTNiM2NjMmY5MDJkOTM5NjkyZWNkNTQyNTk2YWE3YmRkN2UifQ==', 'eyJpdiI6Im9jZkNQMUVnS3kzRUV1aHlQSFdqN0E9PSIsInZhbHVlIjoiaUNNeUlJcE9heVdmZ04yYlNBb0tydz09IiwibWFjIjoiMjE0MzBmZDQwZjc0NzRjYjZjYTA3OTI1ZjVmNjA5NWFiOWQ3YzY2NWJmZGJmODE1YjJmZTcyNmFiYzI1MzMzMyJ9', '2020-09-10 16:28:12', '2020-09-10 16:28:12'),
+	(241, 'eyJpdiI6InUxRDE0cHhCMFdDQi9EY2dCeW4wZVE9PSIsInZhbHVlIjoiYVEzSzNZSktSZWNMRWpaYWIrOW4vdz09IiwibWFjIjoiZDIzOGFkODE1ZWNlNDUzMzM4MjE1NDk2ZGMzZjBmYThlNDQzMjg1YjAwNTQ2MWY1YTc4MzgxNTk2ZTU1OWQ1ZSJ9', 'eyJpdiI6Ik5XYVpidjNyU2FQSEVPRzRGVEliSmc9PSIsInZhbHVlIjoicXBKRWdTUUtPK2F0TC9kUkQ5alVJVVdheEg0UGttRmZrOVJTUTZNbDFKRT0iLCJtYWMiOiJlNTk3MjQzN2FjMjAwYjZjMjkzOTRjMDllNzFjMTExNmFlNzc3MmZhMGJjMmEwMjJmOGI0Njk0MzgxZTkyYjE2In0=', 'eyJpdiI6IjN6b1lPdWxqaThEcytnaTNpRXZ0Wmc9PSIsInZhbHVlIjoiZGliK3BFbTdkbUZkSU5KTEh2VktCNnRtV1NZVEppV0ZCdTMzdXg1NldwcEplOXlsUHZaZjdOMzFRa3dWNjIwd3VQZU91YlBsWkZ6NUhRNHJhdml5aUE9PSIsIm1hYyI6ImM2ZWU4MjRkMTJmODNkNThhZDlmNGQxMTFjOWMzMTQ0N2EzZjM0N2IzZDIxMDNlYjA4ZjU5MjYxYjBiZmZkYzUifQ==', 'eyJpdiI6ImZveEo3eDdJQ25wK3JRKytoZ3RsNlE9PSIsInZhbHVlIjoiY1pSaXc5dWhMSDlkVFJkSWduSGltdz09IiwibWFjIjoiYzIzMWExOTA3YTc0YTc1Y2YzNzU1YTg0ZDJjZWMwOWJiNTk5MjQ5MzljYWZlOGIxYmY0NWE1Yjg5NDNhNDg2YyJ9', '2020-09-10 16:28:17', '2020-09-10 16:28:17'),
+	(242, 'eyJpdiI6ImcwZFltbVZEQ2hoQ1I5QVAxQjBHcHc9PSIsInZhbHVlIjoiazVnY1lVdTI5SklhU3U5bHQrRzdqUT09IiwibWFjIjoiMGYwMWU3NGNhYzdmYTQ5ZGI3OTE0ZTJmN2NhZDRjYTJjNjRhY2E3OTA4NmY4NmEwNzViYzQzNGI2NjNiNmU5NiJ9', 'eyJpdiI6ImVwM0diaHRHN0xiYzNQMmZ3OTRtYnc9PSIsInZhbHVlIjoiM2F2ZVJPZFVFYXgvdmlaMlk4bzVBK29sUkFicnlrbktSaVczOTZZamJsVT0iLCJtYWMiOiI1MWNjMjdhNDYyOTg3NWE4YzVhYWI4YWNiMDViNmQ5NmViMWMwZmFmOTg5MGEzNWMxZDM0YzBkOThkNWE5MGQ2In0=', 'eyJpdiI6Ikt4NFBFcVRYRUFtVmFHdEtrcjh2dXc9PSIsInZhbHVlIjoiWUVpVDQ4NGM1QVNia0crVXZWMkdwbkR6SUlYdXdpV3loSTNMc3BSVkoyeTlPMFZuZWhrM1BYT3ZFcE8rOGxtUCIsIm1hYyI6IjJhOGZmMTk0MzNiNDQ5ZGNhZDg2ODkzMWJiZGNkY2NhMmNmOWQ2YmUwYmM2YmY0NjdmNTJiNjFiODg5ZTRjZjIifQ==', 'eyJpdiI6IndCNVdKc0lJRjdKL1JQYXFpNFBvcEE9PSIsInZhbHVlIjoiYlhxWHlJSndiaWJqZG1CYXJOUHJVcVk4ancrSHZ6QWl2RVBKSXA0dTlTZz0iLCJtYWMiOiI0N2FkOGE0NzZlY2VkZDhmMDViYTZiMDk1YmE4MDRiN2I0YTc1NTRkM2RhNmQzZjY0NTcxYjA5MmUzNDI5NTAzIn0=', '2020-09-11 10:53:08', '2020-09-11 10:53:08');
 /*!40000 ALTER TABLE `error_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.failed_jobs
+DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE IF NOT EXISTS `failed_jobs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `connection` text COLLATE utf8_unicode_ci NOT NULL,
@@ -1837,6 +1867,7 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.forms
+DROP TABLE IF EXISTS `forms`;
 CREATE TABLE IF NOT EXISTS `forms` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `form` varchar(150) NOT NULL,
@@ -1844,7 +1875,7 @@ CREATE TABLE IF NOT EXISTS `forms` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.forms: ~3 rows (approximately)
+-- Dumping data for table msdfs_forms_db.forms: ~2 rows (approximately)
 /*!40000 ALTER TABLE `forms` DISABLE KEYS */;
 INSERT INTO `forms` (`id`, `form`, `slug`) VALUES
 	(1, 'Form A - Employer/ Employee', 'form_a'),
@@ -1853,6 +1884,7 @@ INSERT INTO `forms` (`id`, `form`, `slug`) VALUES
 /*!40000 ALTER TABLE `forms` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_a
+DROP TABLE IF EXISTS `form_a`;
 CREATE TABLE IF NOT EXISTS `form_a` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -1869,7 +1901,7 @@ CREATE TABLE IF NOT EXISTS `form_a` (
   CONSTRAINT `FK_form_a_employment_list` FOREIGN KEY (`employment_list_id`) REFERENCES `employment_list` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.form_a: ~22 rows (approximately)
+-- Dumping data for table msdfs_forms_db.form_a: ~21 rows (approximately)
 /*!40000 ALTER TABLE `form_a` DISABLE KEYS */;
 INSERT INTO `form_a` (`id`, `application_id`, `employment_list_id`, `effective_date`, `employer_name`, `employer_address`, `employer_authorized_person`, `employer_contact`) VALUES
 	(3, 33, 2, '2020-07-09', 'eyJpdiI6IkJ6bytUckVKM2JKOTBKd05LR29malE9PSIsInZhbHVlIjoiSGFvMXZBTUhxczNtS0RpTFUrTVhacTVvK1V5WVJhdTUzSHZYTndVVnNuYkViS2tQcU9ueUZoOWIzOXB5UExhRSIsIm1hYyI6ImRiMzE5ZGJmMGNmMWQ0ZjQzNzBlODc5YzMwZWU3OTFjNmRhN2VmNjUxYTI2Mzc3ZTYyZWNjYzhkZWM5ZWNiOWIifQ==', 'eyJpdiI6ImtMNngzb2s3MEZBejh0amNjMTMyRkE9PSIsInZhbHVlIjoiU1pXM21oaGkzUmRNRGx2UkxjcG9Wa0VXZUVjOGFZQXl1aUNxVTNlazZTRHNuK1lYUjQzaWRyV1huZEdXcWZ3dSIsIm1hYyI6ImIzM2EwM2RhOWE5NjBlMjg3ODViOTBkMTg5ODQ2NTA1MWFiZDM4NzA1NzdlZGRhYWE5ZDIwMGUyMDZhMDE3Y2UifQ==', 'eyJpdiI6ImI2YnBZUzZtZGt0QUxUaDNIUG52Mmc9PSIsInZhbHVlIjoieVliYVdVbm1xaFpUc1pjb2x3Tnc4ZHB1NTNaM0k0cXhRMTl3U1ZiYk54WmVaWmNCTU9HaVRNa2JsMjVkYzFMKyIsIm1hYyI6IjRjOTQxYzA5ZjAyNWI5NGNhYzdmNWFjOGQ0ZjhlYWJiM2ZhNWRkOGQyMGNmYWJlZjRhZmRlMDQ1OWVkMjkzYWUifQ==', 'eyJpdiI6Ii9QK1VEN2U4SFVKVkhtZ0VDMEhpd3c9PSIsInZhbHVlIjoibmtZSWwyQ1MyR2Z0R3NtMlZuZ3JEdz09IiwibWFjIjoiNjQwZmZkY2YwNThhMGQ2NjdjNDdjNTdkMmVkNTExMDBmYzY0YjFjOGRkNmNhNTRkMzI3ZTFjN2FhZGI4YjRhYSJ9'),
@@ -1897,6 +1929,7 @@ INSERT INTO `form_a` (`id`, `application_id`, `employment_list_id`, `effective_d
 /*!40000 ALTER TABLE `form_a` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_b
+DROP TABLE IF EXISTS `form_b`;
 CREATE TABLE IF NOT EXISTS `form_b` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -1923,13 +1956,14 @@ CREATE TABLE IF NOT EXISTS `form_b` (
   CONSTRAINT `FK_form_b_job_titles` FOREIGN KEY (`recommender_job_title_id`) REFERENCES `job_titles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.form_b: ~1 rows (approximately)
+-- Dumping data for table msdfs_forms_db.form_b: ~0 rows (approximately)
 /*!40000 ALTER TABLE `form_b` DISABLE KEYS */;
 INSERT INTO `form_b` (`id`, `application_id`, `employment_list_id`, `effective_date`, `recommender_first_name`, `recommender_surname`, `recommender_gender`, `recommender_job_title_id`, `recommender_job_title_info`, `recommender_contact_no`, `recommender_email`, `recommender_home_address`, `recommender_city_town_id`, `recommender_years_known`) VALUES
 	(1, 57, 5, '2020-06-09', 'eyJpdiI6IjBRSWhSQyt1R2h6TTZ0MStrVFo2K0E9PSIsInZhbHVlIjoicVROelVRYVpKdWNWektXSWI1QTNTdz09IiwibWFjIjoiZjBhODY5NTk4Y2FlZDRhYzA1NzAzYmNjZTkxMWRmZGRjM2U3MjM5NGNmZDNkM2E2YzY3Njg5NDljNDljNzBiNCJ9', 'eyJpdiI6IklaNnF1NkZuTkNLMmJNc2hNOHJwT2c9PSIsInZhbHVlIjoiMm5MVjFRYzlLakJqRlRQT0U0YTErdz09IiwibWFjIjoiNTAxMGY2N2JkMDA5Mjc5NTlmNDlmNzQwNWI1MWFjZDcwMWJkM2YxOTZlZDkxZGIzZDM1NGY4YjllZDQyYjIwZSJ9', 'F', 15, NULL, 'eyJpdiI6IjE5c0diYnNROHVKZ0duczBMQlhlZXc9PSIsInZhbHVlIjoiaUp0VWcyMFpSa3JxV0RBRThnVDJLQT09IiwibWFjIjoiMDlhYWM5ZTE5MWYxMjJjNjQwOTE1Yzk1OGUwNTIzZGQ0M2EzNzc3YjQzZTQzNzY4MTBlOWNhYjAwOWZiMWIzZCJ9', 'eyJpdiI6IkJYenpiQnhLQUkxUDhPVDN2SEZhVEE9PSIsInZhbHVlIjoiUFRHRTRDQVNTVmpYQ0RINnZtZDdhdUJ3YURNUHJmNHVYT3B5WFRhcnl5KzUxTVRPOGluVkN0R1p0clIvRFRMMyIsIm1hYyI6ImM1ZTA5ZGZmNDhjOWNjMWViN2E0ZDNiOTE4Mjg0ODhiZmEzMTBkYWRmYjM1ZDZiNWFhZDdlZjA4MjkxZjYzN2YifQ==', 'eyJpdiI6InByWnlSRVByNTNLLzRubUJ0WEQvWUE9PSIsInZhbHVlIjoiMzRDQXdJYTRmS1BQcmZoMm0ydWMyTWRBMHFFUURIUG1qcWVKbW9IZzFlcW9ERE1ackkrT0xqSGhocXZBYVlIS0ZtOVVoc1JVdExBTUV5d2J6ZXM2cjZZSFQ5NXd1UTkybWVKNmRsK1NMTnhrTEFjSEN6bmcwUDMwR2pEcnRMUy9Yclc2dTNVRGRQVnI1aVJFYnBUY09wdDQ3N25MYTFCck5kYjVGOVkxZkpFPSIsIm1hYyI6IjQzNjBiMDI1OGQ2MzQzZTg3ZGRhMWIxNTFlYTdlZTI0NGI3MGQ1ZTA0M2VkZmI2MjUxMTQzMDUxYzlhMzc5ODEifQ==', 217, 26);
 /*!40000 ALTER TABLE `form_b` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_ci_items_lost
+DROP TABLE IF EXISTS `form_ci_items_lost`;
 CREATE TABLE IF NOT EXISTS `form_ci_items_lost` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `form_critical_incident_id` bigint(20) unsigned NOT NULL,
@@ -1942,9 +1976,9 @@ CREATE TABLE IF NOT EXISTS `form_ci_items_lost` (
   KEY `FK_form_ci_items_lost_items_lost_or_damaged` (`item_id`),
   CONSTRAINT `FK_form_ci_items_lost_form_critical_incident` FOREIGN KEY (`form_critical_incident_id`) REFERENCES `form_critical_incident` (`id`),
   CONSTRAINT `FK_form_ci_items_lost_items_lost_or_damaged` FOREIGN KEY (`item_id`) REFERENCES `items_lost_or_damaged` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=214 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.form_ci_items_lost: ~208 rows (approximately)
+-- Dumping data for table msdfs_forms_db.form_ci_items_lost: ~213 rows (approximately)
 /*!40000 ALTER TABLE `form_ci_items_lost` DISABLE KEYS */;
 INSERT INTO `form_ci_items_lost` (`id`, `form_critical_incident_id`, `item_id`, `recommended`, `approved`, `cost`) VALUES
 	(1, 1, 3, 1, 1, 3500.00),
@@ -2154,10 +2188,16 @@ INSERT INTO `form_ci_items_lost` (`id`, `form_critical_incident_id`, `item_id`, 
 	(205, 39, 8, 0, 0, NULL),
 	(206, 39, 12, 0, 0, NULL),
 	(207, 40, 4, 0, 0, NULL),
-	(208, 40, 12, 0, 0, NULL);
+	(208, 40, 12, 0, 0, NULL),
+	(209, 41, 4, 0, 0, NULL),
+	(210, 41, 5, 0, 0, NULL),
+	(211, 41, 6, 0, 0, NULL),
+	(212, 41, 8, 0, 0, NULL),
+	(213, 41, 12, 0, 0, NULL);
 /*!40000 ALTER TABLE `form_ci_items_lost` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.form_critical_incident
+DROP TABLE IF EXISTS `form_critical_incident`;
 CREATE TABLE IF NOT EXISTS `form_critical_incident` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `application_id` bigint(20) unsigned NOT NULL,
@@ -2171,9 +2211,9 @@ CREATE TABLE IF NOT EXISTS `form_critical_incident` (
   KEY `FK_form_critical_incident_disasters` (`disaster_id`),
   CONSTRAINT `FK_form_critical_incident_applications` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`),
   CONSTRAINT `FK_form_critical_incident_disasters` FOREIGN KEY (`disaster_id`) REFERENCES `disasters` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.form_critical_incident: ~40 rows (approximately)
+-- Dumping data for table msdfs_forms_db.form_critical_incident: ~41 rows (approximately)
 /*!40000 ALTER TABLE `form_critical_incident` DISABLE KEYS */;
 INSERT INTO `form_critical_incident` (`id`, `application_id`, `disaster_id`, `disaster_other`, `housing_damage`, `housing_repairs`, `insured`) VALUES
 	(1, 1, 4, NULL, 'Y', 'eyJpdiI6Ing4elFZelpHQnpMR21YRWNTcXg0MGc9PSIsInZhbHVlIjoiUHNMR3FjV0tXd0RhajBqS0ZnTGh4NE9VR00zSTdEbVhaRTVVK2xpQ3E5cUQ1UmFhdlpROENsSVBFK3FPR1hKTjlJcXd2aFUyK1EvZ3A3ZDY4Tm5OU0pFZXRGdG5CK0tZZThLaTVoSmFxTDVuYU1DdXZOdE90Y25tUWlwOE50WkkzcU5hN0ZLMTZGWW5GczBZcS93a1ZMK0RTZFF2M2hOcHNjOTh0a2xVV1FzMUFHNmhhLzVGVzVXdFZRdklzZWJKIiwibWFjIjoiN2FmNTdkYjQ1OWJiZjJiMTVlZmY2Mjk4ODdmZGU0ZWVkNTI3ZTRhMzM0YjI2ZWQ4NzY5MTVhN2MwYTE2ZjBkNiJ9', 'Y'),
@@ -2215,10 +2255,12 @@ INSERT INTO `form_critical_incident` (`id`, `application_id`, `disaster_id`, `di
 	(37, 64, 1, 'eyJpdiI6ImN4cXZxV2VVblJUbTZtd01PRTVweWc9PSIsInZhbHVlIjoiU285OG9wOUg1ekh3WFNxem5tUUNHMU04aVN2RU5rZ210WkE4UUtKOFRVTXduKzV0QkFjRThkaGllUE40eWtodVNzNW5XMlNNaStVelRVWm9TdEcrRmZpRTc4aVBERW42WnM5S2Zkd0svb1crMG1YNzYvUkc2UytsVjFISXZYQVA2REVvZ1AxbTEwV3JLTVUzQWRnMGNzd1RRR2IwS21XOXhSdXhYWmd3MnJIUmRYN1RWR3AxWXRLSmZjWWEvY0lqSGZ0YVVoNVcrbTVuOFkzV1ZYblpKZz09IiwibWFjIjoiNWJmMDRhOGNiMzAyZjdmNzJhZWMyZmZkMjYxMjJjMjA1NGQ4OGQ2NzJhZjUyMmM5MTkzYzEzMzIwMmVhOWFjMCJ9', 'Y', 'eyJpdiI6IlN5N1ErUEdLSjN3K1c4NU1EY3JqRVE9PSIsInZhbHVlIjoiN255UThJLzJWNjJhZ0s1Q3dCcGhSTXlqeCtRWGtzSUcxQzNpM1d1K2FCVExacEtOV2FXd0VkSUlrNjlmRXVKOGJnUnBsNklPVVF6ZXpzVUZFOFVQTjEvdVBhelNyOFFiN0tHdVBUV1piejJjTUJSbnM5MlN1ZnBJL1d0alVFTzI3U0p0anRpOUFXWW9iSFhJZmZpZ0lwcU5ENFhLNnhKZGNybm9mQmFiTnJnPSIsIm1hYyI6ImRjODI5YTQ3ZTA4YjAzZmUyYzkyYWU2NjBhMjhjMmYxMDQ4NjY4N2E5MmJlMjdiNzc3NDhmZTI4ZTAzYzNkYzIifQ==', 'Y'),
 	(38, 65, 1, 'eyJpdiI6InRWZzZIazMxY2ZvdXdXMnMrSzFiZHc9PSIsInZhbHVlIjoiY0lDb0dWU1R2Uk5Dbm5uMWE4a0JJeG84NGprYUNvUHFxb1hrZE5STnF0aksxWi9nQjBvL3NwTW5oRkhoOW1qWWhBNElwamRFZXJLNFk1WkpqMEhhMkZ6cFUyZmg0Q3N2L2dmajcxcm1jZWttQWVvQWVIcmVlYW9mK1BiM1MyWnhhS3pOSlBNbXI5MUphaUhDTUJwd0t2VUdKdzBPRUtTMEFDcmJRV0FMZzl6djUyMnAwaW1iZU9pQitLcXUwWEZ6dStkemdnRmt4ZEw4TVVmbDJYeTR5UT09IiwibWFjIjoiMTg4NWE0MzUyZWViOGExOWRmYzQ0ZjUzOWZmMDlmOGEyOTYwNDIzZDQ3M2I1OWRjNDllYzE2NzAyYjcxYTU4MiJ9', 'Y', 'eyJpdiI6Imp0NWdCVEZYeENFVnYyeG5LWERwUVE9PSIsInZhbHVlIjoiZUZydGsxWDhWNFJLcG4zUGEzcUR3cC8yMzVFQ3Baai96TXA5TU9PbDg3TGtLbllJK2VBRjJyc0pDdDN3YUpsemZPNjdRY1dkcjRlL2VUT0I2TVh5T21qQVRGL3NmM1B3a2hvKzBQeEpYYVFwTEFYSkQxdUE2NGRjdnJFZVAxYTZPRXhiSDV0YUtKYVlXZkk1YXNwRU9tZTkwWDVjMVRKVDNkZW1aMU43UHR3PSIsIm1hYyI6IjJhYzgzYzdhZDgyM2FkZTUzZWY3MzkwZmNkNmUxOTEzNmI5NzU0MGQ2ZTUxOWMyMTMzMTAzNGJmYmE2ZDQxNzgifQ==', 'Y'),
 	(39, 66, 5, NULL, 'N', 'eyJpdiI6ImNBTi9zSFhHWC95UGFad2NKT2RLdEE9PSIsInZhbHVlIjoiQnRsRW1TWFlHcXNXODRxR2R0RjNKdz09IiwibWFjIjoiZTc2M2YzM2Q1OTk1M2M5NTM2MDQ5NWY1MDdmZGRhZTQzM2Y3YmZmYTY5NzVmYWU4MmM4MDQxNThkOTA2YTY5YiJ9', NULL),
-	(40, 67, 2, 'eyJpdiI6Ik1LVjlxcnkvU0ZWVjNSY2daTFI0a3c9PSIsInZhbHVlIjoidmh3YjFTTXhjQkMyNVlnSk5WZUZuRmxIeTgzNEtOWUJtdm4vSGVrRklIeUZxT2gxbmlrZGp2S25kNFlmZFhUOC85N0dVWjdzRG9rS2NxNDlqdzgwMVdMU2dPUkd2Q3Y4eG9WNDlUK0lkNEk9IiwibWFjIjoiMGYzNzE3M2QyOTBhMzI5Zjg5ZDc5N2FhOGUzMjZjNWM1NmRjMDVhMjg4NjM5ZDIyNzM4MmZjODhhMjRkOWM3YiJ9', 'Y', 'eyJpdiI6InVYZTVKUEJucXFxUVFBdHRCbWl2bXc9PSIsInZhbHVlIjoiSG1XS0Z4VGpZTnJOWTVESVI5bmx6WXBTVEFMVGVTcUNsRThzT3dLUEJEYms0bFVsdVo4MHdWcndRN1Q2SklxRVJ6UktReXgyNERUVDZMVGR6U2NSaEJJNW4weVozUTJIVUlFRHg3NFVZRUU9IiwibWFjIjoiOTlhMTczYjVjNDg1MzEwNGFkNGM4M2VjYWFiZWExNDUyYjkxMmJiZDllOGQ2MzgwOTY4NjMzNTRkMjgwZGI4YyJ9', 'Y');
+	(40, 67, 2, 'eyJpdiI6Ik1LVjlxcnkvU0ZWVjNSY2daTFI0a3c9PSIsInZhbHVlIjoidmh3YjFTTXhjQkMyNVlnSk5WZUZuRmxIeTgzNEtOWUJtdm4vSGVrRklIeUZxT2gxbmlrZGp2S25kNFlmZFhUOC85N0dVWjdzRG9rS2NxNDlqdzgwMVdMU2dPUkd2Q3Y4eG9WNDlUK0lkNEk9IiwibWFjIjoiMGYzNzE3M2QyOTBhMzI5Zjg5ZDc5N2FhOGUzMjZjNWM1NmRjMDVhMjg4NjM5ZDIyNzM4MmZjODhhMjRkOWM3YiJ9', 'Y', 'eyJpdiI6InVYZTVKUEJucXFxUVFBdHRCbWl2bXc9PSIsInZhbHVlIjoiSG1XS0Z4VGpZTnJOWTVESVI5bmx6WXBTVEFMVGVTcUNsRThzT3dLUEJEYms0bFVsdVo4MHdWcndRN1Q2SklxRVJ6UktReXgyNERUVDZMVGR6U2NSaEJJNW4weVozUTJIVUlFRHg3NFVZRUU9IiwibWFjIjoiOTlhMTczYjVjNDg1MzEwNGFkNGM4M2VjYWFiZWExNDUyYjkxMmJiZDllOGQ2MzgwOTY4NjMzNTRkMjgwZGI4YyJ9', 'Y'),
+	(41, 68, 2, NULL, 'N', 'eyJpdiI6ImV2a2hUamRHcXI0ZENBV3RwbXUxaXc9PSIsInZhbHVlIjoiN244N0VRUG9zbko4YzVINDNmTENrZz09IiwibWFjIjoiZmM5MDBiNmQzODFmOWY4ZWIzODRhZGNmZWFlZGU5NTBiMWMyNzdkZDYxNzQxMDMzYjVkNTNiZjllMTllYTJlZiJ9', NULL);
 /*!40000 ALTER TABLE `form_critical_incident` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.households
+DROP TABLE IF EXISTS `households`;
 CREATE TABLE IF NOT EXISTS `households` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `housing_type_id` int(10) unsigned DEFAULT NULL,
@@ -2237,9 +2279,9 @@ CREATE TABLE IF NOT EXISTS `households` (
   CONSTRAINT `FK_households_communities` FOREIGN KEY (`community_id`) REFERENCES `communities` (`id`),
   CONSTRAINT `FK_households_housing_types` FOREIGN KEY (`housing_type_id`) REFERENCES `housing_types` (`id`),
   CONSTRAINT `FK_households_total_income` FOREIGN KEY (`total_income_id`) REFERENCES `total_income` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.households: ~64 rows (approximately)
+-- Dumping data for table msdfs_forms_db.households: ~65 rows (approximately)
 /*!40000 ALTER TABLE `households` DISABLE KEYS */;
 INSERT INTO `households` (`id`, `housing_type_id`, `address1`, `address2`, `community_id`, `total_income_id`, `total_income`, `active`, `created_at`, `updated_at`) VALUES
 	(1, 4, 'eyJpdiI6IkovckRaK1RPVjFxbHd2T0M5TDlqNGc9PSIsInZhbHVlIjoiZ0VqMVFWSEhnblZvaW1oQm9XMkN2ZlE0WThBTExMSUtBNUMzMFlDa3Eyc2VuRkIrS3pCWEZ2d2FEcld4Y2djZ05GRHZ5dzZhcEdITlBDbGxSbmhxR0J6YTZxbnU0dlZxN0F2a05oSjR3TlpXMzN4YkF4T1J4TXV0YlhQLy9vaGwyUmVuOGxLdUtxVmc5SDhnZGVja2lqUUlleGUzbHVQanhHTDFhM2tocVl5RVB3LzJDQTdIRlhQOXIvdW1rL0lGIiwibWFjIjoiMzhmMjkyYzYzNmY2MzdhYzMwNWNjMmZkMGVjMzk4NTAyZTRiYTk3MjU3Zjg3ZDRkYjJhODU2YTc3MjY2ODA3MyJ9', NULL, 516, 4, NULL, 1, '2020-08-14 23:22:24', NULL),
@@ -2305,10 +2347,12 @@ INSERT INTO `households` (`id`, `housing_type_id`, `address1`, `address2`, `comm
 	(61, 1, 'eyJpdiI6ImZhL1ZDTGtkditsREViNmpXc04rY3c9PSIsInZhbHVlIjoiMTY1M3VvZkRZYkNaemtObVVqTGRNOTJKL0ROQlVsQVp0STlpbFNqUlo3UVN3M0dwakFhenVKT2puZWZkT2FxUDBxNGVJeWg5L2l6TFNxUG96dHM2OXlwaEZXOUVJVzhQczAwVmFOVHhoL09yMDZCNFpNdkVkUEN0NTF5c3A2cXUiLCJtYWMiOiI5Zjc2YzBhMDc4MzBlOGFiZTA5ZjZkNTg5NTlhYjc5OTkxMzkwYjFiZTkxMDI3NWM2ZTdhZGYzODc4ODI5NmNiIn0=', NULL, 490, 4, NULL, 1, '2020-09-10 06:28:36', NULL),
 	(62, 1, 'eyJpdiI6IkN4QjZqUGVkcWp0a2hsQTVRVjJWUWc9PSIsInZhbHVlIjoid3hQT0w4UGJMdXpwQmZMeG8xbzYyNEFRNU5NL3JFZmJKb2FOeXJGUGd4NkV3QzRKdjFDRmlIQVFUNkRsSkFHdHBjWlhpZHdqZUczSCttdk5VOWxjK1A4RHUybjRKR1phR2tkZTdXTEtvOW1OdmJhQkZldGxqaGNlWm8zeG9iMksiLCJtYWMiOiI0ZWYzMjI4YjczOTJiNTQzNzVjNTkyMWU0MWZlYzU1ZTk5NWViNWVkYWM2OTM1N2JkZDNkMmYzOTY2OTAwYmRkIn0=', NULL, 490, 4, NULL, 1, '2020-09-10 06:39:53', NULL),
 	(63, 3, 'eyJpdiI6IjEvYjk3c2w3VkdyNFlweW9JSENaaEE9PSIsInZhbHVlIjoic0tRSFFjZmViVG9iemxyeG1RY2xnMXVYcHNXWGljdnhRZStOM1MwSk9YZlFmUFhHNWZjWGg4YVJQWWRIQ3UyVDRkVkVyTFBYb21CZjc2YnAzaDRFc2RzdkpjN0pDd1o3NzlXVDBFNVRqUDA9IiwibWFjIjoiZTM1NDQ0Y2RjYzU0ODhjOGEwZTc4YWFlMTAwZjkzYmE4YzY3ZmJkYTQ5MDQxODNmNzQ5ZWQ4Y2QxZWRmZWJiMiJ9', NULL, 514, 1, NULL, 1, '2020-09-10 06:43:15', NULL),
-	(64, 2, 'eyJpdiI6InhkMVliTm1uUjd1VS82OVlrTWwxUXc9PSIsInZhbHVlIjoib09GdFFTYnVjU1c3enBOaVVUcDNRYTFIcTdwSzVrM2FHbjA5K3RVUDN3QXJkQmdGZE9TK0xYMVFiTzdMMzRUZnN4WEpqa2NITlhBQTc0VVd4bGFvQy9NSVdrVEZuQnlBNEpWM0dzRUtyK2F5NkxTcXByZlFTaU8zUklqNlJOcFd6U0lpZUxJL0pldUczdllYTVQ1c2lURXg0djhnQndsMlAwVVFvUVhibU1kOUVsTjVsbHJ3UXZ3ZG1xK1ZCdzVzMlBXZit0UGp1d0JkWi82VzBLSkJvQT09IiwibWFjIjoiNGVlM2EzMmNjM2VmNDY2OWVjMjI1MzM5YWFjMjhlNDU2YTRhZGIyMThmZGNkZmIxNjk0ZWE5NGZhZTNhNTVmMSJ9', NULL, 237, 3, NULL, 1, '2020-09-10 06:47:53', NULL);
+	(64, 2, 'eyJpdiI6InhkMVliTm1uUjd1VS82OVlrTWwxUXc9PSIsInZhbHVlIjoib09GdFFTYnVjU1c3enBOaVVUcDNRYTFIcTdwSzVrM2FHbjA5K3RVUDN3QXJkQmdGZE9TK0xYMVFiTzdMMzRUZnN4WEpqa2NITlhBQTc0VVd4bGFvQy9NSVdrVEZuQnlBNEpWM0dzRUtyK2F5NkxTcXByZlFTaU8zUklqNlJOcFd6U0lpZUxJL0pldUczdllYTVQ1c2lURXg0djhnQndsMlAwVVFvUVhibU1kOUVsTjVsbHJ3UXZ3ZG1xK1ZCdzVzMlBXZit0UGp1d0JkWi82VzBLSkJvQT09IiwibWFjIjoiNGVlM2EzMmNjM2VmNDY2OWVjMjI1MzM5YWFjMjhlNDU2YTRhZGIyMThmZGNkZmIxNjk0ZWE5NGZhZTNhNTVmMSJ9', NULL, 237, 3, NULL, 1, '2020-09-10 06:47:53', NULL),
+	(65, 1, 'eyJpdiI6Ii9YNyt2K1RsaFlnOEdSbFNmWllkS0E9PSIsInZhbHVlIjoiY3Z6Y1RIVXhHY1BwMVkzOXdYaVpVUzFCVzhiU2Q3MnU2eVI2WURDU3l5b1ZqZjhpaEQ2dFI4eG1tVXI4c3R1ZzRQR2tVN1hTSmFYL2VIVFlodDVYQzVIQnBQdjNscmpGc3pVbTRyTGlvdmVKWW5tR2NuNW02VWxUdlRuT3l0S3kiLCJtYWMiOiIwNDQ5YjQ5YzE0ZWQ1NGU3Yzc5ZmM4ZWYwYjcwNWMyNjYzNDMxMmM1YmYzOGI5N2EyY2FkYzFiZjVmNzZmZmE4In0=', NULL, 347, 2, NULL, 1, '2020-09-11 10:52:24', NULL);
 /*!40000 ALTER TABLE `households` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.housing_types
+DROP TABLE IF EXISTS `housing_types`;
 CREATE TABLE IF NOT EXISTS `housing_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(150) NOT NULL,
@@ -2326,6 +2370,7 @@ INSERT INTO `housing_types` (`id`, `type`) VALUES
 /*!40000 ALTER TABLE `housing_types` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.id_states
+DROP TABLE IF EXISTS `id_states`;
 CREATE TABLE IF NOT EXISTS `id_states` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `id_state` varchar(150) NOT NULL,
@@ -2342,6 +2387,7 @@ INSERT INTO `id_states` (`id`, `id_state`) VALUES
 /*!40000 ALTER TABLE `id_states` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.insurers
+DROP TABLE IF EXISTS `insurers`;
 CREATE TABLE IF NOT EXISTS `insurers` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `form_critical_incident_id` bigint(20) unsigned NOT NULL,
@@ -2370,6 +2416,7 @@ INSERT INTO `insurers` (`id`, `form_critical_incident_id`, `insurer_name`, `insu
 /*!40000 ALTER TABLE `insurers` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.items_lost_or_damaged
+DROP TABLE IF EXISTS `items_lost_or_damaged`;
 CREATE TABLE IF NOT EXISTS `items_lost_or_damaged` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `slug` varchar(150) NOT NULL,
@@ -2396,6 +2443,7 @@ INSERT INTO `items_lost_or_damaged` (`id`, `slug`, `item`, `max_value`) VALUES
 /*!40000 ALTER TABLE `items_lost_or_damaged` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.jobs
+DROP TABLE IF EXISTS `jobs`;
 CREATE TABLE IF NOT EXISTS `jobs` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `queue` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -2414,6 +2462,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 /*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.job_titles
+DROP TABLE IF EXISTS `job_titles`;
 CREATE TABLE IF NOT EXISTS `job_titles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL,
@@ -2446,6 +2495,7 @@ INSERT INTO `job_titles` (`id`, `title`, `label`, `help`) VALUES
 /*!40000 ALTER TABLE `job_titles` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.landlords
+DROP TABLE IF EXISTS `landlords`;
 CREATE TABLE IF NOT EXISTS `landlords` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `household_id` bigint(20) unsigned NOT NULL,
@@ -2493,6 +2543,7 @@ INSERT INTO `landlords` (`id`, `household_id`, `first_name`, `surname`, `contact
 /*!40000 ALTER TABLE `landlords` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.local_boards
+DROP TABLE IF EXISTS `local_boards`;
 CREATE TABLE IF NOT EXISTS `local_boards` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `local_board` varchar(150) NOT NULL,
@@ -2503,7 +2554,7 @@ CREATE TABLE IF NOT EXISTS `local_boards` (
   UNIQUE KEY `code` (`letter`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.local_boards: ~11 rows (approximately)
+-- Dumping data for table msdfs_forms_db.local_boards: ~9 rows (approximately)
 /*!40000 ALTER TABLE `local_boards` DISABLE KEYS */;
 INSERT INTO `local_boards` (`id`, `local_board`, `area`, `letter`) VALUES
 	(1, 'St George Central', 'Aranguez', 'A'),
@@ -2520,6 +2571,7 @@ INSERT INTO `local_boards` (`id`, `local_board`, `area`, `letter`) VALUES
 /*!40000 ALTER TABLE `local_boards` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.marital_status
+DROP TABLE IF EXISTS `marital_status`;
 CREATE TABLE IF NOT EXISTS `marital_status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(150) NOT NULL,
@@ -2539,6 +2591,7 @@ INSERT INTO `marital_status` (`id`, `status`) VALUES
 /*!40000 ALTER TABLE `marital_status` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.migrations
+DROP TABLE IF EXISTS `migrations`;
 CREATE TABLE IF NOT EXISTS `migrations` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2554,6 +2607,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.password_resets
+DROP TABLE IF EXISTS `password_resets`;
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2566,6 +2620,7 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 /*!40000 ALTER TABLE `password_resets` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.people
+DROP TABLE IF EXISTS `people`;
 CREATE TABLE IF NOT EXISTS `people` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` text NOT NULL,
@@ -2601,9 +2656,9 @@ CREATE TABLE IF NOT EXISTS `people` (
   CONSTRAINT `FK_persons_id_states` FOREIGN KEY (`national_id_state_id`) REFERENCES `id_states` (`id`),
   CONSTRAINT `FK_persons_marital_status` FOREIGN KEY (`marital_status_id`) REFERENCES `marital_status` (`id`),
   CONSTRAINT `FK_persons_total_income` FOREIGN KEY (`income_id`) REFERENCES `total_income` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=127 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.people: ~124 rows (approximately)
+-- Dumping data for table msdfs_forms_db.people: ~118 rows (approximately)
 /*!40000 ALTER TABLE `people` DISABLE KEYS */;
 INSERT INTO `people` (`id`, `first_name`, `surname`, `othername`, `email`, `gender`, `citizen`, `dob`, `marital_status_id`, `marital_status_other`, `national_id`, `national_id_state_id`, `drivers_permit`, `passport`, `nis`, `employment_status_id`, `employment_status_other`, `job_title`, `primary_mobile_contact`, `secondary_mobile_contact`, `land_line_telephone_contact`, `income_id`, `income`, `created_at`, `updated_at`) VALUES
 	(1, 'eyJpdiI6IkpvTTRMR2VSRmpFRHA0QkFpQ3NjS0E9PSIsInZhbHVlIjoiSi83NXp1QjBuK3dtWXJDdjNnT1NrQT09IiwibWFjIjoiOTlmMzRkOWE0MWQyMGZjOWQ4Y2RmZWIxMjdjNjYxMWRiNDUwZWRlZTA0OWEyMjUyNDdlYzU3OTVmMmJhMTkwNyJ9', 'eyJpdiI6ImUvWTJLWGkxeGxDdjlCTC9WZXo2L1E9PSIsInZhbHVlIjoiVm81RjBFeUNYVHhqZFV1a2tFUE1zUT09IiwibWFjIjoiYzU0NmVmYzYxZWZlYTRjMDY0MGM0ZmY2ZDYzNzg1NWE4MWExOWI2YTc2MGZkYTMwZGNkNDU2YThmZDE3NDExYSJ9', NULL, NULL, 'F', 'Y', '1989-01-18', NULL, NULL, 45433333333, NULL, NULL, NULL, NULL, 7, 'eyJpdiI6Ik80cFpZRExCNzBLUmlrTDNleTF4WlE9PSIsInZhbHVlIjoiWHZsNmxESnUvVTluM2JHbWVZQXUyQT09IiwibWFjIjoiZjY4NzQ3MWZjYjQ5YWMwZjQzNDU1ZjRlNGViMmNkMGM5YTJlZGQxNzk0NGQ5MmYwM2QxNjdjNDkwNTUzMzJlNiJ9', NULL, 'eyJpdiI6InVYU2xUcXY1NjFxZU9WVjNiak1UVnc9PSIsInZhbHVlIjoiNHIxVkhvYURBY3gxVDZDcXJvWWVDZz09IiwibWFjIjoiZTQzMWMyYTA0N2VmNDcwMDE0NmQxOWViYTc4YmJlN2E0OWUzYTZkOTFhNjk1NDExYTQ3MTQ2YzljNjE2NjBmZCJ9', 'eyJpdiI6ImEzcThpSXJsSzZmY0Vxb0lJOTRSMFE9PSIsInZhbHVlIjoiTnRNb05XK0tUMUsveE1PRkszVnhoZz09IiwibWFjIjoiYzYyNjJkNzkwNmE0OTA1MGEyMjJkZTBmMWU0YTg0OTY2YzEwZmUzZmVjZmE4YzBhODNjMzllYThjOTgwYWJjNyJ9', 'eyJpdiI6ImtIeEtoTzJ1eitKcENDQlUxRWYzWkE9PSIsInZhbHVlIjoiTGpWK1pDU2tYV0w4TFB6OGI0T2cwUT09IiwibWFjIjoiY2IxN2U2MTdmMDJhYzMzYzJkMTJjMTU4Y2Q1ZTZmYmNhOWFhMzhhZDEzMmJjZDc1ZTFhNThiYzQzNzRhZDczNyJ9', NULL, NULL, '2020-08-14 23:22:24', '2020-08-14 23:22:24'),
@@ -2729,10 +2784,13 @@ INSERT INTO `people` (`id`, `first_name`, `surname`, `othername`, `email`, `gend
 	(121, 'eyJpdiI6Iit4dzhJeTUxbFVERnlMc2MxWllHMlE9PSIsInZhbHVlIjoiZHNPZTVUVGhIQWZnUUNibW5aSTY0UT09IiwibWFjIjoiYjcyMmMzZmY3YmMyYWU2ZDJjZWI1ZDJhNzIzZGJlYjJlYzAwOTg0NmQ3ZmM4NjZlNzVjNWY5YzExNWM0ZTJlYyJ9', 'eyJpdiI6IkJURG1uSFFWbitSaWZvZWpOeW13OHc9PSIsInZhbHVlIjoieU5UNU1uVGxpcXRtdmJmdzRudVJndz09IiwibWFjIjoiOWYwOTgxMWJkOTExNWIxMmM2Yzc3MjdiMTE3MjNjNzNkNzM4ZmMyMjJkOWEwZDg1NTgwOWY3MzU1YTcwODUwMiJ9', 'eyJpdiI6IlhuL09GT3JkcGY2TjhROWJ6THVld3c9PSIsInZhbHVlIjoiRmxPVDRwUXhJNGRBQlIyZzhabTFRZz09IiwibWFjIjoiZWFhZDA5NzM1NDNkYWI5NzI1YWI0N2FmMjFjOWI3ODI2YzFmNmE3MTMzZmRjZWVlZDQ2YTk0NzVmODQ1MjNkYiJ9', 'eyJpdiI6IjJ2Z1FXRWVpdmhSQWdrRnRydVZWZkE9PSIsInZhbHVlIjoiVlgvS1c4MnIvRUJHVm9IMU9IaE9va1Nxa2NobGdlQ2VTRG41eFl6Qkl6RT0iLCJtYWMiOiI5MTlkMmE3MWU5NGJmYjQyNWQ3ZTA5MDJhZjMxOGU1NjdkNzA3MGM1MTUwMGFmZjAzNTc3OGE1OGM2MmM3NDJjIn0=', 'M', 'Y', '2000-02-15', 1, NULL, 38733333333, 2, 'eyJpdiI6IkRTWEgxM1RmeWJDNnlmaFhoZGN6Tmc9PSIsInZhbHVlIjoibUR0T0h3cVNvd1lUbWE0MFJPV21GQT09IiwibWFjIjoiNTNhMDRkZGYxMjhjMWZjMWViZDhkODUyMmE0MWRkMDEzNTU2MTNjM2JjMjlhNDQ0MmNhMzkwNWIzYmY2NGJkYyJ9', 'eyJpdiI6IitNak9ZTWxPc0NnNzVkN2MyVVdzYXc9PSIsInZhbHVlIjoiM0ZuTGJ4Mm91RC9YNnV4Y0J6ZHpqQT09IiwibWFjIjoiMTc4M2ZjZTExM2FkMWVlODZmMjNkODU5NTIxY2NhY2FhMGQzZDc3Njc3MDU2NWRhZjEzMGQ5NzhmMjJiNmU0YiJ9', NULL, 10, NULL, NULL, 'eyJpdiI6IkE5bXAyT2NaRmdSbDdwc3NvUnZSc1E9PSIsInZhbHVlIjoiVTNjQkFYazBzYi9DSzVPRlZySVNnVnhFdnZ5S3RmaGRaZWswUlVya3V4MD0iLCJtYWMiOiI4NTRjOWRjN2JhMjE3Mzg2MmE0N2U3M2I4N2ZjOTViZWFlMThiZjNjNWY4OGU1ZTI1NzFkM2RmMjc2NGRkMzVmIn0=', 'eyJpdiI6Ing2eHp3K1NHakxrY2dxQVhpem43OVE9PSIsInZhbHVlIjoid3pVVVBTcWx0blV0MG1KbVMvUVQ1NkFydmtKVkY0TXM4ZXRFWFFjUkNhTT0iLCJtYWMiOiIyYzg0MDZlMzFlNWVkN2NhMzAxOGQyODY3ZDkyODBhYjQ4ODg2OTEwY2Y0MTk1MmE3NzY5YTMwOTRkN2JhNzcwIn0=', 'eyJpdiI6IjRVVlZaR2FXa0ZlWFA4K2RweEdHQ1E9PSIsInZhbHVlIjoiOFZOdFRFNmRId2RWVFFxWXU1SjZ1SC9ETUtyUHVXdWdMaGlTcFMxOXluWT0iLCJtYWMiOiJiNmI5NWRhNTgxYTljNGU2ZjBjZWMwMDYyZTljYjQ1N2I1NjE4ZWZhMGM5NzczMGZiODZiNDk2MWE1M2UzMzZlIn0=', NULL, NULL, '2020-09-10 06:28:36', '2020-09-10 06:28:36'),
 	(122, 'eyJpdiI6InNINkdqNWF6WURGQlhFMmRqR2JUalE9PSIsInZhbHVlIjoiOXVpejBxZUYvTEswcGF6eHlWMHhoZz09IiwibWFjIjoiNDY0MzUwYjcyMDg3Nzg4YTg3Njc5NTJlNzQwMWYzMTk2Y2Y3NmM4ZTcxMWZmODk4ZDk5MTdjYzc4M2Y2OGZjZCJ9', 'eyJpdiI6IjQ2ODhQK0ZLZThsbU1HYUlmYnlqeVE9PSIsInZhbHVlIjoiWnBHaHJCN0I5REhqNGJVUFVUclZGZz09IiwibWFjIjoiYjlhM2Y0YWIxZGNkYzE5MGIyZjk2MDI1NTkzMGRkYWFlMmU0NDJlYjhkNjY1OTZkNjQ3ZDBiNDRhYzUwMzM5ZCJ9', 'eyJpdiI6IkNYR2JOamxIQmVNVk1CZmhESzdUZGc9PSIsInZhbHVlIjoiUlhlRHRWd3dHNHlXL0V6U09pYlJCUT09IiwibWFjIjoiZTZjNDEwMjI1NTk0NzIwYjhhN2YxNmY2MWY1MmYyMmIwMGMxMTExMmVhNTE3ZmY3YWQ2M2FiMGFjYWQ5NTZiYSJ9', 'eyJpdiI6IkhHU2lEQ1M0c1NsQk5GR0lIZE1rVXc9PSIsInZhbHVlIjoidzk5V3lQMS84SjZoWTA3TzA0RkpyZFhuNjM1R3RRNDdXRkFJMW1qUzhrQT0iLCJtYWMiOiIxODViZmUwYTQyMzQzMGJlZGM4MGYwZjZhOGM1N2EyZTI3Zjg0YzMzNjVmNjI5MGU2MGJkMjc4OGRlMjk0ZDk0In0=', 'M', 'Y', '2000-02-15', 1, NULL, 38733333333, 2, 'eyJpdiI6InJXSFFyTnFmaFBUSnc1WThuTVROOXc9PSIsInZhbHVlIjoiOVdmZUdobXRWREo0NVNFV25MakNzZz09IiwibWFjIjoiNTYzMmI0MzIyNzk0NzM3MTdjNzkxYjFlOGYzMDU5NzI5NmI2ZDk5NTcxMDhhODFlOGQ1MTE1OGU1OWRkZDYwMCJ9', 'eyJpdiI6ImtXSGxqUXJiL3NDN2M0WnJRM2g5SFE9PSIsInZhbHVlIjoiZWU1NUh1VUZyN0lpZW9nR0I5NGZkdz09IiwibWFjIjoiMmRhNWFkMzgzMWRmNWY4NDEyOWFmNzU0MDkwNjIwYTU4ODI0YzgxNGFhYWY3OWViNjk2ZjFhODlmNzc1ZWZiOSJ9', NULL, 10, NULL, NULL, 'eyJpdiI6IkFxakVkWkxHR2NrbDJCM3pqVGxIaVE9PSIsInZhbHVlIjoiK0wrM3kzb2paUHpUVHZpK1pDeittUEoyK1NvVlRwbzZLVXdidm1SNWhuaz0iLCJtYWMiOiI1YTQ5Nzk4MGRiYmViY2U0YmUwMjVhNGNiNWYzMWVjYTRiNTYzZTFjNGQ0YTBkMGUwY2JiZTczODY4ZWEyNmJiIn0=', 'eyJpdiI6InpsekRMNm80dzJVelhGTkh2bi9iOHc9PSIsInZhbHVlIjoianhhOTg0djVvZVVpRjFRaDJlNEx4RDJaeGNaRFArTndhbGdiSys3aDNvQT0iLCJtYWMiOiI0ZjlhNWU2ZGM3NzVkYzMyN2ZjZjY5ZGQyOGY5YWM5ZDM0NWIxNThkMGRkNGI4ZGM1Yzk5MGZlZTg3YzkzZmE3In0=', 'eyJpdiI6IjlqMWxUbWVJb2hMMGZKUFBQdlp1TlE9PSIsInZhbHVlIjoienlkWjF5LytTclRTR3R1Um0wQW1td2ZDZ2xRaFppNWdNMGprNzcyQWY4OD0iLCJtYWMiOiJlZWZjMGExZTkxZTUwNTQ3NjRjYTIyOWJiYzlkMDFiYjcyYzY2N2ZmOTNiZTNlZGM5ZGE4Y2ZlMjVhNTU0ZmM1In0=', NULL, NULL, '2020-09-10 06:39:53', '2020-09-10 06:39:53'),
 	(123, 'eyJpdiI6InovUkUyU2I4ZjJIRm9rQTYyMFZ4eUE9PSIsInZhbHVlIjoiT2ZUVXNubUh6ZnFZbThWSUsrUlpMUT09IiwibWFjIjoiNjlhNWY1NTgxNzY5MDZlMzFkNzlmYzU1MWRiZmVkNDRjNmI1NGZlZmE5YjIzOWQwMDYzYzhlNmYyMTQwZjg2MyJ9', 'eyJpdiI6InMwTHlkaVZ4eGdkOGdIeTNkV2dqK1E9PSIsInZhbHVlIjoid0F3NWd5S1p4STl5N2xURWdkZXB3UT09IiwibWFjIjoiZDdkNDFlMGE1MTZhY2QxNGQ4YzQzNGI5OWEzMjkwOWU0NzI1ODA4YWRmMzYyYmUwNjdkYWY3NzJiMzc2MGNmMyJ9', 'eyJpdiI6ImdqK0dyWFQyZWhkL2JtUTlPZzhRSGc9PSIsInZhbHVlIjoiNWJCRVp6ZllTQ1NwMU5NeC95MDM1UT09IiwibWFjIjoiZTYzN2IzNzViZTgyNjFjYzIxNjVmNjQ5YWMxYzcwYzUyOGEwODczZjJkZmE3Y2JjY2I0MjExNjU1ODc2MTQ0MiJ9', 'eyJpdiI6IkIrdXB2SUpRQXM1aXI0TjR6S1JWS3c9PSIsInZhbHVlIjoiaUtxNW9IWS9lSEJpUzJNS2p0c2JqZDlvVnhVUjBaNmFrZitvN3puaG8yVT0iLCJtYWMiOiI2NjNiNTU0ZTM5ZDU5OTY5NTFhNzlmYjI4ZDU4ZmI4YmVlMGJiZmJiOWM2YmJlZWNiNTZjOGQzMmE4MmIzZmQ2In0=', 'F', 'Y', '2000-02-09', 2, NULL, 28433333333, 3, 'eyJpdiI6InBQNVpFa2E5RVVkc3lJYWp4bFh0Z1E9PSIsInZhbHVlIjoiTElFV1JzNWtFMzJEbkxGTVM1Z3JBQT09IiwibWFjIjoiY2I0N2Q0NDRlMTQxMWFkYTk1NjhjOWNlOTNjZjU2ZWZlZDk5ZTVjOTBhODMwMzNkYjU1ZDZmNzcyOTI4YmVmNyJ9', 'eyJpdiI6InhBREczaTBlZTV1SFZXNjNsS1RrSWc9PSIsInZhbHVlIjoiUGlOL1hwaXl6UDJQSnFpTHpRVlFZZz09IiwibWFjIjoiOWJiNjRkMjBjMGVhMDljNzNjMTk2MzU1OWRlZGNkMWZhNWU5M2VlZmZkNDcwZjc5OGVjY2VmNGUwMjlkZWNkYiJ9', NULL, 10, NULL, NULL, 'eyJpdiI6IlltM2hLZjhuODltM2VBZ2ZBTjZGZGc9PSIsInZhbHVlIjoiS0dVNk91bGdKTFVhRFdJalBFOE1sWXJvWUdMTWdWY2tFcDhNRUpqbVMrYz0iLCJtYWMiOiI5MmRmMGJjYmQwYjg1ODRkMDNkZTMyODgzMzYwNzVhZWFhZTQxMTVlOGMwNTFjNDQ1NThjZGYzODUwZDcxNTFlIn0=', 'eyJpdiI6IlM1U1Z0OGdkaDJURzJ0RFo4VFZrUlE9PSIsInZhbHVlIjoiTHBGd0N5MjlFUnlxb09LR2NjR0cySTM1NG9GajV3Rmk3TzZ3T2tpMTlaYz0iLCJtYWMiOiI1NDBhZGUxY2I3ODQ1OTliMTNkNjI2Y2UxYjRiZTY3MDk4YjQ3OTQ3YTA3MzFiZjQ1ZGYwNDFkY2Y5MGU0YzE3In0=', 'eyJpdiI6IkhBYy95M1VNQ2R0WW1YSHlhRSsrSGc9PSIsInZhbHVlIjoicVJoTmFGbCtQclRXWDJoQ2JUQzNqMDZrVi9MVVBJbjc4NjRLR3JDdUZaRT0iLCJtYWMiOiI5NWYyMDE2NzE2YjY5NzEzYWY5NzlmNjQ0YzYzMWFmNjViNjVjYmY5NDk2NzNhNTg0MzA1NTAxYTg2YTdjMWI3In0=', NULL, NULL, '2020-09-10 06:43:15', '2020-09-10 06:43:15'),
-	(124, 'eyJpdiI6Im1zOVhHczYvMzR3dUpvUDJIUnBLUGc9PSIsInZhbHVlIjoiV2ZCelJzcWZNTk14M1NnQVEyQmJZUT09IiwibWFjIjoiOGI4MjBmZDA0MmFhYmE2YjM1NTJmM2Y0MjgwNjM3NDFlNzVjYjBjMTg1MzAwZDc1Y2ExNjZmMjcxNDU3OWEwMSJ9', 'eyJpdiI6InphWkdNUmh5UFVuU2tZV2NDam42emc9PSIsInZhbHVlIjoiMUZPWTgveENzcW5YMXZHM2tnSGp0dz09IiwibWFjIjoiNzI1MzYyOGU1NzMzN2ZlODVlZTczM2M5OTdkYmM0ODdlZWFiOWZkZjg1NDJiMGRhOGFlM2MzZDE4OTYxYTVlZSJ9', 'eyJpdiI6IkQ2aTZ1OW9aSlYvNXBGZ2Raa016U3c9PSIsInZhbHVlIjoiYVBndHpsTVZuZXV0TDNUZkJkRHBZdz09IiwibWFjIjoiOWIwYWRiZWViMDZhZmQ2YTZjM2Y2Y2E3YjVkYThiNzFlZGJmYzMxMzE4NmZiYzU4NmJiNDFjZTZkOWRhZGQwMyJ9', 'eyJpdiI6Ik0rd3JjSjVKdHpzTHRKY0xVTUErenc9PSIsInZhbHVlIjoiZGpGWi9NTnBVblZGWEZSSEFxV3dpcjc3SUhDTDlpbGZYWFFRdG1QRlRldz0iLCJtYWMiOiI3NGRkNDFjOTI2MWUyYWRhNWQzNWZiOGRjNDJhYjI1ZGViZDlmNTBmNThkMDA3M2ZjOGQ4OGVkZDNmZDA4YWQzIn0=', 'M', 'Y', '1989-01-03', 3, NULL, 69744444444, 3, 'eyJpdiI6InNjaU03aWtBK3NBRXk0ZENhdkJxZmc9PSIsInZhbHVlIjoiNEJYWEJ4SEhBc2dlUC9VUWRyOTFhUT09IiwibWFjIjoiMzI4M2MwYmE5MTE3NzMxZTYwZTg3Mjg4OTA2Y2JjYzNjMGM2ZWExMzY0MGYzZjE4NWFiYWM0MjMyOGM4NzQyYiJ9', 'eyJpdiI6IklkSkIrQll0Q1lUVkpST1NjVzlpdXc9PSIsInZhbHVlIjoiblljTW8vdS9GQzg1ZkM0Ry8rYnI0QT09IiwibWFjIjoiODE2NzMyNGE0OWJjMjQ3NGE0NzU3MDVhNzkzYTViOThlZGE1MzAwOGE5YmVmNWJkODg4ZjJjNDM1NDg2M2Y0YyJ9', NULL, 8, NULL, NULL, 'eyJpdiI6Im5RUXF6MElRVzc5SjNFK1QyN2Y4NFE9PSIsInZhbHVlIjoiNS8ybzRsRlBVOUx4WXhWdnZCaHBBdExBZGRJa3JvSU1IMzZqaGloM3AwMD0iLCJtYWMiOiJmOTZjZGIwNDA0OTk1ZTAzNjg2YzFjNTY1OWI0NmVjYThhNjdlMTVhZDlkYTkwYjkzYTI0N2E0YmVjMDI5MDE5In0=', 'eyJpdiI6IlJGU1lKaUQyVnpDY0k0OENmdFJoOHc9PSIsInZhbHVlIjoiNjJSRFpKeUVwT2JwZkdBbERUUGpvZDRmaEdFVWpjaC9kditieEQyVlcxYz0iLCJtYWMiOiJjZGM3MTliNzc1YTBmNmY4NDM1M2Y1MDIzNDI2NDk2YmZmOGZkMWJmMGViYTJiOGUxMGNkOTk0Nzk0ZTRkZWNiIn0=', 'eyJpdiI6Iks1UkNoV3UybmF3Qk8zbVA5d2g1VXc9PSIsInZhbHVlIjoiRGRTTmFnV01TRXBkNlc1NjNhYnhqSEhpN3FRZDJPSWxKenR3Nys2RUpsST0iLCJtYWMiOiJlZDJlOGI1ZTY2ZjU5ZDQ0OWIxMjE1MTkxZDc5MmRlMGU1MWFjZWJkYmNjNjZkYjViODM0ZmEzNWEwNjFkZmZmIn0=', NULL, NULL, '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(124, 'eyJpdiI6Im1zOVhHczYvMzR3dUpvUDJIUnBLUGc9PSIsInZhbHVlIjoiV2ZCelJzcWZNTk14M1NnQVEyQmJZUT09IiwibWFjIjoiOGI4MjBmZDA0MmFhYmE2YjM1NTJmM2Y0MjgwNjM3NDFlNzVjYjBjMTg1MzAwZDc1Y2ExNjZmMjcxNDU3OWEwMSJ9', 'eyJpdiI6InphWkdNUmh5UFVuU2tZV2NDam42emc9PSIsInZhbHVlIjoiMUZPWTgveENzcW5YMXZHM2tnSGp0dz09IiwibWFjIjoiNzI1MzYyOGU1NzMzN2ZlODVlZTczM2M5OTdkYmM0ODdlZWFiOWZkZjg1NDJiMGRhOGFlM2MzZDE4OTYxYTVlZSJ9', 'eyJpdiI6IkQ2aTZ1OW9aSlYvNXBGZ2Raa016U3c9PSIsInZhbHVlIjoiYVBndHpsTVZuZXV0TDNUZkJkRHBZdz09IiwibWFjIjoiOWIwYWRiZWViMDZhZmQ2YTZjM2Y2Y2E3YjVkYThiNzFlZGJmYzMxMzE4NmZiYzU4NmJiNDFjZTZkOWRhZGQwMyJ9', 'eyJpdiI6Ik0rd3JjSjVKdHpzTHRKY0xVTUErenc9PSIsInZhbHVlIjoiZGpGWi9NTnBVblZGWEZSSEFxV3dpcjc3SUhDTDlpbGZYWFFRdG1QRlRldz0iLCJtYWMiOiI3NGRkNDFjOTI2MWUyYWRhNWQzNWZiOGRjNDJhYjI1ZGViZDlmNTBmNThkMDA3M2ZjOGQ4OGVkZDNmZDA4YWQzIn0=', 'M', 'Y', '1989-01-03', 3, NULL, 69744444444, 3, 'eyJpdiI6InNjaU03aWtBK3NBRXk0ZENhdkJxZmc9PSIsInZhbHVlIjoiNEJYWEJ4SEhBc2dlUC9VUWRyOTFhUT09IiwibWFjIjoiMzI4M2MwYmE5MTE3NzMxZTYwZTg3Mjg4OTA2Y2JjYzNjMGM2ZWExMzY0MGYzZjE4NWFiYWM0MjMyOGM4NzQyYiJ9', 'eyJpdiI6IklkSkIrQll0Q1lUVkpST1NjVzlpdXc9PSIsInZhbHVlIjoiblljTW8vdS9GQzg1ZkM0Ry8rYnI0QT09IiwibWFjIjoiODE2NzMyNGE0OWJjMjQ3NGE0NzU3MDVhNzkzYTViOThlZGE1MzAwOGE5YmVmNWJkODg4ZjJjNDM1NDg2M2Y0YyJ9', NULL, 8, NULL, NULL, 'eyJpdiI6Im5RUXF6MElRVzc5SjNFK1QyN2Y4NFE9PSIsInZhbHVlIjoiNS8ybzRsRlBVOUx4WXhWdnZCaHBBdExBZGRJa3JvSU1IMzZqaGloM3AwMD0iLCJtYWMiOiJmOTZjZGIwNDA0OTk1ZTAzNjg2YzFjNTY1OWI0NmVjYThhNjdlMTVhZDlkYTkwYjkzYTI0N2E0YmVjMDI5MDE5In0=', 'eyJpdiI6IlJGU1lKaUQyVnpDY0k0OENmdFJoOHc9PSIsInZhbHVlIjoiNjJSRFpKeUVwT2JwZkdBbERUUGpvZDRmaEdFVWpjaC9kditieEQyVlcxYz0iLCJtYWMiOiJjZGM3MTliNzc1YTBmNmY4NDM1M2Y1MDIzNDI2NDk2YmZmOGZkMWJmMGViYTJiOGUxMGNkOTk0Nzk0ZTRkZWNiIn0=', 'eyJpdiI6Iks1UkNoV3UybmF3Qk8zbVA5d2g1VXc9PSIsInZhbHVlIjoiRGRTTmFnV01TRXBkNlc1NjNhYnhqSEhpN3FRZDJPSWxKenR3Nys2RUpsST0iLCJtYWMiOiJlZDJlOGI1ZTY2ZjU5ZDQ0OWIxMjE1MTkxZDc5MmRlMGU1MWFjZWJkYmNjNjZkYjViODM0ZmEzNWEwNjFkZmZmIn0=', NULL, NULL, '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(125, 'eyJpdiI6IlVpWjV4SnphTFlqTmppNzBTRlhMWGc9PSIsInZhbHVlIjoibHdzWHNWSW1pSnVCTjg2TXE4STYzdz09IiwibWFjIjoiYTA0OTMwMjVmZDE4NmIwZTBjOTdiYzY0N2M4MGI5ZDgzZTVlMDc3NmI4OWVhNTM3ODk0YWY1YWYzZTQ1OTE5MCJ9', 'eyJpdiI6IlpPY0hrR0JxNWlPYlFpRjJhK2lZUlE9PSIsInZhbHVlIjoiOHh6RHhKNndleGVFaE1jOG1JeHc1UT09IiwibWFjIjoiM2M1ZjM2OGY1YzRlZDJkNzMwYTgwNzYyMTkyNDQwYWU3MzlmOGM2MGZiMjA4NmM5ZmFjNWE1MDM1M2RmOWEzYiJ9', 'eyJpdiI6ImhNYW5IV01RM09za3ZvS3NaSG8ybXc9PSIsInZhbHVlIjoicVVDS296bk41UjdJcGFSenJVRGZkZz09IiwibWFjIjoiNjVkNzJlZDk2OTUwNmU4YTRlNWYxNzkyOTFjMjlmNWRhZTQ2MWNiNGRjODM1NTRlZjZlMzE1MmIxNGYxZjhjNiJ9', 'eyJpdiI6InREeVpMUnRML0FvZWxaWVdCS3B3VEE9PSIsInZhbHVlIjoiZWlMTlhiZStySWdNYmRVNFNFSGVBTnZ6Qlg3Vy9uMThEN0czUGxWTFB6Yz0iLCJtYWMiOiJlN2FlNjViYmIzYTZlNGE2OGNiYWRhZjk5ZWExMzQwMjFkYzc1ZWJhMTNiNDAxYWJlMTlkNzFlZjIzNmNlZjcxIn0=', 'M', 'N', '1989-01-10', 5, NULL, 30477777777, 3, 'eyJpdiI6ImVlL2ora0dEUlRHcjd6WlZEZms3TFE9PSIsInZhbHVlIjoiMy9JZlVFU1lvd21aU0IzRFZRNmlMQT09IiwibWFjIjoiMzRjZTVkYTBiYmFmMTIzZTdjZWQxMzU0M2QxMzhkYWRmZWNmODJkOTM4Y2Q0N2RiN2ZkZDEyOGMxNmQyNTMwMiJ9', 'eyJpdiI6IlV4ME1lckY5bnp6bXB6YnZoTEdhNnc9PSIsInZhbHVlIjoieFFyclJkKyszK2tISWVtak1JMldRQT09IiwibWFjIjoiZDhkYzM1NGMxNWU1N2I4ZTliYWIxN2U4ODc3M2MwMGRhYjU3NWJmOWIwZjZiZTgwYjY3ZDMyMDc1ZjJkODgzZCJ9', NULL, 11, NULL, NULL, 'eyJpdiI6IjdMYTgzOE90VUt5Y3daNE5RMHloSnc9PSIsInZhbHVlIjoic2pScERUci9SZHYyY1pnNG1sZnVTR0dzc1NaYllySzYwZldscUl4QUxoOD0iLCJtYWMiOiJjZjA2NWMwODEwYWNmZTIzMmM2MDc5NGNiZjM2ZjdjNjVjZDE2ZmUzMWQxZGQ5ZTFiYTdlOTdkYzY5NWIyNjczIn0=', 'eyJpdiI6IldKN0FFL1o5ZWptcmh6UzZSaEljRnc9PSIsInZhbHVlIjoiMHpVUi9PbytaVU94MGFQeVh0Wk5qZjgrVjZBaHFKNk1FWWkrMmY3dElVcz0iLCJtYWMiOiIxZWRiOTRhZWE4YTg3OTkwM2VjMTkwOTEwYjIxZmVlMWIzNmFkZGJkZmI3NWQ5MTM5ZmQyOTQwNTk1ZDlkNjI1In0=', 'eyJpdiI6InhjQnhJd21BQzBFWFZtdjNxejJtdEE9PSIsInZhbHVlIjoiY0E2RUE1eGQ5Tm1GNVpEenNiQlZQMnNKRy9hQ1JFZmoyMllWWlhSdUpGVT0iLCJtYWMiOiJiNDkzYTA5MzdjYjQ4MDU5ZWYxNGIxODgzNjAxZDc5ODZkYjcwMmQ3NzJmNDE1Y2Y5NDE4YWM5MTFhYjFjYjJlIn0=', NULL, NULL, '2020-09-11 10:52:24', '2020-09-11 10:52:24'),
+	(126, 'eyJpdiI6IkNZaXhQWVZmelR6endnUlFHM25NSUE9PSIsInZhbHVlIjoid2Fnam5sM2ZRZGhhY005Vk4wTXd0QT09IiwibWFjIjoiN2QxMDkwY2EwNjIxYWUxOWFhYjBiZmM0NzJiMGZjYWFmNjBlMzM2ZmQyNGQ0NDI2MThiM2JiNTVhYTBhMTAxMyJ9', 'eyJpdiI6ImtKbDU1UE9zbHpWb2tiZUtJdEphYWc9PSIsInZhbHVlIjoieEpYd0IwVUdtQkpxL0IvQzdTc3l6Zz09IiwibWFjIjoiZDBiNjY4NWExNTRiNWVlYzU1NzU5OWQxNDMzNDgxMTJmY2FjZjc4YzYxZTU0MzFiMjliNjdmNDY0MWI0ZDkzMCJ9', NULL, NULL, 'M', NULL, '1989-01-02', NULL, NULL, 60522222222, NULL, NULL, NULL, NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `people` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.person_bank
+DROP TABLE IF EXISTS `person_bank`;
 CREATE TABLE IF NOT EXISTS `person_bank` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `person_id` bigint(20) unsigned NOT NULL,
@@ -2778,6 +2836,7 @@ INSERT INTO `person_bank` (`id`, `person_id`, `bank_id`, `scotia_branch_id`, `br
 /*!40000 ALTER TABLE `person_bank` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.person_household
+DROP TABLE IF EXISTS `person_household`;
 CREATE TABLE IF NOT EXISTS `person_household` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `person_id` bigint(20) unsigned NOT NULL,
@@ -2795,9 +2854,9 @@ CREATE TABLE IF NOT EXISTS `person_household` (
   CONSTRAINT `FK_person_household_households` FOREIGN KEY (`household_id`) REFERENCES `households` (`id`),
   CONSTRAINT `FK_person_household_persons` FOREIGN KEY (`person_id`) REFERENCES `people` (`id`),
   CONSTRAINT `FK_person_household_relationships` FOREIGN KEY (`relationship_id`) REFERENCES `relationships` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=126 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.person_household: ~123 rows (approximately)
+-- Dumping data for table msdfs_forms_db.person_household: ~117 rows (approximately)
 /*!40000 ALTER TABLE `person_household` DISABLE KEYS */;
 INSERT INTO `person_household` (`id`, `person_id`, `household_id`, `relationship_id`, `relationship_other`, `active`, `confirm`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 10, NULL, 1, 0, '2020-08-14 23:22:24', '2020-08-14 23:38:23'),
@@ -2922,10 +2981,13 @@ INSERT INTO `person_household` (`id`, `person_id`, `household_id`, `relationship
 	(120, 121, 61, 0, NULL, 1, 0, '2020-09-10 06:28:36', '2020-09-10 06:28:36'),
 	(121, 122, 62, 0, NULL, 1, 0, '2020-09-10 06:39:53', '2020-09-10 06:39:53'),
 	(122, 123, 63, 0, NULL, 1, 0, '2020-09-10 06:43:15', '2020-09-10 06:43:15'),
-	(123, 124, 64, 0, NULL, 1, 0, '2020-09-10 06:47:53', '2020-09-10 06:47:53');
+	(123, 124, 64, 0, NULL, 1, 0, '2020-09-10 06:47:53', '2020-09-10 06:47:53'),
+	(124, 125, 65, 0, NULL, 1, 0, '2020-09-11 10:52:24', '2020-09-11 10:52:24'),
+	(125, 126, 65, 11, NULL, 1, 0, '2020-09-11 10:52:24', '2020-09-11 10:52:24');
 /*!40000 ALTER TABLE `person_household` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.regions
+DROP TABLE IF EXISTS `regions`;
 CREATE TABLE IF NOT EXISTS `regions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `region` varchar(150) NOT NULL,
@@ -2933,9 +2995,9 @@ CREATE TABLE IF NOT EXISTS `regions` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `country` (`region`) USING BTREE,
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.regions: ~22 rows (approximately)
+-- Dumping data for table msdfs_forms_db.regions: ~15 rows (approximately)
 /*!40000 ALTER TABLE `regions` DISABLE KEYS */;
 INSERT INTO `regions` (`id`, `region`, `code`) VALUES
 	(1, 'Tobago', 1000),
@@ -2952,17 +3014,11 @@ INSERT INTO `regions` (`id`, `region`, `code`) VALUES
 	(12, 'Diego Martin', 60),
 	(13, 'San Juan/Laventille', 70),
 	(14, 'Tunapuna/Piarco', 80),
-	(15, 'Couva/Tabaquite/Talparo', 90),
-	(16, 'Parish of St. George', 91),
-	(17, 'Parish of St. Mary', 92),
-	(18, 'Parish of St. Andrew', 93),
-	(19, 'Parish of St. Patrick', 94),
-	(20, 'Parish of St. David', 95),
-	(21, 'Parish of St. Paul', 96),
-	(22, 'Parish of St. John', 97);
+	(15, 'Couva/Tabaquite/Talparo', 90);
 /*!40000 ALTER TABLE `regions` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.relationships
+DROP TABLE IF EXISTS `relationships`;
 CREATE TABLE IF NOT EXISTS `relationships` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `relationship` varchar(150) NOT NULL,
@@ -2971,7 +3027,7 @@ CREATE TABLE IF NOT EXISTS `relationships` (
   UNIQUE KEY `country` (`relationship`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.relationships: ~11 rows (approximately)
+-- Dumping data for table msdfs_forms_db.relationships: ~12 rows (approximately)
 /*!40000 ALTER TABLE `relationships` DISABLE KEYS */;
 INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 	(0, 'Applicant', NULL),
@@ -2988,6 +3044,7 @@ INSERT INTO `relationships` (`id`, `relationship`, `description`) VALUES
 /*!40000 ALTER TABLE `relationships` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.roles
+DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `role` varchar(150) NOT NULL,
@@ -2996,7 +3053,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.roles: ~8 rows (approximately)
+-- Dumping data for table msdfs_forms_db.roles: ~6 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id`, `role`, `slug`, `description`) VALUES
 	(1, 'Administrator', 'admin', NULL),
@@ -3010,6 +3067,7 @@ INSERT INTO `roles` (`id`, `role`, `slug`, `description`) VALUES
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.role_permissions
+DROP TABLE IF EXISTS `role_permissions`;
 CREATE TABLE IF NOT EXISTS `role_permissions` (
   `role_id` int(10) unsigned NOT NULL,
   `status_id` int(10) unsigned NOT NULL,
@@ -3038,6 +3096,7 @@ INSERT INTO `role_permissions` (`role_id`, `status_id`, `description`, `created_
 /*!40000 ALTER TABLE `role_permissions` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.schedules
+DROP TABLE IF EXISTS `schedules`;
 CREATE TABLE IF NOT EXISTS `schedules` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `created_by` bigint(20) unsigned NOT NULL,
@@ -3052,7 +3111,7 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   CONSTRAINT `FK_schedules_users` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.schedules: ~13 rows (approximately)
+-- Dumping data for table msdfs_forms_db.schedules: ~11 rows (approximately)
 /*!40000 ALTER TABLE `schedules` DISABLE KEYS */;
 INSERT INTO `schedules` (`id`, `created_by`, `type_id`, `region_id`, `created_at`, `updated_at`) VALUES
 	(1, 1, 2, NULL, '2020-08-18 11:18:33', '2020-08-18 11:18:33'),
@@ -3071,6 +3130,7 @@ INSERT INTO `schedules` (`id`, `created_by`, `type_id`, `region_id`, `created_at
 /*!40000 ALTER TABLE `schedules` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.schedule_applications
+DROP TABLE IF EXISTS `schedule_applications`;
 CREATE TABLE IF NOT EXISTS `schedule_applications` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `schedule_id` bigint(20) unsigned NOT NULL,
@@ -3109,6 +3169,7 @@ INSERT INTO `schedule_applications` (`id`, `schedule_id`, `application_id`, `num
 /*!40000 ALTER TABLE `schedule_applications` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.schedule_items
+DROP TABLE IF EXISTS `schedule_items`;
 CREATE TABLE IF NOT EXISTS `schedule_items` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `schedule_application_id` bigint(20) unsigned NOT NULL,
@@ -3120,7 +3181,7 @@ CREATE TABLE IF NOT EXISTS `schedule_items` (
   CONSTRAINT `FK_schedule_items_schedule_applications` FOREIGN KEY (`schedule_application_id`) REFERENCES `schedule_applications` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.schedule_items: ~19 rows (approximately)
+-- Dumping data for table msdfs_forms_db.schedule_items: ~18 rows (approximately)
 /*!40000 ALTER TABLE `schedule_items` DISABLE KEYS */;
 INSERT INTO `schedule_items` (`id`, `schedule_application_id`, `quantity`, `item`, `cost`) VALUES
 	(1, 1, 1, 'eyJpdiI6ImZDV3dCbmFrWThyNnJzYjU4SHUvS1E9PSIsInZhbHVlIjoiY3lWMlpxMDEzWGU0bkdsb09MSEhlL1JKOE5PNU1zM0Y3dWMwVWp4dWVKdz0iLCJtYWMiOiIwN2RiNDVkZmY1MTEwMmUzYzQyZTNlMTkzZjE3Y2NmMmVkNjc0YTFiNTMzMzAwNmM0MzY0YzBlODU4YmRkYWRiIn0=', 93.00),
@@ -3145,6 +3206,7 @@ INSERT INTO `schedule_items` (`id`, `schedule_application_id`, `quantity`, `item
 /*!40000 ALTER TABLE `schedule_items` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.schedule_rent
+DROP TABLE IF EXISTS `schedule_rent`;
 CREATE TABLE IF NOT EXISTS `schedule_rent` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `schedule_application_id` bigint(20) unsigned NOT NULL,
@@ -3158,13 +3220,14 @@ CREATE TABLE IF NOT EXISTS `schedule_rent` (
   CONSTRAINT `schedule_rent_ibfk_1` FOREIGN KEY (`schedule_application_id`) REFERENCES `schedule_applications` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.schedule_rent: ~1 rows (approximately)
+-- Dumping data for table msdfs_forms_db.schedule_rent: ~0 rows (approximately)
 /*!40000 ALTER TABLE `schedule_rent` DISABLE KEYS */;
 INSERT INTO `schedule_rent` (`id`, `schedule_application_id`, `landlord`, `item`, `quantity`, `amount`, `start_date`) VALUES
 	(1, 3, 'eyJpdiI6IjVmV205L3c5SVZOelc5V1hOcDNYMUE9PSIsInZhbHVlIjoibVd3SFB3VW5Zamd5Y240dFdhVjNValNTUW5lVTEvaFFBekhCaFFZVlRJbz0iLCJtYWMiOiI0OWI4MTU2ZjgyN2Q0YmM2ZDdlNzE2ZTlhNDIzNmQ3YmU5ZDFiMTMyMmE3Y2Y1YzliYzVlZjBlYzZkMTM1NDc2In0=', 'eyJpdiI6IlM5bndGWlpHclhhZTFjYkhocXllbUE9PSIsInZhbHVlIjoiZXBOanhOMWRtaDZtSW14dm1DQkg2VXF3WDVaeXY0TUdhT0MzdnN5b1dqZ2tvdDk1dG1RSStJSVBhNHBnQUEyRjJGTnpEOGZwQlVLSVVyUWlnRitqWitrcFQ4aytyTi8ybFdwSmdjcFd4UVNQQ2hZaTJ6RzVSS3BCcnRTUkV1VW9uR1I4WUFGU2I3L1d3Q3plZlFiRUl0Zi8xWmlDOVRGa3BMMEF1TklCZTRhdnlKYkFhd2UxOHU2dFQzcEphTGo0UFF0VXlwanBOaWI2MEZXRXpXRlBpdz09IiwibWFjIjoiMzkzYzk1NGFhNTgzMDA2ZDQ0OThhMDdkMDcyODdjNWJjZjJhNWEyZmNlN2JiNTQ0N2RlZmJhZmZkNjk5NGEzOSJ9', 2, 222.00, '2020-09-01');
 /*!40000 ALTER TABLE `schedule_rent` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.schedule_types
+DROP TABLE IF EXISTS `schedule_types`;
 CREATE TABLE IF NOT EXISTS `schedule_types` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` varchar(150) NOT NULL,
@@ -3182,6 +3245,7 @@ INSERT INTO `schedule_types` (`id`, `type`) VALUES
 /*!40000 ALTER TABLE `schedule_types` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.scotia_branches
+DROP TABLE IF EXISTS `scotia_branches`;
 CREATE TABLE IF NOT EXISTS `scotia_branches` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `branch` varchar(150) NOT NULL,
@@ -3220,6 +3284,7 @@ INSERT INTO `scotia_branches` (`id`, `branch`, `transit_code`) VALUES
 /*!40000 ALTER TABLE `scotia_branches` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.status
+DROP TABLE IF EXISTS `status`;
 CREATE TABLE IF NOT EXISTS `status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(150) NOT NULL,
@@ -3249,6 +3314,7 @@ INSERT INTO `status` (`id`, `status`, `button`, `step`, `restore_id`) VALUES
 /*!40000 ALTER TABLE `status` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.total_income
+DROP TABLE IF EXISTS `total_income`;
 CREATE TABLE IF NOT EXISTS `total_income` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `income` varchar(150) NOT NULL,
@@ -3266,6 +3332,7 @@ INSERT INTO `total_income` (`id`, `income`) VALUES
 /*!40000 ALTER TABLE `total_income` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.users
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `first_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -3291,7 +3358,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table msdfs_forms_db.users: ~23 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Admin', 'User', 7, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-09-10 03:24:47', NULL, '2020-05-02 04:29:15', '2020-09-10 03:24:47'),
+	(1, 'Admin', 'User', 7, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-09-11 10:53:12', NULL, '2020-05-02 04:29:15', '2020-09-11 10:53:12'),
 	(2, 'Morgan', 'Merritt', 2, 'xebubodyg@mailinator.com', NULL, 1, '$2y$10$QnAKGQFoMMSzWUZ.NL2atuXDKsCSjxE8gRDDt1IMOucFu7wTgJcFq', NULL, NULL, 1, '2020-08-06 22:02:35', '2020-08-07 02:31:40'),
 	(3, 'Social', 'Admin', 1, 'admin@social.gov.tt', NULL, 1, '$2y$10$eYk3SMODJZZcGQXE6HK1Y.f5WsaGVlnAPu.q/lOaETHPKK5NqgnGG', NULL, NULL, 1, '2020-08-07 02:25:15', '2020-08-07 02:33:25'),
 	(4, 'SAO', 'Test', 1, 'sao@gov.tt', NULL, 1, '$2y$10$Tgr0XoTcEGrZG.y5LPr4oe3Tu18iNl9QOwQBJn.Xox5l10TPwZefO', NULL, '2020-08-10 14:35:18', 1, '2020-08-10 10:13:01', '2020-08-10 14:35:18'),
@@ -3317,6 +3384,7 @@ INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_v
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_audit
+DROP TABLE IF EXISTS `user_audit`;
 CREATE TABLE IF NOT EXISTS `user_audit` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -3333,7 +3401,7 @@ CREATE TABLE IF NOT EXISTS `user_audit` (
   CONSTRAINT `user_audit_ibfk_2` FOREIGN KEY (`changed_by`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.user_audit: ~3 rows (approximately)
+-- Dumping data for table msdfs_forms_db.user_audit: ~2 rows (approximately)
 /*!40000 ALTER TABLE `user_audit` DISABLE KEYS */;
 INSERT INTO `user_audit` (`id`, `user_id`, `changed_by`, `attribute`, `old`, `new`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 'regions', '[]', '[1,2,8]', '2020-08-17 16:54:13', '2020-08-17 16:54:13'),
@@ -3342,6 +3410,7 @@ INSERT INTO `user_audit` (`id`, `user_id`, `changed_by`, `attribute`, `old`, `ne
 /*!40000 ALTER TABLE `user_audit` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_logs
+DROP TABLE IF EXISTS `user_logs`;
 CREATE TABLE IF NOT EXISTS `user_logs` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
@@ -3352,9 +3421,9 @@ CREATE TABLE IF NOT EXISTS `user_logs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_ip_logs_users` (`user_id`) USING BTREE,
   CONSTRAINT `FK_user_logs_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.user_logs: ~12 rows (approximately)
+-- Dumping data for table msdfs_forms_db.user_logs: ~13 rows (approximately)
 /*!40000 ALTER TABLE `user_logs` DISABLE KEYS */;
 INSERT INTO `user_logs` (`id`, `user_id`, `ip`, `action`, `created_at`, `updated_at`) VALUES
 	(1, 1, '127.0.0.1', 'Login', '2020-08-14 23:19:24', '2020-08-14 23:19:24'),
@@ -3368,10 +3437,12 @@ INSERT INTO `user_logs` (`id`, `user_id`, `ip`, `action`, `created_at`, `updated
 	(9, 1, '127.0.0.1', 'Login', '2020-09-01 11:57:58', '2020-09-01 11:57:58'),
 	(10, 1, '127.0.0.1', 'Login', '2020-09-04 16:19:55', '2020-09-04 16:19:55'),
 	(11, 1, '127.0.0.1', 'Login', '2020-09-09 13:53:31', '2020-09-09 13:53:31'),
-	(12, 1, '127.0.0.1', 'Login', '2020-09-10 03:24:47', '2020-09-10 03:24:47');
+	(12, 1, '127.0.0.1', 'Login', '2020-09-10 03:24:47', '2020-09-10 03:24:47'),
+	(13, 1, '127.0.0.1', 'Login', '2020-09-11 10:53:12', '2020-09-11 10:53:12');
 /*!40000 ALTER TABLE `user_logs` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_regions
+DROP TABLE IF EXISTS `user_regions`;
 CREATE TABLE IF NOT EXISTS `user_regions` (
   `user_id` bigint(20) unsigned NOT NULL,
   `region_id` int(10) unsigned NOT NULL,
