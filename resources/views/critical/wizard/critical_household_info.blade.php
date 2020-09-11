@@ -17,6 +17,26 @@
                         </tr>
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
+                                <div class="form-group mb-0{{ $errors->has('hi_nickname.1') ? ' has-error' : '' }} grp-hi_nickname_1">
+                                    <label class="control-label mb-0" for="hi_nickname_1">
+                                        Nickname <span class="red">*</span> 
+                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                    </label>
+                                </div>
+                            </td>
+                            <td width="80%">
+                                <div class="form-group mb-0{{ $errors->has('hi_nickname.1') ? ' has-error' : '' }} grp-hi_nickname_1">
+                                    <input type="text" class="form-control" id="hi_nickname_1" name="hi_nickname[1]" applicant="1" aria-describedby="" value="{{old('hi_nickname.1')? old('hi_nickname.1') : '' }}" required maxlength="50">
+                                    
+                                    <span class="help-block">
+                                        <strong id="err-hi_nickname_1">{{ $errors->first('hi_nickname.1') }}</strong>
+                                    </span>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="table-active text-right align-middle" width="20%">
                                 <div class="form-group mb-0{{ $errors->has('hi_first_name.1') ? ' has-error' : '' }} grp-hi_first_name_1">
                                     <label class="control-label mb-0" for="hi_first_name_1">
                                         First Name <span class="red">*</span> 
@@ -396,201 +416,222 @@
                 </table>
             </div>
 
+            {{-- household info for members after form validation fails --}}
             @if (old('hi_dob'))
                 @foreach (old('hi_dob') as $key => $item)
                     @if ($key != 1)
-                    <div class="table-responsive critical_household_row travel_hi_row" id="household_row_{{$key}}">
-                        <table class="table table-bordered table-sm">
-                            <tbody>
-                                <tr class=" table-active text-center">
-                                    <td colspan="2">Person # {{$key}} <button class="btn btn-sm btn-primary critical_del_household pull-right" type="button" num="{{$key}}"><i class="fa fa-remove" aria-hidden="true"></i> remove member</button></td>
-                                </tr>
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_first_name.'.$key) ? ' has-error' : '' }} grp-hi_first_name_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_first_name_{{$key}}">
-                                                First Name <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_first_name.'.$key) ? ' has-error' : '' }} grp-hi_first_name_{{$key}}">
-                                            <input type="text" class="form-control hi_name" count="{{$key}}" id="hi_first_name_{{$key}}" name="hi_first_name[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_first_name.'.$key)? old('hi_first_name.'.$key) : '' }}" required maxlength="50">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_first_name_{{$key}}">{{ $errors->first('hi_first_name.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_surname.'.$key) ? ' has-error' : '' }} grp-hi_surname_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_surname_{{$key}}">
-                                                Surname <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State your hi_surname as indicated on your identification card.'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_surname.'.$key) ? ' has-error' : '' }} grp-hi_surname_{{$key}}">
-                                            <input type="text" class="form-control hi_name" count="{{$key}}" id="hi_surname_{{$key}}" name="hi_surname[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_surname.'.$key)? old('hi_surname.'.$key) : '' }}" required maxlength="50">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_surname_{{$key}}">{{ $errors->first('hi_surname.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_gender_{{$key}}">
-                                                Gender <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-
-                                    <td width="80%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
-                                            <div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_1" name="hi_gender[{{$key}}]" class="custom-control-input" value="M" {{old('hi_gender.'.$key) == 'M'? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="hi_gender_{{$key}}_1">Male</label>
-                                                    </div>
-                                                </div>
-                                                <div class="custom-control custom-radio custom-control-inline">
-                                                    <div class="custom-control custom-radio">
-                                                        <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_2" name="hi_gender[{{$key}}]" class="custom-control-input" value="F" {{old('hi_gender.'.$key) == 'F'? 'checked' : '' }}>
-                                                        <label class="custom-control-label" for="hi_gender_{{$key}}_2">Female</label>
-                                                    </div>
-                                                </div>
+                        <div class="table-responsive critical_household_row travel_hi_row" id="household_row_{{$key}}">
+                            <table class="table table-bordered table-sm">
+                                <tbody>
+                                    <tr class=" table-active text-center">
+                                        <td colspan="2">Person # {{$key}} <button class="btn btn-sm btn-primary critical_del_household pull-right" type="button" num="{{$key}}"><i class="fa fa-remove" aria-hidden="true"></i> remove member</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_nickname.'.$key) ? ' has-error' : '' }} grp-hi_nickname_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_nickname_{{$key}}">
+                                                    Nickname <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                                </label>
                                             </div>
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_gender_{{$key}}">{{ $errors->first('hi_gender.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }} grp-hi_dob_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_dob-1">
-                                                Date of Birth <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State the date of birth of the person stated in the row in the format yyyy-mm-dd.'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }} grp-hi_dob_{{$key}}">
-                                            <input type="text" class="form-control dob" id="hi_dob_{{$key}}" name="hi_dob[{{$key}}]" aria-describedby="" value="{{old('hi_dob.'.$key)? old('hi_dob.'.$key) : '' }}" required placeholder="yyyy-mm-dd">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_dob_{{$key}}">{{ $errors->first('hi_dob.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_national_id_{{$key}}">
-                                                National Identification Card Number 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_nickname.'.$key) ? ' has-error' : '' }} grp-hi_nickname_{{$key}}">
+                                                <input type="text" class="form-control" id="hi_nickname_{{$key}}" name="hi_nickname[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_nickname.'.$key)? old('hi_nickname.'.$key) : '' }}" required maxlength="50">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_nickname_{{$key}}">{{ $errors->first('hi_nickname.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+            
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_first_name.'.$key) ? ' has-error' : '' }} grp-hi_first_name_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_first_name_{{$key}}">
+                                                    First Name <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_first_name.'.$key) ? ' has-error' : '' }} grp-hi_first_name_{{$key}}">
+                                                <input type="text" class="form-control hi_name" count="{{$key}}" id="hi_first_name_{{$key}}" name="hi_first_name[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_first_name.'.$key)? old('hi_first_name.'.$key) : '' }}" required maxlength="50">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_first_name_{{$key}}">{{ $errors->first('hi_first_name.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_surname.'.$key) ? ' has-error' : '' }} grp-hi_surname_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_surname_{{$key}}">
+                                                    Surname <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your hi_surname as indicated on your identification card.'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_surname.'.$key) ? ' has-error' : '' }} grp-hi_surname_{{$key}}">
+                                                <input type="text" class="form-control hi_name" count="{{$key}}" id="hi_surname_{{$key}}" name="hi_surname[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_surname.'.$key)? old('hi_surname.'.$key) : '' }}" required maxlength="50">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_surname_{{$key}}">{{ $errors->first('hi_surname.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_gender_{{$key}}">
+                                                    Gender <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
+                                                </label>
+                                            </div>
+                                        </td>
 
-                                            <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="hi_national_id_{{$key}}" name="hi_national_id[{{$key}}]" aria-describedby="" value="{{old('hi_national_id.'.$key)? old('hi_national_id.'.$key) : '' }}" placeholder="xxxxxxxxxxx">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_national_id_{{$key}}">{{ $errors->first('hi_national_id.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                        
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_relationship_{{$key}}">
-                                                Relationship to Applicant <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
-                                            <select class="form-control form-control-sm chosen-select hi_relationship" num="{{$key}}" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
-                                                <option disabled="" selected="">select...</option>
-                                                @php $other = 'Other'; $otherid = ''; @endphp
-                                                @foreach ($relationships as $relationship)
-                                                    @if ($relationship->id !== 0)
-                                                        @if ($relationship->relationship !== 'Other')
-                                                            <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
-                                                        @else
-                                                            @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_gender.'.$key) ? ' has-error' : '' }} grp-hi_gender_{{$key}}">
+                                                <div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_1" name="hi_gender[{{$key}}]" class="custom-control-input" value="M" {{old('hi_gender.'.$key) == 'M'? 'checked' : '' }}>
+                                                            <label class="custom-control-label" for="hi_gender_{{$key}}_1">Male</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <div class="custom-control custom-radio">
+                                                            <input type="radio" gender="hi_gender_{{$key}}" id="hi_gender_{{$key}}_2" name="hi_gender[{{$key}}]" class="custom-control-input" value="F" {{old('hi_gender.'.$key) == 'F'? 'checked' : '' }}>
+                                                            <label class="custom-control-label" for="hi_gender_{{$key}}_2">Female</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_gender_{{$key}}">{{ $errors->first('hi_gender.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }} grp-hi_dob_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_dob-1">
+                                                    Date of Birth <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State the date of birth of the person stated in the row in the format yyyy-mm-dd.'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_dob.'.$key) ? ' has-error' : '' }} grp-hi_dob_{{$key}}">
+                                                <input type="text" class="form-control dob" id="hi_dob_{{$key}}" name="hi_dob[{{$key}}]" aria-describedby="" value="{{old('hi_dob.'.$key)? old('hi_dob.'.$key) : '' }}" required placeholder="yyyy-mm-dd">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_dob_{{$key}}">{{ $errors->first('hi_dob.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_national_id_{{$key}}">
+                                                    National Identification Card Number 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your national identification card number, for example "20000101001". Also select what proof you have for your national identification card. The document supplied must have the national identification number present.'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_national_id.'.$key) ? ' has-error' : '' }} grp-hi_national_id_{{$key}}">
+
+                                                <input type="text" pattern="[0-9]{11}" maxlength="11" class="form-control" id="hi_national_id_{{$key}}" name="hi_national_id[{{$key}}]" aria-describedby="" value="{{old('hi_national_id.'.$key)? old('hi_national_id.'.$key) : '' }}" placeholder="xxxxxxxxxxx">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_national_id_{{$key}}">{{ $errors->first('hi_national_id.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                            
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_relationship_{{$key}}">
+                                                    Relationship to Applicant <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group{{ $errors->has('hi_relationship.'.$key) ? ' has-error' : '' }} grp-hi_relationship_{{$key}}">
+                                                <select class="form-control form-control-sm chosen-select hi_relationship" num="{{$key}}" id="hi_relationship_{{$key}}" name="hi_relationship[{{$key}}]">
+                                                    <option disabled="" selected="">select...</option>
+                                                    @php $other = 'Other'; $otherid = ''; @endphp
+                                                    @foreach ($relationships as $relationship)
+                                                        @if ($relationship->id !== 0)
+                                                            @if ($relationship->relationship !== 'Other')
+                                                                <option {{old('hi_relationship.'.$key) == $relationship->id? 'selected' : '' }} value="{{$relationship->id}}">{{$relationship->relationship}}</option>
+                                                            @else
+                                                                @php $other = $relationship->relationship; $otherid = $relationship->id; @endphp
+                                                            @endif
                                                         @endif
-                                                    @endif
-                                                @endforeach
-            
-                                                <option {{old('hi_relationship.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
-                                            </select>
-                                            <input type="text" class="form-control form-control-sm {{old('hi_relationship.'.$key) == $otherid? '' : 'hide' }}" id="hi_relationship_other_{{$key}}" name="hi_relationship_other[{{$key}}]" aria-describedby="" value="{{old('hi_relationship_other.'.$key)? old('hi_relationship_other.'.$key) : '' }}" required maxlength="100" placeholder="Other relationship">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                                <tr>
-                                    <td class="table-active text-right align-middle" width="20%">
-                                        <div class="form-group mb-0{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
-                                            <label class="control-label mb-0" for="hi_emp_status_{{$key}}">
-                                                Employment Status <span class="red">*</span> 
-                                                <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
-                                            </label>
-                                        </div>
-                                    </td>
-                                    <td width="80%">
-                                        <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}" id="">
-                                            <select class="form-control chosen-select hi_emp_status" num="{{$key}}" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
-                                                <option disabled="" selected="">select...</option>
-                                                @php $other = 'Other'; $otherid = ''; @endphp
-                                                @foreach ($employment_status as $status)
-                                                    @if ($status->status !== 'Other')
-                                                        <option {{old('hi_emp_status.'.$key) == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
-                                                    @else
-                                                        @php $other = $status->status; $otherid = $status->id; @endphp
-                                                    @endif
-                                                @endforeach
-            
-                                                <option {{old('hi_emp_status.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
-                                            </select>
-                                            <input type="text" class="form-control hi_emp_status_other {{old('hi_emp_status_other.'.$key)? (old('hi_emp_status.'.$key) == $otherid? '' : 'hide') : 'hide' }}" id="hi_emp_status_other_{{$key}}" name="hi_emp_status_other[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status_other.'.$key)? old('hi_emp_status_other.'.$key) : '' }}" required maxlength="100" placeholder="Other employment status">
-                                            
-                                            <span class="help-block">
-                                                <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
-                                            </span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                
-                            </tbody>
-                        </table>
-                    </div>
+                                                    @endforeach
+                
+                                                    <option {{old('hi_relationship.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
+                                                </select>
+                                                <input type="text" class="form-control form-control-sm {{old('hi_relationship.'.$key) == $otherid? '' : 'hide' }}" id="hi_relationship_other_{{$key}}" name="hi_relationship_other[{{$key}}]" aria-describedby="" value="{{old('hi_relationship_other.'.$key)? old('hi_relationship_other.'.$key) : '' }}" required maxlength="100" placeholder="Other relationship">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_relationship_{{$key}}">{{ $errors->first('hi_relationship.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td class="table-active text-right align-middle" width="20%">
+                                            <div class="form-group mb-0{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}">
+                                                <label class="control-label mb-0" for="hi_emp_status_{{$key}}">
+                                                    Employment Status <span class="red">*</span> 
+                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='Provide your national insurance number (passport) if applicable, for example "2000010".'></i>
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td width="80%">
+                                            <div class="form-group{{ $errors->has('hi_emp_status.'.$key) ? ' has-error' : '' }} grp-hi_emp_status_{{$key}}" id="">
+                                                <select class="form-control chosen-select hi_emp_status" num="{{$key}}" id="hi_emp_status_{{$key}}" name="hi_emp_status[{{$key}}]">
+                                                    <option disabled="" selected="">select...</option>
+                                                    @php $other = 'Other'; $otherid = ''; @endphp
+                                                    @foreach ($employment_status as $status)
+                                                        @if ($status->status !== 'Other')
+                                                            <option {{old('hi_emp_status.'.$key) == $status->id? 'selected' : '' }} value="{{$status->id}}">{{$status->status}}</option>
+                                                        @else
+                                                            @php $other = $status->status; $otherid = $status->id; @endphp
+                                                        @endif
+                                                    @endforeach
+                
+                                                    <option {{old('hi_emp_status.'.$key) == $otherid? 'selected' : '' }} value="{{$otherid}}">{{$other}}</option>
+                                                </select>
+                                                <input type="text" class="form-control hi_emp_status_other {{old('hi_emp_status_other.'.$key)? (old('hi_emp_status.'.$key) == $otherid? '' : 'hide') : 'hide' }}" id="hi_emp_status_other_{{$key}}" name="hi_emp_status_other[{{$key}}]" aria-describedby="" value="{{old('hi_emp_status_other.'.$key)? old('hi_emp_status_other.'.$key) : '' }}" required maxlength="100" placeholder="Other employment status">
+                                                
+                                                <span class="help-block">
+                                                    <strong id="err-hi_emp_status_{{$key}}">{{ $errors->first('hi_emp_status.'.$key) }}</strong>
+                                                </span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
                     @endif
                 @endforeach
             @endif

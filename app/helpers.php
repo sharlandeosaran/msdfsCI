@@ -2,7 +2,7 @@
 
 function version()
 {
-	return 'Version 0.1';
+	return 'Version 0.1.0';
 }
 
 function support_email()
@@ -24,6 +24,7 @@ function sanitize($input)
 		return $input; 
 	}
 }
+
 function number_short($num)
 {
 	if (is_numeric ($num)) {

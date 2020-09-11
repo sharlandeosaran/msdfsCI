@@ -83,7 +83,8 @@ class CriticalIncidentController extends Controller
                 "nullable",
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
             ],
-
+            
+            "hi_nickname" => "array",
             "hi_first_name" => "array",
             "hi_surname" => "array",
             "hi_gender" => "array",
@@ -96,6 +97,7 @@ class CriticalIncidentController extends Controller
             "hi_national_id" => "array",
             "hi_total_income" => "required|numeric|min:0",
             
+            "hi_nickname.*" => "required|max:100",
             "hi_first_name.*" => "required|max:100",
             "hi_surname.*" => "required|max:100",
             "hi_gender.*" => [
@@ -224,6 +226,7 @@ class CriticalIncidentController extends Controller
             // "recommendation_letter" => "max:10000|mimes:pdf,doc,docx,jpg,jpeg,png",
         ],
         [
+            // custom error messages
             'landlord_first_name.required' => 'The landlord first name field is required when rental assistance is sought.',
             'landlord_surname.required' => 'The landlord surname field is required when rental assistance is sought.',
             'landlord_contact_no.required' => 'The landlord contact number field is required when rental assistance is sought.',
@@ -236,6 +239,8 @@ class CriticalIncidentController extends Controller
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
             'hi_relationship.*.required' => 'The household occupant relationship field is required.',
             'hi_emp_status.*.required' => 'The household occupant employment status field is required.',
+            'hi_nickname.1.required' => 'The nickname field is required.',
+            'hi_nickname.*.required' => 'The household occupant nickname field is required.',
             'hi_first_name.1.required' => 'The first name field is required.',
             'hi_first_name.*.required' => 'The household occupant first name field is required.',
             'hi_surname.1.required' => 'The surname field is required.',
@@ -422,6 +427,7 @@ class CriticalIncidentController extends Controller
         {
             // create person
             $person = new \App\Person();
+            $person->nickname = $request->hi_nickname[$value['key']];
             $person->first_name = $request->hi_first_name[$value['key']];
             $person->surname = $request->hi_surname[$value['key']];
             $person->othername = $value['key'] == 1? $request->othername : null;

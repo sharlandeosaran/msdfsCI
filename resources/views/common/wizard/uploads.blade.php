@@ -624,7 +624,7 @@
                                                     <input type="file" accept=".png, .jpg, .jpeg, .doc, .docx, application/msword, application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document" class="custom-file-input" id="proof_of_earnings_{{$key}}" name="proof_of_earnings[{{$key}}]"> 
                                                     <label class="custom-file-label" for="proof_of_earnings_{{$key}}" id="proof_of_earnings_{{$key}}Label">{{old('proof_of_earnings_name.'.$key)? old('proof_of_earnings_name.'.$key) : 'Choose file'}}</label> 
                                                 </div> 
-                                                <input type="" class="uploadhelp" value="{{old('proof_of_earnings_name.'.$key)}}" name="proof_of_earnings_name[{{$key}}]">
+                                                <input type="hidden" class="uploadhelp" value="{{old('proof_of_earnings_name.'.$key)}}" name="proof_of_earnings_name[{{$key}}]">
                                             </div>
                                             </div>
                                             
