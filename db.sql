@@ -891,10 +891,14 @@ CREATE TABLE IF NOT EXISTS `error_log` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.error_log: ~0 rows (approximately)
+-- Dumping data for table msdfs_forms_db.error_log: ~3 rows (approximately)
 /*!40000 ALTER TABLE `error_log` DISABLE KEYS */;
+INSERT INTO `error_log` (`id`, `user`, `ip`, `action`, `exception`, `created_at`, `updated_at`) VALUES
+	(1, 'eyJpdiI6IndlUW8zU3VoV0xNZHEvcGREcnMzdFE9PSIsInZhbHVlIjoiUjdVKzFBV3hsWXdCaS92SDRvanNrTklOamc5d0wwYng2UDVnZ2I5aURIVT0iLCJtYWMiOiIwZTFhOWRhMjI0MTZmNjUzOTdkZGJiMGZmNWNiZjIzZGE5MGFhM2E1ODU5N2Y4MGE3ZGEzYjI4NWRjZWYyMDc5In0=', 'eyJpdiI6IktDdHpaZjlqNTNLb1BURE43UXk3Rmc9PSIsInZhbHVlIjoidlg1NHdGanZGUWcwdEZiZzZrdzhPU29uZktSZk5KdXlOa0dvTTgzd1ZFZz0iLCJtYWMiOiIwYWM4NmE5NDlhNmQ1MWZjYmIxODI0OWQ3ZGU0M2UyNzZmYWVkYzVlODkzMTM4MjM1ZDhmMTg0MjA0ZjZkYzNiIn0=', 'eyJpdiI6IkFZQVFnSE8rMVI5eFNLMXkzRWZKQUE9PSIsInZhbHVlIjoiaFNLM3B6UHA2UGVBUFlaL21ORkM2R0J4QW5SS25iOC9yOVBoWWpMWWt2WFdDY1NzQW04ZXB3MEVOWlE1WHN0cDA4REJ5Zkd5bVZMTmYyVUllejA5Rnc9PSIsIm1hYyI6IjFjOWJkNjRlMjk5NWVmNTcyMjM4NzZkMmFjODEzMmY5NDZkYTRiMmI3MzgyNWJkOGY5NGFiY2FkM2Y1ODQ5YjMifQ==', 'eyJpdiI6IjhvRzBVVTVDd3F2YXdiSk51a01na0E9PSIsInZhbHVlIjoiTzdpQjdnL3hVbmJxWSt4S25wWEpFTUx6eVFXN1kxRFRJUUovWWdnSUlKRVJqa3hkWk96QUt1Tlp2a2JDYVVHckg2TUhQRzRXcndCOUJ6NENhVmgvclE9PSIsIm1hYyI6ImZjODcxOTdjNGMzNzkwNTUzYzIxMDZhZTI1MTczZjg5MzZjOGM2YmUwZWEzNWY4OGY3NmI1YTkwNmJkZjc3ODUifQ==', '2020-09-14 14:59:18', '2020-09-14 14:59:18'),
+	(2, 'eyJpdiI6Im90bysvZ2ZjaDJKak9hekxBaERLeXc9PSIsInZhbHVlIjoidXlnNEpjWlRjVTZIbkpCTlFEYkRaL2h0aXViSmRxOTdHMG90OG5WNmlKOD0iLCJtYWMiOiI5OWVhMTAwMDMyNmI3NDViYWI5ZmIyMjMwNzVlYTdkYzc4OTNhOGFiMDY0MmRmMTI3YzIwNDdkNTg4ZDU3MjhjIn0=', 'eyJpdiI6IlQxSS9lM1ZsYURTajdseDJkQXdEY3c9PSIsInZhbHVlIjoicW5wQjRxUmduaE4xeU1lMnZ2MitqTU84SkM3OFh0cVZYd1F1UDNieEtlYz0iLCJtYWMiOiIyMTI5M2JlMzYwZjQ4ODQzNTEzNDA5MDRjMGRjMzM1NmI4NDE3NzYyZDhkOGEyZjE0Y2FjYjJjZTgxZDQ2MDRlIn0=', 'eyJpdiI6IkhLc1RZMzdBR3lqbmNmUUJQcm5xdlE9PSIsInZhbHVlIjoibEdjVk9yWVUyU2krcUk2dTN0VUtWYTRtaEJaT0h0OGRUZ1VyWnZhb1ZWaFBySzl4ejR5Wm81WmhsTWg0TERUQjVvdWMzbUxnUEt6UzFnYWFlRjY1RVE9PSIsIm1hYyI6Ijc5ODM5MzQ0ZjRhODUwM2Q1YmExNzgzMGJlNmNmNTg2ZTI5YmUyYzQ2OTEzYjAwZDI5N2NlNzg3MzI1MDU5ZWYifQ==', 'eyJpdiI6InRBVWFIbWVScmNDU01uTXJrS2dNWWc9PSIsInZhbHVlIjoiOXJyRlN5UU1SdWszbWNDdHBFZ0k3cEo5Y0FOWjNaWVFrUWJhMTVrejJWejdyYndwU2daTlZ4dytueG5lM0prNWdVcHozQ1ZpditZMCtGWnN5Nmhzbnc9PSIsIm1hYyI6ImNhMjE2MTY2NjYzNjMwYzllZjQ5ZTBkZDEzN2E3NjE1YjIwMGJkNDIzMDM1MWFkNzc0ODJiMTNhMjkzNTQ4MmEifQ==', '2020-09-14 18:35:28', '2020-09-14 18:35:28'),
+	(3, 'eyJpdiI6ImhPVGM5cFNtUTk2b0gwVGtTVkhLNVE9PSIsInZhbHVlIjoiZnZlTE55bnplRmVyZzhqR3Y1MzVzZ0szQTBDMlAxOVNRSkd5cEJXNDI0az0iLCJtYWMiOiI4ZGZmNjgyNzdkNmM1MmY0ZmY2Y2VmZjI3YWIyNTQzYTM0ZjA3Mjg1OGQ4MzFiODQyZDJlN2IxY2IxNzkwY2MwIn0=', 'eyJpdiI6IlVGemVHZUNmWktlNmkvT0pTNWRjSXc9PSIsInZhbHVlIjoiMEx6cU1mekVtUHdaK0JDNHFKMUVYWEVINUh5SVRUaGUvTmJFTmp5T2JIND0iLCJtYWMiOiI0MGY0NzIzNmM2Y2Q1ZmE3N2M3YWZlMzY5NjAzYzUzMjlhYjk4YTc3Zjk3ZTAzZTIxN2RhMTk0MjBmOWM1NWI0In0=', 'eyJpdiI6InBHOWhBQXBNQUVWUkFJK1ZpaElFVnc9PSIsInZhbHVlIjoiYVBPUkJ0SjVKWmx5elFqREhyMlZFYjJSRzZBZEVBVWl0Q3Z5ckdCclg0RmlYSkRSNVBINkhmbFo4U3AxYVRKaDhBVzBpMEJaSDVSRWVmeVVIWlJGREE9PSIsIm1hYyI6ImY5MGEzNGU5ZGYyNGE0Yjc2Nzk2NGNhNmU0YjQ4ZDUxMjkzOTBhZTQzNTkyM2Y3NWM3MGI4MWVhYTM2ZWFiODcifQ==', 'eyJpdiI6IkZuaVZLd0JIcm1ON3d1QkI2VEhUYUE9PSIsInZhbHVlIjoiRGlpNkFoWFNjRHF4S3Z4dUZhaCtieWJ6eE9yRTZiMlNXbTl0N1dDZDV2TkhiMmg0aVhEV3E2OGxmOGY3WmhHNVRFZmxTYzl1dFVSSThKckQvQzltU0E9PSIsIm1hYyI6ImZjZGYxMDYxODQ5ODY1M2U4ZTc2N2IzYmNjYTU4ZThiNWRiZWU5ODdlOGQxZWExMTE3MDJiNmIwYmJjNDNjNWIifQ==', '2020-09-14 18:35:29', '2020-09-14 18:35:29');
 /*!40000 ALTER TABLE `error_log` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.failed_jobs
@@ -1698,8 +1702,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table msdfs_forms_db.users: ~24 rows (approximately)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `surname`, `role_id`, `email`, `email_verified_at`, `active`, `password`, `remember_token`, `last_online`, `created_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Admin', 'User', 2, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-09-14 12:07:01', NULL, '2020-05-02 04:29:15', '2020-09-14 12:07:01'),
-	(2, 'Morgan', 'Merritt', 2, 'xebubodyg@mailinator.com', NULL, 1, '$2y$10$QnAKGQFoMMSzWUZ.NL2atuXDKsCSjxE8gRDDt1IMOucFu7wTgJcFq', NULL, NULL, 1, '2020-08-06 22:02:35', '2020-08-07 02:31:40'),
+	(1, 'Admin', 'User', 1, 'admin@email.com', NULL, 1, '$2y$10$aRBnMbZm1ld51AkoRYKd4uACqpoNXSaVYPjq74o94WAhb9fGDnaFm', NULL, '2020-09-14 18:21:49', NULL, '2020-05-02 04:29:15', '2020-09-14 18:21:49'),
+	(2, 'Morgan', 'Merritt', 2, 'xebubodyg@mailinator.com', NULL, 0, '$2y$10$QnAKGQFoMMSzWUZ.NL2atuXDKsCSjxE8gRDDt1IMOucFu7wTgJcFq', NULL, NULL, 1, '2020-08-06 22:02:35', '2020-09-14 14:13:31'),
 	(3, 'Social', 'Admin', 1, 'admin@social.gov.tt', NULL, 1, '$2y$10$eYk3SMODJZZcGQXE6HK1Y.f5WsaGVlnAPu.q/lOaETHPKK5NqgnGG', NULL, NULL, 1, '2020-08-07 02:25:15', '2020-08-07 02:33:25'),
 	(4, 'SAO', 'Test', 1, 'sao@gov.tt', NULL, 1, '$2y$10$Tgr0XoTcEGrZG.y5LPr4oe3Tu18iNl9QOwQBJn.Xox5l10TPwZefO', NULL, '2020-08-10 14:35:18', 1, '2020-08-10 10:13:01', '2020-08-10 14:35:18'),
 	(5, 'John', 'IntakeOfficer', 2, 'intakeofficer@covidformstt.com', NULL, 1, '$2y$10$3xOOzGsjxcF8tINO7ANkr.UzxNh.9pmkNKdl6crrXGi8WCs4tLRVC', NULL, '2020-08-10 12:29:27', 4, '2020-08-10 12:01:11', '2020-08-10 12:29:27'),
@@ -1740,9 +1744,9 @@ CREATE TABLE IF NOT EXISTS `user_audit` (
   KEY `FK_user_audit_users` (`user_id`),
   CONSTRAINT `FK_user_audit_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   CONSTRAINT `user_audit_ibfk_2` FOREIGN KEY (`changed_by`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.user_audit: ~15 rows (approximately)
+-- Dumping data for table msdfs_forms_db.user_audit: ~16 rows (approximately)
 /*!40000 ALTER TABLE `user_audit` DISABLE KEYS */;
 INSERT INTO `user_audit` (`id`, `user_id`, `changed_by`, `attribute`, `old`, `new`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 'regions', '[]', '[1,2,8]', '2020-08-17 16:54:13', '2020-08-17 16:54:13'),
@@ -1759,7 +1763,8 @@ INSERT INTO `user_audit` (`id`, `user_id`, `changed_by`, `attribute`, `old`, `ne
 	(12, 5, 1, 'local_boards', '["B","DE","G","J","K","M"]', '["C","DE","B","M","J","K","G"]', '2020-09-14 11:43:58', '2020-09-14 11:43:58'),
 	(13, 6, 1, 'local_boards', '[]', '["B","M"]', '2020-09-14 11:44:25', '2020-09-14 11:44:25'),
 	(14, 1, 1, 'local_boards', '["B","M"]', '["C","B","M"]', '2020-09-14 11:54:18', '2020-09-14 11:54:18'),
-	(15, 24, 1, 'password', '-', 'password reset', '2020-09-14 12:05:32', '2020-09-14 12:05:32');
+	(15, 24, 1, 'password', '-', 'password reset', '2020-09-14 12:05:32', '2020-09-14 12:05:32'),
+	(16, 2, 1, 'active', '1', '0', '2020-09-14 14:13:31', '2020-09-14 14:13:31');
 /*!40000 ALTER TABLE `user_audit` ENABLE KEYS */;
 
 -- Dumping structure for table msdfs_forms_db.user_boards
@@ -1806,11 +1811,33 @@ CREATE TABLE IF NOT EXISTS `user_logs` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `FK_ip_logs_users` (`user_id`) USING BTREE,
   CONSTRAINT `FK_user_logs_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table msdfs_forms_db.user_logs: ~1 rows (approximately)
+/*!40000 ALTER TABLE `user_logs` DISABLE KEYS */;
+INSERT INTO `user_logs` (`id`, `user_id`, `ip`, `action`, `created_at`, `updated_at`) VALUES
+	(1, 1, '127.0.0.1', 'Login', '2020-09-14 18:21:49', '2020-09-14 18:21:49');
+/*!40000 ALTER TABLE `user_logs` ENABLE KEYS */;
+
+-- Dumping structure for table msdfs_forms_db.version_logs
+DROP TABLE IF EXISTS `version_logs`;
+CREATE TABLE IF NOT EXISTS `version_logs` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `release` tinyint(4) NOT NULL DEFAULT 0,
+  `feature` tinyint(4) NOT NULL DEFAULT 0,
+  `update` tinyint(4) NOT NULL DEFAULT 0,
+  `log` mediumtext NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `FK_ip_logs_users` (`user_id`) USING BTREE,
+  CONSTRAINT `version_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table msdfs_forms_db.user_logs: ~0 rows (approximately)
-/*!40000 ALTER TABLE `user_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_logs` ENABLE KEYS */;
+-- Dumping data for table msdfs_forms_db.version_logs: ~0 rows (approximately)
+/*!40000 ALTER TABLE `version_logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `version_logs` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
