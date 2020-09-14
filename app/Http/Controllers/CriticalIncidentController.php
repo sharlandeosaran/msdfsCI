@@ -84,7 +84,6 @@ class CriticalIncidentController extends Controller
                 "regex:/^[0-9]{3}-[0-9]{4}|[0-9]{7}|[0-9]{10}|\([0-9]{3}\)[0-9]{3}-[0-9]{4}|\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\s\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}-[0-9]{4}|\+1\([0-9]{3}\)\s[0-9]{3}\s[0-9]{4}|\+1\([0-9]{3}\)[0-9]{7}|\+1[0-9]{10}+$/",
             ],
             
-            "hi_nickname" => "array",
             "hi_first_name" => "array",
             "hi_surname" => "array",
             "hi_gender" => "array",
@@ -97,7 +96,6 @@ class CriticalIncidentController extends Controller
             "hi_national_id" => "array",
             "hi_total_income" => "required|numeric|min:0",
             
-            "hi_nickname.*" => "required|max:100",
             "hi_first_name.*" => "required|max:100",
             "hi_surname.*" => "required|max:100",
             "hi_gender.*" => [
@@ -239,8 +237,6 @@ class CriticalIncidentController extends Controller
             'hi_dob.*.required' => 'The household occupant date of birth field is required.',
             'hi_relationship.*.required' => 'The household occupant relationship field is required.',
             'hi_emp_status.*.required' => 'The household occupant employment status field is required.',
-            'hi_nickname.1.required' => 'The nickname field is required.',
-            'hi_nickname.*.required' => 'The household occupant nickname field is required.',
             'hi_first_name.1.required' => 'The first name field is required.',
             'hi_first_name.*.required' => 'The household occupant first name field is required.',
             'hi_surname.1.required' => 'The surname field is required.',
@@ -427,7 +423,6 @@ class CriticalIncidentController extends Controller
         {
             // create person
             $person = new \App\Person();
-            $person->nickname = $request->hi_nickname[$value['key']];
             $person->first_name = $request->hi_first_name[$value['key']];
             $person->surname = $request->hi_surname[$value['key']];
             $person->othername = $value['key'] == 1? $request->othername : null;
@@ -1167,10 +1162,19 @@ class CriticalIncidentController extends Controller
 
         // send email
         \Mail::send(new \App\Mail\Application\FormCIApplication($application));
+
+        $message = '
+        <h3>
+            Please make note of your reference number, you may contact 000-0000 Ext.000 to query application. <br><br>
+            <small>
+            <i>(This information will be sent to you via email, if one is provided. If approved, you will be contacted at a later date.)</i>
+            </small>
+        </h3>';
         
         return redirect('/thanks')->
             with([
-                'success' => 'Submission sent successfully.', 
+                'success' => 'Your Submission was Successful!', 
+                'message' => $message, 
                 'reference_number' => $application->reference_number,
             ]);
     }

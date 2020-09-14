@@ -20,20 +20,24 @@
             <div class="col-xs-8 offset-xs-2 col-md-10 offset-md-1 col-lg-12 offset-lg-0 text-center">
                 <h2>
                     @if(session('success'))
-                    <div class="alert alert-success text-center">
-                        <h4><i class="fa fa-check-circle" aria-hidden="true"></i> {!! session('success') !!}</h4>
-                    </div>
+                        <div class="alert alert-success text-center">
+                            <h4><i class="fa fa-check-circle" aria-hidden="true"></i> {!! session('success') !!}</h4>
+                        </div>
                     @else
-                    <div class="alert alert-success text-center">
-                        <h4><i class="fa fa-check-circle" aria-hidden="true"></i> ** message **</h4>
-                    </div>
+                        <div class="alert alert-success text-center">
+                            <h4><i class="fa fa-check-circle" aria-hidden="true"></i> Success.</h4>
+                        </div>
                     @endif
                 </h2>
+
                 @if(session('reference_number'))
-                <h2><strong>
-                    Reference Number: <br>
-                    {!! session('reference_number') !!}
-                </strong></h2>
+                    <h2><strong>
+                        Application reference # {!! session('reference_number') !!}
+                    </strong></h2>
+                @endif
+                
+                @if(session('message'))
+                    {!! session('message') !!}
                 @endif
             </div>
         </div>

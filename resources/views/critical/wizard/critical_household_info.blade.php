@@ -15,25 +15,6 @@
                         <tr class=" table-active text-center">
                             <td colspan="2">Applicant</td>
                         </tr>
-                        <tr>
-                            <td class="table-active text-right align-middle" width="20%">
-                                <div class="form-group mb-0{{ $errors->has('hi_nickname.1') ? ' has-error' : '' }} grp-hi_nickname_1">
-                                    <label class="control-label mb-0" for="hi_nickname_1">
-                                        Nickname <span class="red">*</span> 
-                                        <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
-                                    </label>
-                                </div>
-                            </td>
-                            <td width="80%">
-                                <div class="form-group mb-0{{ $errors->has('hi_nickname.1') ? ' has-error' : '' }} grp-hi_nickname_1">
-                                    <input type="text" class="form-control" id="hi_nickname_1" name="hi_nickname[1]" applicant="1" aria-describedby="" value="{{old('hi_nickname.1')? old('hi_nickname.1') : '' }}" required maxlength="50">
-                                    
-                                    <span class="help-block">
-                                        <strong id="err-hi_nickname_1">{{ $errors->first('hi_nickname.1') }}</strong>
-                                    </span>
-                                </div>
-                            </td>
-                        </tr>
 
                         <tr>
                             <td class="table-active text-right align-middle" width="20%">
@@ -425,25 +406,6 @@
                                 <tbody>
                                     <tr class=" table-active text-center">
                                         <td colspan="2">Person # {{$key}} <button class="btn btn-sm btn-primary critical_del_household pull-right" type="button" num="{{$key}}"><i class="fa fa-remove" aria-hidden="true"></i> remove member</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-active text-right align-middle" width="20%">
-                                            <div class="form-group mb-0{{ $errors->has('hi_nickname.'.$key) ? ' has-error' : '' }} grp-hi_nickname_{{$key}}">
-                                                <label class="control-label mb-0" for="hi_nickname_{{$key}}">
-                                                    Nickname <span class="red">*</span> 
-                                                    <i class="fa fa-info-circle hide" aria-hidden="true" title='State your first name as indicated on your identification card.'></i>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td width="80%">
-                                            <div class="form-group mb-0{{ $errors->has('hi_nickname.'.$key) ? ' has-error' : '' }} grp-hi_nickname_{{$key}}">
-                                                <input type="text" class="form-control" id="hi_nickname_{{$key}}" name="hi_nickname[{{$key}}]" applicant="{{$key}}" aria-describedby="" value="{{old('hi_nickname.'.$key)? old('hi_nickname.'.$key) : '' }}" required maxlength="50">
-                                                
-                                                <span class="help-block">
-                                                    <strong id="err-hi_nickname_{{$key}}">{{ $errors->first('hi_nickname.'.$key) }}</strong>
-                                                </span>
-                                            </div>
-                                        </td>
                                     </tr>
             
                                     <tr>

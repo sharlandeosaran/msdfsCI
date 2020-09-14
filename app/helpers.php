@@ -71,13 +71,13 @@ function reference_number()
 	$year = date('Y');
 	
 	// get last entry for the year
-	$form = \App\Application::where('reference_number', 'LIKE', '%/'.$year)->orderBy('id', 'desc')->first();
-	if ($form) {
-		$nums = explode('/', $form->reference_number);
-		$num = $nums[0] + 1;
-		return str_pad($num, 3, '0', STR_PAD_LEFT).'/'.$year;
+	$application = \App\Application::where('reference_number', 'LIKE', '%/'.$year)->orderBy('id', 'desc')->first();
+	if ($application) {
+		$nums = explode('/', $application->reference_number);
+		$num = $nums[1] + 1;
+		return $application->applicant->letter .'/'. str_pad($num, 3, '0', STR_PAD_LEFT) .'/'. $year;
 	} else {
-		return '001/'.$year;
+		return '#/###/'.$year;
 	}
 }
 

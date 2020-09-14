@@ -13,15 +13,6 @@ class Person extends Model
         return decrypt($this->attributes['first_name']) .' '. decrypt($this->attributes['surname']);
     }
 
-    public function getNicknameAttribute($value)
-    {
-        return $value? decrypt($value) : null;
-    }
-    public function setNicknameAttribute($value)
-    {
-        $this->attributes['nickname'] = $value? encrypt($value) : null;
-    }
-
     public function getFirstNameAttribute($value)
     {
         return $value? decrypt($value) : null;

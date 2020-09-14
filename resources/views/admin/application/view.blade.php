@@ -675,21 +675,6 @@
                                                                 </td>
                                                             </tr>
                                                             
-                                                            @if ($applicant->person->nickname)
-                                                            <tr>
-                                                                <td class="active text-right align-middle" width="30%">
-                                                                    <div class="">
-                                                                        <label class="control-label">
-                                                                            Nickname
-                                                                        </label>
-                                                                    </div>
-                                                                </td>
-                                                                <td width="70%">
-                                                                    <label class="control-label"> {{$applicant->person->nickname}} </label>
-                                                                </td>
-                                                            </tr>
-                                                            @endif
-                                                            
                                                             @if ($applicant->person->othername)
                                                             <tr>
                                                                 <td class="active text-right align-middle" width="30%">
