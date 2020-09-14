@@ -28,7 +28,7 @@ class AdminController extends Controller
         $log->save();
 
         // send email to user with credentials
-        // dispatch(new \App\Jobs\ResetPassword($id));
+        \Mail::send(new \App\Mail\Users\ResetPassword($user));
 
         return redirect('/admin/users/view/'.$id)->with('reset', 'success');
     }

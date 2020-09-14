@@ -6,12 +6,12 @@
 <body>
     <div id="app">
         <div class="container-fluid down-20">
-            <h3>{{$data->name}},</h3>
+            <h3>Hello {{$user->name}},</h3>
             <p>Your password has been reset.</p>
             <p>You can access the system <a href="{{url('/admin')}}">here</a> with the following credentials:</p>
 
             <p>
-                u- {{$data->email}} <br>
+                u- {{$user->email}} <br>
                 p- password
             </p>
 
