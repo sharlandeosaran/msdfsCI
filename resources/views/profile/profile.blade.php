@@ -96,10 +96,10 @@
                             </h4>
                         </div>
                         <div class="col-md-4">
-                            <h3>Regions <i class="fa fa-map fa-fw" aria-hidden="true"></i></h3>
+                            <h3>Local Boards <i class="fa fa-map fa-fw" aria-hidden="true"></i></h3>
                             <h4>
-                                @foreach ($data->regions() as $region)
-                                - {{$region}} <br>
+                                @foreach ($data->local_boards() as $local_board)
+                                - {{$local_board}} <br>
                                 @endforeach
                             </h4>
                         </div>

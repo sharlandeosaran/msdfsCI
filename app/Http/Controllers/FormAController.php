@@ -340,7 +340,7 @@ class FormAController extends Controller
         $application = new \App\Application();
         $application->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
         $application->form_id = 1;
-        $application->reference_number = reference_number();
+        $application->reference_number = reference_number($request->city_town);
         $application->save();
 
         // get employment classification

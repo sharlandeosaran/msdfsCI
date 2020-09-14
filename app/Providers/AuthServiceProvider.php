@@ -30,6 +30,14 @@ class AuthServiceProvider extends ServiceProvider
             return in_array($user->role->slug, explode('.', $roles));
         });
 
+        Gate::define('local_board', function (User $user, $boards) {
+            $chk = false;
+            foreach ($user->local_board_array() as $board ) {
+                if(in_array($board, explode('.', $boards))) $chk = true;
+            }
+            return $chk;
+        });
+
         //
     }
 }

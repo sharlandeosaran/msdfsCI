@@ -44,7 +44,7 @@ class UserController extends Controller
 			'active' => 'users',
             'activelink' => 'newuser',
             'roles' => \App\Role::all(),
-            'regions' => \App\Region::ordered(),
+            'local_boards' => \App\LocalBoard::ordered(),
         ];
 
         return view('admin.users.new', $data);
@@ -61,7 +61,7 @@ class UserController extends Controller
             "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email",
             "role" => "required|exists:roles,id",
-            "regions" => "nullable|array",
+            "local_boards" => "nullable|array",
             "active" => "required|boolean",
         ],
         [
@@ -86,11 +86,11 @@ class UserController extends Controller
         $user->password = 'password';
         $user->save();
 
-        if($request->regions)
-            foreach ($request->regions as $key => $value) {
-                $cat = new \App\UserRegion();
+        if($request->local_boards)
+            foreach ($request->local_boards as $key => $value) {
+                $cat = new \App\UserBoard();
                 $cat->user_id = $user->id;
-                $cat->region_id = $key;
+                $cat->local_board = $key;
                 $cat->save();
             }
 
@@ -154,7 +154,7 @@ class UserController extends Controller
             'activelink' => 'users',
             'data' => $user,
             'roles' => \App\Role::all(),
-            'regions' => \App\Region::ordered(),
+            'local_boards' => \App\LocalBoard::ordered(),
         ];
 
         return view('admin.users.new', $data);
@@ -172,7 +172,7 @@ class UserController extends Controller
             "surname" => "required|max:150",
             "email" => "required|email|max:300|unique:users,email,".$request->id,
             "role" => "required|exists:roles,id",
-            "regions" => "nullable|array",
+            "local_boards" => "nullable|array",
             "active" => "required|boolean",
         ],
         [
@@ -236,29 +236,29 @@ class UserController extends Controller
 	        $log->save();
         }
 
-        // check if regions have been changed
+        // check if local_boards have been changed
         $list = [];
-        if ($request->regions) {
-            foreach ($request->regions as $key => $value) {
+        if ($request->local_boards) {
+            foreach ($request->local_boards as $key => $value) {
                 $list[] = $key;
             }
         }
-        if($list != $user->region_id()->toArray()){
+        if($list != $user->local_board_array()){
 	        $log = new \App\UserAudit();
 	        $log->user_id = $request->id;
-	        $log->attribute = 'regions';
-	        $log->old = json_encode($user->region_id()->toArray());
+	        $log->attribute = 'local_boards';
+	        $log->old = json_encode($user->local_board_array());
 	        $log->new = json_encode($list);
 	        $log->changed_by = \Auth::user()->id;
             $log->save();
             
-            // update regions
-            DB::delete('delete from user_regions where user_id = ?', [$request->id]);
-            foreach ($request->regions as $key => $value) {
-                $region = new \App\UserRegion();
-                $region->user_id = $user->id;
-                $region->region_id = $key;
-                $region->save();
+            // update local_boards
+            DB::delete('delete from user_boards where user_id = ?', [$request->id]);
+            foreach ($request->local_boards as $key => $value) {
+                $local_board = new \App\UserBoard();
+                $local_board->user_id = $user->id;
+                $local_board->local_board = $key;
+                $local_board->save();
             }
         }
 

@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('surname') ? ' has-error' : '' }}" id="grp-surname">
-                            <label for="surname">Sursurname</label>
+                            <label for="surname">Surname</label>
                             <input type="text" class="form-control" id="surname" name="surname" value="{{ old('surname')? old('surname') : (isset($data) ? $data->surname : '') }}" {{old('surname') || isset($data)? '' : 'autofocus'}}>
 
                             <span class="help-block">
@@ -71,25 +71,25 @@
                             </span>
                         </div>
 
-                        <div class="form-group{{ $errors->has('regions') ? ' has-error' : '' }}" id="grp-regions">
-                            <label for="">Regions</label>
+                        <div class="form-group{{ $errors->has('local_boards') ? ' has-error' : '' }}" id="grp-local_boards">
+                            <label for="">Local Boards</label>
                             
-                            @foreach ($regions as $region)
+                            @foreach ($local_boards as $local_board)
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="flat-red regions" id="regions{{$region->id}}" name="regions[{{$region->id}}]" {{old('regions') && array_key_exists($region->id, old('regions')) ? 'checked' : (count($errors) <= 0 && isset($data) && in_array($region->id, $data->region_id()->toArray())? 'checked' : '')}}> {{$region->region}}
+                                    <input type="checkbox" class="flat-red local_boards" id="local_boards{{$local_board->letter}}" name="local_boards[{{$local_board->letter}}]" {{old('local_boards') && array_key_exists($local_board->letter, old('local_boards')) ? 'checked' : (count($errors) <= 0 && isset($data) && in_array($local_board->letter, $data->local_board_array())? 'checked' : '')}}> {{$local_board->local_board}}
                                 </label>
                             </div>
                             @endforeach
 
                             {{-- <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" class="flat-red regions" id="regions-all"> select all
+                                    <input type="checkbox" class="flat-red local_boards" id="local_boards-all"> select all
                                 </label>
                             </div> --}}
 
                             <span class="help-block">
-                                <strong id="err-regions">{{ $errors->first('regions') }}</strong>
+                                <strong id="err-local_boards">{{ $errors->first('local_boards') }}</strong>
                             </span>
                         </div>
                         

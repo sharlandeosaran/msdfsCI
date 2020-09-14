@@ -126,4 +126,12 @@ class Household extends Model
             pluck('regions.id')->
             toArray();
     }
+    
+    public function scopeBoards($query){
+        return \App\Community::
+            leftJoin('regions', 'communities.region_code', 'regions.code')->
+            whereIn('communities.id', \App\Household::communities())->
+            pluck('regions.letter')->
+            toArray();
+    }
 }

@@ -80,6 +80,26 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label class="control-label" for="stat">Local Boards</label>
+                                    <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
+                                        <div class="panel-body">
+                                            @foreach($local_boards as $local_board)
+                                                @if (in_array($local_board->letter, $local_board_filter))
+                                                    <div class="form-check" title="{{$local_board->local_board}} ({{$local_board->letter}})" data-toggle="tooltip">
+                                                        <input class="form-check-input local_boards" type="checkbox" value="{{ $local_board->letter }}" id="local_board_{{$local_board->letter}}" label="local_board">
+                                                        <label class="form-check-label" for="local_board_{{$local_board->letter}}">
+                                                            {{$local_board->local_board}} ({{$local_board->letter}})
+                                                        </label>
+                                                    </div>
+                                                @endif
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label class="control-label" for="stat">Regions</label>
                                     <div class="panel panel-default" style="max-height: 200px; overflow: auto;">
                                         <div class="panel-body">
@@ -363,7 +383,7 @@
                                     <th width='5%'>Ref #</th>
                                     <th width='25%'>Applicant</th>
                                     <th width='20%'>Form Type</th>
-                                    <th width='20%'>Region</th>
+                                    <th width='20%'>Local Board</th>
                                     <th width='10%'>Status</th>
                                     <th width='15%'>Date</th>
                                     <th width='5%'>Action</th>
@@ -381,7 +401,7 @@
                                         {!!$item->form_type!!}
                                     </td>
                                     <td>
-                                        {!!$item->applicant->region!!}
+                                        {!!$item->local_board!!} ({!!$item->local_board_letter!!})
                                     </td>
                                     <td>{{$item->status}}</td>
                                     <td>{{$item->created_at->format('Y-m-d')}}</td>
@@ -394,7 +414,7 @@
                                     <th>Ref #</th>
                                     <th>Applicant</th>
                                     <th>Form Type</th>
-                                    <th>Region</th>
+                                    <th>Local Board</th>
                                     <th>Status</th>
                                     <th>Date</th>
                                     <th>Action</th>
@@ -430,6 +450,7 @@
                 'forms': $('.forms:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'status': $('.status:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'regions': $('.regions:checkbox:checked').map(function(){ return $(this).val(); }).get(),
+                'local_boards': $('.local_boards:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'communities': $('.communities:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'items': $('.items:checkbox:checked').map(function(){ return $(this).val(); }).get(),
                 'id_states': $('.id_states:checkbox:checked').map(function(){ return $(this).val(); }).get(),
@@ -459,7 +480,7 @@
                             item.reference_number,
                             item.first_name + ' ' + item.surname + '<br>(' + item.applicants + ' in household)',
                             item.form,
-                            item.region,
+                            item.local_board + ' (' + item.letter + ')',
                             item.status,
                             formatDate(item.created_at),
                             '<a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="' + item.application_id + '"><i class="fa fa-eye" aria-hidden="true"></i> view</a>'
@@ -503,7 +524,7 @@
                             response.data[0].reference_number,
                             response.data[0].first_name + ' ' + response.data[0].surname + '<br>(' + response.data[0].applicants + ' in household)',
                             response.data[0].form,
-                            response.data[0].region,
+                            response.data[0].local_board + ' (' + response.data[0].letter + ')',
                             response.data[0].status,
                             formatDate(response.data[0].created_at),
                             '<a href="#" class="btn btn-danger btn-xs application_view" data-toggle="modal" data-target="#modalview" application="' + response.data[0].application_id + '"><i class="fa fa-eye" aria-hidden="true"></i> view</a>'

@@ -346,7 +346,7 @@ class CriticalIncidentController extends Controller
         $application = new \App\Application();
         $application->ip =  $_SERVER['REMOTE_ADDR']? $_SERVER['REMOTE_ADDR'] : 'N/A';
         $application->form_id = 3;
-        $application->reference_number = reference_number();
+        $application->reference_number = reference_number($request->city_town);
         $application->save();
 
         // create CI form 

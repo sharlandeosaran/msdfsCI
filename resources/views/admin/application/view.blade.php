@@ -22,6 +22,7 @@
                 @foreach ($status as $stat)
                     @if (
                         in_array($stat->id, \Auth::user()->role_permissions) && 
+                        in_array($application->local_board_letter, \Auth::user()->local_board_array()) && 
                         $stat->id > $application->status_id && 
                         (
                             ($stat->id == $application->status_id + 1 && $application->status_id != 10) || 
@@ -119,7 +120,7 @@
                     <div class="my-0">
                         <div class="box-body box-profile text-center">
                             
-                            <h3 class="profile-username"><strong>Application Region | {{$application->applicant->region}}</strong></h3>
+                            <h3 class="profile-username"><strong>Application Local Board | {{$application->local_board}} ({{$application->local_board_letter}})</strong></h3>
                             
                             
                             {{-- <ul class="list-group list-group-unbordered">

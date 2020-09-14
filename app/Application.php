@@ -90,10 +90,15 @@ class Application extends Model
         }
     }
 
-    // public function getReferenceNumberAttribute($value)
-    // {
-    //     return $this->form_critical_incident()? $this->form_critical_incident()->reference_number : '';
-    // }
+    public function getLocalBoardAttribute($value)
+    {
+        return $this->region()? $this->region()->local_board->local_board : null;
+    }
+
+    public function getLocalBoardLetterAttribute($value)
+    {
+        return $this->region()? $this->region()->local_board->letter : null;
+    }
 
     public function getRegionAttribute($value)
     {

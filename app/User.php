@@ -76,30 +76,50 @@ class User extends Authenticatable
                 toArray();
     }
 
-    public function userregions()
-    {
-        $links = \App\UserRegion::where('user_id', $this->id)->pluck('region_id');
-        return \App\Region::whereIn('id', $links)->get();
-    }
+    // public function userregions()
+    // {
+    //     $links = \App\UserBoard::where('user_id', $this->id)->pluck('region');
+    //     return \App\Region::whereIn('letter', $links)->get();
+    // }
     
-    public function regions()
+    public function local_boards()
     {
         $list = [];
-        foreach (\App\UserRegion::where('user_id', $this->id)->get() as $key => $value) {
+        foreach (\App\UserBoard::where('user_id', $this->id)->get() as $key => $value) {
             if ($value) {
-                $sub = \App\Region::find($value->region);
-                if ($sub) {
-                    $list[] = $sub->region;
+                if ($value->local_board()) {
+                    $list[] = $value->local_board()->local_board . ' (' . $value->local_board()->letter . ')';
                 }
             }
         }
         asort($list);
+        // dd($list);
         return $list;
     }
-    
-    public function region_id()
+
+    public function getLocalBoardsAttribute($value)
     {
-        return \App\UserRegion::where('user_id', $this->id)->pluck('region_id');
+        $local_boards = '';
+        $count = count($this->local_boards());
+        foreach ($this->local_boards() as $i => $local_board ) {
+            if ($count == count($this->local_boards())) {
+                $local_boards .= $local_board;
+            } else {
+                if ($count > 1) {
+                    $local_boards .= ', '.$local_board;
+                } else {
+                    $local_boards .= ' and '.$local_board;
+                }
+            }
+            $count--;
+        }
+
+        return $local_boards;
+    }
+    
+    public function local_board_array()
+    {
+        return \App\UserBoard::where('user_id', $this->id)->pluck('local_board')->toArray();
     }
 
 

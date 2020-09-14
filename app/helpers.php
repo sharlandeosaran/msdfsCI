@@ -66,16 +66,17 @@ function dashboard_sort_categories($a, $b)
     return $b->count - $a->count;
 }
 
-function reference_number()
+function reference_number($city_id)
 {
 	$year = date('Y');
 	
 	// get last entry for the year
 	$application = \App\Application::where('reference_number', 'LIKE', '%/'.$year)->orderBy('id', 'desc')->first();
-	if ($application) {
+	$city = \App\Community::find($city_id);
+	if ($application && $city) {
 		$nums = explode('/', $application->reference_number);
 		$num = $nums[1] + 1;
-		return $application->applicant->letter .'/'. str_pad($num, 3, '0', STR_PAD_LEFT) .'/'. $year;
+		return $city->region()->letter .'/'. str_pad($num, 3, '0', STR_PAD_LEFT) .'/'. $year;
 	} else {
 		return '#/###/'.$year;
 	}

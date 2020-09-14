@@ -9,6 +9,6 @@ class LocalBoard extends Model
 	public $timestamps = false;
     
     public function scopeOrdered($query){
-        return $query->orderBy('id', 'asc')->get();
+        return $query->orderBy('local_board', 'asc')->get();
     }
 }

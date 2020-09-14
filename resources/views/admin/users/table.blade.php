@@ -31,9 +31,10 @@
                                     <th width='5%'>id</th>
                                     <th width='25%'>Name</th>
                                     <th width='20%'>Email</th>
-                                    <th width='27%'>Role</th>
-                                    <th width='15%'>Last Online</th>
-                                    <th width='15%'>Action</th>
+                                    <th width='15%'>Role</th>
+                                    <th width='15%'>Local Boards</th>
+                                    <th width='10%'>Last Online</th>
+                                    <th width='10%'>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -51,6 +52,11 @@
                                     </td>
                                     <td>{{$item->email}}</td>
                                     <td>{{$item->role->role}}</td>
+                                    <td>
+                                        @foreach ($item->local_boards() as $local_board)
+                                        - {{$local_board}} <br>
+                                        @endforeach
+                                    </td>
                                     <td>{{$item->last_online}}</td>
                                     <td>
                                         <a href="{{url('/admin/users/view/'.$item->id)}}" class="btn btn-danger btn-xs">view</a>
@@ -65,6 +71,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Local Boards</th>
                                     <th>Last Online</th>
                                     <th>Action</th>
                                 </tr>

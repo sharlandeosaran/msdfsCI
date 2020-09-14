@@ -28,6 +28,7 @@ class ApplicationController extends Controller
 			'status' => \App\Status::all(),
 			'communities' => \App\Community::ordered(),
 			'regions' => \App\Region::ordered(),
+			'local_boards' => \App\LocalBoard::ordered(),
 			'id_states' => \App\IDState::all(),
 			'insurers' => \App\Insurer::all(),
 			'items' => \App\ItemsLostOrDamaged::ordered(),
@@ -41,6 +42,7 @@ class ApplicationController extends Controller
 			'households' => \App\Household::all(),
 			'community_filter' => \App\Household::communities(),
 			'region_filter' => \App\Household::regions(),
+			'local_board_filter' => \App\Household::boards(),
 			'item_filter' => \App\FormCIItemsLost::items(),
 		);
 		
@@ -72,6 +74,7 @@ class ApplicationController extends Controller
 			'incomes' => 'array',
 
 			'regions' => 'array',
+			'local_boards' => 'array',
 
 			'insurers' => 'array',
 
@@ -89,11 +92,12 @@ class ApplicationController extends Controller
 
 
 		$data = \App\Person::
-			select(DB::raw('applications.*, applications.id as application_id, applicant_count.applicants, forms.*, people.*, regions.*, status.*'))->
+			select(DB::raw('applications.*, applications.id as application_id, applicant_count.applicants, forms.*, people.*, regions.*, status.*, local_boards.*'))->
 			leftJoin('person_household', 'person_household.person_id', 'people.id')->
 			leftJoin('households', 'households.id', 'person_household.household_id')->
 			leftJoin('communities', 'communities.id', 'households.community_id')->
 			leftJoin('regions', 'regions.code', 'communities.region_code')->
+			leftJoin('local_boards', 'regions.letter', 'local_boards.letter')->
 			leftJoin('applicants', 'applicants.person_id', 'people.id')->
 			leftJoin('applications', 'applications.id', 'applicants.application_id')->
 			leftJoin('form_critical_incident', 'form_critical_incident.application_id', 'applications.id')->
@@ -134,6 +138,7 @@ class ApplicationController extends Controller
 				if($request->incomes) $query->whereIn('households.total_income_id', $request->incomes);
 
 				if($request->regions) $query->whereIn('regions.id', $request->regions);
+				if($request->local_boards) $query->whereIn('local_boards.letter', $request->local_boards);
 
 				// if($request->insurers) $query->whereIn('applications.insurers', $request->insurers);
 
@@ -178,17 +183,10 @@ class ApplicationController extends Controller
         
         $validator->after(function($validator)  use ($request) {
             
-            // if ($feedback && $request->status == 3 && ($feedback->assignment() && !(in_array($feedback->status_id, [2]) && $feedback->assignment()->assignee == \Auth::user()->id))) {
-            //     $validator->errors()->add('status', 'The submission cannot be completed.');
-            // }
-            
-            // if ($feedback && $request->status == 4 && $feedback->assignment() && !((!in_array($feedback->status_id, [3,4,5]) && !$feedback->assignment()) || ($feedback->assignment() && ($feedback->assignment()->assignee == \Auth::user()->id || $feedback->assignment()->assigned_by == \Auth::user()->id)))) {
-            //     $validator->errors()->add('status', 'The submission cannot be put on hold.');
-            // }
-            
-            // if ($feedback && $request->status == 5 && $feedback->assignment() && !((!in_array($feedback->status_id, [3,5]) && !$feedback->assignment()) || ($feedback->assignment() && ($feedback->assignment()->assignee == \Auth::user()->id || $feedback->assignment()->assigned_by == \Auth::user()->id) && !in_array($feedback->status_id, [3,5])))) {
-            //     $validator->errors()->add('status', 'The submission cannot be put on hold.');
-            // }
+            $application = \App\Application::find($request->id);
+            if (!in_array($application->local_board_letter, \Auth::user()->local_board_array())) {
+                $validator->errors()->add('board', 'Cannot update applications not in your local board.');
+            }
 		});
 
         if ($validator->fails()) {
@@ -275,6 +273,11 @@ class ApplicationController extends Controller
         );
         
         $validator->after(function($validator)  use ($request) {
+            
+            $application = \App\Application::find($request->id);
+            if (!in_array($application->local_board_letter, \Auth::user()->local_board_array())) {
+                $validator->errors()->add('board', 'Cannot update applications not in your local board.');
+            }
 		});
 
         if ($validator->fails()) {
@@ -390,11 +393,12 @@ class ApplicationController extends Controller
 
 
 		$data = \App\Person::
-			select(DB::raw('applications.*, applications.id as application_id, applicant_count.applicants, forms.*, people.*, regions.*, status.*'))->
+			select(DB::raw('applications.*, applications.id as application_id, applicant_count.applicants, forms.*, people.*, regions.*, status.*, local_boards.*'))->
 			leftJoin('person_household', 'person_household.person_id', 'people.id')->
 			leftJoin('households', 'households.id', 'person_household.household_id')->
 			leftJoin('communities', 'communities.id', 'households.community_id')->
 			leftJoin('regions', 'regions.code', 'communities.region_code')->
+			leftJoin('local_boards', 'regions.letter', 'local_boards.letter')->
 			leftJoin('applicants', 'applicants.person_id', 'people.id')->
 			leftJoin('applications', 'applications.id', 'applicants.application_id')->
 			leftJoin('form_critical_incident', 'form_critical_incident.application_id', 'applications.id')->
