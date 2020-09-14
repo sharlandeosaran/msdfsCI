@@ -33,17 +33,6 @@ class AdminController extends Controller
         return redirect('/admin/users/view/'.$id)->with('reset', 'success');
     }
 
-    public function versionlog()
-    {
-        $data = [
-            'title' => 'Version Log',
-			'active' => 'logs',
-            'activelink' => 'versionlog',
-        ];
-
-        return view('admin.logs.version.log', $data);
-    }
-
     public function errorlogs()
     {
         $data = [

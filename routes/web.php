@@ -86,8 +86,11 @@ Route::group(['prefix' => 'admin'], function () {
                 Route::get('/logs', 'Admin\LogController@index')->name('logs');
                 Route::get('/logs/emaillogs', 'Admin\EmailLogController@index')->name('emaillogs');
                 Route::get('/logs/userlogs', 'Admin\UserLogController@index')->name('userlogs');
-                Route::get('/logs/versionlog', 'Admin\AdminController@versionlog')->name('versionlog');
                 Route::get('/logs/errorlogs', 'Admin\AdminController@errorlogs')->name('errorlogs');
+
+                // version logs
+                Route::get('/logs/versionlog', 'Admin\VersionLogController@index')->name('versionlog');
+                Route::post('/logs/versionlog', 'Admin\VersionLogController@postlog')->name('postversionlog');
                 
                 // users
                 Route::get('/users', 'Admin\UserController@index')->name('users');

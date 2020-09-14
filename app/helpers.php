@@ -2,7 +2,12 @@
 
 function version()
 {
-	return 'Version 0.1.0';
+	$version = \App\VersionLog::orderBy('id', 'desc')->first();
+	if ($version) {
+		return 'Version '. $version->latest;
+	} else {
+		return 'Version 0.0.0';
+	}
 }
 
 function support_email()
